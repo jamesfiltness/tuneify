@@ -21,15 +21,13 @@ Clone repo and then:
 
 ```
 npm i
-
 ```
 
-followed by:
+Then change to the app directory and run:
 
 ```
 npm start
-
 ```
 
-This kicks of the Webpack dev server on port 1111.
+This kicks the Webpack dev server off on port 1111 and enables hot loading.
 
