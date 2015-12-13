@@ -2,18 +2,18 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchTracks, searchPerformed } from '../actions/SearchActions'
 import Search from '../components/Search'
-import SearchAutoComplete from '../components/SearchAutoComplete'
+import SearchAutoComplete from '../components/SearchAutoComplete'   
 
 class App extends Component {
     render() {
         const { dispatch, currentSearch, artists, albums, tracks } = this.props;
-        console.log(this.props);
-     
+       
         return (
             <div>
                 <h1>Youtube/LastFm streaming music app with React/Redux</h1>
                 <Search onSearch={ text => dispatch(searchPerformed(text)) } />
-                <SearchAutoComplete artists={artists} tracks={tracks} albums={albums} />
+                <SearchAutoComplete artists={artists} tracks={tracks} albums={albums} currentSearch={currentSearch} />
+
             </div>
         )
     }

@@ -7,6 +7,7 @@ export default class SearchAutoCompleteSection extends Component {
         <div className="autocomplete__section">
           <h3 className="autocomplete__heading">{title}</h3>
          <ul>{data.map(function(result, i) {
+         
             let img;
             if(result.image[0]['#text'] === '') {
                 img = 'http://placehold.it/34x34'

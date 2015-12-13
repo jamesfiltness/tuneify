@@ -13,7 +13,10 @@ export default class Search extends Component {
     handleSearch(e) {
         let { onSearch } = this.props,
             text = this.refs.input.value;
-       
+
         onSearch(text)
+
+ 
     }
 }
+

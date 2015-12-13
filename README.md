@@ -1,6 +1,6 @@
 # Tuneify
 
-A work in progress...at the moment this is still a basic boilerplate
+A work in progress...at the moment this is still a basic boilerplate.
 
 A project to fully explore building a real world universal/isomorphic React/Redux app.
 

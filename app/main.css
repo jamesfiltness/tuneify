@@ -1,5 +1,6 @@
 body {
-  background:cornsilk;
+  background:#3B3F48;
+  color: #eee;
 }
 
 ul {
@@ -7,3 +8,10 @@ ul {
 }
 
 li {list-style: none}
+
+input {
+	padding: 10px;
+	font-size: 20px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}

@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { RECEIVE_ARTIST_DATA,RECEIVE_TRACK_DATA,RECEIVE_ALBUM_DATA, REQUEST_DATA, CLEAR_SEARCH } from '../actions/SearchActions'
 
 const initialState = {
-  currentSearch: '',
+  currentSearch: null,
   currentArtistResults: [],
   currentTrackResults: [],
   currentAlbumResults: [],
@@ -14,7 +14,7 @@ function currentSearch(state = '' , action) {
         case REQUEST_DATA:
             return  action.searchTerm
         case CLEAR_SEARCH:
-            return  ''
+            return  null;
         default: 
             return state
     }    
@@ -53,8 +53,11 @@ function currentAlbumResults(state = [] , action) {
         case RECEIVE_ALBUM_DATA:
             //we always want a fresh set of results returned to the state
             var results = [];
+
             return results.concat(action.albums);
+
         case CLEAR_SEARCH: 
+ 
             return []
 
          default: 

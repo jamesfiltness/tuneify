@@ -36,8 +36,7 @@ function receiveAlbumData(searchTerm, json) {
 
 export function clearSearch() {
     return {
-        type: CLEAR_SEARCH,
-        artists : []
+        type: CLEAR_SEARCH
     }
 }
 
@@ -68,7 +67,7 @@ function fetchAlbumData(searchTerm) {
 
 export function searchPerformed(searchTerm) {
     return dispatch => {
-        if(searchTerm.length) {
+        if(searchTerm.length > 1) {
             dispatch(requestData(searchTerm));
             dispatch(fetchArtistData(searchTerm))
             dispatch(fetchTrackData(searchTerm))
