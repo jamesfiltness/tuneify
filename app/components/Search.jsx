@@ -16,8 +16,8 @@ export default class Search extends Component {
     render() {
        
     	  return (
-    	    <div>
-              <input type='text' ref='input' value={null} onChange={() => this.handleSearch()} placeholder="Artist, Album or Track" />
+    	    <div className="search">
+              <input className="search__input"  type='text' ref='input' value={null} onChange={() => this.handleSearch()} placeholder="Artist, Album or Track" />
             </div>
         )
     }

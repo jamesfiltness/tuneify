@@ -9,8 +9,7 @@ class App extends Component {
         const { dispatch, currentSearch, artists, albums, tracks } = this.props;
        
         return (
-            <div>
-                <h1>Youtube/LastFm streaming music app with React/Redux</h1>
+            <div className="wrap">
                 <Search onSearch={ text => dispatch(searchPerformed(text)) } />
                 <SearchAutoComplete artists={artists} tracks={tracks} albums={albums} currentSearch={currentSearch} />
 

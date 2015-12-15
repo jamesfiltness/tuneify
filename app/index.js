@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import './main.css'
+import './css/main.css'
 import React from 'react'
 import { render } from 'react-dom'
 import configureStore from './configureStore.js'

@@ -6,7 +6,7 @@ export default class SearchAutoCompleteSection extends Component {
         return (
         <div className="autocomplete__section">
           <h3 className="autocomplete__heading">{title}</h3>
-         <ul>{data.map(function(result, i) {
+         <ul className="autocomplete__list">{data.map(function(result, i) {
          
             let img;
             if(result.image[0]['#text'] === '') {
@@ -14,7 +14,7 @@ export default class SearchAutoCompleteSection extends Component {
             } else {
                 img = result.image[0]['#text'];
             }
-            return <li key={i}><img src={img} alt={result.name} width="34" height="34" />{result.name}</li>; })}
+            return <li className="autocomplete__list-item" key={i}><img src={img} className="autocomplete__thumbnail" alt={result.name} width="34" height="34" />{result.name}</li>; })}
           </ul>
           </div>
         )

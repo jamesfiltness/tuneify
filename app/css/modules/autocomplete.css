@@ -1,0 +1,33 @@
+.autocomplete {
+	position: absolute;
+	top: 60px;
+	left: 20px;
+	width: 300px;
+	border: 1px solid #000;
+	background: #282727;
+
+	&__heading {
+	    background: #333;
+	    color: #dcdcdc;
+		margin: 0;
+		padding: 5px 10px;
+		font-size: 14px;
+		font-weight: normal;	
+	}
+
+	&__list {
+	   margin: 5px 10px;	
+	}
+
+	&__list-item {
+	    margin-bottom: 5px;
+		font-size: 13px;
+		clear: left;
+		overflow:hidden;
+    }
+
+    &__thumbnail {
+    	float:left;
+		margin-right: 5px;	
+    }
+}
