@@ -10,18 +10,17 @@ import SearchAutoCompleteSection from '../components/SearchAutoCompleteSection'
 export default class SearchAutoComplete extends Component {
     render() {
         let { artists , tracks , albums, currentSearch }  = this.props;
-        if(artists.length) { 
+        if(artists.length || tracks.length || albums.length) { 
 
-        return (
-          <div className="autocomplete">
-            <SearchAutoCompleteSection title="Artists" data={artists} />
-            <SearchAutoCompleteSection title="Tracks" data={tracks} />
-            <SearchAutoCompleteSection title="Album" data={albums} />
-          </div>
-        )
+            return (
+              <div className="autocomplete">
+                <SearchAutoCompleteSection title="Artists" data={artists} />
+                <SearchAutoCompleteSection title="Tracks" data={tracks} />
+                <SearchAutoCompleteSection title="Album" data={albums} />
+              </div>
+            )
+        } else {
+            return null;
+        }
     }
-   else {
-    return null;
-  }
-  }
 }

@@ -1,5 +1,7 @@
+$main-bck: #222;
+
 body {
-  background:#3B3F48;
+  background:$main-bck;
   color: #eee;
 }
 
@@ -14,4 +16,8 @@ input {
 	font-size: 20px;
 	border-radius: 5px;
 	border: 1px solid #ccc;
+}
+
+.autocomplete {
+
 }
