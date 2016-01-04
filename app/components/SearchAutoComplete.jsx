@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import SearchAutoCompleteSection from '../components/SearchAutoCompleteSection'
+import styles from './autocomplete.css'
 
 //this component should probably be treated as a top level component
 //It should perhaps be connected to the redux store
@@ -9,14 +10,14 @@ import SearchAutoCompleteSection from '../components/SearchAutoCompleteSection'
   //it needs to dispatch when an album is clicked on and also change route
 export default class SearchAutoComplete extends Component {
     render() {
-        let { artists , tracks , albums, currentSearch }  = this.props;
+        let { artists , tracks , albums, onSelectTrack}  = this.props;
         if(artists.length || tracks.length || albums.length) { 
 
             return (
-              <div className="autocomplete">
+              <div className={styles.root}>
                 <SearchAutoCompleteSection title="Artists" data={artists} />
-                <SearchAutoCompleteSection title="Tracks" data={tracks} />
-                <SearchAutoCompleteSection title="Album" data={albums} />
+                <SearchAutoCompleteSection title="Tracks" data={tracks} onSelectTrack={onSelectTrack} />
+                <SearchAutoCompleteSection title="Albums" data={albums} />
               </div>
             )
         } else {

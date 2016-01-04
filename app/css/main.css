@@ -1,9 +1,7 @@
 @import './normalize.css';
 @import './vars.css';
 @import './base.css';
-@import './modules/autocomplete.css';
 
-
-.wrap {
+:local(.wrap) {
 	padding: 20px;
 }

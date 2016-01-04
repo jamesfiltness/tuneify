@@ -1,39 +1,65 @@
-/* ES6 YouTube iFrame Player Embed */
+import React, { Component } from 'react'
 
-/* 
+export default class YouTubePlayer extends Component {
+  constructor() {
+    super();
+    this.loaded = false;
+  }
 
-So we need a script that basically allows us to feed in a callback/callbacks and have that callback called when the 
-youtube player has been instantiated
-
-In the background we just need to load the script, provide the onyoutbeapiready callback and call the callbacks
-also need to set a flag once the player has been loaded once */
-
-export default class YouTubeAPILoader = {
-    constructor(hi) {
-    	console.log(hi);
-    	this.loadApis = ['data', 'player', 'analytics'];
-    	this.APILoaded = false;
-    	this.callbacks = [];
-    }
-
-    load() {
-      let tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      let firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      let APILoaded = this.APILoaded;
-
-
-      window.onYouTubeIframeAPIReady() {
-      	console.log('loaded');
-          APILoaded = true;
+  componentDidMount() {
+	    var _this = this;
+		  
+      window.onYouTubeIframeAPIReady = function() {
+            _this.loaded = true;
+            _this.iFrameAPIReady();
       }
-    }
+
+      this.loadPlayerIframe();
+  }
+
+  render() {
+      return (
+            <div className="youtube-player">
+              <div className="youtube-player__player" id="player"></div>
+              <div className="youtube-player__play-button">Play</div>
+            </div>
+      )
+  }
+
+  componentDidUpdate() {
+    if(this.loaded) {
+      //so in here we need to get the video id first then call cuevideo
+        this.cueVideo(this.props.currentVideo); 
+    } 
+  }
+
+  loadPlayerIframe() {
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); 
+  }
+
+  iFrameAPIReady() {
+      this.player = new YT.Player('player', {
+          height: '390',
+          playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0},
+          width: '640',
+          events: {
+            'onStateChange': this.onPlayerStateChange
+          }
+      });
+  }
+
+  onPlayerStateChange() {
+
+  }
+
+  cueVideo(videoId) {
+    console.log(videoId);
+      this.player.cueVideoById(videoId)
+  }
+
+	
 }
-
-
-
-
-
-
 

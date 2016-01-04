@@ -39,7 +39,7 @@ var common = {
         test: /\.css$/,
         /* css loader deals with @imports and url statments in css
            and style loader deals with css require statements in js */
-        loaders: ['style', 'css', 'postcss'],
+        loader: 'style!css?localIdentName=[name]__[local]___[hash:base64:5]!postcss',
         /* can also set up and exclude path */
         /* always set up an include as otherwise webpack will traverse all files
            in base directory

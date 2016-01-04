@@ -65,13 +65,12 @@ function currentAlbumResults(state = [] , action) {
       }
 }
 
-const rootReducer = combineReducers({
+const search = combineReducers({
     currentSearch,
     currentArtistResults,
     currentTrackResults,
     currentAlbumResults
-
 })
 
-export default rootReducer
+export default search
 

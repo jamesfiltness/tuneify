@@ -30,4 +30,13 @@
     	float:left;
 		margin-right: 5px;	
     }
+
+    &__artist {
+    	margin-top: 1px;
+    	font-size: 11px;
+    	color: #aaa;
+    	display:block;
+    }
+
+
 }

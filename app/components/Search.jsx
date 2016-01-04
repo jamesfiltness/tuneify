@@ -6,7 +6,7 @@ export default class Search extends Component {
 
    constructor() {
        super();
-       this.handleSearch = _.throttle(this.handleSearch,1000);
+       this.handleSearch = _.throttle(this.handleSearch,20);
     }
     
     shouldComponentUpdate() {
