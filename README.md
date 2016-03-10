@@ -1,19 +1,20 @@
 # Tuneify
 
-A work in progress...at the moment this is still a basic boilerplate.
+A project to fully explore building a real world universal/isomorphic React/Redux app. The idea is that a streaming music app can be built using the LastFm and YouTube Apis. Current progress is a functioning autocomplete that leverages the LastFm Api to pull back artist, album and track results. 
 
-A project to fully explore building a real world universal/isomorphic React/Redux app.
+This repository is currently a work in progress - at the moment this is still a basic boilerplate.
 
 ## Tech used:
 
 * React
-* React Router
+* React Router / React Router Redux
 * Redux
 * Webpack
 * ES6 / Babel
 * Node (express)
 * Mongodb
-* PostCss
+* PostCss / Css modules
+* Testing on Karma / Phantom / Mocha / Chai
 
 ##Installation
 
