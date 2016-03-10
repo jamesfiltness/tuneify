@@ -85,3 +85,23 @@ var common = {
     ]
   });
 }
+
+if(TARGET === 'test' || TARGET === 'tdd') {
+  module.exports = merge(common, {
+    devtool: 'inline-source-map',
+      resolve: {
+        alias: {
+        'app': "./app"
+        }
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?$/,
+            loaders: ['babel?cacheDirectory'],
+            include: "./app"
+          }
+        ]
+    }
+  });
+}
