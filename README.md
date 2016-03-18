@@ -32,3 +32,11 @@ npm start
 
 This kicks the Webpack dev server off on port 1111 and enables hot loading.
 
+Then open another terminal and type 
+
+```
+npm run tdd
+```
+
+This starts up karma.
+
