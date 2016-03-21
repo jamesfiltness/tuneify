@@ -12,7 +12,7 @@ import styles from '../css/main.css'
 
 class App extends Component {
     render() {
-         console.log(this.props);
+
         const { dispatch, currentVideo, artists, albums, tracks } = this.props;
         
         return (
@@ -30,7 +30,6 @@ class App extends Component {
 }
 
 function select(state) {
-    console.log(state);
     return {
         currentSearch : state.search.currentSearch,
         currentVideo : state.videoPlayer.currentVideo,

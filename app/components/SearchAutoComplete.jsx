@@ -12,7 +12,6 @@ export default class SearchAutoComplete extends Component {
     render() {
         let { artists , tracks , albums, onSelectTrack}  = this.props;
         if(artists.length || tracks.length || albums.length) { 
-
             return (
               <div className={styles.root}>
                 <SearchAutoCompleteSection title="Artists" data={artists} />

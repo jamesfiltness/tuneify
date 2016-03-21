@@ -20,7 +20,7 @@ process.env.BABEL_ENV = TARGET;
 var common = {
   entry: APP_PATH,
   resolve: {
-    /* evalualetd from left to right so if a more specific match is 
+    /* evaluated from left to right so if a more specific match is 
     found further to the right (i.e. a .web.js extension) then that 
     is used instead of the default */
     /* Setting a '' flag allows us to refer to jsx files without 
