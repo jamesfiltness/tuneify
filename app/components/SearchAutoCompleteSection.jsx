@@ -4,8 +4,7 @@ import React, { Component, PropTypes } from 'react'
 
 export default class SearchAutoCompleteSection extends Component {
     render() {
-        let { title , data, onSelectTracks }  = this.props;
-
+        let { title , data, onSelectTrack }  = this.props;
         return (
           <div>
             <h3>{title}</h3>
@@ -17,7 +16,6 @@ export default class SearchAutoCompleteSection extends Component {
     }
 
     handleSelection(result) {
-        this.props.onSelectTrack(result);   
+        this.props.onSelectTrack(result);
     }
 }
-
