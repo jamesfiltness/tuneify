@@ -1,9 +1,11 @@
 import React from 'React'
 import chai from 'chai'
+import sinonChai from 'sinon-chai'
 import jsxChai from 'jsx-chai'
 import TestUtils from 'react-addons-test-utils'
 const expect = chai.expect;
 chai.use(jsxChai)
+chai.use(sinonChai)
 
 
 import SearchAutoCompleteSection from '../components/SearchAutoCompleteSection.jsx'
@@ -87,6 +89,6 @@ describe('The SearchAutoCompleteSection component', () => {
 		const selectTrackSpy = sinon.spy();
   	var component = TestUtils.renderIntoDocument(<SearchAutoCompleteSection title="Tracks" data={albums} onSelectTrack={selectTrackSpy} />);
 	  TestUtils.Simulate.click(TestUtils.scryRenderedDOMComponentsWithTag(component, 'li')[0]);
-		expect(selectTrackSpy.called).to.be.ok;
+		expect(selectTrackSpy).to.have.been.calledWith("Strung Out In Heaven");
 	});
 });
