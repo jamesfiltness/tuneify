@@ -13,7 +13,7 @@ export default class SearchAutoComplete extends Component {
         let { artists , tracks , albums, onSelectTrack}  = this.props;
         if(artists.length || tracks.length || albums.length) { 
             return (
-              <div className={styles.root}>
+              <div className="autocomplete">
                 <SearchAutoCompleteSection title="Artists" data={artists} />
                 <SearchAutoCompleteSection title="Tracks" data={tracks} onSelectTrack={onSelectTrack} />
                 <SearchAutoCompleteSection title="Albums" data={albums} />
