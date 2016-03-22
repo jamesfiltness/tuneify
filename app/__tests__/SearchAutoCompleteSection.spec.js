@@ -69,7 +69,7 @@ describe('The SearchAutoCompleteSection component', () => {
 		expect(output).to.include(<span>Brian Jonestown Massacre</span>);
     });
 
-        it('Should render an artist if one is provided', () => {
+    it('Should render an artist if one is provided', () => {
     	var artists = [{
             name: 'Brian Jonestown Massacre'
     	}];
@@ -77,6 +77,21 @@ describe('The SearchAutoCompleteSection component', () => {
 		renderer.render(<SearchAutoCompleteSection title="Tracks" data={artists} />);
 		const output = renderer.getRenderOutput();
 		expect(output).to.include(<span>Brian Jonestown Massacre</span>);
+    });
+
+        it('render in to doc', () => {
+    	var component = TestUtils.renderIntoDocument(<SearchAutoCompleteSection title="Tracks" data={[]} />);
+    	var li = TestUtils.findRenderedDOMComponentWithTag(
+   			component, 'div'
+		);
+
+		var span = TestUtils.scryRenderedDOMComponentsWithTag(component, 'h3');
+		console.log(li,span);
+        
+		//console.log(li.findDOMNode());
+
+		//TestUtils.findRenderedDOMComponentWithClass(component, 'result');
+		//expect(1).to.include(<span>Brian Jonestown Massacre</span>);
     });
 
 });
