@@ -24,8 +24,6 @@ describe('The Search component', () => {
 		const renderer = TestUtils.createRenderer();
 		renderer.render(<Search onSearch={() => {}} />);
 		const output = renderer.getRenderOutput();
-		console.log(JSON.stringify(output));
-		expect(output).to.include('className="search__input"')
 		expect(output.props.children.type).to.equal('input');
 		expect(output.props.children.props.className).to.equal('search__input');
 	});
