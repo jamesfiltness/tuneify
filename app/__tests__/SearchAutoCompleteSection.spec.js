@@ -74,6 +74,7 @@ describe('The SearchAutoCompleteSection component', () => {
 		const output = renderer.getRenderOutput();
 		expect(output).to.include(<span className="autocomplete-section__artist">Brian Jonestown Massacre</span>);
   });
+	
 
 	it('Should render an artist if one is provided', () => {
 	  	const artists = [{
