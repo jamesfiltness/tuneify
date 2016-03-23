@@ -84,7 +84,7 @@ describe('The SearchAutoCompleteSection component', () => {
 			renderer.render(<SearchAutoCompleteSection title="Tracks" data={artists} />);
 			const output = renderer.getRenderOutput();
 			expect(output).to.include(<span className="autocomplete-section__target">Brian Jonestown Massacre</span>);
-	  });
+	});
 
 	it('calls the onSelectTrack prop when an item is clicked on', () => {
     	const albums = [{
@@ -132,16 +132,16 @@ describe('The SearchAutoCompleteSection component', () => {
 			          image: [{}]
 	  	}];
 
-		const selectTrackSpy = sinon.spy();
+		  const selectTrackSpy = sinon.spy();
 	    const component = TestUtils.renderIntoDocument(<SearchAutoCompleteSection title="Tracks" data={albums} onSelectTrack={selectTrackSpy} />);
-		TestUtils.Simulate.click(TestUtils.scryRenderedDOMComponentsWithTag(component, 'li')[0]);
-		expect(selectTrackSpy).to.have.been.calledWith("Strung Out In Heaven");
-		TestUtils.Simulate.click(TestUtils.scryRenderedDOMComponentsWithTag(component, 'li')[3]);
-		expect(selectTrackSpy).to.have.been.calledWith("Pish");
-		TestUtils.Simulate.click(TestUtils.scryRenderedDOMComponentsWithTag(component, 'li')[5]);
-		expect(selectTrackSpy).to.have.been.calledWith("Methodrone");
+			TestUtils.Simulate.click(TestUtils.scryRenderedDOMComponentsWithTag(component, 'li')[0]);
+			expect(selectTrackSpy).to.have.been.calledWith("Strung Out In Heaven");
+			TestUtils.Simulate.click(TestUtils.scryRenderedDOMComponentsWithTag(component, 'li')[3]);
+			expect(selectTrackSpy).to.have.been.calledWith("Pish");
+			TestUtils.Simulate.click(TestUtils.scryRenderedDOMComponentsWithTag(component, 'li')[5]);
+			expect(selectTrackSpy).to.have.been.calledWith("Methodrone");
 	});
 
 
-	/* test that a list of tracks is rendered correctly */	
+	/* test that a list of tracks is rendered correctly */
 });
