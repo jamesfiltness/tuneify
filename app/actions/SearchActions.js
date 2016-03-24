@@ -1,4 +1,3 @@
-require("babel-polyfill");
 import fetch from 'isomorphic-fetch';
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_ARTIST_DATA = 'RECEIVE_ARTIST_DATA';
@@ -44,7 +43,7 @@ function fetchArtistData(searchTerm) {
     return dispatch => {
         return fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${searchTerm}&api_key=57ee3318536b23ee81d6b27e36997cde&format=json&limit=5`,{mode: 'cors'})
             .then(response => response.json())
-            .then(json => { dispatch(receiveArtistData(searchTerm, json)) }) 
+            .then(json => { dispatch(receiveArtistData(searchTerm, json)) })
 	}
 }
 
@@ -52,7 +51,7 @@ function fetchTrackData(searchTerm) {
     return dispatch => {
         return fetch(`http://ws.audioscrobbler.com/2.0/?method=track.search&track=${searchTerm}&api_key=57ee3318536b23ee81d6b27e36997cde&format=json&limit=3`,{mode: 'cors'})
             .then(response => response.json())
-            .then(json => { dispatch(receiveTrackData(searchTerm, json)) }) 
+            .then(json => { dispatch(receiveTrackData(searchTerm, json)) })
     }
 }
 
@@ -60,7 +59,7 @@ function fetchAlbumData(searchTerm) {
     return dispatch => {
         return fetch(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&api_key=57ee3318536b23ee81d6b27e36997cde&format=json&limit=4`,{mode: 'cors'})
             .then(response => response.json())
-            .then(json => { dispatch(receiveAlbumData(searchTerm, json)) }) 
+            .then(json => { dispatch(receiveAlbumData(searchTerm, json)) })
     }
 }
 
