@@ -43,8 +43,8 @@ describe('The Search component', () => {
 
 describe('The Search component - timing', () => {
 	let clock = null;
-	before(function () { clock = sinon.useFakeTimers(); });
-    after(function () { clock.restore(); });
+	 clock = sinon.useFakeTimers();
+    
 	
 	it('Should only call the onSearch prop once every 500ms', () => {
         const onSearchSpy = sinon.spy();
@@ -54,14 +54,18 @@ describe('The Search component - timing', () => {
 		TestUtils.Simulate.change(DOMInput); 
         expect(onSearchSpy).to.have.been.calledWith('Radiohead'); 
         expect(onSearchSpy).to.have.been.calledOnce;
-        clock.tick(200);
-        searchComponent.refs.input.value = 'BJM';
+        setTimeout(function() {
+searchComponent.refs.input.value = 'mm';
         TestUtils.Simulate.change(DOMInput); 
         expect(onSearchSpy).to.have.been.calledOnce;
-        clock.tick(301);
-        searchComponent.refs.input.value = 'The Cure';
+    },101)
+        setTimeout(function() {
+searchComponent.refs.input.value = 'mum';
         TestUtils.Simulate.change(DOMInput); 
         expect(onSearchSpy).to.have.been.calledTwice;
+    },501)
+       
+                
 
 
     });
