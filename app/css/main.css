@@ -1,7 +1,19 @@
-@import './normalize.css';
-@import './vars.css';
-@import './base.css';
+@main-bck: #222;
 
-:local(.wrap) {
-	padding: 20px;
+body {
+  background:@main-bck;
+  color: #eee;
+}
+
+ul {
+	padding-left: 0;
+}
+
+li {list-style: none}
+
+input {
+	padding: 10px;
+	font-size: 20px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
 }

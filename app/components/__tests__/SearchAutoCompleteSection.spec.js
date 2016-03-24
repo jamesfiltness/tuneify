@@ -8,8 +8,8 @@ chai.use(jsxChai)
 chai.use(sinonChai)
 
 
-import SearchAutoCompleteSection from '../components/SearchAutoCompleteSection.jsx'
-import SearchAutoCompleteThumbnail from '../components/SearchAutoCompleteThumbnail.jsx'
+import SearchAutoCompleteSection from '../SearchAutoCompleteSection.jsx'
+import SearchAutoCompleteThumbnail from '../SearchAutoCompleteThumbnail.jsx'
 
 describe('The SearchAutoCompleteSection component', () => {
 
@@ -74,7 +74,7 @@ describe('The SearchAutoCompleteSection component', () => {
 		const output = renderer.getRenderOutput();
 		expect(output).to.include(<span className="autocomplete-section__artist">Brian Jonestown Massacre</span>);
   });
-	
+
 
 	it('Should render an artist if one is provided', () => {
 	  	const artists = [{

@@ -1,5 +1,3 @@
-import styles from './autocomplete.css'
-
 import React, { Component, PropTypes } from 'react'
 import SearchAutoCompleteThumbnail from '../components/SearchAutoCompleteThumbnail.jsx'
 

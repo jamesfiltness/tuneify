@@ -1,9 +1,7 @@
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
-var precss = require('precss');
-var postcssImport = require('postcss-import');
-/*The idea is that we detect npm lifecycle event (start, build, ...) 
+/*The idea is that we detect npm lifecycle event (start, build, ...)
 and then branch and merge based on that.*/
 var merge = require('webpack-merge');
 
@@ -20,10 +18,10 @@ process.env.BABEL_ENV = TARGET;
 var common = {
   entry: APP_PATH,
   resolve: {
-    /* evaluated from left to right so if a more specific match is 
-    found further to the right (i.e. a .web.js extension) then that 
+    /* evaluated from left to right so if a more specific match is
+    found further to the right (i.e. a .web.js extension) then that
     is used instead of the default */
-    /* Setting a '' flag allows us to refer to jsx files without 
+    /* Setting a '' flag allows us to refer to jsx files without
     extension if wanted - but it is good to be explicit */
     extensions: ['', '.js', '.jsx']
   },
@@ -39,7 +37,7 @@ var common = {
         test: /\.css$/,
         /* css loader deals with @imports and url statments in css
            and style loader deals with css require statements in js */
-        loader: 'style!css?localIdentName=[name]__[local]___[hash:base64:5]!postcss',
+        loader: 'style!css!less',
         /* can also set up and exclude path */
         /* always set up an include as otherwise webpack will traverse all files
            in base directory

@@ -7,7 +7,7 @@ const expect = chai.expect;
 chai.use(jsxChai);
 chai.use(sinonChai);
 
-import SearchAutoCompleteThumbnail from '../components/SearchAutoCompleteThumbnail.jsx'
+import SearchAutoCompleteThumbnail from '../SearchAutoCompleteThumbnail.jsx'
 
 describe('The SearchAutoCompleteThumbnail component', () => {
 
