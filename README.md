@@ -32,7 +32,7 @@ npm start
 
 This kicks the Webpack dev server off on port 1111 and enables hot loading.
 
-IN another terminal window run:
+In another terminal window run:
 
 ```
 npm run tdd
