@@ -8,11 +8,12 @@ const expect = chai.expect;
 chai.use(jsxChai)
 chai.use(sinonChai)
 
-import {CUE_VIDEO, cueVideo} from '../PlayerActions.js'
+import { cueVideo } from '../PlayerActions.js'
+import { CUE_VIDEO } from '../../constants/Actiontypes'
 
 describe('Player Actions', () => {
-
-	it('Should export a CUE_VIDEO action type', () => {
+  
+  it('Should export a CUE_VIDEO action type', () => {
     expect(CUE_VIDEO).to.equal('CUE_VIDEO');
   });
 

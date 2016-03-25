@@ -10,13 +10,14 @@ import YouTubePlayer from '../components/YouTubePlayer'
 
 import styles from '../css/main.css' 
 
-class App extends Component {
+/* Export the undecorated App to enlable testing without mocking the connect call in some way */
+export class App extends Component {
     render() {
 
         const { dispatch, currentVideo, artists, albums, tracks } = this.props;
         
         return (
-            <div className={styles.wrap}>
+            <div>
                 <Search onSearch={ text => dispatch(searchPerformed(text)) } />
                 <SearchAutoComplete 
                   artists={artists} 
@@ -31,11 +32,11 @@ class App extends Component {
 
 function select(state) {
     return {
-        currentSearch : state.search.currentSearch,
-        currentVideo : state.videoPlayer.currentVideo,
-        artists : state.search.currentArtistResults,
-        tracks : state.search.currentTrackResults,
-        albums : state.search.currentAlbumResults
+        currentSearch : state.currentSearch,
+        currentVideo : state.currentVideo,
+        artists : state.currentArtistResults,
+        tracks : state.currentTrackResults,
+        albums : state.currentAlbumResults
     }
 }
 

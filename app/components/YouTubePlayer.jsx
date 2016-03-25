@@ -56,7 +56,6 @@ export default class YouTubePlayer extends Component {
   }
 
   cueVideo(videoId) {
-    console.log(videoId);
       this.player.cueVideoById(videoId)
   }
 

@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux'
-import { CUE_VIDEO } from '../actions/PlayerActions'
+import { CUE_VIDEO } from '../constants/Actiontypes'
 
 const initialState = {
   currentVideo : null,
   playing: false
 };
 
-function currentVideo(state = '' , action) {
+export function currentVideo(state = '' , action) {
+	console.log('vi',state);
     switch (action.type) {
         case CUE_VIDEO:
             return  action.videoId
@@ -14,9 +15,3 @@ function currentVideo(state = '' , action) {
             return state
     }    
 }
-
-const videoPlayer = combineReducers({
-  currentVideo
-})
-
-export default videoPlayer

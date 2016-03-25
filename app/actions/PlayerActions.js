@@ -1,9 +1,9 @@
-require("babel-polyfill");
-export const CUE_VIDEO = 'CUE_VIDEO';
+import * as types from '../constants/Actiontypes'
+
 
 export function cueVideo(videoId) {
     return {
-        type: CUE_VIDEO,
+        type: types.CUE_VIDEO,
         videoId
     }
 }

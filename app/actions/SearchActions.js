@@ -1,41 +1,31 @@
-import fetch from 'isomorphic-fetch';
-export const REQUEST_DATA = 'REQUEST_DATA';
-export const RECEIVE_ARTIST_DATA = 'RECEIVE_ARTIST_DATA';
-export const RECEIVE_TRACK_DATA = 'RECEIVE_TRACK_DATA';
-export const RECEIVE_ALBUM_DATA = 'RECEIVE_ALBUM_DATA';
-export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+import fetch from 'isomorphic-fetch'
+import * as types from '../constants/Actiontypes'
 
 function requestData(searchTerm) {
     return {
-        type: REQUEST_DATA,
+        type: types.REQUEST_DATA,
         searchTerm
     }
 }
 
 function receiveArtistData(searchTerm, json) {
     return {
-        type: RECEIVE_ARTIST_DATA,
+        type: types.RECEIVE_ARTIST_DATA,
         artists : json.results.artistmatches.artist.map(child => child)
     }
 }
 
 function receiveTrackData(searchTerm, json) {
     return {
-        type: RECEIVE_TRACK_DATA,
+        type: types.RECEIVE_TRACK_DATA,
         tracks : json.results.trackmatches.track.map(child => child)
     }
 }
 
 function receiveAlbumData(searchTerm, json) {
     return {
-        type: RECEIVE_ALBUM_DATA,
+        type: types.RECEIVE_ALBUM_DATA,
         albums : json.results.albummatches.album.map(child => child)
-    }
-}
-
-export function clearSearch() {
-    return {
-        type: CLEAR_SEARCH
     }
 }
 
@@ -60,6 +50,12 @@ function fetchAlbumData(searchTerm) {
         return fetch(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&api_key=57ee3318536b23ee81d6b27e36997cde&format=json&limit=4`,{mode: 'cors'})
             .then(response => response.json())
             .then(json => { dispatch(receiveAlbumData(searchTerm, json)) })
+    }
+}
+
+export function clearSearch() {
+    return {
+        type: types.CLEAR_SEARCH
     }
 }
 

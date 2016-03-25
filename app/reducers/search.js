@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { RECEIVE_ARTIST_DATA,RECEIVE_TRACK_DATA,RECEIVE_ALBUM_DATA, REQUEST_DATA, CLEAR_SEARCH } from '../actions/SearchActions'
+import * as types from '../constants/Actiontypes'
 
 const initialState = {
   currentSearch: null,
@@ -9,24 +9,25 @@ const initialState = {
   autoCompleteVisible: false
 };
 
-function currentSearch(state = '' , action) {
+export function currentSearch(state = '' , action) {
+
     switch (action.type) {
-        case REQUEST_DATA:
+        case types.REQUEST_DATA:
             return  action.searchTerm
-        case CLEAR_SEARCH:
+        case types.CLEAR_SEARCH:
             return  null;
         default: 
             return state
     }    
 }
 
-function currentArtistResults(state = [] , action) {
+export function currentArtistResults(state = [] , action) {
     switch (action.type) {
-        case RECEIVE_ARTIST_DATA:
+        case types.RECEIVE_ARTIST_DATA:
             //we always want a fresh set of results returned to the state
             var results = [];
             return results.concat(action.artists);
-        case CLEAR_SEARCH: 
+        case types.CLEAR_SEARCH: 
             return []
 
          default: 
@@ -34,13 +35,13 @@ function currentArtistResults(state = [] , action) {
       }
 }
 
-function currentTrackResults(state = [] , action) {
+export function currentTrackResults(state = [] , action) {
     switch (action.type) {
-        case RECEIVE_TRACK_DATA:
+        case types.RECEIVE_TRACK_DATA:
             //we always want a fresh set of results returned to the state
             var results = [];
             return results.concat(action.tracks);
-        case CLEAR_SEARCH: 
+        case types.CLEAR_SEARCH: 
             return []
 
          default: 
@@ -48,15 +49,15 @@ function currentTrackResults(state = [] , action) {
       }
 }
 
-function currentAlbumResults(state = [] , action) {
+export function currentAlbumResults(state = [] , action) {
     switch (action.type) {
-        case RECEIVE_ALBUM_DATA:
+        case types.RECEIVE_ALBUM_DATA:
             //we always want a fresh set of results returned to the state
             var results = [];
 
             return results.concat(action.albums);
 
-        case CLEAR_SEARCH: 
+        case types.CLEAR_SEARCH: 
  
             return []
 
@@ -64,13 +65,4 @@ function currentAlbumResults(state = [] , action) {
              return state
       }
 }
-
-const search = combineReducers({
-    currentSearch,
-    currentArtistResults,
-    currentTrackResults,
-    currentAlbumResults
-})
-
-export default search
 

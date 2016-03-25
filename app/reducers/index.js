@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux'
-import search from '../reducers/search'
-import videoPlayer from '../reducers/videoPlayer'
+import { currentSearch, currentArtistResults, currentTrackResults, currentAlbumResults } from '../reducers/search'
+import { currentVideo } from '../reducers/videoPlayer'
+import * as types from '../constants/Actiontypes'
 
 const rootReducer = combineReducers({
-   search,
-   videoPlayer
+   currentSearch,
+   currentArtistResults,
+   currentTrackResults,
+   currentAlbumResults,
+   currentVideo
 })
 
 
