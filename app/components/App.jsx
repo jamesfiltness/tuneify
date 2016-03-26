@@ -24,7 +24,7 @@ export class App extends Component {
                   tracks={tracks} 
                   albums={albums} 
                   onSelectTrack={ videoId => dispatch(cueVideo(videoId)) } />
-                <YouTubePlayer currentVideo={currentVideo}></YouTubePlayer>
+                <YouTubePlayer currentVideo={currentVideo} />
             </div>
         )
     }

@@ -20,9 +20,10 @@ describe('Player Actions', () => {
 	it('Should create an action to cue a video', () => {
 		const videoId = 'fhg4j53jf';
 		const expectedAction = {
-      type: CUE_VIDEO,
-      videoId
-    }
+      		type: CUE_VIDEO,
+      		videoId
+    	}
+    	
 		expect(cueVideo(videoId)).to.deep.equal(expectedAction);
 	});
 	

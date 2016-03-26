@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export function currentVideo(state = '' , action) {
-	console.log('vi',state);
     switch (action.type) {
         case CUE_VIDEO:
             return  action.videoId

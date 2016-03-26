@@ -1,5 +1,4 @@
 var path = require('path');
-var HtmlwebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 /*The idea is that we detect npm lifecycle event (start, build, ...)
 and then branch and merge based on that.*/
@@ -57,12 +56,7 @@ var common = {
         return [precss, postcssImport({
                 addDependencyTo: webpack
             })];
-  },
-  plugins : [
-      new HtmlwebpackPlugin({
-        title : 'Music App'
-      })
-  ]
+  }
 };
 
  if(TARGET === 'start' || !TARGET) {
