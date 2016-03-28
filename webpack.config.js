@@ -52,6 +52,9 @@ var common = {
       }
     ]
   },
+  node: {
+      fs: "empty"
+  },
   postcss: function () {
         return [precss, postcssImport({
                 addDependencyTo: webpack
