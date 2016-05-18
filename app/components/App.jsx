@@ -15,7 +15,7 @@ export class App extends Component {
     render() {
 
         const { dispatch, currentVideo, artists, albums, tracks } = this.props;
-
+         /* test comment */
         return (
             <div>
                 <Search onSearch={ text => dispatch(searchPerformed(text)) } />
