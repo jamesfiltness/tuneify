@@ -16,6 +16,13 @@ export function clearSearch() {
     }
 }
 
+export function trackSelected(trackData) {
+  return {
+    type: types.TRACK_SELECTED,
+    trackData,
+  }
+}
+
 export function receiveArtistData(searchTerm, json) {
     return {
         type: types.RECEIVE_ARTIST_DATA,

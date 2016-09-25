@@ -1,13 +1,5 @@
 import * as types from '../../constants/ActionTypes.js'
 
-const initialState = {
-  currentSearch: null,
-  currentArtistResults: [],
-  currentTrackResults: [],
-  currentAlbumResults: [],
-  autoCompleteVisible: false
-};
-
 export function currentSearch(state = '' , action) {
 
     switch (action.type) {
@@ -18,6 +10,15 @@ export function currentSearch(state = '' , action) {
         default: 
             return state
     }    
+}
+
+export function currentTrack(state = {}, action) {
+  switch (action.type) {
+    case types.TRACK_SELECTED:
+      return action.trackData
+    default: 
+      return state
+  }
 }
 
 export function currentArtistResults(state = [] , action) {

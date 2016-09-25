@@ -8,7 +8,14 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import routes from './app/components/routes'
-import { currentSearch, currentArtistResults, currentTrackResults, currentAlbumResults } from './app/reducers/search'
+// use * to select all here? 
+import { 
+  currentSearch, 
+  currentArtistResults, 
+  currentTrackResults, 
+  currentAlbumResults, 
+  currentTrack 
+} from './app/reducers/search'
 import { currentVideo } from './app/reducers/video-player'
 import { routerReducer } from 'react-router-redux'
 
@@ -37,6 +44,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const store = createStore(
   combineReducers({
+    currentTrack,
     currentSearch,
     currentArtistResults, 
     currentTrackResults, 
@@ -49,6 +57,7 @@ const store = createStore(
     currentTrackResults: [], 
     currentAlbumResults: [],
     currentVideo: '',
+    currentTrack: {},
   }
 );
 
