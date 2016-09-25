@@ -13,7 +13,8 @@ class App extends React.Component {
   render() {
     const { 
       dispatch, 
-      currentVideo, 
+      currentVideo,
+      currentTrack,
       artists, 
       albums, 
       tracks 
@@ -32,6 +33,7 @@ class App extends React.Component {
             tracks={tracks}
             albums={albums}
           />
+          <p><strong>{currentTrack.name} {currentTrack.artist}</strong></p>
           <YouTubePlayer 
             currentVideo={currentVideo} 
           />
@@ -52,7 +54,8 @@ function mapStateToProps(state) {
     currentVideo : state.currentVideo,
     artists : state.currentArtistResults,
     tracks : state.currentTrackResults,
-    albums : state.currentAlbumResults
+    albums : state.currentAlbumResults,
+    currentTrack: state.currentTrack,
   }
 }
 

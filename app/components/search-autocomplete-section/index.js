@@ -5,15 +5,26 @@ class SearchAutoCompleteSection extends React.Component {
   constructor() {
     super();
 
-    this.handleSelection = this.handleSelection.bind(this);
+    this.resultSelected = this.resultSelected.bind(this);
+  }
+
+  resultSelected(result) {
+   const artist = result.artist ? result.artist : '';
+   const resultObj = {
+      name : result.name,
+      artist: artist
+    };
+
+    this.props.onSelectResult(resultObj);
   }
 
   render() {
     const { 
       title, 
-      data, 
+      data,
+      onSelectResult,
     } = this.props;
-    
+ 
     return (
       <div className="autocomplete-section">
         <h3 className="autocomplete-section__title">{title}</h3>
@@ -25,7 +36,7 @@ class SearchAutoCompleteSection extends React.Component {
                     <li 
                       className="autocomplete-section__list-item" 
                       onClick={
-                        this.handleSelection(result.name)
+                        () => this.resultSelected(result)
                       } 
                       key={i}
                     >
@@ -49,8 +60,6 @@ class SearchAutoCompleteSection extends React.Component {
       )
     }
 
-    handleSelection(result) {
-    }
 }
 
 export default SearchAutoCompleteSection

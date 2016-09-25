@@ -1,18 +1,16 @@
 import React from 'react'
 import SearchAutoCompleteSection from '../search-autocomplete-section'
+import { connect } from 'react-redux'
 
-//this component should probably be treated as a top level component
-//It should perhaps be connected to the redux store
-//reasons:
-  //it needs to dispatch an event when a new track is clicked on
-  //it needs to disptach when a artist is clicked on and also change route
-  //it needs to dispatch when an album is clicked on and also change route
+import { trackSelected } from '../../actions/search-actions'
+
 class SearchAutoComplete extends React.Component {
   render() {
     const { 
       artists, 
       tracks,
       albums,
+      dispatch,
     }  = this.props;
 
     if(artists.length || tracks.length || albums.length) {
@@ -20,15 +18,30 @@ class SearchAutoComplete extends React.Component {
         <div className="autocomplete">
           <SearchAutoCompleteSection 
             title="Artists" 
-            data={artists} 
+            data={artists}
+            onSelectResult={
+              artistData => {
+                console.log(artistData)
+              }
+            }
           />
           <SearchAutoCompleteSection 
             title="Tracks" 
-            data={tracks} 
+            data={tracks}
+            onSelectResult={
+              trackData => dispatch(
+                trackSelected(trackData)
+              )
+            }
           />
           <SearchAutoCompleteSection 
             title="Albums" 
-            data={albums} 
+            data={albums}
+            onSelectResult={
+              albumData => {
+                console.log(albumData)
+              }
+            }
           />
         </div>
       )
@@ -38,4 +51,4 @@ class SearchAutoComplete extends React.Component {
   }
 }
 
-export default SearchAutoComplete
+export default connect()(SearchAutoComplete)
