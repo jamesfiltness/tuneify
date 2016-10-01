@@ -1,7 +1,7 @@
 require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch'
 import * as types from '../../constants/ActionTypes.js'
-//import { playVideo } from '../player-actions';
+import { playVideo } from '../player-actions';
 import { handleErrors, handleServerErrors } from '../../utils/handleErrors'
 
 export function lastFmApiRequest(searchTerm) {
@@ -12,14 +12,6 @@ export function lastFmApiRequest(searchTerm) {
 
 }
 
-
-export function playVideo(videoData) {
-
- return {
-    type: types.PLAY_VIDEO,
-    videoData
-  }
-}
 export function clearSearch() {
   return {
     type: types.CLEAR_SEARCH
