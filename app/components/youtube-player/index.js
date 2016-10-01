@@ -21,6 +21,7 @@ class YouTubePlayer extends React.Component {
   }
 
   render() {
+    console.log('player rendering');
     return (
       <div className="youtube-player">
         <div className="youtube-player__player" id="player" />
@@ -29,20 +30,14 @@ class YouTubePlayer extends React.Component {
     )
   }
 
-  componentDidUpdate(nextProps) {
-    console.log('componentDidUpdate');
-    if(this.loaded) {
+  componentWillReceiveProps(nextProps) {
     if(nextProps.videoData.length > 0) {
-      console.log('next video props', nextProps.videoData[0]);
-     if(nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
-       console.log('ids do not match - play new video');
-        this.playVideo(nextProps.videoData[0].id.videoId);
-      }
+    if(nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
+      this.playVideo(nextProps.videoData[0].id.videoId);       
     }
-      //so in here we need to get the video id first then call cuevideo
-   //   this.cueVideo(this.props.currentVideo); 
-    } 
-  }
+    }
+  } 
+  
 // move in to reusable utils class - allow multiple scripts to be loaded
   loadPlayerIframe() {
     const tag = document.createElement('script');

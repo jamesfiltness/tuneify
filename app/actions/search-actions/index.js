@@ -20,8 +20,10 @@ export function clearSearch() {
 
 export function autocompleteTrackSelected(selectedTrackData) {
 return (dispatch, getState)  => {
+  console.log('1: autocompletTrackSelected called');
   dispatch(trackSelected(selectedTrackData));
   dispatch(fetchVideoData(selectedTrackData)).then(() => {
+    console.log('2: FetchVideoData has returned some data', getState().videoData[0].snippet.title);
     dispatch(playVideo(getState().videoData));
   });
   }
