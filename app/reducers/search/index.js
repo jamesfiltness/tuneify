@@ -15,7 +15,7 @@ export function currentSearch(state = '' , action) {
 export function currentTrack(state = {}, action) {
   switch (action.type) {
     case types.TRACK_SELECTED:
-      return action.trackData
+      return action.selectedTrackData
     default: 
       return state
   }
@@ -66,3 +66,11 @@ export function currentAlbumResults(state = [] , action) {
       }
 }
 
+export function videoData(state = [], action) {
+  switch(action.type) {
+    case types.RECEIVE_VIDEO_DATA:
+    var results = [];
+    return results.concat(action.videoData);
+    default: return state
+  }
+}

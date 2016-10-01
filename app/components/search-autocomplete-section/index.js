@@ -9,8 +9,8 @@ class SearchAutoCompleteSection extends React.Component {
   }
 
   resultSelected(result) {
-   const artist = result.artist ? result.artist : '';
-   const resultObj = {
+    const artist = result.artist ? result.artist : '';
+    const resultObj = {
       name : result.name,
       artist: artist
     };
