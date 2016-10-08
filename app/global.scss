@@ -1,0 +1,9 @@
+body {
+  background: #333;
+}
+
+@import './styles/normalize.css';
+@import './styles/base.scss';
+@import './components/search-autocomplete/styles';
+@import './components/search-autocomplete-section/styles';
+@import './components/youtube-player/styles';

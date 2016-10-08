@@ -4,6 +4,7 @@ import path from 'path'
 import { match, RouterContext } from 'react-router'
 import { renderToString } from 'react-dom/server'
 import webpack from 'webpack'
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import webpackDevMiddleware from 'webpack-dev-middleware'
@@ -23,24 +24,39 @@ import { routerReducer } from 'react-router-redux'
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
-  app.use(webpackDevMiddleware(webpack({
-    entry: {
-      bundle: path.resolve(__dirname, 'app/client'),
-    },
-    output: {
-      path: '/',
-    },
-    module: {
-      loaders: [
+  app.use(
+    webpackDevMiddleware(
+      webpack(
         {
-          test: /\.js?$/,
-          loader: 'babel',
-          exclude: 'node_modules',
-        },
-      ],
-    },
-  }
-)));
+          entry: {
+            app: [
+              path.resolve(__dirname, 'app/client'),
+            ]
+          },
+          output: {
+            path: '/',
+          },
+          module: {
+            loaders: [
+              {
+                test: /\.js?$/,
+                loader: 'babel',
+                exclude: 'node_modules',
+              },
+              {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('css!sass'),
+                exclude: 'node_modules',
+              },
+            ],
+          },
+          plugins: [
+            new ExtractTextPlugin('styles.css'),
+          ]
+        }
+      )
+    )
+  );
 }
 
 const store = createStore(
@@ -84,7 +100,8 @@ app.get('*', (req, res) => {
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Isomorphic Redux routing</title>
+          <title>Tuneify</title>
+          <link rel=styleSheet href="/styles.css" type="text/css" />
         </head>
         <body>
           <div>

@@ -44,12 +44,14 @@ class SearchAutoCompleteSection extends React.Component {
                         thumb={result.image} 
                         altText={result.name} 
                       />
-                      <span className="autocomplete-section__target">
-                        {result.name}
-                      </span>
-                      <span className="autocomplete-section__artist">
-                        {result.artist}
-                      </span>
+                      <div className="autocomplete-section__item-details">
+                        <span className="autocomplete-section__target">
+                          {result.name}
+                        </span>
+                        <span className="autocomplete-section__artist">
+                          {result.artist}
+                        </span>
+                      </div>
                     </li>
                   )
                 }

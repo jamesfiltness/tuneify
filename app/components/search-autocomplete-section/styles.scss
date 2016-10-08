@@ -1,0 +1,40 @@
+.autocomplete-section {
+	&__title {
+	  background: #333;
+	  color: #dcdcdc;
+		margin: 0;
+		padding: 5px 10px;
+		font-size: 14px;
+		font-weight: normal;	
+	}
+
+	&__list {
+	  margin: 5px 10px;	
+	}
+
+	&__list-item {
+	  margin-bottom: 5px;
+		font-size: 13px;
+		clear: left;
+		overflow:hidden;
+  }
+
+  &__item-details {
+    display: inline-block;
+    vertical-align: top;
+    color: #f5f5f5;
+    margin-left: 5px;
+  }
+
+  &__thumbnail {
+    float:left;
+		margin-right: 5px;	
+  }
+
+  &__artist {
+    margin-top: 3px;
+    font-size: 11px;
+    color: #aaa;
+    display:block;
+  }
+}

@@ -15,17 +15,7 @@ class SearchAutoComplete extends React.Component {
 
     if(artists.length || tracks.length || albums.length) {
       return (
-        <div className="autocomplete" style={{
-            position: 'absolute',
-            background: '#333',
-            padding: '10px',
-            width: '250px',
-            top: '64px',
-            color: '#fff',
-            listStyle: 'none',
-
-
-          }}>
+        <div className="autocomplete">
           <SearchAutoCompleteSection 
             title="Artists" 
             data={artists}
