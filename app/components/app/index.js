@@ -2,24 +2,29 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { searchPerformed } from '../../actions/search-actions'
-import { cueVideo } from '../../actions/player-actions'
+import { playVideo } from '../../actions/player-actions'
 
 import Search from '../search'
 import SearchAutoComplete from '../search-autocomplete'
 import YouTubePlayer from '../youtube-player'
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
 
   render() {
+    console.log('app render', this.props.videoData);
     const { 
       dispatch, 
-      currentVideo,
       currentTrack,
       artists, 
       albums, 
-      tracks 
+      tracks,
+      videoData,
     } = this.props;
-    
+ 
     return (
       <div>
         <div>
@@ -33,10 +38,7 @@ class App extends React.Component {
             tracks={tracks}
             albums={albums}
           />
-          <p><strong>{currentTrack.name} {currentTrack.artist}</strong></p>
-          <YouTubePlayer 
-            currentVideo={currentVideo} 
-          />
+          <YouTubePlayer videoData={videoData} />
         </div>
         {this.props.children}
       </div>
@@ -51,11 +53,11 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     currentSearch : state.currentSearch,
-    currentVideo : state.currentVideo,
     artists : state.currentArtistResults,
     tracks : state.currentTrackResults,
     albums : state.currentAlbumResults,
     currentTrack: state.currentTrack,
+    videoData: state.videoData,
   }
 }
 

@@ -14,7 +14,8 @@ import {
   currentArtistResults, 
   currentTrackResults, 
   currentAlbumResults, 
-  currentTrack 
+  currentTrack,
+  videoData,
 } from './app/reducers/search'
 import { currentVideo } from './app/reducers/video-player'
 import { routerReducer } from 'react-router-redux'
@@ -50,6 +51,7 @@ const store = createStore(
     currentTrackResults, 
     currentAlbumResults,
     currentVideo,
+    videoData,
   }),
   { 
     currentSearch: '',
@@ -58,6 +60,7 @@ const store = createStore(
     currentAlbumResults: [],
     currentVideo: '',
     currentTrack: {},
+    videoData: [],
   }
 );
 
@@ -90,6 +93,7 @@ app.get('*', (req, res) => {
           <script>
             window.__PRELOADED_STATE__ = ${JSON.stringify(serverState)}
           </script>
+          <script src="https://apis.google.com/js/api.js"></script>
           <script type="application/javascript" src="/bundle.js"></script>
         </body>
       </html>

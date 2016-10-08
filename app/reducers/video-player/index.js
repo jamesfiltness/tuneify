@@ -1,15 +1,10 @@
-import { CUE_VIDEO } from '../../constants/ActionTypes.js'
-
-const initialState = {
-  currentVideo : null,
-  playing: false
-};
+import { PLAY_VIDEO } from '../../constants/ActionTypes.js'
 
 export function currentVideo(state = '' , action) {
-    switch (action.type) {
-        case CUE_VIDEO:
-            return  action.videoId
-        default: 
-            return state
-    }    
+  switch (action.type) {
+    case PLAY_VIDEO:
+      return  action.videoData[0]
+    default: 
+      return state
+  }    
 }
