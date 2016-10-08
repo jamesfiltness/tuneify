@@ -48,9 +48,9 @@ class YouTubePlayer extends React.Component {
 
   iFrameAPIReady() {
     this.player = new YT.Player('player', {
-      height: '390',
+      height: '200',
       playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0},
-      width: '640',
+      width: '320',
       events: {
         'onStateChange': this.onPlayerStateChange
       }
