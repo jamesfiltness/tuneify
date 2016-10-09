@@ -25,10 +25,24 @@ export function artistSelected(artist) {
   }
 };
 
+export function albumSelected(album) {
+  return {
+    type: types.ALBUM_SELECTED,
+    album,
+  }
+};
+
 export function autocompleteArtistSelected(selectedArtistData) {
   return (dispatch, getState)  => {
     dispatch(artistSelected(selectedArtistData));
-    dispatch(push('/about'))
+    dispatch(push('/artist'))
+  }
+};
+
+export function autocompleteAlbumSelected(selectedAlbumData) {
+  return (dispatch, getState)  => {
+    dispatch(albumSelected(selectedAlbumData));
+    dispatch(push('/album'))
   }
 };
 

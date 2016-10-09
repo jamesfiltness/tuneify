@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { 
   autocompleteTrackSelected,
   autocompleteArtistSelected,
+  autocompleteAlbumSelected,
 } from '../../actions/search-actions'
 
 class SearchAutoComplete extends React.Component {
@@ -41,9 +42,9 @@ class SearchAutoComplete extends React.Component {
             title="Albums" 
             data={albums}
             onSelectResult={
-              albumData => {
-                console.log(albumData)
-              }
+              searchParams => dispatch(
+                autocompleteAlbumSelected(searchParams)
+              )
             }
           />
         </div>

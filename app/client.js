@@ -10,6 +10,7 @@ import styles from './global.scss';
 import {
   currentTrack, 
   currentArtist,
+  currentAlbum,
   currentSearch, 
   currentArtistResults, 
   currentTrackResults, 
@@ -25,6 +26,7 @@ const initialState = window.__PRELOADED_STATE__;
 const rootReducer = combineReducers({
   currentSearch,
   currentArtist,
+  currentAlbum,
   currentTrack,
   currentArtistResults,
   currentTrackResults,

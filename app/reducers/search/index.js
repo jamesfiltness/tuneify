@@ -24,8 +24,16 @@ export function currentTrack(state = {}, action) {
 export function currentArtist(state = {}, action) {
   switch (action.type) {
     case types.ARTIST_SELECTED:
-    console.log('artists reducers');
       return action.artist
+    default: 
+      return state
+  }
+}
+
+export function currentAlbum(state = {}, action) {
+  switch (action.type) {
+    case types.ALBUM_SELECTED:
+      return action.album
     default: 
       return state
   }

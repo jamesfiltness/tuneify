@@ -12,6 +12,8 @@ import routes from './app/components/routes'
 // use * to select all here? 
 import { 
   currentSearch, 
+  currentArtist,
+  currentAlbum,
   currentArtistResults, 
   currentTrackResults, 
   currentAlbumResults, 
@@ -63,6 +65,7 @@ const store = createStore(
   combineReducers({
     currentTrack,
     currentArtist,
+    currentAlbum,
     currentSearch,
     currentArtistResults, 
     currentTrackResults, 
@@ -78,6 +81,7 @@ const store = createStore(
     currentVideo: '',
     currentArtist: '',
     currentTrack: {},
+    currentAlbum: '',
     videoData: [],
   }
 );
