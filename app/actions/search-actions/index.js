@@ -1,33 +1,59 @@
 require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch'
 import * as types from '../../constants/ActionTypes.js'
-import { playVideo } from '../player-actions';
+import { playVideo } from '../player-actions'
 import { handleErrors, handleServerErrors } from '../../utils/handleErrors'
+import { push } from 'react-router-redux'
 
 export function lastFmApiRequest(searchTerm) {
   return {
     type: types.LAST_FM_API_REQUEST,
-    searchTerm
+    searchTerm,
   }
-
-}
+};
 
 export function clearSearch() {
   return {
     type: types.CLEAR_SEARCH
   }
-}
+};
+
+export function artistSelected(artist) {
+  return {
+    type: types.ARTIST_SELECTED,
+    artist,
+  }
+};
+
+export function albumSelected(album) {
+  return {
+    type: types.ALBUM_SELECTED,
+    album,
+  }
+};
+
+export function autocompleteArtistSelected(selectedArtistData) {
+  return (dispatch, getState)  => {
+    dispatch(artistSelected(selectedArtistData));
+    dispatch(push('/artist'))
+  }
+};
+
+export function autocompleteAlbumSelected(selectedAlbumData) {
+  return (dispatch, getState)  => {
+    dispatch(albumSelected(selectedAlbumData));
+    dispatch(push('/album'))
+  }
+};
 
 export function autocompleteTrackSelected(selectedTrackData) {
-return (dispatch, getState)  => {
-  console.log('1: autocompletTrackSelected called');
-  dispatch(trackSelected(selectedTrackData));
-  dispatch(fetchVideoData(selectedTrackData)).then(() => {
-    console.log('2: FetchVideoData has returned some data', getState().videoData[0].snippet.title);
-    dispatch(playVideo(getState().videoData));
-  });
+  return (dispatch, getState)  => {
+    dispatch(trackSelected(selectedTrackData));
+    dispatch(fetchVideoData(selectedTrackData)).then(() => {
+      dispatch(playVideo(getState().videoData));
+    });
   }
-}
+};
 
 export function trackSelected(selectedTrackData) {
   return {

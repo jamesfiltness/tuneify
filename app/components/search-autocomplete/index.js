@@ -2,7 +2,11 @@ import React from 'react'
 import SearchAutoCompleteSection from '../search-autocomplete-section'
 import { connect } from 'react-redux'
 
-import { autocompleteTrackSelected } from '../../actions/search-actions'
+import { 
+  autocompleteTrackSelected,
+  autocompleteArtistSelected,
+  autocompleteAlbumSelected,
+} from '../../actions/search-actions'
 
 class SearchAutoComplete extends React.Component {
   render() {
@@ -20,9 +24,9 @@ class SearchAutoComplete extends React.Component {
             title="Artists" 
             data={artists}
             onSelectResult={
-              artistData => {
-                console.log(artistData)
-              }
+              searchParams => dispatch(
+                autocompleteArtistSelected(searchParams)
+              )
             }
           />
           <SearchAutoCompleteSection 
@@ -38,9 +42,9 @@ class SearchAutoComplete extends React.Component {
             title="Albums" 
             data={albums}
             onSelectResult={
-              albumData => {
-                console.log(albumData)
-              }
+              searchParams => dispatch(
+                autocompleteAlbumSelected(searchParams)
+              )
             }
           />
         </div>
