@@ -62,6 +62,7 @@ if (process.env.NODE_ENV !== 'production') {
 const store = createStore(
   combineReducers({
     currentTrack,
+    currentArtist,
     currentSearch,
     currentArtistResults, 
     currentTrackResults, 
@@ -75,6 +76,7 @@ const store = createStore(
     currentTrackResults: [], 
     currentAlbumResults: [],
     currentVideo: '',
+    currentArtist: '',
     currentTrack: {},
     videoData: [],
   }

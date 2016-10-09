@@ -16,12 +16,14 @@
 	  margin-bottom: 5px;
 		font-size: 13px;
 		clear: left;
+    cursor: pointer;
 		overflow:hidden;
   }
 
   &__item-details {
     display: inline-block;
     vertical-align: top;
+    width: 235px;
     color: #f5f5f5;
     margin-left: 5px;
   }
