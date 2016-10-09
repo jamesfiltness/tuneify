@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 function Home() {
   return (
     <div>
-      <h3>Tuneify</h3>
       <p>Current focus:</p>
       <ul>
         <li>Styling</li>

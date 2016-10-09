@@ -15,7 +15,6 @@ class App extends React.Component {
 
 
   render() {
-    console.log('app render', this.props.videoData);
     const { 
       dispatch, 
       currentTrack,
@@ -27,12 +26,17 @@ class App extends React.Component {
  
     return (
       <div>
+        <header className="header">
+          <div className="header__container">
+            <h1 className="header__title">Tuneify</h1> 
+            <Search 
+              onSearch={ 
+                text => dispatch(searchPerformed(text)) 
+              } 
+            />
+          </div>
+        </header>
         <div>
-          <Search 
-            onSearch={ 
-              text => dispatch(searchPerformed(text)) 
-            } 
-          />
           <SearchAutoComplete
             artists={artists}
             tracks={tracks}
@@ -40,7 +44,9 @@ class App extends React.Component {
           />
           <YouTubePlayer videoData={videoData} />
         </div>
-        {this.props.children}
+        <div className="route-content">
+          {this.props.children}
+        </div>
       </div>
     );
   }
