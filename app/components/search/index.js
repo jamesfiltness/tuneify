@@ -14,8 +14,7 @@ class Search extends React.Component {
     render() {
       return (
     	  <div className="search">
-          <input 
-            style={{padding: '15px', fontSize: '20px', marginBottom: '10px'}}
+          <input
             className="search__input"  
             type="text" 
             ref="input" 

@@ -1,3 +1,29 @@
 body {
-  background: #333;
+  background: #111;
+  color: #eee;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+.header {
+  position: fixed;
+  width: 100%;
+  background: #282727;
+  padding: 10px 0;
+
+  &__container {
+    margin: 0 auto;
+    width: 325px;
+  }
+
+  &__title {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    font-size: 1.5em;
+  }
+}
+
+.route-content {
+  padding-top: 100px;
+}
+
