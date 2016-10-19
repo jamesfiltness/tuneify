@@ -4,7 +4,7 @@ import _ from 'lodash'
 class Search extends React.Component {
     constructor() {
        super();
-       this.handleSearch = _.throttle(this.handleSearch, 500);
+       this.handleSearch = _.throttle(this.handleSearch, 1000);
     }
 
     shouldComponentUpdate() {

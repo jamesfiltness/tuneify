@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore,combineReducers, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger';
+import fetchMiddleware from './redux/middleware/fetch-middleware'
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux'
@@ -18,6 +20,7 @@ import {
   videoData,
 } from './reducers/search'
 import { currentVideo } from './reducers/video-player'
+import { currentAlbumPageAlbum } from './reducers/album-page'
 import routes from './components/routes'
 
 const initialState = window.__PRELOADED_STATE__;
@@ -33,13 +36,16 @@ const rootReducer = combineReducers({
   currentAlbumResults,
   currentVideo,
   videoData,
+  currentAlbumPageAlbum,
   routing: routerReducer
 });
-
+const logger = createLogger();
 const reactRouterReduxMiddleware = routerMiddleware(browserHistory)
 const createStoreWithMiddleware = applyMiddleware(
+  fetchMiddleware,
   thunkMiddleware,
   reactRouterReduxMiddleware,
+  //logger,
 )(createStore)
 
 const store = createStoreWithMiddleware(rootReducer, initialState)

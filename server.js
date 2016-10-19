@@ -21,6 +21,7 @@ import {
   videoData,
 } from './app/reducers/search'
 import { currentVideo } from './app/reducers/video-player'
+import { currentAlbumPageAlbum } from './app/reducers/album-page'
 import { routerReducer } from 'react-router-redux'
 
 const app = express();
@@ -71,6 +72,7 @@ const store = createStore(
     currentTrackResults, 
     currentAlbumResults,
     currentVideo,
+    currentAlbumPageAlbum,
     videoData,
   }),
   { 
@@ -79,10 +81,11 @@ const store = createStore(
     currentTrackResults: [], 
     currentAlbumResults: [],
     currentVideo: '',
-    currentArtist: '',
+    currentArtist: {},
     currentTrack: {},
-    currentAlbum: '',
+    currentAlbum: {},
     videoData: [],
+    currentAlbumPageAlbum: {},
   }
 );
 

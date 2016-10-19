@@ -11,8 +11,8 @@ export default(
   <Route component={App} path="/">
     <IndexRoute component={Home} />
     <Route component={About} path="about" />
-    <Route component={Artist} path="artist" />
-    <Route component={Album} path="album" />
+    <Route component={Artist} path="artist/:artist" />
+    <Route component={Album} path="album/:artist/:album" />
     <Route component={PageNotFound} path="*" />
   </Route>
 );
