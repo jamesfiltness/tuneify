@@ -15,7 +15,7 @@ export function getAlbumPageData(album, artist) {
     album : album,
     artist: artist,
   };
-
+  
   return fetchLastFmData(actions, params);
 }
 
@@ -24,4 +24,10 @@ export function clearAlbumPageData() {
     type: types.CLEAR_ALBUM_PAGE_DATA,
   }
 };
+
+export function clearAlbumPageError() {
+  return {
+    type: types.CLEAR_ALBUM_PAGE_ERROR,
+  }
+}
 

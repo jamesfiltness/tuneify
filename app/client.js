@@ -20,7 +20,7 @@ import {
   videoData,
 } from './reducers/search'
 import { currentVideo } from './reducers/video-player'
-import { currentAlbumPageAlbum } from './reducers/album-page'
+import { currentAlbumPageAlbum, currentAlbumPageError } from './reducers/album-page'
 import routes from './components/routes'
 
 const initialState = window.__PRELOADED_STATE__;
@@ -37,6 +37,7 @@ const rootReducer = combineReducers({
   currentVideo,
   videoData,
   currentAlbumPageAlbum,
+  currentAlbumPageError,
   routing: routerReducer
 });
 const logger = createLogger();
@@ -45,7 +46,7 @@ const createStoreWithMiddleware = applyMiddleware(
   fetchMiddleware,
   thunkMiddleware,
   reactRouterReduxMiddleware,
-  //logger,
+  logger,
 )(createStore)
 
 const store = createStoreWithMiddleware(rootReducer, initialState)
