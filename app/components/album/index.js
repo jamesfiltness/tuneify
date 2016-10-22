@@ -75,16 +75,24 @@ class Album extends React.Component {
         )
       } else {
         return (
-          <div>
-            <h3>{albumPage.name}</h3>
-            <h4>{albumPage.artist}</h4>
-            <img 
-              src={albumPage.image} 
-              alt={`${albumPage.name} by ${albumPage.artist}`} 
-            />
-            <ul>
-              {this.renderTracks()}
-            </ul>
+          <div className="album">
+            <div className="album__header">
+              <img 
+                src={albumPage.image} 
+                className="album__header-image"
+                alt={`${albumPage.name} by ${albumPage.artist}`}
+                width="174"
+                height="174"
+              />
+              <h5 className="album__header-identifier">Album</h5>
+              <h1 className="album__header-name">{albumPage.name}</h1>
+              <h3 className="album__header-artist">{albumPage.artist}</h3>
+            </div>
+            <div className="album__tracks">
+              <ul>
+                {this.renderTracks()}
+              </ul>
+            </div>
           </div>
         );
       }

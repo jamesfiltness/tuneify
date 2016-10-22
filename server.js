@@ -130,9 +130,7 @@ app.get('*', (req, res) => {
           <link rel=styleSheet href="/styles.css" type="text/css" />
         </head>
         <body>
-          <div>
-            <div id="react-view">${componentHTML}</div>
-          </div>
+          <div id="react-view">${componentHTML}</div>
           <script>
             window.__PRELOADED_STATE__ = ${JSON.stringify(serverState)}
           </script>

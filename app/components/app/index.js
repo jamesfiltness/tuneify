@@ -24,7 +24,7 @@ class App extends React.Component {
     } = this.props;
  
     return (
-      <div>
+      <div className="app">
         <header className="header">
           <div className="header__container">
             <h1 className="header__title">Tuneify</h1> 
@@ -35,16 +35,19 @@ class App extends React.Component {
             />
           </div>
         </header>
-        <div>
+        <div className="sidebar sidebar--left">
+         <p>Some dummy content in here</p>
+        </div>
           <SearchAutoComplete
             artists={artists}
             tracks={tracks}
             albums={albums}
           />
-          <YouTubePlayer videoData={videoData} />
-        </div>
         <div className="route-content">
           {this.props.children}
+        </div>
+        <div className="sidebar sidebar--right">
+          <YouTubePlayer videoData={videoData} />
         </div>
       </div>
     );
