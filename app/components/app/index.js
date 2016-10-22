@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
+import { Link } from 'react-router'
 import { searchPerformed } from '../../actions/search-actions'
 import { playVideo } from '../../actions/player-actions'
 
@@ -27,7 +27,14 @@ class App extends React.Component {
       <div className="app">
         <header className="header">
           <div className="header__container">
-            <h1 className="header__title">Tuneify</h1> 
+            <h1 className="header__title">
+              <Link 
+                className="header__title-link" 
+                to="/"
+              >
+                Tuneify
+              </Link>
+            </h1>
             <Search 
               onSearch={ 
                 text => dispatch(searchPerformed(text)) 
@@ -36,7 +43,6 @@ class App extends React.Component {
           </div>
         </header>
         <div className="sidebar sidebar--left">
-         <p>Some dummy content in here</p>
         </div>
           <SearchAutoComplete
             artists={artists}

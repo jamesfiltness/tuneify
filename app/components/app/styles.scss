@@ -10,6 +10,7 @@ body {
   width: 100%;
   background: #282727;
   padding: 10px 0;
+  z-index: 3;
 
   &__container {
     margin: 0 auto;
@@ -21,10 +22,15 @@ body {
     margin: 0 10px 0 0;
     font-size: 1.5em;
   }
+
+  &__title-link {
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 .route-content {
-  padding: 75px 20px 0 20px;
+  padding-top: 47px;
   margin: 0 325px 0 240px;
   height: 100%;
   min-height: 600px;

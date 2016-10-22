@@ -28,6 +28,10 @@ import {
   artistPage,
   currentArtistPageError,
 } from './reducers/artist-page';
+import {
+  topArtistData,
+  topArtistDataError,
+} from './reducers/home-page';
 import routes from './components/routes';
 
 const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
@@ -47,6 +51,8 @@ const rootReducer = combineReducers({
   currentAlbumPageError,
   artistPage,
   currentArtistPageError,
+  topArtistData,
+  topArtistDataError,
   routing: routerReducer,
 });
 const logger = createLogger(); // eslint-disable-line no-unused-vars
