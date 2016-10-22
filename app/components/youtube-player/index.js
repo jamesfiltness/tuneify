@@ -21,7 +21,6 @@ class YouTubePlayer extends React.Component {
   }
 
   render() {
-    console.log('player rendering');
     return (
       <div className="youtube-player">
         <div className="youtube-player__player" id="player" />
@@ -41,7 +40,7 @@ class YouTubePlayer extends React.Component {
 // move in to reusable utils class - allow multiple scripts to be loaded
   loadPlayerIframe() {
     const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
+    tag.src = "http://www.youtube.com/iframe_api";
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); 
   }

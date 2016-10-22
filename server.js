@@ -1,27 +1,34 @@
-import express from 'express'
-import React from 'react'
-import path from 'path'
-import { match, RouterContext } from 'react-router'
-import { renderToString } from 'react-dom/server'
-import webpack from 'webpack'
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-import { createStore, combineReducers } from 'redux'
-import { Provider } from 'react-redux'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import routes from './app/components/routes'
-// use * to select all here? 
-import { 
-  currentSearch, 
+import express from 'express';
+import React from 'react';
+import path from 'path';
+import { match, RouterContext } from 'react-router';
+import { renderToString } from 'react-dom/server';
+import webpack from 'webpack';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import routes from './app/components/routes';
+import {
+  currentSearch,
   currentArtist,
   currentAlbum,
-  currentArtistResults, 
-  currentTrackResults, 
-  currentAlbumResults, 
+  currentArtistResults,
+  currentTrackResults,
+  currentAlbumResults,
   currentTrack,
   videoData,
-} from './app/reducers/search'
-import { currentVideo } from './app/reducers/video-player'
-import { routerReducer } from 'react-router-redux'
+} from './app/reducers/search';
+import { currentVideo } from './app/reducers/video-player';
+import {
+  albumPage,
+  currentAlbumPageError,
+} from './app/reducers/album-page';
+import {
+  artistPage,
+  currentArtistPageError,
+} from './app/reducers/artist-page';
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const app = express();
 
@@ -33,7 +40,7 @@ if (process.env.NODE_ENV !== 'production') {
           entry: {
             app: [
               path.resolve(__dirname, 'app/client'),
-            ]
+            ],
           },
           output: {
             path: '/',
@@ -50,39 +57,53 @@ if (process.env.NODE_ENV !== 'production') {
                 loader: ExtractTextPlugin.extract('css!sass'),
                 exclude: 'node_modules',
               },
+              {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loader: 'file',
+                exclude: 'node_modules',
+              },
             ],
           },
           plugins: [
             new ExtractTextPlugin('styles.css'),
-          ]
+          ],
         }
       )
     )
   );
 }
 
+// TODO: break this out
 const store = createStore(
   combineReducers({
     currentTrack,
     currentArtist,
     currentAlbum,
     currentSearch,
-    currentArtistResults, 
-    currentTrackResults, 
+    currentArtistResults,
+    currentTrackResults,
     currentAlbumResults,
     currentVideo,
+    albumPage,
+    currentAlbumPageError,
+    artistPage,
+    currentArtistPageError,
     videoData,
   }),
-  { 
+  {
     currentSearch: '',
-    currentArtistResults: [], 
-    currentTrackResults: [], 
+    currentArtistResults: [],
+    currentTrackResults: [],
     currentAlbumResults: [],
     currentVideo: '',
-    currentArtist: '',
+    currentArtist: {},
     currentTrack: {},
-    currentAlbum: '',
+    currentAlbum: {},
     videoData: [],
+    albumPage: null,
+    currentAlbumPageError: null,
+    artistPage: null,
+    currentArtistPageError: null,
   }
 );
 
@@ -98,7 +119,6 @@ app.get('*', (req, res) => {
           <RouterContext {...renderProps} />
         </Provider>
       );
-      
       // Get the redux state so that it can be passed down to rehydrate the client
       const serverState = store.getState();
       const HTML = `
@@ -129,5 +149,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log('App running on port 3000');
+  console.log('Tuneify running on port 3000');
 });

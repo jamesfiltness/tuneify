@@ -7,3 +7,9 @@
 @import './components/search-autocomplete/styles';
 @import './components/search-autocomplete-section/styles';
 @import './components/youtube-player/styles';
+
+.spinner {
+   background: url('images/spinner.svg') no-repeat;
+   width: 300px;
+   height: 300px;
+}

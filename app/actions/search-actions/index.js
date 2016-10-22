@@ -4,19 +4,19 @@ import * as types from '../../constants/ActionTypes.js'
 import { playVideo } from '../player-actions'
 import { handleErrors, handleServerErrors } from '../../utils/handleErrors'
 import { push } from 'react-router-redux'
-
-export function lastFmApiRequest(searchTerm) {
-  return {
-    type: types.LAST_FM_API_REQUEST,
-    searchTerm,
-  }
-};
-
+import { fetchLastFmData } from '../lastfm-actions'
 export function clearSearch() {
   return {
     type: types.CLEAR_SEARCH
   }
 };
+
+export function trackSelected(selectedTrackData) {
+  return {
+    type: types.TRACK_SELECTED,
+    selectedTrackData,
+  }
+}
 
 export function artistSelected(artist) {
   return {
@@ -55,19 +55,6 @@ export function autocompleteTrackSelected(selectedTrackData) {
   }
 };
 
-export function trackSelected(selectedTrackData) {
-  return {
-    type: types.TRACK_SELECTED,
-    selectedTrackData,
-  }
-}
-
-export function receiveArtistData(searchTerm, json) {
-  return {
-    type: types.RECEIVE_ARTIST_DATA,
-    artists : json.results.artistmatches.artist.map(child => child)
-  }
-}
 
 export function receiveVideoData(json) {
   return {
@@ -76,54 +63,60 @@ export function receiveVideoData(json) {
   }
 }
 
-export function receiveTrackData(searchTerm, json) {
-  return {
-    type: types.RECEIVE_TRACK_DATA,
-    tracks : json.results.trackmatches.track.map(child => child)
-  }
-}
+export function fetchArtistData(searchTerm, limit = 3) {
+  const actions =  
+    [
+      types.LAST_FM_API_REQUEST, 
+      types.RECEIVE_ARTIST_DATA,
+      types.RECEIVE_ARTIST_DATA
+    ];
 
-export function receiveAlbumData(searchTerm, json) {
-  return {
-    type: types.RECEIVE_ALBUM_DATA,
-    albums : json.results.albummatches.album.map(child => child)
-  }
-}
+  const params = { 
+    method: 'artist.search',
+    artist: searchTerm,
+    limit: limit,
+  };
 
-export function fetchArtistData(searchTerm) {
-  return dispatch => {
-    return fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.search&artist=${searchTerm}&api_key=57ee3318536b23ee81d6b27e36997cde&format=json&limit=3`,{mode: 'cors'})
-      .then(handleErrors)
-      .then(response => response.json())
-      .then(json => { dispatch(receiveArtistData(searchTerm, json)) })
-      .catch(handleServerErrors)
-  }
-}
+  return fetchLastFmData(actions, params);
+};
 
-export function fetchTrackData(searchTerm) {
-  return dispatch => {
-    return fetch(`http://ws.audioscrobbler.com/2.0/?method=track.search&track=${searchTerm}&api_key=57ee3318536b23ee81d6b27e36997cde&format=json&limit=3`,{mode: 'cors'})
-      .then(handleErrors)
-      .then(response => response.json())
-      .then(json => { dispatch(receiveTrackData(searchTerm, json)) })
-      .catch(handleServerErrors)
-  }
-}
+export function fetchAlbumData(searchTerm, limit = 3) {
+  const actions =  
+    [
+      types.LAST_FM_API_REQUEST, 
+      types.RECEIVE_ALBUM_DATA,
+      types.RECEIVE_ALBUM_DATA
+    ];
 
-export function fetchAlbumData(searchTerm) {
-  return dispatch => {
-    return fetch(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${searchTerm}&api_key=57ee3318536b23ee81d6b27e36997cde&format=json&limit=4`,{mode: 'cors'})
-      .then(handleErrors)
-      .then(response => response.json())
-      .then(json => { dispatch(receiveAlbumData(searchTerm, json)) })
-      .catch(handleServerErrors)
-    }
-}
+  const params = { 
+    method: 'album.search',
+    album: searchTerm,
+    limit: limit,
+  };
+
+  return fetchLastFmData(actions, params);
+};
+
+export function fetchTrackData(searchTerm, limit = 3) {
+  const actions =  
+    [
+      types.LAST_FM_API_REQUEST, 
+      types.RECEIVE_TRACK_DATA,
+      types.RECEIVE_TRACK_DATA
+    ];
+
+  const params = { 
+    method: 'track.search',
+    track: searchTerm,
+    limit: limit,
+  };
+
+  return fetchLastFmData(actions, params);
+};
 
 export function searchPerformed(searchTerm) {
   return dispatch => {
     if(searchTerm.length > 1) {
-      dispatch(lastFmApiRequest(searchTerm));
       dispatch(fetchArtistData(searchTerm));
       dispatch(fetchTrackData(searchTerm));
       dispatch(fetchAlbumData(searchTerm));
