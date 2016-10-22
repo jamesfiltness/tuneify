@@ -1,6 +1,5 @@
 import * as types from '../../constants/ActionTypes.js'
-import { handleErrors, handleServerErrors } from '../../utils/handleErrors'
-import { fetchLastFmData,  lastFmApiRequest } from '../lastfm-actions'
+import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions'
 
 export function getAlbumPageData(album, artist) {
   const actions =  
