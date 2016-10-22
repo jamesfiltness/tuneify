@@ -51,10 +51,8 @@ class SearchAutoCompleteSection extends React.Component {
     // results come through with spaces and uppercase chars
     // this is not ideal for urls - so replace spaces with hyphens
     // and convert to lowercase
-    console.log(result);
     const artist = prepareStringForUrl(result.artist);
     const album = prepareStringForUrl(result.name);
-console.log(artist,album);
     return (
       <Link to={{ pathname: `/album/${artist}/${album}` }}>
         {this.resultContent(result)}

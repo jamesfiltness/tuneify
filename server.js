@@ -27,6 +27,10 @@ import {
   artistPage,
   currentArtistPageError,
 } from './app/reducers/artist-page';
+import {
+  topArtistData,
+  topArtistDataError,
+} from './app/reducers/home-page';
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -89,6 +93,8 @@ const store = createStore(
     artistPage,
     currentArtistPageError,
     videoData,
+    topArtistData,
+    topArtistDataError,
   }),
   {
     currentSearch: '',
@@ -104,6 +110,8 @@ const store = createStore(
     currentAlbumPageError: null,
     artistPage: null,
     currentArtistPageError: null,
+    topArtistData: null,
+    topArtistDataError: null,
   }
 );
 

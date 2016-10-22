@@ -1,10 +1,10 @@
-import React from 'react'
-import { IndexRoute, Route } from 'react-router'
-import App from '../app'
-import Home  from '../home'
-import Artist from '../artist'
-import Album from '../album'
-import PageNotFound from '../page-not-found'
+import React from 'react';
+import { IndexRoute, Route } from 'react-router';
+import App from '../app';
+import Home  from '../home';
+import Artist from '../artist';
+import Album from '../album';
+import PageNotFound from '../page-not-found';
 
 export default(
   <Route component={App} path="/">

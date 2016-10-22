@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { connect } from 'react-redux'
 import { 
@@ -95,7 +94,6 @@ class Artist extends React.Component {
         );
       }
     } else if(currentArtistPageError) {
-      console.log('proper errors like');
       return(
         <h3>No artist found for this search result.</h3>
       );
