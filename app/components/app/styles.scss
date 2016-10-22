@@ -24,6 +24,28 @@ body {
 }
 
 .route-content {
-  padding-top: 100px;
+  padding: 75px 20px 0 20px;
+  margin: 0 325px 0 240px;
+  height: 100%;
+  min-height: 600px;
 }
 
+.sidebar {
+  position: fixed;
+  margin-top: 63px;
+  height: 100%;
+  background: #161616;
+  padding: 0 20px;
+
+  &--left {
+    width: 240px;
+    border-right: 4px solid #282727;
+  }
+
+  &--right {
+    right: 0;
+    top: 0;
+    width: 325px;
+    border-left: 4px solid #282727;
+  }
+}

@@ -8,9 +8,7 @@ function Home() {
       <p>Current focus:</p>
       <ul>
         <li>Styling</li>
-        <li>Album and Artist routes correctly displaying data</li>
       </ul>
-      <p><Link to="/about">About page</Link></p>
     </div>
   );
 }

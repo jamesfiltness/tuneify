@@ -1,0 +1,19 @@
+.album {
+  &__header {
+    overflow: hidden;
+  }
+
+  &__header-image {
+    float: left;
+    margin-right: 20px;
+  }
+
+  &__header-identifier {
+    text-transform: uppercase;
+    color: #ccc;
+  }
+
+  &__tracks {
+    width: 100%;
+  }
+}

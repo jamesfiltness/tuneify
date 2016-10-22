@@ -24,7 +24,6 @@ class YouTubePlayer extends React.Component {
     return (
       <div className="youtube-player">
         <div className="youtube-player__player" id="player" />
-        <div className="youtube-player__play-button">Play</div>
       </div>
     )
   }
