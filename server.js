@@ -21,7 +21,14 @@ import {
   videoData,
 } from './app/reducers/search'
 import { currentVideo } from './app/reducers/video-player'
-import { currentAlbumPageAlbum, currentAlbumPageError } from './app/reducers/album-page'
+import { 
+  albumPage, 
+  currentAlbumPageError 
+} from './app/reducers/album-page'
+import { 
+  artistPage, 
+  currentArtistPageError 
+} from './app/reducers/artist-page'
 import { routerReducer } from 'react-router-redux'
 
 const app = express();
@@ -51,6 +58,11 @@ if (process.env.NODE_ENV !== 'production') {
                 loader: ExtractTextPlugin.extract('css!sass'),
                 exclude: 'node_modules',
               },
+              {
+                test: /\.(jpe?g|png|gif|svg)$/i, 
+                loader: "file",
+                exclude: 'node_modules',
+              },
             ],
           },
           plugins: [
@@ -72,8 +84,10 @@ const store = createStore(
     currentTrackResults, 
     currentAlbumResults,
     currentVideo,
-    currentAlbumPageAlbum,
+    albumPage,
     currentAlbumPageError,
+    artistPage,
+    currentArtistPageError,
     videoData,
   }),
   { 
@@ -86,8 +100,10 @@ const store = createStore(
     currentTrack: {},
     currentAlbum: {},
     videoData: [],
-    currentAlbumPageAlbum: null,
+    albumPage: null,
     currentAlbumPageError: null,
+    artistPage: null,
+    currentArtistPageError: null,
   }
 );
 

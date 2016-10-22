@@ -1,6 +1,6 @@
 import * as types from '../../constants/ActionTypes.js'
 
-export function currentAlbumPageAlbum(state = null, action) {
+export function albumPage(state = null, action) {
   switch (action.type) {
     case types.RECEIVE_ALBUM_PAGE_DATA:
       // need a better solution for dealing with images here

@@ -8,23 +8,12 @@ import {
 import prepareUrlParamForUse from '../../utils/prepare-url-param-for-use'
 
 class Album extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      clientRender: false,
-    }
-  } 
   // only call for data once the page
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second
-  // per originating IP adress averaged over a 5 second period
+  // per originating IP adress averaged over a 5 album period
   componentDidMount() {
     this.getAlbumData(this.props);
-
-    this.setState({
-      clientRender: true,
-    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,9 +45,9 @@ class Album extends React.Component {
   } 
 
   renderTracks() {
-    if(this.props.currentAlbumPageAlbum.tracks) {
+    if(this.props.albumPage.tracks) {
       return (
-        this.props.currentAlbumPageAlbum.tracks.map((track, i) => {
+        this.props.albumPage.tracks.map((track, i) => {
           return (
             <li key={i}>{track.name}</li>
           )
@@ -72,31 +61,32 @@ class Album extends React.Component {
   render() {
     const {
       currentAlbum,
-      currentAlbumPageAlbum,
+      albumPage,
       currentAlbumPageError,
     } = this.props;
-   console.log(currentAlbumPageAlbum); 
-    if(this.state.clientRender) {
-    if ( currentAlbumPageAlbum) {
-
-      if(currentAlbumPageAlbum.error) {
+    
+    if (albumPage) {
+      // sometimes lastfm returns successfully but with an empty 
+      // json object. To counter this the reducer has a case for
+      // this an returns and error property when it does happen
+      if(albumPage.error) {
         return(
-        <h3>No album found for this search result.</h3>
+          <h3>No album found for this search result.</h3>
         )
       } else {
-      return (
-        <div>
-          <h3>{currentAlbumPageAlbum.name}</h3>
-          <h4>{currentAlbumPageAlbum.artist}</h4>
-          <img 
-            src={currentAlbumPageAlbum.image} 
-            alt={`${currentAlbumPageAlbum.name} by ${currentAlbumPageAlbum.artist}`} 
-          />
-          <ul>
-            {this.renderTracks()}
-          </ul>
-        </div>
-      );
+        return (
+          <div>
+            <h3>{albumPage.name}</h3>
+            <h4>{albumPage.artist}</h4>
+            <img 
+              src={albumPage.image} 
+              alt={`${albumPage.name} by ${albumPage.artist}`} 
+            />
+            <ul>
+              {this.renderTracks()}
+            </ul>
+          </div>
+        );
       }
     } else if(currentAlbumPageError) {
       return(
@@ -104,14 +94,8 @@ class Album extends React.Component {
       );
     } else {
       return (
-      <div>
-        <h1>LOADING!</h1>
-        <img src="/images/spinner.svg" />
-        </div>
+        <div className="spinner" />
       );
-    }
-    } else {
-      return null;
     }
   }
 }
@@ -119,7 +103,7 @@ class Album extends React.Component {
 function mapStateToProps(state) {
   return {
     currentAlbum: state.currentAlbum,
-    currentAlbumPageAlbum: state.currentAlbumPageAlbum,
+    albumPage: state.albumPage,
     currentAlbumPageError: state.currentAlbumPageError,
   }
 }

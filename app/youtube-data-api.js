@@ -11,7 +11,7 @@ class YouTubeDataApi {
 
   loadApi() {
     const tag = document.createElement('script');
-    tag.src = "https://apis.google.com/js/api.js";
+    tag.src = "http://apis.google.com/js/api.js";
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); 
   }

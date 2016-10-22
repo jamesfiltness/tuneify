@@ -12,8 +12,8 @@ export function getAlbumPageData(album, artist) {
 
   const params = { 
     method: 'album.getinfo',
-    album : album,
-    artist: artist,
+    album,
+    artist,
   };
   
   return fetchLastFmData(actions, params);
