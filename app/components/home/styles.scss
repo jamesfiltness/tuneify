@@ -1,9 +1,12 @@
 .top-artist {
   &__list-item {
     position: relative;
-    border: 2px solid #111;
     border-bottom: none;
-    float: left;
+    display:inline-block;
+    border: 3px solid #111;
+    border-right: none;
+    border-bottom: none;
+  img { vertical-align: bottom; }
   }
 
   &__name {

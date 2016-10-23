@@ -7,6 +7,7 @@ body {
 
 .header {
   position: fixed;
+  top: 0;
   width: 100%;
   background: #282727;
   padding: 10px 0;
@@ -30,28 +31,27 @@ body {
 }
 
 .route-content {
-  padding-top: 47px;
-  margin: 0 325px 0 240px;
+  margin: 61px 325px 0 240px;
   height: 100%;
   min-height: 600px;
 }
 
 .sidebar {
   position: fixed;
-  margin-top: 63px;
   height: 100%;
   background: #161616;
-  padding: 0 20px;
+  top: 61px;
 
   &--left {
     width: 240px;
     border-right: 4px solid #282727;
+    padding: 0 20px;
   }
 
   &--right {
     right: 0;
-    top: 0;
-    width: 325px;
+    width: 329px;
     border-left: 4px solid #282727;
+    border-right: 4px solid #282727;
   }
 }

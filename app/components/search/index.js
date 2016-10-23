@@ -16,7 +16,8 @@ class Search extends React.Component {
     	  <div className="search">
           <input
             className="search__input"  
-            type="text" 
+            type="text"
+            autoFocus
             ref="input" 
             placeholder="Artist, Album or Track"
             onChange={

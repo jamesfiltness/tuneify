@@ -44,11 +44,11 @@ class App extends React.Component {
         </header>
         <div className="sidebar sidebar--left">
         </div>
-          <SearchAutoComplete
-            artists={artists}
-            tracks={tracks}
-            albums={albums}
-          />
+        <SearchAutoComplete
+          artists={artists}
+          tracks={tracks}
+          albums={albums}
+        />
         <div className="route-content">
           {this.props.children}
         </div>

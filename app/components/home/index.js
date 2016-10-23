@@ -18,9 +18,6 @@ class Home extends React.Component {
   render() {
     const { topArtistData, topArtistDataError } = this.props;
     if (topArtistData) {
-      console.log('yoo hoo');
-
-    console.log(topArtistData);
       // sometimes lastfm returns successfully but with an empty 
       // json object. To counter this the reducer has a case for
       // this an returns and error property when it does happen
@@ -29,7 +26,6 @@ class Home extends React.Component {
           <h3>No data found.</h3>
         )
       } else {
-        console.log('sdfdsfsdf');
         return (
           <div className="top-artist">
             <ul className="top-artist__list">
@@ -40,9 +36,9 @@ class Home extends React.Component {
                       <li className="top-artist__list-item" key={i}>
                         <img 
                           className="top-artist__image" 
-                          src={artist.image[3]['#text']} 
-                          width="229"
-                          height="229"
+                          src={artist.image[3]['#text']}
+                          height="230"
+                          width="230"
                         />
                         <span className="top-artist__name">{artist.name}</span>
                       </li>
@@ -60,7 +56,7 @@ class Home extends React.Component {
       );
     } else {
       return (
-        <div className="spinner" />
+        <div className="route-content-spinner" />
       );
     }
   }

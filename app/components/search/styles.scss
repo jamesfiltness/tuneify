@@ -4,6 +4,13 @@
   &__input {
     padding: 8px;
     font-size: 20px;
+    background: #444;
+    border: 1px solid #000;
+    color: #ddd;
+
+    &:focus {
+      outline: none;
+    }
   }
 
 }

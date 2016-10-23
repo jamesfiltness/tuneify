@@ -73,7 +73,7 @@ class Artist extends React.Component {
         )
       } else {
         return (
-          <div>
+          <div className="artist">
             <h3>{artistPage.name}</h3>
             <img 
               src={artistPage.image} 
@@ -99,7 +99,7 @@ class Artist extends React.Component {
       );
     } else {
       return (
-        <div className="spinner" />
+        <div className="route-content-spinner" />
       );
     }
   }

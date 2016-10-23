@@ -11,7 +11,6 @@ export function albumPage(state = null, action) {
           error: "JSON response empty",
         }
       }
-console.log(action.json);
       return {
         artist: action.json.album.artist,
         tracks: action.json.album.tracks.track,

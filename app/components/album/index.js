@@ -47,11 +47,20 @@ class Album extends React.Component {
   renderTracks() {
     if(this.props.albumPage.tracks) {
       return (
-        this.props.albumPage.tracks.map((track, i) => {
-          return (
-            <li key={i}>{track.name}</li>
-          )
-        })
+        <table className="album__tracks-table">
+          <tbody>
+            {
+              this.props.albumPage.tracks.map((track, i) => {
+                return (
+                  <tr className="album__track-row" key={i}>
+                    <td className="album__track-cell">{track['@attr'].rank}</td>
+                    <td className="album__track-cell">{track.name}</td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table> 
       )
     } else {
       return null;
@@ -89,9 +98,7 @@ class Album extends React.Component {
               <h3 className="album__header-artist">{albumPage.artist}</h3>
             </div>
             <div className="album__tracks">
-              <ul>
-                {this.renderTracks()}
-              </ul>
+              {this.renderTracks()}
             </div>
           </div>
         );
@@ -102,7 +109,7 @@ class Album extends React.Component {
       );
     } else {
       return (
-        <div className="spinner" />
+        <div className="route-content-spinner" />
       );
     }
   }
