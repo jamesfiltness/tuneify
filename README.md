@@ -1,6 +1,6 @@
 # Tuneify
 
-A project to explore building an isomorphic React/Redux app. The idea is that a streaming music app can be built using the LastFm and YouTube Apis. Current progress is a functioning autocomplete that leverages the LastFm Api to pull back artist, album and track results.
+A project to explore building an isomorphic React/Redux app backed by a servless architecture. The idea is that a streaming music app can be built using the LastFm and YouTube Apis. Current progress is a functioning prototype featuring an autocomplete search, artist and album routes.
 
 ## Tech used:
 
@@ -10,8 +10,6 @@ A project to explore building an isomorphic React/Redux app. The idea is that a 
 * Webpack
 * ES6 / Babel
 * Node (express)
-* Mongodb
-* Last Fm and YouTube APIs
 
 * Testing on Enzyme / Mocha / Chai / Chai-jsx / Sinon / Sinon-chai
 
