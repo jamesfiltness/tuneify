@@ -32,6 +32,7 @@ import {
   topArtistData,
   topArtistDataError,
 } from './reducers/home-page';
+import { playQueue } from './reducers/play-queue';
 import routes from './components/routes';
 
 const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
@@ -53,6 +54,7 @@ const rootReducer = combineReducers({
   currentArtistPageError,
   topArtistData,
   topArtistDataError,
+  playQueue,
   routing: routerReducer,
 });
 const logger = createLogger(); // eslint-disable-line no-unused-vars

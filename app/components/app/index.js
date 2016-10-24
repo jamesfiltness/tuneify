@@ -1,12 +1,13 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { searchPerformed } from '../../actions/search-actions'
-import { playVideo } from '../../actions/player-actions'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { searchPerformed } from '../../actions/search-actions';
+import { playVideo } from '../../actions/player-actions';
 
-import Search from '../search'
-import SearchAutoComplete from '../search-autocomplete'
-import YouTubePlayer from '../youtube-player'
+import Search from '../search';
+import SearchAutoComplete from '../search-autocomplete';
+import YouTubePlayer from '../youtube-player';
+import PlayQueue from '../play-queue';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,8 +22,9 @@ class App extends React.Component {
       albums, 
       tracks,
       videoData,
+      playQueue,
     } = this.props;
- 
+    
     return (
       <div className="app">
         <header className="header">
@@ -54,6 +56,7 @@ class App extends React.Component {
         </div>
         <div className="sidebar sidebar--right">
           <YouTubePlayer videoData={videoData} />
+          <PlayQueue tracks={playQueue} />
         </div>
       </div>
     );
@@ -72,6 +75,7 @@ function mapStateToProps(state) {
     albums : state.currentAlbumResults,
     currentTrack: state.currentTrack,
     videoData: state.videoData,
+    playQueue: state.playQueue,
   }
 }
 

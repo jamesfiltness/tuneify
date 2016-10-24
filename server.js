@@ -31,6 +31,7 @@ import {
   topArtistData,
   topArtistDataError,
 } from './app/reducers/home-page';
+import { playQueue } from './app/reducers/play-queue';
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -95,6 +96,7 @@ const store = createStore(
     videoData,
     topArtistData,
     topArtistDataError,
+    playQueue,
   }),
   {
     currentSearch: '',
@@ -112,6 +114,7 @@ const store = createStore(
     currentArtistPageError: null,
     topArtistData: null,
     topArtistDataError: null,
+    playQueue: [],
   }
 );
 
