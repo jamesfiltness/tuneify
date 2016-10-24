@@ -17,7 +17,6 @@ class PlayQueue extends React.Component {
     this.shouldRenderPlayQueue(nextProps);
   }
 
-
   shouldRenderPlayQueue(props) {
     if(props.tracks && props.tracks.length) {
       this.setState({
@@ -27,36 +26,34 @@ class PlayQueue extends React.Component {
   }
 
   render() {
-    if(!this.state.renderPlayQueue) {
+    if(this.state.renderPlayQueue) {
       return (
-        <p>no Play queue</p>
-      )
+        <div className="play-queue">
+          <ul className="play-queue__list">
+            {
+              this.props.tracks.map((track, i) => {
+                console.log(track);
+                return (
+                  <li
+                    key={i}
+                    className="play-queue__list-item"
+                  >
+                  <span className="play-queue__artist">
+                    {track.artist.name}
+                   </span>
+                   <span className="play-queue__track">
+                     {track.name}
+                   </span>
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </div>
+      );
     } else {
-    return (
-      <div className="play-queue">
-        <ul className="play-queue__list">
-          {
-            this.props.tracks.map((track, i) => {
-              console.log(track);
-              return (
-                <li
-                  key={i}
-                  className="play-queue__list-item"
-                >
-                <span className="play-queue__artist">
-                  {track.artist.name}
-                 </span>
-                 <span className="play-queue__track">
-                   {track.name}
-                 </span>
-                </li>
-              )
-            })
-          }
-        </ul>
-      </div>
-    );
-  }
+      return null;
+    }
   }
 }
 

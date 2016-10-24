@@ -50,8 +50,11 @@ body {
 
   &--right {
     right: 0;
-    width: 329px;
+    top: 64px;
+    width: 328px;
+    padding-top: 3px;
     border-left: 4px solid #282727;
+    background: #282727;
     border-right: 4px solid #282727;
   }
 }
