@@ -1,0 +1,11 @@
+.play-queue {
+  height: 300px;
+  overflow: auto;
+
+  &__list-item {
+    padding: 7px 20px;
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 1px solid #333;
+  }
+}

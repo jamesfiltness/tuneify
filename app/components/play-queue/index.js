@@ -10,17 +10,16 @@ class PlayQueue extends React.Component {
   }
 
   componentWillMount(nextProps) {
-    this.shouldRenderPlayQueue();
+    this.shouldRenderPlayQueue(this.props);
   }
 
-  componentWillReceiveProps() {
-    this.shouldRenderPlayQueue();
+  componentWillReceiveProps(nextProps) {
+    this.shouldRenderPlayQueue(nextProps);
   }
 
 
-  shouldRenderPlayQueue() {
-  
-    if(this.props.playQueue && this.props.playQueue.length) {
+  shouldRenderPlayQueue(props) {
+    if(props.tracks && props.tracks.length) {
       this.setState({
         renderPlayQueue: true,
       });
@@ -37,10 +36,20 @@ class PlayQueue extends React.Component {
       <div className="play-queue">
         <ul className="play-queue__list">
           {
-            this.props.playQueue.map((track, i) => {
+            this.props.tracks.map((track, i) => {
               console.log(track);
               return (
-                <li>{track}</li>
+                <li
+                  key={i}
+                  className="play-queue__list-item"
+                >
+                <span className="play-queue__artist">
+                  {track.artist.name}
+                 </span>
+                 <span className="play-queue__track">
+                   {track.name}
+                 </span>
+                </li>
               )
             })
           }

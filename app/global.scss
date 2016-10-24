@@ -9,6 +9,7 @@
 @import './components/album/styles';
 @import './components/artist/styles';
 @import './components/home/styles';
+@import './components/play-queue/styles';
 
 .route-content-spinner {
    background:  url('images/spinner.svg') no-repeat;
@@ -45,4 +46,23 @@
 ::-webkit-scrollbar-thumb {
     background: #444;
     border-radius: 10px;
+}
+
+.button {
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #fff;
+  padding: 10px 40px;
+  border: none;
+  margin-right: 10px;
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+  }
+
+  &--primary {
+    background: #19b736;
+  }
 }
