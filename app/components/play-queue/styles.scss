@@ -5,9 +5,10 @@
   border-top: 4px solid #333;
   border-bottom: 4px solid #333;
 
-&::-webkit-scrollbar-track-piece {
+  &::-webkit-scrollbar-track-piece {
     background: #282727;
-}
+  }
+
   &__list {
     margin-top: 0;
   }
@@ -18,6 +19,11 @@
     line-height: 1;
     cursor: pointer;
     border-bottom: 1px solid #333;
+    position: relative;
+
+    &:hover {
+      background: #111;
+    }
   }
 
   &__artist {
@@ -35,5 +41,16 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  &__remove-track {
+    display:none;
+    position: absolute;
+    right: 0;
+    top: 4px;
+
+    .play-queue__list-item:hover & {
+      display:block;
+    }
   }
 }

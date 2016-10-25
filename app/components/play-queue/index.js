@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux'
+import { playQueueTrackSelected } from '../../actions/play-queue';
 
 class PlayQueue extends React.Component {
   constructor() {
@@ -7,6 +9,8 @@ class PlayQueue extends React.Component {
     this.state = {
       renderPlayQueue: false,
     };
+
+    this.onSelectTrack = this.onSelectTrack.bind(this);
   }
 
   componentWillMount(nextProps) {
@@ -25,17 +29,22 @@ class PlayQueue extends React.Component {
     } 
   }
 
+  onSelectTrack(track) {
+    this.props.dispatch(playQueueTrackSelected(track));
+  }
+
   render() {
+    console.log(this.props);
     if(this.state.renderPlayQueue) {
       return (
         <div className="play-queue">
           <ul className="play-queue__list">
             {
               this.props.tracks.map((track, i) => {
-                console.log(track);
                 return (
                   <li
                     key={i}
+                    onClick={() => {this.onSelectTrack(track)}}
                     className="play-queue__list-item"
                   >
                   <span className="play-queue__artist">
@@ -43,6 +52,9 @@ class PlayQueue extends React.Component {
                    </span>
                    <span className="play-queue__track">
                      {track.name}
+                   </span>
+                   <span className="play-queue__remove-track">
+                    X
                    </span>
                   </li>
                 )
@@ -57,4 +69,4 @@ class PlayQueue extends React.Component {
   }
 }
 
-export default PlayQueue;
+export default connect()(PlayQueue);
