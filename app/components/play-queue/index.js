@@ -35,12 +35,10 @@ class PlayQueue extends React.Component {
 
   onRemoveTrackFromQueue(event, track) {
     event.stopPropagation();
-    console.log('removing');
     this.props.dispatch(removeTrackFromQueue(track));
   }
 
   render() {
-    console.log(this.props);
     if(this.state.renderPlayQueue) {
       return (
         <div className="play-queue">

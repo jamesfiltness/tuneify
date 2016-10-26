@@ -19,7 +19,6 @@ export function fetchVideoData(selectedTrackString) {
 }
 
 export function trackSelected(selectedTrackString) {
-  console.log('sdfs', selectedTrackString, types.TRACK_SELECTED);
   return {
     type: types.TRACK_SELECTED,
     selectedTrackString,
@@ -27,7 +26,6 @@ export function trackSelected(selectedTrackString) {
 }
 
 export function playTrack(selectedTrackString) {
-  console.log('sel', selectedTrackString);
   return (dispatch, getState)  => {
     dispatch(trackSelected(selectedTrackString));
     dispatch(fetchVideoData(selectedTrackString)).then(() => {

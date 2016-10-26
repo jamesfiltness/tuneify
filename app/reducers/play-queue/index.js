@@ -9,7 +9,6 @@ export function playQueue(state = [], action) {
     case types.REMOVE_TRACK_FROM_PLAY_QUEUE:
       const trackName = action.track.name;
       const trackArtist = action.track.artist.name;
-      console.log(trackName, trackArtist);
       const trackQueueIndex = state.findIndex(track => {
         return track.name == trackName && track.artist.name === trackArtist;
       });
