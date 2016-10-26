@@ -31,7 +31,6 @@ export function currentAlbumPageError(state = [], action) {
         error: action,
       }
     case types.CLEAR_ALBUM_PAGE_ERROR:
-    console.log('clearing errors');
       return null;
     default: 
       return state

@@ -6,7 +6,7 @@ export function artistPage(state = null, action) {
       // need a better solution for dealing with images here
       // what if this image is not defined
       // need to also confirm that all the required properties are here
-      console.log('a to the d', action.json);
+
 
       return {
         name: action.json.artist.name,
@@ -24,7 +24,6 @@ export function artistPage(state = null, action) {
 export function currentArtistPageError(state = [], action) {
   switch(action.type) {
     case types.ARTIST_PAGE_DATA_ERROR:
-    console.log('error in reduce');
       return {
         error: action,
       }

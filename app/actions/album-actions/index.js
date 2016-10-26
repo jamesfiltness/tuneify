@@ -30,3 +30,16 @@ export function clearAlbumPageError() {
   }
 }
 
+export function appendAlbumToPlayQueue(tracks) {
+  return {
+    type: types.ADD_TRACKS_TO_PLAY_QUEUE,
+    tracks,
+  }
+}
+
+export function replaceQueueWithAlbum(tracks) {
+  return {
+    type: types.REPLACE_QUEUE_WITH_TRACKS,
+    tracks,
+  }
+}

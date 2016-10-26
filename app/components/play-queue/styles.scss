@@ -1,0 +1,56 @@
+.play-queue {
+  height: 300px;
+  overflow: auto;
+  padding: 0 10px;
+  border-top: 4px solid #333;
+  border-bottom: 4px solid #333;
+
+  &::-webkit-scrollbar-track-piece {
+    background: #282727;
+  }
+
+  &__list {
+    margin-top: 0;
+  }
+
+  &__list-item {
+    padding: 4px 10px 4px 1px;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+    border-bottom: 1px solid #333;
+    position: relative;
+
+    &:hover {
+      background: #111;
+    }
+  }
+
+  &__artist {
+    margin-right: 10px;
+    width: 100px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__track {
+    width: 158px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__remove-track {
+    display:none;
+    position: absolute;
+    right: 0;
+    top: 4px;
+
+    .play-queue__list-item:hover & {
+      display:block;
+    }
+  }
+}

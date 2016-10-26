@@ -3,7 +3,9 @@ import { connect } from 'react-redux'
 import { 
   clearAlbumPageError, 
   getAlbumPageData, 
-  clearAlbumPageData 
+  clearAlbumPageData,
+  appendAlbumToPlayQueue,
+  replaceQueueWithAlbum,
 } from '../../actions/album-actions'
 import prepareUrlParamForUse from '../../utils/prepare-url-param-for-use'
 
@@ -12,6 +14,13 @@ class Album extends React.Component {
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second
   // per originating IP adress averaged over a 5 album period
+  constructor() {
+    super();
+
+    this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
+    this.replaceQueueWithAlbum = this.replaceQueueWithAlbum.bind(this);
+  }
+
   componentDidMount() {
     this.getAlbumData(this.props);
   }
@@ -67,6 +76,22 @@ class Album extends React.Component {
     }
   }
 
+  appendAlbumToQueue() {
+    this.props.dispatch(
+      appendAlbumToPlayQueue(
+        this.props.albumPage.tracks
+      )
+    );
+  }
+
+  replaceQueueWithAlbum() {
+    this.props.dispatch(
+      replaceQueueWithAlbum(
+        this.props.albumPage.tracks
+      )
+    );
+  }
+
   render() {
     const {
       currentAlbum,
@@ -96,6 +121,18 @@ class Album extends React.Component {
               <h5 className="album__header-identifier">Album</h5>
               <h1 className="album__header-name">{albumPage.name}</h1>
               <h3 className="album__header-artist">{albumPage.artist}</h3>
+              <button 
+                onClick={this.replaceQueueWithAlbum}
+                className="button button--primary button--play"
+                >
+                Play
+              </button>
+              <button 
+                onClick={this.appendAlbumToQueue}
+                className="button button--add"
+                >
+                +
+              </button>
             </div>
             <div className="album__tracks">
               {this.renderTracks()}
