@@ -10,6 +10,13 @@ export function playQueue(state = [], action) {
       const trackName = action.track.name;
       const trackArtist = action.track.artist.name;
       console.log(trackName, trackArtist);
+      const trackQueueIndex = state.findIndex(track => {
+        return track.name == trackName && track.artist.name === trackArtist;
+      });
+      return [
+        ...state.slice(0,trackQueueIndex),
+        ...state.slice(trackQueueIndex + 1)
+      ]
       return state;
     default: 
       return state
