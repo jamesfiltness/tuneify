@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { playQueueTrackSelected } from '../../actions/play-queue';
+import { playQueueTrackSelected, removeTrackFromQueue } from '../../actions/play-queue';
 
 class PlayQueue extends React.Component {
   constructor() {
@@ -33,6 +33,12 @@ class PlayQueue extends React.Component {
     this.props.dispatch(playQueueTrackSelected(track));
   }
 
+  onRemoveTrackFromQueue(event, track) {
+    event.stopPropagation();
+    console.log('removing');
+    this.props.dispatch(removeTrackFromQueue(track));
+  }
+
   render() {
     console.log(this.props);
     if(this.state.renderPlayQueue) {
@@ -53,7 +59,9 @@ class PlayQueue extends React.Component {
                    <span className="play-queue__track">
                      {track.name}
                    </span>
-                   <span className="play-queue__remove-track">
+                   <span 
+                    onClick={(event) => {this.onRemoveTrackFromQueue(event, track)}}
+                    className="play-queue__remove-track">
                     X
                    </span>
                   </li>

@@ -14,7 +14,7 @@ export function currentSearch(state = '' , action) {
 export function currentTrack(state = {}, action) {
   switch (action.type) {
     case types.TRACK_SELECTED:
-      return action.selectedTrackData
+      return action.selectedTrackString
     default: 
       return state
   }
