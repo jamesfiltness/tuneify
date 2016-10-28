@@ -11,13 +11,7 @@ class SearchAutoCompleteSection extends React.Component {
   }
   
   resultSelected(result) {
-    const artist = result.artist ? result.artist : '';
-    const resultObj = {
-      name : result.name,
-      artist: artist
-    };
-
-    this.props.onSelectResult(resultObj);
+    this.props.onSelectResult(result);
   }
 
   resultContent(result) {

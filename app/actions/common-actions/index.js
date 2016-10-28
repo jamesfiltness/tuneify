@@ -18,17 +18,33 @@ export function fetchVideoData(selectedTrackString) {
     }
 }
 
-export function trackSelected(selectedTrackString) {
+export function trackSelected(selectedTrackSummaryData, from) {
   return {
     type: types.TRACK_SELECTED,
-    selectedTrackString,
+    selectedTrackSummaryData,
   }
 }
 
-export function playTrack(selectedTrackString) {
+export function getTrackInfo(track, artist) {
+  const actions =  
+    [
+      types.LAST_FM_API_REQUEST, 
+      types.RECEIVE_CURRENT_TRACK_DATA,
+      types.RECEIVE_ARTIST_DATA
+    ];
+
+  const params = { 
+    method: 'track.getInfo',
+    artist,
+    track,
+  };
+
+  return fetchLastFmData(actions, params);
+};
+
+export function playTrack(trackName, artist, image) {
   return (dispatch, getState)  => {
-    dispatch(trackSelected(selectedTrackString));
-    dispatch(fetchVideoData(selectedTrackString)).then(() => {
+    dispatch(fetchVideoData(`${trackName} - ${artist}`)).then(() => {
       dispatch(playVideo(getState().videoData));
     });
   }

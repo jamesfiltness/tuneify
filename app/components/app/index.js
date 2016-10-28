@@ -8,6 +8,7 @@ import Search from '../search';
 import SearchAutoComplete from '../search-autocomplete';
 import YouTubePlayer from '../youtube-player';
 import PlayQueue from '../play-queue';
+import CurrentTrackSummary from '../current-track-summary';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,8 +24,8 @@ class App extends React.Component {
       tracks,
       videoData,
       playQueue,
+      currentTrackSummaryData,
     } = this.props;
-    
     return (
       <div className="app">
         <header className="header">
@@ -55,6 +56,7 @@ class App extends React.Component {
           {this.props.children}
         </div>
         <div className="sidebar sidebar--right">
+          <CurrentTrackSummary trackData={currentTrackSummaryData} />
           <YouTubePlayer videoData={videoData} />
           <PlayQueue tracks={playQueue} />
         </div>
@@ -76,6 +78,7 @@ function mapStateToProps(state) {
     currentTrack: state.currentTrack,
     videoData: state.videoData,
     playQueue: state.playQueue,
+    currentTrackSummaryData: state.currentTrackSummaryData,
   }
 }
 

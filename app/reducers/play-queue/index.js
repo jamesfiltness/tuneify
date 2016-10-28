@@ -13,7 +13,7 @@ export function playQueue(state = [], action) {
         return track.name == trackName && track.artist.name === trackArtist;
       });
       return [
-        ...state.slice(0,trackQueueIndex),
+        ...state.slice(0, trackQueueIndex),
         ...state.slice(trackQueueIndex + 1)
       ]
       return state;

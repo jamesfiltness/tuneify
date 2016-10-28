@@ -23,11 +23,6 @@ class SearchAutoComplete extends React.Component {
           <SearchAutoCompleteSection 
             title="Artists" 
             data={artists}
-            onSelectResult={
-              searchParams => dispatch(
-                autocompleteArtistSelected(searchParams)
-              )
-            }
           />
           <SearchAutoCompleteSection 
             title="Tracks" 
@@ -41,11 +36,6 @@ class SearchAutoComplete extends React.Component {
           <SearchAutoCompleteSection 
             title="Albums" 
             data={albums}
-            onSelectResult={
-              searchParams => dispatch(
-                autocompleteAlbumSelected(searchParams)
-              )
-            }
           />
         </div>
       )

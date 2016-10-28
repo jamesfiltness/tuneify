@@ -15,7 +15,7 @@ import {
   currentArtistResults,
   currentTrackResults,
   currentAlbumResults,
-  currentTrack,
+  currentTrackSummaryData,
   videoData,
 } from './app/reducers/search';
 import { currentVideo } from './app/reducers/video-player';
@@ -81,7 +81,7 @@ if (process.env.NODE_ENV !== 'production') {
 // TODO: break this out
 const store = createStore(
   combineReducers({
-    currentTrack,
+    currentTrackSummaryData,
     currentArtist,
     currentAlbum,
     currentSearch,
@@ -105,7 +105,7 @@ const store = createStore(
     currentAlbumResults: [],
     currentVideo: '',
     currentArtist: {},
-    currentTrack: {},
+    currentTrackSummaryData: {},
     currentAlbum: {},
     videoData: [],
     albumPage: null,

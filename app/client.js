@@ -10,7 +10,7 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-rou
 import styles from './global.scss';
 
 import {
-  currentTrack,
+  currentTrackSummaryData,
   currentArtist,
   currentAlbum,
   currentSearch,
@@ -42,7 +42,7 @@ const rootReducer = combineReducers({
   currentSearch,
   currentArtist,
   currentAlbum,
-  currentTrack,
+  currentTrackSummaryData,
   currentArtistResults,
   currentTrackResults,
   currentAlbumResults,

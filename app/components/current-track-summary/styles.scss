@@ -1,0 +1,18 @@
+.current-track-summary {
+  padding: 10px 0 10px 5px;;
+  float: left;
+  overflow: hidden;
+  width: 100%;
+  &__thumb {
+    float: left;
+    margin-right: 10px;
+  }
+
+  &__track-name {
+    margin: 8px 0 7px 0;
+  }
+
+  &__artist {
+    margin: 0;
+  }
+}

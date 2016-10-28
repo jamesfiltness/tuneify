@@ -2,7 +2,7 @@ require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch';
 import * as types from '../../constants/ActionTypes.js';
 import { playVideo } from '../player-actions';
-import { playTrack } from '../common-actions';
+import { playTrack, trackSelected } from '../common-actions';
 import { handleErrors, handleServerErrors } from '../../utils/handleErrors';
 import { push } from 'react-router-redux';
 import { fetchLastFmData } from '../lastfm-actions';
@@ -11,13 +11,6 @@ export function clearSearch() {
     type: types.CLEAR_SEARCH
   }
 };
-
-export function trackSelected(selectedTrackData) {
-  return {
-    type: types.TRACK_SELECTED,
-    selectedTrackData,
-  }
-}
 
 export function artistSelected(artist) {
   return {
@@ -49,8 +42,21 @@ export function autocompleteAlbumSelected(selectedAlbumData) {
 
 export function autocompleteTrackSelected(selectedTrackData) {
   return (dispatch, getState)  => {
-    const selectedTrackString = `${selectedTrackData.name} - ${selectedTrackData.artist}`;
-    dispatch(playTrack(selectedTrackString));
+    dispatch(
+      trackSelected({
+        trackName: selectedTrackData.name, 
+        artist: selectedTrackData.artist,
+        image: selectedTrackData.image[1]['#text'],
+      }
+      )
+    );
+    dispatch(
+      playTrack(
+        selectedTrackData.name, 
+        selectedTrackData.artist, 
+        selectedTrackData.image[1]['#text']
+      )
+    );
   }
 };
 
