@@ -1,12 +1,32 @@
+
+
 .play-queue {
   height: 300px;
   overflow: auto;
-  padding: 3px 8px 3px 5px;
+  padding: 3px 0px 3px 5px;
   border-top: 4px solid #333;
   border-bottom: 4px solid #333;
 
-  &::-webkit-scrollbar-track-piece {
+  &::-webkit-scrollbar {
+    width:11px;
     background: #282727;
+  }
+
+  &::-webkit-scrollbar:horizontal {
+    height:11px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border:2px solid transparent;
+    background-color:#505050;
+    background-clip:content-box;
+    -webkit-border-radius:7px;
+    -moz-border-radius:7px;
+    border-radius:7px;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color:#000000;
   }
 
   &__list {
@@ -28,7 +48,7 @@
 
     &--selected {
       background: #111;
-      color: #08d1d8;
+      color: #11dbd4;
       font-weight: bold;
     }
   }
