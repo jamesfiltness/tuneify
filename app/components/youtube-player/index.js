@@ -30,13 +30,14 @@ class YouTubePlayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.videoData.length > 0) {
-    if(nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
-      this.playVideo(nextProps.videoData[0].id.videoId);       
-    }
+      // this needs to be much more robust - although it seems never to have failed!
+      if(nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
+        this.playVideo(nextProps.videoData[0].id.videoId);       
+      }
     }
   } 
   
-// move in to reusable utils class - allow multiple scripts to be loaded
+  // move in to reusable utils class - allow multiple scripts to be loaded
   loadPlayerIframe() {
     const tag = document.createElement('script');
     tag.src = "http://www.youtube.com/iframe_api";
@@ -55,18 +56,25 @@ class YouTubePlayer extends React.Component {
     });
   }
 
-  onPlayerStateChange(data) {
-console.log('player state change', data);
+  onPlayerStateChange(event) {
+    // in here if the player state change is video ended we need to dispatch 
+    // an action. 
+    // that action can get picked up by a play queue reducer which will then 
+    // queue the next track
+    // simples
+    if(event.data === YT.PlayerState.ENDED) {
+      alert('ended');
+    }
+   // console.log(event.data);
+   // console.log('player state change', event);
   }
 
   playVideo(videoId) {
     this.player.cueVideoById(videoId);
-this.player.playVideo();
-this.setState({
-    currentVideoId: videoId,
-});
+    this.player.playVideo();
+    this.setState({
+      currentVideoId: videoId,
+    });
   }
-
-	
 }
 export default YouTubePlayer

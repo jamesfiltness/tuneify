@@ -21,10 +21,30 @@ export function playQueueTrackSelected(selectedTrackData) {
   }
 }
 
+export function playCurrentIndex() {
+  return (dispatch, getState) => {
+    console.log('f', getState().playQueueCurrentIndex);
+    const currentIndex = getState().playQueueCurrentIndex;
+    const currentTrack = getState().playQueue[currentIndex];
+    console.log(currentTrack, currentIndex);
+    dispatch(
+      playTrack(
+        currentTrack.name, 
+        currentTrack.artist.name
+      )
+    );
+  }
+}
 
-export function removeTrackFromQueue(track) {
+export function resetPlayQueueIndex() {
+  return {
+    type: types.RESET_PLAY_QUEUE_INDEX,
+  }
+}
+
+export function removeTrackFromQueue(index) {
   return {
     type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
-    track,
+    index,
   }
 }

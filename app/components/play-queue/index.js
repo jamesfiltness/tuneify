@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import classNames from 'classNames';
+import { connect } from 'react-redux';
 import { playQueueTrackSelected, removeTrackFromQueue } from '../../actions/play-queue';
 
 class PlayQueue extends React.Component {
@@ -29,39 +30,55 @@ class PlayQueue extends React.Component {
     } 
   }
 
-  onSelectTrack(track) {
+  onSelectTrack(track, index) {
+    console.log(index);
     this.props.dispatch(playQueueTrackSelected(track));
   }
 
-  onRemoveTrackFromQueue(event, track) {
+  onRemoveTrackFromQueue(event, index) {
     event.stopPropagation();
-    this.props.dispatch(removeTrackFromQueue(track));
+    this.props.dispatch(removeTrackFromQueue(index));
   }
 
   render() {
     if(this.state.renderPlayQueue) {
+      const currentIndex = 
+        this.props.playQueueCurrentIndex ? 
+        this.props.playQueueCurrentIndex : 0;
       return (
         <div className="play-queue">
           <ul className="play-queue__list">
             {
               this.props.tracks.map((track, i) => {
+                const selected = currentIndex === i ? 
+                  'play-queue__list-item--selected' : 
+                  null;
+
+                const classes = classNames(
+                  'play-queue__list-item',
+                  selected,
+                );
                 return (
                   <li
                     key={i}
-                    onClick={() => {this.onSelectTrack(track)}}
-                    className="play-queue__list-item"
+                    onClick={() => {this.onSelectTrack(track, i)}}
+                    className={classes}
                   >
-                  <span className="play-queue__artist">
-                    {track.artist.name}
-                   </span>
-                   <span className="play-queue__track">
-                     {track.name}
-                   </span>
-                   <span 
-                    onClick={(event) => {this.onRemoveTrackFromQueue(event, track)}}
-                    className="play-queue__remove-track">
-                    X
-                   </span>
+                    <span className="play-queue__artist">
+                      {track.artist.name}
+                    </span>
+                    <span className="play-queue__track">
+                      {track.name}
+                    </span>
+                    <span 
+                      onClick={
+                        (event) => {
+                          this.onRemoveTrackFromQueue(event, i)
+                        }
+                      }
+                      className="play-queue__remove-track">
+                      X
+                    </span>
                   </li>
                 )
               })
@@ -75,4 +92,11 @@ class PlayQueue extends React.Component {
   }
 }
 
-export default connect()(PlayQueue);
+
+function mapStateToProps(state) {
+  return {
+    playQueueCurrentIndex: state.playQueueCurrentIndex,
+  }
+}
+
+export default connect(mapStateToProps)(PlayQueue);

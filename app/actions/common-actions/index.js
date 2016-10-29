@@ -12,6 +12,7 @@ export function receiveVideoData(json) {
 // TODO: this should use fetch  middleware
 export function fetchVideoData(selectedTrackString) {
   return dispatch => {
+    // TODO: move this url out in to config
     return fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedTrackString}&type=video&key=AIzaSyBXmXzAhx7HgpOx9jdDh6X_y5ar13WAGBE` ,{mode: 'cors'})
       .then(response => response.json())
       .then(json => { dispatch(receiveVideoData(json)) })
@@ -42,7 +43,7 @@ export function getTrackInfo(track, artist) {
   return fetchLastFmData(actions, params);
 };
 
-export function playTrack(trackName, artist, image) {
+export function playTrack(trackName, artist) {
   return (dispatch, getState)  => {
     dispatch(fetchVideoData(`${trackName} - ${artist}`)).then(() => {
       dispatch(playVideo(getState().videoData));
