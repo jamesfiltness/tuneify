@@ -7,12 +7,6 @@ export function playQueue(state = [], action) {
     case types.REPLACE_QUEUE_WITH_TRACKS:
       return [].concat(action.tracks);
     case types.REMOVE_TRACK_FROM_PLAY_QUEUE:
-     // const trackName = action.track.name;
-     // const trackArtist = action.track.artist.name;
-     // const trackQueueIndex = state.findIndex(track => {
-     //   return track.name == trackName && track.artist.name === trackArtist;
-     // });
-
       return [
         ...state.slice(0, action.index),
         ...state.slice(action.index + 1)
@@ -28,7 +22,6 @@ export function playQueueCurrentIndex(state = 0, action) {
     case types.RESET_PLAY_QUEUE_INDEX:
       return 0;
     case types.INCREMENT_CURRENT_INDEX:
-    console.log('incrementing', state);
       return state + 1;
     case types.DECREMENT_CURRENT_INDEX:
       return state - 1;

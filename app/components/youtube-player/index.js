@@ -61,17 +61,9 @@ class YouTubePlayer extends React.Component {
   }
 
   onPlayerStateChange(event) {
-    // in here if the player state change is video ended we need to dispatch 
-    // an action. 
-    // that action can get picked up by a play queue reducer which will then 
-    // queue the next track
-    // simples
     if(event.data === YT.PlayerState.ENDED) {
-      console.log(this);
       this.props.dispatch(trackEnded());
     }
-   // console.log(event.data);
-   // console.log('player state change', event);
   }
 
   playVideo(videoId) {
