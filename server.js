@@ -31,7 +31,7 @@ import {
   topArtistData,
   topArtistDataError,
 } from './app/reducers/home-page';
-import { playQueue } from './app/reducers/play-queue';
+import { playQueue, playQueueCurrentIndex } from './app/reducers/play-queue';
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -97,6 +97,7 @@ const store = createStore(
     topArtistData,
     topArtistDataError,
     playQueue,
+    playQueueCurrentIndex,
   }),
   {
     currentSearch: '',
@@ -115,6 +116,7 @@ const store = createStore(
     topArtistData: null,
     topArtistDataError: null,
     playQueue: [],
+    playQueueCurrentIndex: 0,
   }
 );
 

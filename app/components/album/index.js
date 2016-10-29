@@ -5,7 +5,7 @@ import {
   getAlbumPageData, 
   clearAlbumPageData,
   appendAlbumToPlayQueue,
-  replaceQueueWithAlbum,
+  replaceQueueWithAlbumAndPlay,
 } from '../../actions/album-actions'
 import prepareUrlParamForUse from '../../utils/prepare-url-param-for-use'
 
@@ -18,7 +18,7 @@ class Album extends React.Component {
     super();
 
     this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
-    this.replaceQueueWithAlbum = this.replaceQueueWithAlbum.bind(this);
+    this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
   }
 
   componentDidMount() {
@@ -84,9 +84,9 @@ class Album extends React.Component {
     );
   }
 
-  replaceQueueWithAlbum() {
+  replaceQueueWithAlbumAndPlay() {
     this.props.dispatch(
-      replaceQueueWithAlbum(
+      replaceQueueWithAlbumAndPlay(
         this.props.albumPage.tracks
       )
     );
@@ -122,7 +122,7 @@ class Album extends React.Component {
               <h1 className="album__header-name">{albumPage.name}</h1>
               <h3 className="album__header-artist">{albumPage.artist}</h3>
               <button 
-                onClick={this.replaceQueueWithAlbum}
+                onClick={this.replaceQueueWithAlbumAndPlay}
                 className="button button--primary button--play"
                 >
                 Play

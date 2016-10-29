@@ -1,5 +1,6 @@
 import * as types from '../../constants/ActionTypes.js'
 import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions'
+import { resetPlayQueueIndex, playCurrentIndex } from '../play-queue';
 
 export function getAlbumPageData(album, artist) {
   const actions =  
@@ -22,7 +23,7 @@ export function clearAlbumPageData() {
   return {
     type: types.CLEAR_ALBUM_PAGE_DATA,
   }
-};
+}
 
 export function clearAlbumPageError() {
   return {
@@ -37,9 +38,17 @@ export function appendAlbumToPlayQueue(tracks) {
   }
 }
 
-export function replaceQueueWithAlbum(tracks) {
+export function replaceQueueWithTracks(tracks) {
   return {
     type: types.REPLACE_QUEUE_WITH_TRACKS,
     tracks,
+  }
+}
+
+export function replaceQueueWithAlbumAndPlay(tracks) {
+  return (dispatch, getState)  => {
+    dispatch(replaceQueueWithTracks(tracks));
+    dispatch(resetPlayQueueIndex());
+    dispatch(playCurrentIndex());
   }
 }

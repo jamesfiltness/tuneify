@@ -53,8 +53,7 @@ export function autocompleteTrackSelected(selectedTrackData) {
     dispatch(
       playTrack(
         selectedTrackData.name, 
-        selectedTrackData.artist, 
-        selectedTrackData.image[1]['#text']
+        selectedTrackData.artist 
       )
     );
   }

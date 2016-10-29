@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
+import { trackEnded } from '../../actions/player-actions';
 
 class YouTubePlayer extends React.Component {
   constructor() {
@@ -7,6 +9,8 @@ class YouTubePlayer extends React.Component {
     this.state = {
       currentVideoId: null,
     }
+
+    this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
   }
 
   componentDidMount() {
@@ -30,13 +34,14 @@ class YouTubePlayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.videoData.length > 0) {
-    if(nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
-      this.playVideo(nextProps.videoData[0].id.videoId);       
-    }
+      // this needs to be much more robust - although it seems never to have failed!
+      if(nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
+        this.playVideo(nextProps.videoData[0].id.videoId);       
+      }
     }
   } 
   
-// move in to reusable utils class - allow multiple scripts to be loaded
+  // move in to reusable utils class - allow multiple scripts to be loaded
   loadPlayerIframe() {
     const tag = document.createElement('script');
     tag.src = "http://www.youtube.com/iframe_api";
@@ -55,18 +60,19 @@ class YouTubePlayer extends React.Component {
     });
   }
 
-  onPlayerStateChange(data) {
-console.log('player state change', data);
+  onPlayerStateChange(event) {
+    if(event.data === YT.PlayerState.ENDED) {
+      this.props.dispatch(trackEnded());
+    }
   }
 
   playVideo(videoId) {
     this.player.cueVideoById(videoId);
-this.player.playVideo();
-this.setState({
-    currentVideoId: videoId,
-});
+    this.player.playVideo();
+    this.setState({
+      currentVideoId: videoId,
+    });
   }
-
-	
 }
-export default YouTubePlayer
+
+export default connect()(YouTubePlayer);

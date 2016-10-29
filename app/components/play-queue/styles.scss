@@ -25,6 +25,12 @@
     &:hover {
       background: #111;
     }
+
+    &--selected {
+      background: #111;
+      color: #08d1d8;
+      font-weight: bold;
+    }
   }
 
   &__artist {
