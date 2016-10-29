@@ -31,8 +31,7 @@ class PlayQueue extends React.Component {
   }
 
   onSelectTrack(track, index) {
-    console.log(index);
-    this.props.dispatch(playQueueTrackSelected(track));
+    this.props.dispatch(playQueueTrackSelected(track, index));
   }
 
   onRemoveTrackFromQueue(event, index) {

@@ -26,7 +26,14 @@ export function playQueue(state = [], action) {
 export function playQueueCurrentIndex(state = 0, action) {
   switch(action.type) {
     case types.RESET_PLAY_QUEUE_INDEX:
-      return 0
+      return 0;
+    case types.INCREMENT_CURRENT_INDEX:
+    console.log('incrementing', state);
+      return state + 1;
+    case types.DECREMENT_CURRENT_INDEX:
+      return state - 1;
+    case types.SET_CURRENT_INDEX:
+      return action.index;
     default:
       return state;
   }

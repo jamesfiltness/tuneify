@@ -49,6 +49,15 @@ export function replaceQueueWithAlbumAndPlay(tracks) {
   return (dispatch, getState)  => {
     dispatch(replaceQueueWithTracks(tracks));
     dispatch(resetPlayQueueIndex());
+
+    //dispatch(
+    //  trackSelected({
+    //    trackName: selectedTrackData.name, 
+    //    artist: selectedTrackData.artist,
+    //    image: selectedTrackData.image[1]['#text'],
+    //  }
+    //  )
+    //);
     dispatch(playCurrentIndex());
   }
     // if user is selecting a result from the play queue then there 

@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
+import { trackEnded } from '../../actions/player-actions';
 
 class YouTubePlayer extends React.Component {
   constructor() {
@@ -7,6 +9,8 @@ class YouTubePlayer extends React.Component {
     this.state = {
       currentVideoId: null,
     }
+
+    this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
   }
 
   componentDidMount() {
@@ -63,7 +67,8 @@ class YouTubePlayer extends React.Component {
     // queue the next track
     // simples
     if(event.data === YT.PlayerState.ENDED) {
-      alert('ended');
+      console.log(this);
+      this.props.dispatch(trackEnded());
     }
    // console.log(event.data);
    // console.log('player state change', event);
@@ -77,4 +82,5 @@ class YouTubePlayer extends React.Component {
     });
   }
 }
-export default YouTubePlayer
+
+export default connect()(YouTubePlayer);
