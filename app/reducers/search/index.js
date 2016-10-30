@@ -1,5 +1,4 @@
 import * as types from '../../constants/ActionTypes.js';
-import { combineReducers } from 'redux';
 
 export function currentSearch(state = '' , action) {
   switch (action.type) {
@@ -27,6 +26,3 @@ export function currentTrackSummaryData(state = {}, action) {
   }
 }
 
-export const search = combineReducers({
-
-});

@@ -142,7 +142,6 @@ class Album extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('things', state);
   return {
     albumPageData: state.albumPage.albumPageData,
     currentAlbumPageError: state.currentAlbumPageError,

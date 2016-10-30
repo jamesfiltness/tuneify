@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+
 import { searchPerformed } from '../../actions/search-actions';
 import { playVideo } from '../../actions/player-actions';
 

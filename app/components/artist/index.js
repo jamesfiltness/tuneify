@@ -54,7 +54,6 @@ class Artist extends React.Component {
       artistPageData,
       currentArtistPageError,
     } = this.props;
-    console.log(this.props, 'l');
     if (artistPageData) {
       // sometimes lastfm returns successfully but with an empty 
       // json object. To counter this the reducer has a case for
@@ -98,7 +97,6 @@ class Artist extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log('mmmmm', state);
   return {
     artistPageData: state.artistPage.artistPageData,
     currentArtistPageError: state.artistPage.currentArtistPageError,
