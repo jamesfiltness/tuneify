@@ -11,13 +11,14 @@ export function topArtistData(state = null, action) {
   }    
 }
 
+// TODO: these actions are not properly hooked up yet...
 export function topArtistDataError(state = [], action) {
   switch(action.type) {
-    case types.ARTIST_PAGE_DATA_ERROR:
+    case types.TOP_ARTIST__DATA_ERROR:
       return {
         error: action,
       }
-    case types.CLEAR_ARTIST_PAGE_ERROR:
+    case types.CLEAR_TOP_ARTIST_ERROR:
       return null;
     default: 
       return state
