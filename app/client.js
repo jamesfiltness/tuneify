@@ -9,10 +9,8 @@ import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import styles from './global.scss';
 
-import {
-  currentTrackSummaryData,
-  currentSearch,
-} from './reducers/search';
+import { currentSearch } from './reducers/search';
+import { currentTrackSummaryData } from './reducers/track-summary';
 import { autocomplete } from './reducers/autocomplete';
 import { currentVideo } from './reducers/video-player';
 import { albumPage } from './reducers/album-page';

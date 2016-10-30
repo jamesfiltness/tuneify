@@ -8,10 +8,8 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import routes from './app/components/routes';
-import {
-  currentSearch,
-  currentTrackSummaryData,
-} from './app/reducers/search';
+import { currentSearch } from './app/reducers/search';
+import { currentTrackSummaryData } from './app/reducers/track-summary';
 import { autocomplete } from './app/reducers/autocomplete';
 import { currentVideo } from './app/reducers/video-player';
 import { albumPage } from './app/reducers/album-page';
