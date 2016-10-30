@@ -7,7 +7,6 @@ import {
   appendAlbumToPlayQueue,
   replaceQueueWithAlbumAndPlay,
 } from '../../actions/album-actions'
-import prepareUrlParamForUse from '../../utils/prepare-url-param-for-use'
 
 class Album extends React.Component {
   // only call for data once the page
@@ -22,33 +21,24 @@ class Album extends React.Component {
   }
 
   componentDidMount() {
-    this.getAlbumData(this.props);
+    this.getAlbumData(this.props.params.mbid);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.params.album !== this.props.params.album) {
+    if(nextProps.params.mbid !== this.props.params.mbid) {
       // TODO:  investigate whether getAlbumPageData action creator
       // can use a thunk as well as using promise middleware
       // if so we can just dispatch one action instead of three here
       this.props.dispatch(clearAlbumPageData());
       this.props.dispatch(clearAlbumPageError());
-      this.getAlbumData(nextProps);
+      this.getAlbumData(nextProps.params.mbid);
     }
   }
 
-  getAlbumData(props) {
-    const album = prepareUrlParamForUse(
-      props.params.album
-    );
-
-    const artist = prepareUrlParamForUse(
-      props.params.artist
-    );
-
+  getAlbumData(mbid) {
     this.props.dispatch(
       getAlbumPageData(
-        album, 
-        artist
+        mbid,
       )
     );
   } 

@@ -31,9 +31,8 @@ const fetchMiddleware  = store => next => action => {
   const [REQUEST, SUCCESS, FAILURE] = actions;
   // dispatch the request action
   next({ ...rest, type: REQUEST });
-  
+ console.log(promiseUrl); 
   const actionPromise = fetch(promiseUrl, promise);
-  
   actionPromise
     .then((response) =>  response.json())
     .then(json => next({ ...rest, json, type: SUCCESS }))

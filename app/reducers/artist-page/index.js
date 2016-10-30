@@ -6,8 +6,6 @@ export function artistPage(state = null, action) {
       // need a better solution for dealing with images here
       // what if this image is not defined
       // need to also confirm that all the required properties are here
-
-
       return {
         name: action.json.artist.name,
         bio: action.json.artist.bio,

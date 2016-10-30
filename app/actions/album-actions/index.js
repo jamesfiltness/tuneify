@@ -1,8 +1,8 @@
-import * as types from '../../constants/ActionTypes.js'
-import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions'
+import * as types from '../../constants/ActionTypes.js';
+import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions';
 import { resetPlayQueueIndex, playCurrentIndex } from '../play-queue';
 
-export function getAlbumPageData(album, artist) {
+export function getAlbumPageData(mbid) {
   const actions =  
     [
       types.LAST_FM_API_REQUEST, 
@@ -12,8 +12,7 @@ export function getAlbumPageData(album, artist) {
 
   const params = { 
     method: 'album.getinfo',
-    album,
-    artist,
+    mbid,
   };
   
   return fetchLastFmData(actions, params);

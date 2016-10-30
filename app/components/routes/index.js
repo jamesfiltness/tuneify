@@ -9,8 +9,8 @@ import PageNotFound from '../page-not-found';
 export default(
   <Route component={App} path="/">
     <IndexRoute component={Home} />
-    <Route component={Artist} path="artist/:artist" />
-    <Route component={Album} path="album/:artist/:album" />
+    <Route component={Artist} path="artist/:mbid" />
+    <Route component={Album} path="album/:mbid" />
     <Route component={PageNotFound} path="*" />
   </Route>
 );

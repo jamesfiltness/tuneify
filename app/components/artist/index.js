@@ -1,11 +1,10 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 import { 
   clearArtistPageError, 
   getArtistPageData, 
   clearArtistPageData 
-} from '../../actions/artist-actions'
-import prepareUrlParamForUse from '../../utils/prepare-url-param-for-use'
+} from '../../actions/artist-actions';
 
 class Artist extends React.Component {
   // only call for data once the page
@@ -13,29 +12,23 @@ class Artist extends React.Component {
   // rate limiting allows 5 requests per second
   // per originating IP adress averaged over a 5 minute period
   componentDidMount() {
-    this.getArtistData(this.props);
+    this.getArtistData(this.props.params.mbid);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.params.artist !== this.props.params.artist) {
+    if(nextProps.params.mbid !== this.props.params.mbid) {
       // TODO:  investigate whether getArtistPageData action creator
       // can use a thunk as well as using promise middleware
       // if so we can just dispatch one action instead of three here
       this.props.dispatch(clearArtistPageData());
       this.props.dispatch(clearArtistPageError());
-      this.getArtistData(nextProps);
+      this.getArtistData(nextProps.params.mbid);
     }
   }
 
-  getArtistData(props) {
-    const artist = prepareUrlParamForUse(
-      props.params.artist
-    );
-
+  getArtistData(mbid) {
     this.props.dispatch(
-      getArtistPageData(
-        artist,
-      )
+      getArtistPageData(mbid)
     );
   } 
 
