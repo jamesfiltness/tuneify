@@ -12,19 +12,14 @@ import styles from './global.scss';
 import {
   currentTrackSummaryData,
   currentSearch,
-  currentArtistResults,
-  currentTrackResults,
-  currentAlbumResults,
-  videoData,
 } from './reducers/search';
+import { autocomplete } from './reducers/autocomplete';
 import { currentVideo } from './reducers/video-player';
 import { albumPage } from './reducers/album-page';
 import { artistPage } from './reducers/artist-page';
-import {
-  topArtistData,
-  topArtistDataError,
-} from './reducers/home-page';
-import { playQueue, playQueueCurrentIndex } from './reducers/play-queue';
+import { topArtists } from './reducers/top-artists';
+import { videoData } from './reducers/video-data';
+import { playQueue } from './reducers/play-queue';
 import routes from './components/routes';
 
 const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
@@ -33,17 +28,13 @@ const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-under
 const rootReducer = combineReducers({
   currentSearch,
   currentTrackSummaryData,
-  currentArtistResults,
-  currentTrackResults,
-  currentAlbumResults,
   currentVideo,
   videoData,
   albumPage,
+  autocomplete,
   artistPage,
-  topArtistData,
-  topArtistDataError,
+  topArtists,
   playQueue,
-  playQueueCurrentIndex,
   routing: routerReducer,
 });
 const logger = createLogger(); // eslint-disable-line no-unused-vars

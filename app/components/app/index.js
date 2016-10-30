@@ -23,7 +23,7 @@ class App extends React.Component {
       albums, 
       tracks,
       videoData,
-      playQueue,
+      playQueueTracks,
       trackSummary,
     } = this.props;
     return (
@@ -58,7 +58,7 @@ class App extends React.Component {
         <div className="sidebar sidebar--right">
           <CurrentTrackSummary trackData={trackSummary} />
           <YouTubePlayer videoData={videoData} />
-          <PlayQueue tracks={playQueue} />
+          <PlayQueue tracks={playQueueTracks} />
         </div>
       </div>
     );
@@ -72,12 +72,12 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     currentSearch : state.currentSearch,
-    artists : state.currentArtistResults,
-    tracks : state.currentTrackResults,
-    albums : state.currentAlbumResults,
+    artists : state.autocomplete.autocompleteArtistData,
+    tracks : state.autocomplete.autocompleteTrackData,
+    albums : state.autocomplete.autocompleteAlbumData,
     currentTrack: state.currentTrack,
     videoData: state.videoData,
-    playQueue: state.playQueue,
+    playQueueTracks: state.playQueue.playQueueTracks,
     trackSummary: state.currentTrackSummaryData,
   }
 }

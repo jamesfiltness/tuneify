@@ -44,8 +44,8 @@ export function decrementCurrentIndex() {
 
 export function playCurrentIndex() {
   return (dispatch, getState) => {
-    const currentIndex = getState().playQueueCurrentIndex;
-    const currentTrack = getState().playQueue[currentIndex];
+    const currentIndex = getState().playQueue.playQueueCurrentIndex;
+    const currentTrack = getState().playQueue.playQueueTracks[currentIndex];
     
     dispatch(
       getTrackInfo(

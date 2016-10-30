@@ -1,4 +1,4 @@
-import * as types from '../../constants/ActionTypes.js'
+import * as types from '../../constants/ActionTypes.js';
 import { combineReducers } from 'redux';
 
 export function albumPageData(state = null, action) {

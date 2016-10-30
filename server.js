@@ -10,20 +10,15 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import routes from './app/components/routes';
 import {
   currentSearch,
-  currentArtistResults,
-  currentTrackResults,
-  currentAlbumResults,
   currentTrackSummaryData,
-  videoData,
 } from './app/reducers/search';
+import { autocomplete } from './app/reducers/autocomplete';
 import { currentVideo } from './app/reducers/video-player';
 import { albumPage } from './app/reducers/album-page';
 import { artistPage } from './app/reducers/artist-page';
-import {
-  topArtistData,
-  topArtistDataError,
-} from './app/reducers/home-page';
-import { playQueue, playQueueCurrentIndex } from './app/reducers/play-queue';
+import { topArtists } from './app/reducers/top-artists';
+import { videoData } from './app/reducers/video-data';
+import { playQueue } from './app/reducers/play-queue';
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -74,23 +69,21 @@ const store = createStore(
   combineReducers({
     currentTrackSummaryData,
     currentSearch,
-    currentArtistResults,
-    currentTrackResults,
-    currentAlbumResults,
+    autocomplete,
     currentVideo,
     albumPage,
     artistPage,
     videoData,
-    topArtistData,
-    topArtistDataError,
+    topArtists,
     playQueue,
-    playQueueCurrentIndex,
   }),
   {
     currentSearch: '',
-    currentArtistResults: [],
-    currentTrackResults: [],
-    currentAlbumResults: [],
+    autocomplete: {
+      autocompleteArtistData : [],
+      autocompleteAlbumData : [],
+      autocompleteTrackData : [],
+    },
     currentVideo: '',
     currentTrackSummaryData: {},
     videoData: [],
@@ -102,10 +95,14 @@ const store = createStore(
       artistPageData: null,
       currentArtistPageError: null,
     },
-    topArtistData: null,
-    topArtistDataError: null,
-    playQueue: [],
-    playQueueCurrentIndex: 0,
+    topArtists : {
+      topArtistData : null,
+      topArtistDataError: null,
+    },
+    playQueue: {
+      playQueueCurrentIndex: 0,
+      playQueueTracks: [],
+    },
   }
 );
 
