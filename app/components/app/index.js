@@ -24,7 +24,7 @@ class App extends React.Component {
       tracks,
       videoData,
       playQueue,
-      currentTrackSummaryData,
+      trackSummary,
     } = this.props;
     return (
       <div className="app">
@@ -56,7 +56,7 @@ class App extends React.Component {
           {this.props.children}
         </div>
         <div className="sidebar sidebar--right">
-          <CurrentTrackSummary trackData={currentTrackSummaryData} />
+          <CurrentTrackSummary trackData={trackSummary} />
           <YouTubePlayer videoData={videoData} />
           <PlayQueue tracks={playQueue} />
         </div>
@@ -78,7 +78,7 @@ function mapStateToProps(state) {
     currentTrack: state.currentTrack,
     videoData: state.videoData,
     playQueue: state.playQueue,
-    currentTrackSummaryData: state.currentTrackSummaryData,
+    trackSummary: state.currentTrackSummaryData,
   }
 }
 

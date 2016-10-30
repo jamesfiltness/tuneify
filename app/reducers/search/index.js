@@ -1,4 +1,5 @@
-import * as types from '../../constants/ActionTypes.js'
+import * as types from '../../constants/ActionTypes.js';
+import { combineReducers } from 'redux';
 
 export function currentSearch(state = '' , action) {
   switch (action.type) {
@@ -21,24 +22,6 @@ export function currentTrackSummaryData(state = {}, action) {
         trackName: action.json.track.name,
         image: action.json.track.album.image[1]['#text'],
       }
-    default: 
-      return state
-  }
-}
-
-export function currentArtist(state = {}, action) {
-  switch (action.type) {
-    case types.ARTIST_SELECTED:
-      return action.artist
-    default: 
-      return state
-  }
-}
-
-export function currentAlbum(state = {}, action) {
-  switch (action.type) {
-    case types.ALBUM_SELECTED:
-      return action.album
     default: 
       return state
   }
@@ -106,3 +89,7 @@ export function videoData(state = [], action) {
     default: return state
   }
 }
+
+export const search = combineReducers({
+
+});

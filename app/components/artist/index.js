@@ -51,35 +51,34 @@ class Artist extends React.Component {
 
   render() {
     const {
-      currentArtist,
-      artistPage,
+      artistPageData,
       currentArtistPageError,
     } = this.props;
-    
-    if (artistPage) {
+    console.log(this.props, 'l');
+    if (artistPageData) {
       // sometimes lastfm returns successfully but with an empty 
       // json object. To counter this the reducer has a case for
       // this an returns and error property when it does happen
-      if(artistPage.error) {
+      if(artistPageData.error) {
         return(
           <h3>No artist found for this search result.</h3>
         )
       } else {
         return (
           <div className="artist">
-            <h3>{artistPage.name}</h3>
+            <h3>{artistPageData.name}</h3>
             <img 
-              src={artistPage.image} 
+              src={artistPageData.image} 
             />
             <div 
               className="artist-page__bio" 
               dangerouslySetInnerHTML={
-                this.renderBio(artistPage.bio.summary)
+                this.renderBio(artistPageData.bio.summary)
               } 
             />
             <div className="artist-page__similar">
               <ul className="artist-page__similar-list">
-                {this.renderSimilarArtists(artistPage.similar)}
+                {this.renderSimilarArtists(artistPageData.similar)}
               </ul>
             </div>
 
@@ -99,10 +98,10 @@ class Artist extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log('mmmmm', state);
   return {
-    currentArtist: state.currentArtist,
-    artistPage: state.artistPage,
-    currentArtistPageError: state.currentArtistPageError,
+    artistPageData: state.artistPage.artistPageData,
+    currentArtistPageError: state.artistPage.currentArtistPageError,
   }
 }
 

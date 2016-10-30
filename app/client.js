@@ -11,8 +11,6 @@ import styles from './global.scss';
 
 import {
   currentTrackSummaryData,
-  currentArtist,
-  currentAlbum,
   currentSearch,
   currentArtistResults,
   currentTrackResults,
@@ -20,14 +18,8 @@ import {
   videoData,
 } from './reducers/search';
 import { currentVideo } from './reducers/video-player';
-import {
-  albumPage,
-  currentAlbumPageError,
-} from './reducers/album-page';
-import {
-  artistPage,
-  currentArtistPageError,
-} from './reducers/artist-page';
+import { albumPage } from './reducers/album-page';
+import { artistPage } from './reducers/artist-page';
 import {
   topArtistData,
   topArtistDataError,
@@ -40,8 +32,6 @@ const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-under
 // this should live in the index.js of reducers: import rootReducer from './reducers'
 const rootReducer = combineReducers({
   currentSearch,
-  currentArtist,
-  currentAlbum,
   currentTrackSummaryData,
   currentArtistResults,
   currentTrackResults,
@@ -49,9 +39,7 @@ const rootReducer = combineReducers({
   currentVideo,
   videoData,
   albumPage,
-  currentAlbumPageError,
   artistPage,
-  currentArtistPageError,
   topArtistData,
   topArtistDataError,
   playQueue,
@@ -70,7 +58,7 @@ const createStoreWithMiddleware = applyMiddleware(
 const store = createStoreWithMiddleware(rootReducer, initialState);
 
 const history = syncHistoryWithStore(browserHistory, store);
-
+console.log('STORE IS', store.getState());
 render(
   <Provider store={store}>
     <Router 

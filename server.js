@@ -10,8 +10,6 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import routes from './app/components/routes';
 import {
   currentSearch,
-  currentArtist,
-  currentAlbum,
   currentArtistResults,
   currentTrackResults,
   currentAlbumResults,
@@ -19,14 +17,8 @@ import {
   videoData,
 } from './app/reducers/search';
 import { currentVideo } from './app/reducers/video-player';
-import {
-  albumPage,
-  currentAlbumPageError,
-} from './app/reducers/album-page';
-import {
-  artistPage,
-  currentArtistPageError,
-} from './app/reducers/artist-page';
+import { albumPage } from './app/reducers/album-page';
+import { artistPage } from './app/reducers/artist-page';
 import {
   topArtistData,
   topArtistDataError,
@@ -77,22 +69,17 @@ if (process.env.NODE_ENV !== 'production') {
     )
   );
 }
-
 // TODO: break this out
 const store = createStore(
   combineReducers({
     currentTrackSummaryData,
-    currentArtist,
-    currentAlbum,
     currentSearch,
     currentArtistResults,
     currentTrackResults,
     currentAlbumResults,
     currentVideo,
     albumPage,
-    currentAlbumPageError,
     artistPage,
-    currentArtistPageError,
     videoData,
     topArtistData,
     topArtistDataError,
@@ -105,14 +92,16 @@ const store = createStore(
     currentTrackResults: [],
     currentAlbumResults: [],
     currentVideo: '',
-    currentArtist: {},
     currentTrackSummaryData: {},
-    currentAlbum: {},
     videoData: [],
-    albumPage: null,
-    currentAlbumPageError: null,
-    artistPage: null,
-    currentArtistPageError: null,
+    albumPage: {
+      albumPageData: null,
+      currentAlbumPageError: null,
+    },
+    artistPage: {
+      artistPageData: null,
+      currentArtistPageError: null,
+    },
     topArtistData: null,
     topArtistDataError: null,
     playQueue: [],

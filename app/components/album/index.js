@@ -44,12 +44,12 @@ class Album extends React.Component {
   } 
 
   renderTracks() {
-    if(this.props.albumPage.tracks) {
+    if(this.props.albumPageData.tracks) {
       return (
         <table className="album__tracks-table">
           <tbody>
             {
-              this.props.albumPage.tracks.map((track, i) => {
+              this.props.albumPageData.tracks.map((track, i) => {
                 return (
                   <tr className="album__track-row" key={i}>
                     <td className="album__track-cell">{track['@attr'].rank}</td>
@@ -69,7 +69,7 @@ class Album extends React.Component {
   appendAlbumToQueue() {
     this.props.dispatch(
       appendAlbumToPlayQueue(
-        this.props.albumPage.tracks
+        this.props.albumPageData.tracks
       )
     );
   }
@@ -77,23 +77,22 @@ class Album extends React.Component {
   replaceQueueWithAlbumAndPlay() {
     this.props.dispatch(
       replaceQueueWithAlbumAndPlay(
-        this.props.albumPage.tracks
+        this.props.albumPageData.tracks
       )
     );
   }
 
   render() {
     const {
-      currentAlbum,
-      albumPage,
+      albumPageData,
       currentAlbumPageError,
     } = this.props;
-    
-    if (albumPage) {
+
+    if (albumPageData) {
       // sometimes lastfm returns successfully but with an empty 
       // json object. To counter this the reducer has a case for
       // this an returns and error property when it does happen
-      if(albumPage.error) {
+      if(albumPageData.error) {
         return(
           <h3>No album found for this search result.</h3>
         )
@@ -102,15 +101,15 @@ class Album extends React.Component {
           <div className="album">
             <div className="album__header">
               <img 
-                src={albumPage.image} 
+                src={albumPageData.image} 
                 className="album__header-image"
-                alt={`${albumPage.name} by ${albumPage.artist}`}
+                alt={`${albumPageData.name} by ${albumPageData.artist}`}
                 width="174"
                 height="174"
               />
               <h5 className="album__header-identifier">Album</h5>
-              <h1 className="album__header-name">{albumPage.name}</h1>
-              <h3 className="album__header-artist">{albumPage.artist}</h3>
+              <h1 className="album__header-name">{albumPageData.name}</h1>
+              <h3 className="album__header-artist">{albumPageData.artist}</h3>
               <button 
                 onClick={this.replaceQueueWithAlbumAndPlay}
                 className="button button--primary button--play"
@@ -143,9 +142,9 @@ class Album extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log('things', state);
   return {
-    currentAlbum: state.currentAlbum,
-    albumPage: state.albumPage,
+    albumPageData: state.albumPage.albumPageData,
     currentAlbumPageError: state.currentAlbumPageError,
   }
 }

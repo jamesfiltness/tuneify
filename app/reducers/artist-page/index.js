@@ -1,6 +1,7 @@
-import * as types from '../../constants/ActionTypes.js'
+import * as types from '../../constants/ActionTypes.js';
+import { combineReducers } from 'redux';
 
-export function artistPage(state = null, action) {
+export function artistPageData(state = null, action) {
   switch (action.type) {
     case types.RECEIVE_ARTIST_PAGE_DATA:
       // need a better solution for dealing with images here
@@ -31,3 +32,9 @@ export function currentArtistPageError(state = [], action) {
       return state
   }
 }
+
+
+export const artistPage = combineReducers({
+  artistPageData,
+  currentArtistPageError,
+});
