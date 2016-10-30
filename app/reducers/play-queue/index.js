@@ -1,6 +1,7 @@
 import * as types from '../../constants/ActionTypes.js'
+import { combineReducers } from 'redux';
 
-export function playQueue(state = [], action) {
+export function playQueueTracks(state = [], action) {
   switch (action.type) {
     case types.ADD_TRACKS_TO_PLAY_QUEUE:
       return state.concat(action.tracks);
@@ -31,3 +32,8 @@ export function playQueueCurrentIndex(state = 0, action) {
       return state;
   }
 }
+
+export const playQueue = combineReducers({
+  playQueueTracks,
+  playQueueCurrentIndex,
+});

@@ -8,30 +8,15 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import routes from './app/components/routes';
-import {
-  currentSearch,
-  currentArtist,
-  currentAlbum,
-  currentArtistResults,
-  currentTrackResults,
-  currentAlbumResults,
-  currentTrackSummaryData,
-  videoData,
-} from './app/reducers/search';
+import { currentSearch } from './app/reducers/search';
+import { currentTrackSummaryData } from './app/reducers/track-summary';
+import { autocomplete } from './app/reducers/autocomplete';
 import { currentVideo } from './app/reducers/video-player';
-import {
-  albumPage,
-  currentAlbumPageError,
-} from './app/reducers/album-page';
-import {
-  artistPage,
-  currentArtistPageError,
-} from './app/reducers/artist-page';
-import {
-  topArtistData,
-  topArtistDataError,
-} from './app/reducers/home-page';
-import { playQueue, playQueueCurrentIndex } from './app/reducers/play-queue';
+import { albumPage } from './app/reducers/album-page';
+import { artistPage } from './app/reducers/artist-page';
+import { topArtists } from './app/reducers/top-artists';
+import { videoData } from './app/reducers/video-data';
+import { playQueue } from './app/reducers/play-queue';
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -77,46 +62,45 @@ if (process.env.NODE_ENV !== 'production') {
     )
   );
 }
-
 // TODO: break this out
 const store = createStore(
   combineReducers({
     currentTrackSummaryData,
-    currentArtist,
-    currentAlbum,
     currentSearch,
-    currentArtistResults,
-    currentTrackResults,
-    currentAlbumResults,
+    autocomplete,
     currentVideo,
     albumPage,
-    currentAlbumPageError,
     artistPage,
-    currentArtistPageError,
     videoData,
-    topArtistData,
-    topArtistDataError,
+    topArtists,
     playQueue,
-    playQueueCurrentIndex,
   }),
   {
     currentSearch: '',
-    currentArtistResults: [],
-    currentTrackResults: [],
-    currentAlbumResults: [],
+    autocomplete: {
+      autocompleteArtistData : [],
+      autocompleteAlbumData : [],
+      autocompleteTrackData : [],
+    },
     currentVideo: '',
-    currentArtist: {},
     currentTrackSummaryData: {},
-    currentAlbum: {},
     videoData: [],
-    albumPage: null,
-    currentAlbumPageError: null,
-    artistPage: null,
-    currentArtistPageError: null,
-    topArtistData: null,
-    topArtistDataError: null,
-    playQueue: [],
-    playQueueCurrentIndex: 0,
+    albumPage: {
+      albumPageData: null,
+      currentAlbumPageError: null,
+    },
+    artistPage: {
+      artistPageData: null,
+      currentArtistPageError: null,
+    },
+    topArtists : {
+      topArtistData : null,
+      topArtistDataError: null,
+    },
+    playQueue: {
+      playQueueCurrentIndex: 0,
+      playQueueTracks: [],
+    },
   }
 );
 

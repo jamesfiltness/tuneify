@@ -9,30 +9,15 @@ import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import styles from './global.scss';
 
-import {
-  currentTrackSummaryData,
-  currentArtist,
-  currentAlbum,
-  currentSearch,
-  currentArtistResults,
-  currentTrackResults,
-  currentAlbumResults,
-  videoData,
-} from './reducers/search';
+import { currentSearch } from './reducers/search';
+import { currentTrackSummaryData } from './reducers/track-summary';
+import { autocomplete } from './reducers/autocomplete';
 import { currentVideo } from './reducers/video-player';
-import {
-  albumPage,
-  currentAlbumPageError,
-} from './reducers/album-page';
-import {
-  artistPage,
-  currentArtistPageError,
-} from './reducers/artist-page';
-import {
-  topArtistData,
-  topArtistDataError,
-} from './reducers/home-page';
-import { playQueue, playQueueCurrentIndex } from './reducers/play-queue';
+import { albumPage } from './reducers/album-page';
+import { artistPage } from './reducers/artist-page';
+import { topArtists } from './reducers/top-artists';
+import { videoData } from './reducers/video-data';
+import { playQueue } from './reducers/play-queue';
 import routes from './components/routes';
 
 const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
@@ -40,22 +25,14 @@ const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-under
 // this should live in the index.js of reducers: import rootReducer from './reducers'
 const rootReducer = combineReducers({
   currentSearch,
-  currentArtist,
-  currentAlbum,
   currentTrackSummaryData,
-  currentArtistResults,
-  currentTrackResults,
-  currentAlbumResults,
   currentVideo,
   videoData,
   albumPage,
-  currentAlbumPageError,
+  autocomplete,
   artistPage,
-  currentArtistPageError,
-  topArtistData,
-  topArtistDataError,
+  topArtists,
   playQueue,
-  playQueueCurrentIndex,
   routing: routerReducer,
 });
 const logger = createLogger(); // eslint-disable-line no-unused-vars
@@ -70,7 +47,7 @@ const createStoreWithMiddleware = applyMiddleware(
 const store = createStoreWithMiddleware(rootReducer, initialState);
 
 const history = syncHistoryWithStore(browserHistory, store);
-
+console.log('STORE IS', store.getState());
 render(
   <Provider store={store}>
     <Router 

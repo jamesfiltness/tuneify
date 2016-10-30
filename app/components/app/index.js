@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+
 import { searchPerformed } from '../../actions/search-actions';
 import { playVideo } from '../../actions/player-actions';
 
@@ -23,8 +24,8 @@ class App extends React.Component {
       albums, 
       tracks,
       videoData,
-      playQueue,
-      currentTrackSummaryData,
+      playQueueTracks,
+      trackSummary,
     } = this.props;
     return (
       <div className="app">
@@ -56,9 +57,9 @@ class App extends React.Component {
           {this.props.children}
         </div>
         <div className="sidebar sidebar--right">
-          <CurrentTrackSummary trackData={currentTrackSummaryData} />
+          <CurrentTrackSummary trackData={trackSummary} />
           <YouTubePlayer videoData={videoData} />
-          <PlayQueue tracks={playQueue} />
+          <PlayQueue tracks={playQueueTracks} />
         </div>
       </div>
     );
@@ -72,13 +73,13 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     currentSearch : state.currentSearch,
-    artists : state.currentArtistResults,
-    tracks : state.currentTrackResults,
-    albums : state.currentAlbumResults,
+    artists : state.autocomplete.autocompleteArtistData,
+    tracks : state.autocomplete.autocompleteTrackData,
+    albums : state.autocomplete.autocompleteAlbumData,
     currentTrack: state.currentTrack,
     videoData: state.videoData,
-    playQueue: state.playQueue,
-    currentTrackSummaryData: state.currentTrackSummaryData,
+    playQueueTracks: state.playQueue.playQueueTracks,
+    trackSummary: state.currentTrackSummaryData,
   }
 }
 

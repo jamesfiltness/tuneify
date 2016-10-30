@@ -12,30 +12,14 @@ export function clearSearch() {
   }
 };
 
-export function artistSelected(artist) {
-  return {
-    type: types.ARTIST_SELECTED,
-    artist,
-  }
-};
-
-export function albumSelected(album) {
-  return {
-    type: types.ALBUM_SELECTED,
-    album,
-  }
-};
-
 export function autocompleteArtistSelected(selectedArtistData) {
   return (dispatch, getState)  => {
-    dispatch(artistSelected(selectedArtistData));
     dispatch(push('/artist'))
   }
 };
 
 export function autocompleteAlbumSelected(selectedAlbumData) {
   return (dispatch, getState)  => {
-    dispatch(albumSelected(selectedAlbumData));
     dispatch(push('/album'))
   }
 };

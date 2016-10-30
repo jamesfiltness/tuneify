@@ -64,8 +64,8 @@ class Home extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    topArtistData: state.topArtistData,
-    topArtistDataError: state.topArtistDataError,
+    topArtistData: state.topArtists.topArtistData,
+    topArtistDataError: state.topArtists.topArtistDataError,
   }
 }
 

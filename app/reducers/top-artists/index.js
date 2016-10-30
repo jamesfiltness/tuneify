@@ -1,4 +1,5 @@
-import * as types from '../../constants/ActionTypes.js'
+import * as types from '../../constants/ActionTypes.js';
+import { combineReducers } from 'redux';
 
 export function topArtistData(state = null, action) {
   switch (action.type) {
@@ -24,3 +25,8 @@ export function topArtistDataError(state = [], action) {
       return state
   }
 }
+
+export const topArtists = combineReducers({
+  topArtistData,
+  topArtistDataError,
+});
