@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { trackEnded } from '../../actions/player-actions';
+import classNames from 'classNames';
+import { 
+  trackEnded,
+  playNextTrack,
+  playPreviousTrack,
+} from '../../actions/player-actions';
 
 class YouTubePlayer extends React.Component {
   constructor() {
@@ -8,9 +13,21 @@ class YouTubePlayer extends React.Component {
     this.loaded = false;
     this.state = {
       currentVideoId: null,
+      playerState: -1,
     }
+    
+
+    this.volumeStartX = 0;
+    this.volumeOffsetX = 0;
+    this.volumeElement = {};
 
     this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
+    this.playPauseVideo = this.playPauseVideo.bind(this);
+    this.playNextTrack = this.playNextTrack.bind(this);
+    this.playPreviousTrack = this.playPreviousTrack.bind(this);
+    this.adjustVolume = this.adjustVolume.bind(this);
+    this.onCancelChangeVolume = this.onCancelChangeVolume.bind(this);
+    this.onChangeVolume = this.onChangeVolume.bind(this);
   }
 
   componentDidMount() {
@@ -24,14 +41,6 @@ class YouTubePlayer extends React.Component {
     this.loadPlayerIframe();
   }
 
-  render() {
-    return (
-      <div className="youtube-player">
-        <div className="youtube-player__player" id="player" />
-      </div>
-    )
-  }
-
   componentWillReceiveProps(nextProps) {
     if(nextProps.videoData.length > 0) {
       // this needs to be much more robust - although it seems never to have failed!
@@ -40,7 +49,90 @@ class YouTubePlayer extends React.Component {
       }
     }
   } 
+
+  playNextTrack() {
+    this.props.dispatch(playNextTrack());
+  }
   
+  playPreviousTrack() {
+    this.props.dispatch(playPreviousTrack());
+  }
+
+  playPauseVideo() {
+    let playerState = this.player.getPlayerState();
+    if(playerState  ===  YT.PlayerState.PLAYING) {
+      this.player.pauseVideo();
+      playerState = YT.PlayerState.PAUSED;
+    } else if(playerState === YT.PlayerState.PAUSED) {
+      this.player.playVideo();
+      playerState = YT.PlayerState.PLAYING;
+    }
+
+    this.setState({
+      playerState
+    });
+  }
+
+  adjustVolume(e) {
+    const newLeftPos = this.volumeOffsetX + e.clientX - this.volumeStartX;
+    if(!(newLeftPos < 0) && !(newLeftPos > 100)) {
+      this.volumeElement.style.left = (newLeftPos) + 'px';
+    }
+  }
+
+  onChangeVolume(e) {
+    this.volumeElement = e.target;
+    this.volumeStartX = e.clientX;
+    this.volumeOffsetX = this.volumeElement.offsetLeft;
+    document.addEventListener('mousemove', this.adjustVolume, false);
+    document.addEventListener('mouseup', this.onCancelChangeVolume, false);
+  }
+
+  onCancelChangeVolume() {
+    document.removeEventListener('mousemove', this.adjustVolume, false);  
+  }
+
+  render() {
+    const playPauseClass = this.state.playerState === 1 ? 'playing' : 'paused';
+    const playButtonClasses = classNames(
+      'youtube-player__play-pause',
+      `youtube-player__play-pause--${playPauseClass}`
+    );
+
+    // TODO: break volume out in to its own component
+    return (
+      <div className="youtube-player">
+        <div className="youtube-player__player" id="player" />
+        <div className="youtube-player__controls">
+          <span
+            className="youtube-player__prev-track"
+            onClick={this.playPreviousTrack}
+          >
+            Previous
+          </span>
+          <span 
+            className={playButtonClasses}
+            onClick={this.playPauseVideo}
+          >
+            Pause
+          </span>
+          <span
+            className="youtube-player__next-track"
+            onClick={this.playNextTrack}
+          >
+            Next
+          </span>
+          <div className="youtube-player__volume">
+            <span 
+              className="youtube-player__volume-control"
+              onMouseDown={this.onChangeVolume}
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
+ 
   // move in to reusable utils class - allow multiple scripts to be loaded
   loadPlayerIframe() {
     const tag = document.createElement('script');
@@ -71,6 +163,7 @@ class YouTubePlayer extends React.Component {
     this.player.playVideo();
     this.setState({
       currentVideoId: videoId,
+      playerState: YT.PlayerState.PLAYING,
     });
   }
 }

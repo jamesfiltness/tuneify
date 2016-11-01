@@ -6,7 +6,11 @@
     border: 3px solid #111;
     border-right: none;
     border-bottom: none;
-  img { vertical-align: bottom; }
+    
+    img { 
+      vertical-align: bottom;
+      border-radius: 3px;
+    }
   }
 
   &__name {

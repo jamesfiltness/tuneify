@@ -1,1 +1,14 @@
-
+.youtube-player {
+  &__volume {
+    position: relative;
+  }
+  &__volume-control {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+    background: #ccc;
+    display:block;
+    cursor: pointer;
+  }
+}

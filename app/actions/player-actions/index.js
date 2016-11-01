@@ -1,5 +1,9 @@
 import * as types from '../../constants/ActionTypes.js';
-import { incrementCurrentIndex, playCurrentIndex } from '../play-queue';
+import { 
+  incrementCurrentIndex, 
+  decrementCurrentIndex,
+  playCurrentIndex 
+} from '../play-queue';
 
 export function playVideo(videoData) {
   return {
@@ -11,6 +15,20 @@ export function playVideo(videoData) {
 export function trackEnded() {
   return (dispatch, getState) => {
     dispatch(incrementCurrentIndex());
+    dispatch(playCurrentIndex());
+  }
+}
+
+export function playNextTrack() {
+  return (dispatch, getState) => {
+    dispatch(incrementCurrentIndex());
+    dispatch(playCurrentIndex());
+  }
+}
+
+export function playPreviousTrack() {
+  return (dispatch, getState) => {
+    dispatch(decrementCurrentIndex());
     dispatch(playCurrentIndex());
   }
 }
