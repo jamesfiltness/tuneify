@@ -1,14 +1,25 @@
 .youtube-player {
+  &__player {
+    display: block;
+  }
   &__volume {
     position: relative;
   }
   &__volume-control {
     position: relative;
+    left: 100px;
     width: 10px;
     height: 10px;
     border-radius: 20px;
     background: #ccc;
     display:block;
     cursor: pointer;
+  }
+
+  &__elapsed {
+    height: 4px;
+    background: #19b736;
+    display: block;
+    width: 0px;
   }
 }

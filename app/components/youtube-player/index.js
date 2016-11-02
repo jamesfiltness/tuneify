@@ -7,6 +7,9 @@ import {
   playPreviousTrack,
 } from '../../actions/player-actions';
 
+const PLAYER_WIDTH = 320;
+const PLAYER_HEIGHT = 200;
+
 class YouTubePlayer extends React.Component {
   constructor() {
     super();
@@ -14,12 +17,13 @@ class YouTubePlayer extends React.Component {
     this.state = {
       currentVideoId: null,
       playerState: -1,
+      muted: false,
     }
     
-
     this.volumeStartX = 0;
     this.volumeOffsetX = 0;
     this.volumeElement = {};
+    this.videoDuration = 0;
 
     this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
     this.playPauseVideo = this.playPauseVideo.bind(this);
@@ -28,6 +32,7 @@ class YouTubePlayer extends React.Component {
     this.adjustVolume = this.adjustVolume.bind(this);
     this.onCancelChangeVolume = this.onCancelChangeVolume.bind(this);
     this.onChangeVolume = this.onChangeVolume.bind(this);
+    this.onMuteUnmute = this.onMuteUnmute.bind(this);
   }
 
   componentDidMount() {
@@ -43,7 +48,7 @@ class YouTubePlayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.videoData.length > 0) {
-      // this needs to be much more robust - although it seems never to have failed!
+      // TODO: this needs to be much more robust - although it seems never to have failed!
       if(nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
         this.playVideo(nextProps.videoData[0].id.videoId);       
       }
@@ -77,6 +82,7 @@ class YouTubePlayer extends React.Component {
     const newLeftPos = this.volumeOffsetX + e.clientX - this.volumeStartX;
     if(!(newLeftPos < 0) && !(newLeftPos > 100)) {
       this.volumeElement.style.left = (newLeftPos) + 'px';
+      this.player.setVolume(newLeftPos);
     }
   }
 
@@ -92,6 +98,18 @@ class YouTubePlayer extends React.Component {
     document.removeEventListener('mousemove', this.adjustVolume, false);  
   }
 
+  onMuteUnmute() {
+    if(!this.state.muted) {
+      this.player.mute();
+    } else {
+      this.player.unMute();
+    }
+    
+    this.setState({
+      muted: !this.state.muted,
+    })
+  }
+
   render() {
     const playPauseClass = this.state.playerState === 1 ? 'playing' : 'paused';
     const playButtonClasses = classNames(
@@ -99,10 +117,23 @@ class YouTubePlayer extends React.Component {
       `youtube-player__play-pause--${playPauseClass}`
     );
 
+    const muteClass = this.state.muted ? 'muted' : 'unmuted';
+    const muteUnmuteClasses = classNames(
+      'youtube-player__mute-unmute',
+      `youtube-player__mute-unmute--${muteClass}`
+    );
+
     // TODO: break volume out in to its own component
     return (
       <div className="youtube-player">
         <div className="youtube-player__player" id="player" />
+        <div className="youtube-player__progress-bar">
+          <div className="youtube-player__buffered" />
+          <div 
+            className="youtube-player__elapsed"
+            ref={(elapsedEl) => this.elapsedEl = elapsedEl}
+          />
+        </div>
         <div className="youtube-player__controls">
           <span
             className="youtube-player__prev-track"
@@ -123,6 +154,12 @@ class YouTubePlayer extends React.Component {
             Next
           </span>
           <div className="youtube-player__volume">
+            <span
+              onClick={this.onMuteUnmute}
+              className={muteUnmuteClasses}
+            >
+              Mute
+            </span>
             <span 
               className="youtube-player__volume-control"
               onMouseDown={this.onChangeVolume}
@@ -143,18 +180,54 @@ class YouTubePlayer extends React.Component {
 
   iFrameAPIReady() {
     this.player = new YT.Player('player', {
-      height: '200',
-      playerVars: { 'autoplay': 1, 'controls': 0, 'showinfo': 0, 'rel': 0},
-      width: '320',
+      height: PLAYER_HEIGHT,
+      width: PLAYER_WIDTH,
+      playerVars: { 
+        autoplay: 1, 
+        controls: 0, 
+        showinfo: 0, 
+        rel: 0,
+      },
       events: {
-        'onStateChange': this.onPlayerStateChange
+        'onStateChange': this.onPlayerStateChange,
+        // TODO : handle player errors
+        // 'onError': onPlayerError
       }
     });
   }
 
+  updateProgressBar() {
+    const elapsedToPixels = Math.floor(this.elapsed * this.pixelsPerSecond);
+    this.elapsedEl.style.width = elapsedToPixels + 'px';
+  }
+
+  resetProgressBar() {
+    this.elapsed = 0;
+    clearInterval(this.elapsedTimer);
+    this.updateProgressBar();
+  }
+
+  initProgressBar() {
+    this.pixelsPerSecond = PLAYER_WIDTH / this.videoDuration;
+    this.elapsedTimer = setInterval(() => {
+      this.elapsed++;
+      this.updateProgressBar();
+    }, 1000);
+  }
+
   onPlayerStateChange(event) {
-    if(event.data === YT.PlayerState.ENDED) {
+    if (event.data === YT.PlayerState.ENDED) {
       this.props.dispatch(trackEnded());
+      this.resetProgressBar();
+    }
+
+    if (event.data === YT.PlayerState.CUED) {
+      this.resetProgressBar();
+    }
+
+    if (event.data === YT.PlayerState.PLAYING) {
+      this.videoDuration = this.player.getDuration();
+      this.initProgressBar();
     }
   }
 
