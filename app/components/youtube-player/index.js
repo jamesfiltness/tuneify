@@ -67,6 +67,7 @@ class YouTubePlayer extends React.Component {
     let playerState = this.player.getPlayerState();
     if(playerState  ===  YT.PlayerState.PLAYING) {
       this.player.pauseVideo();
+      this.pauseProgressBar();
       playerState = YT.PlayerState.PAUSED;
     } else if(playerState === YT.PlayerState.PAUSED) {
       this.player.playVideo();
@@ -126,13 +127,15 @@ class YouTubePlayer extends React.Component {
     // TODO: break volume out in to its own component
     return (
       <div className="youtube-player">
-        <div className="youtube-player__player" id="player" />
-        <div className="youtube-player__progress-bar">
-          <div className="youtube-player__buffered" />
-          <div 
-            className="youtube-player__elapsed"
-            ref={(elapsedEl) => this.elapsedEl = elapsedEl}
-          />
+        <div className="youtube-player__player-wrap">
+          <div className="youtube-player__player" id="player" />
+          <div className="youtube-player__progress-bar">
+            <div className="youtube-player__buffered" />
+            <div 
+              className="youtube-player__elapsed"
+              ref={(elapsedEl) => this.elapsedEl = elapsedEl}
+            />
+          </div>
         </div>
         <div className="youtube-player__controls">
           <span
@@ -205,6 +208,10 @@ class YouTubePlayer extends React.Component {
     this.elapsed = 0;
     clearInterval(this.elapsedTimer);
     this.updateProgressBar();
+  }
+
+  pauseProgressBar() {
+    clearInterval(this.elapsedTimer);
   }
 
   initProgressBar() {
