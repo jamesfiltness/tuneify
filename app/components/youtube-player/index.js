@@ -33,6 +33,7 @@ class YouTubePlayer extends React.Component {
     this.onCancelChangeVolume = this.onCancelChangeVolume.bind(this);
     this.onChangeVolume = this.onChangeVolume.bind(this);
     this.onMuteUnmute = this.onMuteUnmute.bind(this);
+    this.seekTo = this.seekTo.bind(this);
   }
 
   componentDidMount() {
@@ -111,6 +112,111 @@ class YouTubePlayer extends React.Component {
     })
   }
 
+  seekTo(e) {
+    const clickPos = (e.clientX + document.body.scrollLeft) - 
+      e.target.getBoundingClientRect().left;
+    const seekTo  = clickPos / this.pixelsPerSecond;
+    this.updateProgressBar(seekTo);
+    this.player.seekTo(seekTo);
+  }
+  
+  // move in to reusable utils class - allow multiple scripts to be loaded
+  loadPlayerIframe() {
+    const tag = document.createElement('script');
+    tag.src = "http://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); 
+  }
+
+  iFrameAPIReady() {
+    this.player = new YT.Player('player', {
+      height: PLAYER_HEIGHT,
+      width: PLAYER_WIDTH,
+      playerVars: { 
+        autoplay: 1, 
+        controls: 0, 
+        showinfo: 0, 
+        rel: 0,
+      },
+      events: {
+        'onStateChange': this.onPlayerStateChange,
+        // TODO : handle player errors
+        // 'onError': onPlayerError
+      }
+    });
+  }
+
+  updateProgressBar(seekTo) {
+    if (seekTo) {
+      this.elapsed = seekTo;
+    }
+
+    const elapsedToPixels = Math.floor(this.elapsed * this.pixelsPerSecond);
+    this.elapsedEl.style.width = elapsedToPixels + 'px';
+  }
+
+  resetProgressBar() {
+    this.elapsed = 0;
+    clearInterval(this.elapsedTimer);
+    this.updateProgressBar();
+  }
+
+  pauseProgressBar() {
+    clearInterval(this.elapsedTimer);
+  }
+
+  initProgressBar() {
+    clearInterval(this.elapsedTimer);
+    this.pixelsPerSecond = PLAYER_WIDTH / this.videoDuration;
+    this.elapsedTimer = setInterval(() => {
+      this.elapsed++;
+      this.updateProgressBar();
+    }, 1000);
+  }
+
+  initBufferBar() {
+    const pixelsPerPercent = PLAYER_WIDTH / 100;
+    clearInterval(this.bufferTimer);
+    this.bufferTimer = setInterval(() => {
+      this.buffer++;
+      const buffered = this.player.getVideoLoadedFraction();
+      if(buffered === 1) {
+        clearInterval(this.bufferTimer);
+      }
+      const bufferedPixels = (buffered * 100) * pixelsPerPercent;
+      this.bufferedEl.style.width = bufferedPixels + 'px';
+    }, 1000)
+  }
+
+  onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) {
+      this.props.dispatch(trackEnded());
+      this.resetProgressBar();
+    }
+
+    if (event.data === YT.PlayerState.CUED) {
+      this.resetProgressBar();
+    }
+
+    if (event.data === YT.PlayerState.PLAYING) {
+      this.videoDuration = this.player.getDuration();
+      this.initProgressBar();
+    }
+
+    if (event.data === YT.PlayerState.BUFFERING) {
+      this.initBufferBar();
+    }
+  }
+
+  playVideo(videoId) {
+    this.player.cueVideoById(videoId);
+    this.player.playVideo();
+    this.setState({
+      currentVideoId: videoId,
+      playerState: YT.PlayerState.PLAYING,
+    });
+  }
+
   render() {
     const playPauseClass = this.state.playerState === 1 ? 'playing' : 'paused';
     const playButtonClasses = classNames(
@@ -129,8 +235,14 @@ class YouTubePlayer extends React.Component {
       <div className="youtube-player">
         <div className="youtube-player__player-wrap">
           <div className="youtube-player__player" id="player" />
-          <div className="youtube-player__progress-bar">
-            <div className="youtube-player__buffered" />
+          <div 
+            className="youtube-player__progress-bar"
+            onClick={this.seekTo}
+          >
+            <div 
+              className="youtube-player__buffered" 
+              ref={(bufferedEl) => this.bufferedEl = bufferedEl}
+            />
             <div 
               className="youtube-player__elapsed"
               ref={(elapsedEl) => this.elapsedEl = elapsedEl}
@@ -171,80 +283,6 @@ class YouTubePlayer extends React.Component {
         </div>
       </div>
     )
-  }
- 
-  // move in to reusable utils class - allow multiple scripts to be loaded
-  loadPlayerIframe() {
-    const tag = document.createElement('script');
-    tag.src = "http://www.youtube.com/iframe_api";
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); 
-  }
-
-  iFrameAPIReady() {
-    this.player = new YT.Player('player', {
-      height: PLAYER_HEIGHT,
-      width: PLAYER_WIDTH,
-      playerVars: { 
-        autoplay: 1, 
-        controls: 0, 
-        showinfo: 0, 
-        rel: 0,
-      },
-      events: {
-        'onStateChange': this.onPlayerStateChange,
-        // TODO : handle player errors
-        // 'onError': onPlayerError
-      }
-    });
-  }
-
-  updateProgressBar() {
-    const elapsedToPixels = Math.floor(this.elapsed * this.pixelsPerSecond);
-    this.elapsedEl.style.width = elapsedToPixels + 'px';
-  }
-
-  resetProgressBar() {
-    this.elapsed = 0;
-    clearInterval(this.elapsedTimer);
-    this.updateProgressBar();
-  }
-
-  pauseProgressBar() {
-    clearInterval(this.elapsedTimer);
-  }
-
-  initProgressBar() {
-    this.pixelsPerSecond = PLAYER_WIDTH / this.videoDuration;
-    this.elapsedTimer = setInterval(() => {
-      this.elapsed++;
-      this.updateProgressBar();
-    }, 1000);
-  }
-
-  onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.ENDED) {
-      this.props.dispatch(trackEnded());
-      this.resetProgressBar();
-    }
-
-    if (event.data === YT.PlayerState.CUED) {
-      this.resetProgressBar();
-    }
-
-    if (event.data === YT.PlayerState.PLAYING) {
-      this.videoDuration = this.player.getDuration();
-      this.initProgressBar();
-    }
-  }
-
-  playVideo(videoId) {
-    this.player.cueVideoById(videoId);
-    this.player.playVideo();
-    this.setState({
-      currentVideoId: videoId,
-      playerState: YT.PlayerState.PLAYING,
-    });
   }
 }
 

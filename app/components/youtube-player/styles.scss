@@ -23,7 +23,6 @@
     transition: height .2s;
     bottom: 0;
     width: 100%;
-    z-index: 1;
     cursor: pointer;
   }
 
@@ -34,7 +33,19 @@
     background: #19b736;
     display: block;
     width: 0px;
-    z-index: 1;
+    z-index: 2;
+    transition: height .2s;
+    cursor: pointer;
+  }
+
+  &__buffered {
+    position: absolute;
+    z-index: 2;
+    height: 4px;
+    background: #666;
+    display: block;
+    width: 0px;
+    z-index: 2;
     transition: height .2s;
     cursor: pointer;
   }
@@ -44,7 +55,8 @@
     position: relative;
     &:hover {
       .youtube-player__progress-bar,
-      .youtube-player__elapsed {
+      .youtube-player__elapsed,
+      .youtube-player__buffered {
         height: 7px;
       }
     }
