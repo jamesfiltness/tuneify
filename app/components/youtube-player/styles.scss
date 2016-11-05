@@ -50,6 +50,14 @@
     cursor: pointer;
   }
 
+  &__time {
+    font-size: 13px;
+  }
+
+  &__divider {
+    padding: 0 5px;
+  }
+
   &__player-wrap {
     padding-bottom: 4px;
     position: relative;

@@ -10,6 +10,19 @@ import {
 const PLAYER_WIDTH = 320;
 const PLAYER_HEIGHT = 200;
 
+/*********
+ TODO:  
+  This needs a refactor:
+  * Break out in to smaller components:
+    - progress bar
+    - timer
+    - volume controls
+  * Refactor code. Progress bar and timer have led to 
+  repetitive code
+
+*********/
+
+
 class YouTubePlayer extends React.Component {
   constructor() {
     super();
@@ -18,6 +31,8 @@ class YouTubePlayer extends React.Component {
       currentVideoId: null,
       playerState: -1,
       muted: false,
+      totalDuration: {},
+      currentDuration: {},
     }
     
     this.volumeStartX = 0;
@@ -150,7 +165,7 @@ class YouTubePlayer extends React.Component {
     if (seekTo) {
       this.elapsed = seekTo;
     }
-
+    this.updateTimer();
     const elapsedToPixels = Math.floor(this.elapsed * this.pixelsPerSecond);
     this.elapsedEl.style.width = elapsedToPixels + 'px';
   }
@@ -159,6 +174,10 @@ class YouTubePlayer extends React.Component {
     this.elapsed = 0;
     clearInterval(this.elapsedTimer);
     this.updateProgressBar();
+  }
+
+  resetTimer() {
+    clearInterval(this.elapsedTimer);
   }
 
   pauseProgressBar() {
@@ -171,6 +190,7 @@ class YouTubePlayer extends React.Component {
     this.elapsedTimer = setInterval(() => {
       this.elapsed++;
       this.updateProgressBar();
+      this.updateTimer();
     }, 1000);
   }
 
@@ -187,11 +207,42 @@ class YouTubePlayer extends React.Component {
       this.bufferedEl.style.width = bufferedPixels + 'px';
     }, 1000)
   }
+  
+  // TODO : repitition
+  initTimer() {
+    const totalDuration = this.secondsToTime(this.videoDuration);
+    let currentDuration = this.state.currentDuration; 
+    if(
+      !currentDuration.minutes &&
+      !currentDuration.seconds
+    ) {
+      currentDuration = {
+        seconds: '00',
+        minutes: '0',
+      }
+    }
+    this.setState({
+      totalDuration,
+      currentDuration,
+    })
+  }
+
+  updateTimer() {
+    const currentDuration = this.secondsToTime(this.elapsed);
+    if (currentDuration.minutes < 1) {
+
+      currentDuration.minutes = '0';
+    }
+    this.setState({
+      currentDuration,
+    })
+  }
 
   onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {
       this.props.dispatch(trackEnded());
       this.resetProgressBar();
+      this.resetTimer();
     }
 
     if (event.data === YT.PlayerState.CUED) {
@@ -199,12 +250,19 @@ class YouTubePlayer extends React.Component {
     }
 
     if (event.data === YT.PlayerState.PLAYING) {
+      // getDuration() will return 0 until the video's metadata is loaded,
+      // which normally happens just after the video starts playing.
       this.videoDuration = this.player.getDuration();
       this.initProgressBar();
+      this.initTimer();
     }
 
     if (event.data === YT.PlayerState.BUFFERING) {
       this.initBufferBar();
+    }
+    
+    if (event.data === YT.PlayerState.PAUSED) {
+      this.pauseProgressBar();
     }
   }
 
@@ -215,6 +273,19 @@ class YouTubePlayer extends React.Component {
       currentVideoId: videoId,
       playerState: YT.PlayerState.PLAYING,
     });
+  }
+
+  secondsToTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    let remainingSeconds = Math.floor(seconds - minutes * 60);
+    
+    if (remainingSeconds < 10) {
+      remainingSeconds = `0${remainingSeconds}`;
+    }
+    return {
+      minutes,
+      seconds: remainingSeconds,
+    }
   }
 
   render() {
@@ -279,6 +350,23 @@ class YouTubePlayer extends React.Component {
               className="youtube-player__volume-control"
               onMouseDown={this.onChangeVolume}
             />
+            <div className="youtube-player__time">
+              <span 
+                className="youtube-player__elapsed-time"
+              >
+                {this.state.currentDuration.minutes || '-'}:
+                {this.state.currentDuration.seconds || '-'}
+              </span>
+              
+              <span className="youtube-player__divider">|</span>
+              
+              <span 
+                className="youtube-player__total-time"
+              >
+                {this.state.totalDuration.minutes || '-'}:
+                {this.state.totalDuration.seconds || '-'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
