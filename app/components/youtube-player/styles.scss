@@ -1,9 +1,12 @@
 .youtube-player {
   &__player {
     display: block;
+    width: 320px;
+    height: 200px;
   }
   &__volume {
     position: relative;
+    display:inline-block;
   }
   &__volume-control {
     position: relative;
@@ -12,8 +15,22 @@
     height: 10px;
     border-radius: 20px;
     background: #ccc;
-    display:block;
     cursor: pointer;
+    display:none;
+  }
+
+  &__controls {
+    padding: 10px 0;
+  }
+
+  &__control {
+    width: 43px;
+    height: 43px;
+    display:inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align:middle;
+    cursor:pointer;
   }
 
   &__progress-bar {
@@ -52,6 +69,9 @@
 
   &__time {
     font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+    margin: 12px;
   }
 
   &__divider {
@@ -68,5 +88,37 @@
         height: 7px;
       }
     }
+  }
+
+  &__play-pause {
+    border: 1px solid #fff;
+    border-radius: 90px;
+    background-position: 11px 9px;
+    &--playing {
+      background-image: url('images/pause.svg');
+      background-position: 9px;
+    }
+    &--paused {
+      background-image: url('images/play.svg');
+
+    }
+  }
+
+  &__mute-unmute {
+    &--unmuted {
+      background-image: url('images/volume-high.svg');
+    }
+
+    &--muted {
+      background-image: url('images/volume-mute.svg');
+    }
+  }
+
+  &__prev-track {
+    background-image: url('images/previous.svg');
+  }
+
+  &__next-track {
+    background-image: url('images/next.svg');
   }
 }

@@ -292,12 +292,14 @@ class YouTubePlayer extends React.Component {
     const playPauseClass = this.state.playerState === 1 ? 'playing' : 'paused';
     const playButtonClasses = classNames(
       'youtube-player__play-pause',
+      'youtube-player__control',
       `youtube-player__play-pause--${playPauseClass}`
     );
 
     const muteClass = this.state.muted ? 'muted' : 'unmuted';
     const muteUnmuteClasses = classNames(
       'youtube-player__mute-unmute',
+      'youtube-player__control',
       `youtube-player__mute-unmute--${muteClass}`
     );
 
@@ -322,51 +324,43 @@ class YouTubePlayer extends React.Component {
         </div>
         <div className="youtube-player__controls">
           <span
-            className="youtube-player__prev-track"
+            className="youtube-player__control youtube-player__prev-track"
             onClick={this.playPreviousTrack}
-          >
-            Previous
-          </span>
+          />
           <span 
             className={playButtonClasses}
             onClick={this.playPauseVideo}
-          >
-            Pause
-          </span>
+          />
           <span
-            className="youtube-player__next-track"
+            className="youtube-player__control youtube-player__next-track"
             onClick={this.playNextTrack}
-          >
-            Next
-          </span>
+          />
+          <div className="youtube-player__time">
+            <span 
+              className="youtube-player__elapsed-time"
+            >
+              {this.state.currentDuration.minutes || '0'}:
+              {this.state.currentDuration.seconds || '00'}
+            </span>
+            
+            <span className="youtube-player__divider">|</span>
+            
+            <span 
+              className="youtube-player__total-time"
+            >
+              {this.state.totalDuration.minutes || '0'}:
+              {this.state.totalDuration.seconds || '00'}
+            </span>
+          </div>
           <div className="youtube-player__volume">
             <span
               onClick={this.onMuteUnmute}
               className={muteUnmuteClasses}
-            >
-              Mute
-            </span>
+            />
             <span 
               className="youtube-player__volume-control"
               onMouseDown={this.onChangeVolume}
             />
-            <div className="youtube-player__time">
-              <span 
-                className="youtube-player__elapsed-time"
-              >
-                {this.state.currentDuration.minutes || '-'}:
-                {this.state.currentDuration.seconds || '-'}
-              </span>
-              
-              <span className="youtube-player__divider">|</span>
-              
-              <span 
-                className="youtube-player__total-time"
-              >
-                {this.state.totalDuration.minutes || '-'}:
-                {this.state.totalDuration.seconds || '-'}
-              </span>
-            </div>
           </div>
         </div>
       </div>
