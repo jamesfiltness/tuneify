@@ -27,6 +27,7 @@ export function trackSelected(selectedTrackSummaryData, from) {
 }
 
 export function getTrackInfo(track, artist) {
+  // TODO : This should obv not be calling RECIEVE_ARTIST_DATA when it fails
   const actions =  
     [
       types.LAST_FM_API_REQUEST, 

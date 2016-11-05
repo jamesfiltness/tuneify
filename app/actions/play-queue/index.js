@@ -1,5 +1,9 @@
 import * as types from '../../constants/ActionTypes.js';
-import { playTrack, getTrackInfo, trackSelected } from '../common-actions';
+import { 
+  playTrack, 
+  getTrackInfo, 
+  trackSelected, 
+} from '../common-actions';
 
 export function playQueueTrackSelected(selectedTrackData, index) {
   return (dispatch, getState)  => {
