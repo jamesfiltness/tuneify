@@ -1,7 +1,7 @@
 
 
 .play-queue {
-  height: calc(100% - 450px);
+  max-height: calc(100% - 450px);
   overflow: auto;
   padding: 3px 0px 3px 5px;
   border-top: 4px solid #333;
