@@ -39,7 +39,6 @@ export function setCurrentIndex(index) {
   }
 }
 
-
 export function decrementCurrentIndex() {
   return {
     type: types.DECREMENT_CURRENT_INDEX,
@@ -77,5 +76,17 @@ export function removeTrackFromQueue(index) {
   return {
     type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
     index,
+  }
+}
+
+export function trashPlayQueue() {
+  return {
+    type: types.TRASH_PLAY_QUEUE,
+  }
+}
+
+export function shufflePlayQueue() {
+  return {
+    type: types.SHUFFLE_PLAY_QUEUE,
   }
 }

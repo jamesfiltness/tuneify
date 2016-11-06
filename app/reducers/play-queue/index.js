@@ -13,6 +13,8 @@ export function playQueueTracks(state = [], action) {
         ...state.slice(action.index + 1)
       ]
       return state;
+    case types.TRASH_PLAY_QUEUE:
+      return []
     default: 
       return state
   }    
