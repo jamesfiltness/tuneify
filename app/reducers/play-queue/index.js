@@ -35,7 +35,17 @@ export function playQueueCurrentIndex(state = 0, action) {
   }
 }
 
+export function playQueueShuffle(state = false, action) {
+  switch(action.type) {
+    case types.SHUFFLE_PLAY_QUEUE:
+      return !state;
+    default:
+      return state;
+  }
+}
+
 export const playQueue = combineReducers({
   playQueueTracks,
   playQueueCurrentIndex,
+  playQueueShuffle,
 });

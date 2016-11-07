@@ -9,4 +9,10 @@
     vertical-align:middle;
     cursor:pointer;
   }
+
+  &__shuffle {
+    &--on {
+      color: #19b736;
+    }
+  }
 }

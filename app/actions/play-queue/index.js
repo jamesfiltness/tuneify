@@ -26,12 +26,29 @@ export function playQueueTrackSelected(selectedTrackData, index) {
   }
 }
 
-export function incrementCurrentIndex() {
-  return {
-    type: types.INCREMENT_CURRENT_INDEX,
+function randomIndex(max, min = 0) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function playRandomIndex() {
+  return(dispatch, getState) => {
+    const playQueueLength = getState().playQueue.playQueueTracks.length;
+    const randomTrackIndex = randomIndex(playQueueLength);
+    dispatch(setCurrentIndex(randomTrackIndex));
   }
 }
 
+export function incrementCurrentIndex() {
+  return (dispatch, getState) => {
+    if(getState().playQueue.playQueueShuffle) {
+      dispatch(playRandomIndex());
+    } else {
+      dispatch({
+        type: types.INCREMENT_CURRENT_INDEX,
+      });
+    }
+  }
+}
 export function setCurrentIndex(index) {
   return {
     type: types.SET_CURRENT_INDEX,
@@ -40,8 +57,14 @@ export function setCurrentIndex(index) {
 }
 
 export function decrementCurrentIndex() {
-  return {
-    type: types.DECREMENT_CURRENT_INDEX,
+  return (dispatch, getState) => {
+    if(getState().playQueue.playQueueShuffle) {
+      dispatch(playRandomIndex());
+    } else {
+      dispatch({
+        type: types.DECREMENT_CURRENT_INDEX,
+      });
+    }
   }
 }
 
