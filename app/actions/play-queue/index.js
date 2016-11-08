@@ -30,7 +30,7 @@ function randomIndex(max, min = 0) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function playRandomIndex() {
+export function playRandomIndex() {
   return(dispatch, getState) => {
     const playQueueLength = getState().playQueue.playQueueTracks.length;
     const randomTrackIndex = randomIndex(playQueueLength);
@@ -38,10 +38,19 @@ function playRandomIndex() {
   }
 }
 
+export function playRepeatedTrack() {
+  return(dispatch, getState) => {
+    const currentIndex = getState().playQueue.playQueueCurrentIndex;
+    dispatch(setCurrentIndex(currentIndex));
+  }
+}
+
 export function incrementCurrentIndex() {
   return (dispatch, getState) => {
     if(getState().playQueue.playQueueShuffle) {
       dispatch(playRandomIndex());
+    } else if(getState().playQueue.repeat) {
+      dispatch(playRepeatedTrack());
     } else {
       dispatch({
         type: types.INCREMENT_CURRENT_INDEX,
@@ -111,5 +120,11 @@ export function trashPlayQueue() {
 export function shufflePlayQueue() {
   return {
     type: types.SHUFFLE_PLAY_QUEUE,
+  }
+}
+
+export function repeatCurrentTrack() {
+  return {
+    type: types.REPEAT_CURRENT_TRACK,
   }
 }

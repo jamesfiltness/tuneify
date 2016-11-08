@@ -10,7 +10,7 @@
     cursor:pointer;
   }
 
-  &__shuffle {
+  &__shuffle, &__repeat {
     &--on {
       color: #19b736;
     }

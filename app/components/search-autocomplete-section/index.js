@@ -42,6 +42,9 @@ class SearchAutoCompleteSection extends React.Component {
   }
 
   renderAlbumResults(result) {
+    if(!result.mbid) {
+      alert('no mbid');
+    }
     return (
       <Link to={{ pathname: `/album/${result.mbid}` }}>
         {this.resultContent(result)}
@@ -50,6 +53,9 @@ class SearchAutoCompleteSection extends React.Component {
   }
 
   renderArtistResults(result) {
+    if(!result.mbid) {
+      alert('no mbid');
+    }
     return (
       <Link to={{ pathname: `/artist/${result.mbid}` }}>
         {this.resultContent(result)}

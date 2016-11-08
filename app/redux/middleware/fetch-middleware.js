@@ -31,6 +31,9 @@ const fetchMiddleware  = store => next => action => {
   const [REQUEST, SUCCESS, FAILURE] = actions;
   // dispatch the request action
   next({ ...rest, type: REQUEST });
+  // so here if there's a command line flag in place
+  // allow a class to be instantiated here which starts up fetch mock
+  // const mockFetch = new fetchMockProxy();
   const actionPromise = fetch(promiseUrl, promise);
   actionPromise
     .then((response) =>  response.json())
