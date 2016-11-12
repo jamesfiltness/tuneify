@@ -1,0 +1,8 @@
+{
+  "name": "Mock server",
+  "description": "Mocks out the apis for Tuneify for development without internet connection and for unit tests",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "4.14.0"
+  }
+}
