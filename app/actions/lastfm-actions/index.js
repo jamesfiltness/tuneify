@@ -7,10 +7,10 @@ export function fetchLastFmData(actions, params) {
   return {
     actions,
     promise: {
-      url: 'http://ws.audioscrobbler.com/2.0/',
+      url: window.clientConfig.endpoints.lastfm.url,
       headers: {},
       params: {
-        api_key: '57ee3318536b23ee81d6b27e36997cde',
+        api_key: window.clientConfig.endpoints.lastfm.api_key,
         format : 'json',
         ...params
       },

@@ -1,0 +1,14 @@
+{
+  "name": "mocks",
+  "version": "0.0.1",
+  "description": "simple mock server for client side calls",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
