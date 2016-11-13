@@ -1,8 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 import { 
   getTopArtists, 
-} from '../../actions/homepage-actions'
+} from '../../actions/homepage-actions';
 
 class Home extends React.Component {
   // only call for data once the page

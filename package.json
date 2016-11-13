@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:mock": "NODE_ENV=MOCK node .",
+    "start:mocks": "NODE_ENV=MOCK node .",
     "start": "NODE_ENV=development node ."
   },
   "author": "",
