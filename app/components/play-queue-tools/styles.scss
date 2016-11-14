@@ -1,0 +1,18 @@
+.play-queue-tools {
+  margin: 10px 15px;
+  &__tool {
+    width: 43px;
+    height: 43px;
+    display:inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align:middle;
+    cursor:pointer;
+  }
+
+  &__shuffle, &__repeat {
+    &--on {
+      color: #19b736;
+    }
+  }
+}

@@ -26,12 +26,38 @@ export function playQueueTrackSelected(selectedTrackData, index) {
   }
 }
 
-export function incrementCurrentIndex() {
-  return {
-    type: types.INCREMENT_CURRENT_INDEX,
+function randomIndex(max, min = 0) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+export function playRandomIndex() {
+  return(dispatch, getState) => {
+    const playQueueLength = getState().playQueue.playQueueTracks.length;
+    const randomTrackIndex = randomIndex(playQueueLength);
+    dispatch(setCurrentIndex(randomTrackIndex));
   }
 }
 
+export function playRepeatedTrack() {
+  return(dispatch, getState) => {
+    const currentIndex = getState().playQueue.playQueueCurrentIndex;
+    dispatch(setCurrentIndex(currentIndex));
+  }
+}
+
+export function incrementCurrentIndex() {
+  return (dispatch, getState) => {
+    if(getState().playQueue.shuffle) {
+      dispatch(playRandomIndex());
+    } else if(getState().playQueue.repeat) {
+      dispatch(playRepeatedTrack());
+    } else {
+      dispatch({
+        type: types.INCREMENT_CURRENT_INDEX,
+      });
+    }
+  }
+}
 export function setCurrentIndex(index) {
   return {
     type: types.SET_CURRENT_INDEX,
@@ -39,10 +65,15 @@ export function setCurrentIndex(index) {
   }
 }
 
-
 export function decrementCurrentIndex() {
-  return {
-    type: types.DECREMENT_CURRENT_INDEX,
+  return (dispatch, getState) => {
+    if(getState().playQueue.shuffle) {
+      dispatch(playRandomIndex());
+    } else {
+      dispatch({
+        type: types.DECREMENT_CURRENT_INDEX,
+      });
+    }
   }
 }
 
@@ -77,5 +108,53 @@ export function removeTrackFromQueue(index) {
   return {
     type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
     index,
+  }
+}
+
+export function trashPlayQueue() {
+  return {
+    type: types.TRASH_PLAY_QUEUE,
+  }
+}
+
+export function shuffle() {
+  return (dispatch, getState) => {
+    dispatch(disableRepeat());
+    dispatch(toggleShuffle(!getState().playQueue.shuffle));
+  }
+}
+
+export function repeat() {
+  return (dispatch, getState) => {
+    dispatch(disableShuffle());
+    dispatch(toggleRepeat(!getState().playQueue.repeat));
+  }
+}
+
+export function toggleShuffle(on) {
+  return {
+    type: types.SHUFFLE,
+    enabled: on,
+  }
+}
+
+export function disableShuffle() {
+  return {
+    type: types.SHUFFLE,
+    enabled: false,
+  }
+}
+
+export function toggleRepeat(on) {
+  return {
+    type: types.REPEAT,
+    enabled: on,
+  }
+}
+
+export function disableRepeat() {
+  return {
+    type: types.REPEAT,
+    enabled: false,
   }
 }
