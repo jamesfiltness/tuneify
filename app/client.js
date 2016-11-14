@@ -40,7 +40,6 @@ const reactRouterReduxMiddleware = routerMiddleware(browserHistory);
 const createStoreWithMiddleware = applyMiddleware(
   fetchMiddleware,
   thunkMiddleware,
-  logger,
   reactRouterReduxMiddleware,
 )(createStore);
 

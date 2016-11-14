@@ -49,7 +49,7 @@ if (process.env.NODE_ENV !== 'production') {
                 exclude: 'node_modules',
               },
               {
-                test: /\.(jpe?g|png|gif|svg)$/i,
+                test: /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)(\?.*$|$)/i,
                 loader: 'file',
                 exclude: 'node_modules',
               },
@@ -101,6 +101,8 @@ const store = createStore(
     playQueue: {
       playQueueCurrentIndex: 0,
       playQueueTracks: [],
+      shuffle: false,
+      repeat: false,
     },
   }
 );

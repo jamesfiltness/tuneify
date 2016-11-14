@@ -9,6 +9,7 @@ import Search from '../search';
 import SearchAutoComplete from '../search-autocomplete';
 import YouTubePlayer from '../youtube-player';
 import PlayQueue from '../play-queue';
+import PlayQueueTools from '../play-queue-tools';
 import CurrentTrackSummary from '../current-track-summary';
 
 class App extends React.Component {
@@ -60,6 +61,7 @@ class App extends React.Component {
           <CurrentTrackSummary trackData={trackSummary} />
           <YouTubePlayer videoData={videoData} />
           <PlayQueue tracks={playQueueTracks} />
+          <PlayQueueTools />
         </div>
       </div>
     );

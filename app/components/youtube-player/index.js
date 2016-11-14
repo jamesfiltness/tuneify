@@ -65,8 +65,10 @@ class YouTubePlayer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps.videoData.length > 0) {
       // TODO: this needs to be much more robust - although it seems never to have failed!
-      if(nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
-        this.playVideo(nextProps.videoData[0].id.videoId);       
+      if(nextProps.videoData[0].id.videoId === this.state.currentVideoId) {
+        // TODO: Just restart the current video
+      } else {
+        this.playVideo(nextProps.videoData[0].id.videoId);   
       }
     }
   } 
