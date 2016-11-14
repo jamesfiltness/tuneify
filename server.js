@@ -1,3 +1,4 @@
+import config from 'config';
 import express from 'express';
 import React from 'react';
 import path from 'path';
@@ -105,6 +106,13 @@ const store = createStore(
   }
 );
 
+// pass the necessary config down to the client
+// this makes it easy to manage stuff like mocking api urls
+// configurable via NODE_ENV
+const clientConfig = {
+  endpoints : config.get('endpoints')
+}
+
 app.get('*', (req, res) => {
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
@@ -131,6 +139,7 @@ app.get('*', (req, res) => {
           <div id="react-view">${componentHTML}</div>
           <script>
             window.__PRELOADED_STATE__ = ${JSON.stringify(serverState)}
+            window.clientConfig = ${JSON.stringify(clientConfig)}
           </script>
           <script src="https://apis.google.com/js/api.js"></script>
           <script type="application/javascript" src="/bundle.js"></script>
@@ -144,6 +153,7 @@ app.get('*', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Tuneify running on port 3000');
+const port = config.get('port');
+app.listen(port, () => {
+  console.log(`Tuneify running on port ${port}`);
 });
