@@ -35,10 +35,10 @@ export function playQueueCurrentIndex(state = 0, action) {
   }
 }
 
-export function playQueueShuffle(state = false, action) {
+export function shuffle(state = false, action) {
   switch(action.type) {
-    case types.SHUFFLE_PLAY_QUEUE:
-      return !state;
+    case types.SHUFFLE:
+      return action.enabled;
     default:
       return state;
   }
@@ -46,8 +46,8 @@ export function playQueueShuffle(state = false, action) {
 
 export function repeat(state = false, action) {
   switch(action.type) {
-    case types.REPEAT_CURRENT_TRACK:
-      return !state;
+    case types.REPEAT:
+      return action.enabled;
     default: 
       return state;
   }
@@ -56,6 +56,6 @@ export function repeat(state = false, action) {
 export const playQueue = combineReducers({
   playQueueTracks,
   playQueueCurrentIndex,
-  playQueueShuffle,
+  shuffle,
   repeat,
 });

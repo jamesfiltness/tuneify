@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import classNames from 'classNames';
 import { 
   trashPlayQueue,
-  shufflePlayQueue,
-  repeatCurrentTrack,
+  shuffle,
+  repeat,
 } from '../../actions/play-queue';
 
 class PlayQueueTools extends React.Component {
@@ -12,24 +12,23 @@ class PlayQueueTools extends React.Component {
     super();
     
     this.trashPlayQueue = this.trashPlayQueue.bind(this);
-    this.shufflePlayQueue = this.shufflePlayQueue.bind(this);
-    this.repeatCurrentTrack = this.repeatCurrentTrack.bind(this);
+    this.shuffle = this.shuffle.bind(this);
+    this.repeat = this.repeat.bind(this);
   }
 
   trashPlayQueue() {
     this.props.dispatch(trashPlayQueue());
   }
 
-  shufflePlayQueue() {
-    this.props.dispatch(shufflePlayQueue());
+  shuffle() {
+    this.props.dispatch(shuffle());
   }
 
-  repeatCurrentTrack() {
-    this.props.dispatch(repeatCurrentTrack());
+  repeat() {
+    this.props.dispatch(repeat());
   }
   
   render() {
-    console.log(this.props);
     const shuffleState = this.props.shuffle ? 'on' : 'off';
     const repeatState = this.props.repeat ? 'on' : 'off';
     const shuffleClasses = classNames(
@@ -50,11 +49,11 @@ class PlayQueueTools extends React.Component {
         <li className="play-queue-tools__tool fa fa-save"></li>
         <li 
           className={repeatClasses}
-          onClick={this.repeatCurrentTrack}
+          onClick={this.repeat}
         ></li>
         <li 
           className={shuffleClasses}
-          onClick={this.shufflePlayQueue}
+          onClick={this.shuffle}
         ></li>
         <li 
           className="play-queue-tools__tool fa fa-trash"
@@ -68,7 +67,7 @@ class PlayQueueTools extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    shuffle: state.playQueue.playQueueShuffle,
+    shuffle: state.playQueue.shuffle,
     repeat: state.playQueue.repeat, 
   }
 }

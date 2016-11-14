@@ -101,7 +101,8 @@ const store = createStore(
     playQueue: {
       playQueueCurrentIndex: 0,
       playQueueTracks: [],
-      playQueueShuffle: false,
+      shuffle: false,
+      repeat: false,
     },
   }
 );
