@@ -79,3 +79,38 @@ export function removeTrackFromQueue(index) {
     index,
   }
 }
+
+export function trashPlayQueue() {
+  return {
+    type: types.TRASH_PLAY_QUEUE,
+  }
+}
+
+export function shuffle() {
+  return (dispatch, getState) => {
+    dispatch(toggleRepeat(false));
+    dispatch(toggleShuffle(!getState().playQueue.shuffle));
+  }
+}
+
+export function repeat() {
+  return (dispatch, getState) => {
+    dispatch(toggleShuffle(false));
+    dispatch(toggleRepeat(!getState().playQueue.repeat));
+  }
+}
+
+export function toggleShuffle(on) {
+  return {
+    type: types.SHUFFLE,
+    enabled: on,
+  }
+}
+
+export function toggleRepeat(on) {
+  return {
+    type: types.REPEAT,
+    enabled: on,
+  }
+}
+
