@@ -46,7 +46,7 @@ const createStoreWithMiddleware = applyMiddleware(
 const store = createStoreWithMiddleware(rootReducer, initialState);
 
 const history = syncHistoryWithStore(browserHistory, store);
-console.log('STORE IS', store.getState());
+
 render(
   <Provider store={store}>
     <Router 
