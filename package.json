@@ -1,14 +1,15 @@
 {
-  "name": "isomorphic",
+  "name": "Tunefiy",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start:mocks": "NODE_ENV=MOCK node .",
-    "start": "NODE_ENV=development node ."
+    "start": "NODE_ENV=development node .",
+    "test": "mocha --compilers js:babel-register test/helper app/**/spec.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "James Filtness",
+  "license": "MIT",
   "dependencies": {
     "babel-plugin-react-transform": "2.0.2",
     "babel-plugin-transform-react-jsx": "6.8.0",
@@ -38,11 +39,14 @@
     "babel-eslint": "6.1.2",
     "babel-loader": "6.2.4",
     "babel-plugin-transform-object-rest-spread": "6.8.0",
+    "chai": "3.5.0",
+    "enzyme": "2.6.0",
     "eslint": "3.3.0",
     "eslint-config-airbnb": "10.0.1",
     "eslint-plugin-import": "1.13.0",
     "eslint-plugin-jsx-a11y": "2.1.0",
     "eslint-plugin-react": "6.1.0",
-    "file-loader": "0.9.0"
+    "file-loader": "0.9.0",
+    "mocha": "3.1.2"
   }
 }
