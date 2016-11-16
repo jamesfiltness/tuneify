@@ -38,19 +38,16 @@ export function playRandomIndex() {
   }
 }
 
-export function playRepeatedTrack() {
-  return(dispatch, getState) => {
-    const currentIndex = getState().playQueue.playQueueCurrentIndex;
-    dispatch(setCurrentIndex(currentIndex));
-  }
-}
-
 export function incrementCurrentIndex() {
   return (dispatch, getState) => {
-    if(getState().playQueue.shuffle) {
+    const playQueue = getState().playQueue;
+    if(playQueue.shuffle) {
       dispatch(playRandomIndex());
-    } else if(getState().playQueue.repeat) {
-      dispatch(playRepeatedTrack());
+    } else if(
+        playQueue.repeat &&
+        playQueue.playQueueTracks.length -1  === playQueue.playQueueCurrentIndex
+      ) {
+      dispatch(setCurrentIndex(0));
     } else {
       dispatch({
         type: types.INCREMENT_CURRENT_INDEX,
@@ -58,6 +55,7 @@ export function incrementCurrentIndex() {
     }
   }
 }
+
 export function setCurrentIndex(index) {
   return {
     type: types.SET_CURRENT_INDEX,
@@ -81,7 +79,6 @@ export function playCurrentIndex() {
   return (dispatch, getState) => {
     const currentIndex = getState().playQueue.playQueueCurrentIndex;
     const currentTrack = getState().playQueue.playQueueTracks[currentIndex];
-    
     dispatch(
       getTrackInfo(
         currentTrack.name, 

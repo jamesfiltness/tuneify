@@ -2,7 +2,7 @@
 
 A project to explore building an isomorphic React/Redux app backed by a servless architecture. 
 
-Tuneify is a streaming music app built on the YouTube and LastFm APIs. Current progress is a basic prototype featuring a simple player, album and artist and home routes.
+Tuneify is a streaming music app built on the YouTube and LastFm APIs. Current progress is a basic prototype featuring a simple player, album, artist and home routes.
 
 ## Tech:
 
@@ -25,6 +25,15 @@ npm i
 Then run:
 
 ```
-node .
+npm start
+```
+
+To run against mocks (this project is mainly developed on my commute in to work ;))
+
+cd to `mocks` and `npm i`, then 'node .' to start mock server and then in main project run:
+
+
+```
+npm run start:mocks
 ```
 

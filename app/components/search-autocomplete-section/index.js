@@ -50,9 +50,6 @@ class SearchAutoCompleteSection extends React.Component {
   }
 
   renderArtistResults(result) {
-    if(!result.mbid) {
-      alert('no mbid');
-    }
     return (
       <Link to={{ pathname: `/artist/${result.mbid}` }}>
         {this.resultContent(result)}
