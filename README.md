@@ -30,7 +30,7 @@ npm start
 
 To run against a mock LastFm server:
 
-`cd` to `mocks` and run npm i`. Then run `node .` to start mock server and then in main project run:
+`cd` to the `mocks` directory and run `npm i`. Then run `node .` to start mock server. Finally in the main project run:
 
 
 ```
