@@ -48,18 +48,18 @@ class App extends React.Component {
           </div>
         </header>
         <div className="sidebar sidebar--left">
-          <h2>Discover</h2>
+          <h3><i className="fa fa-list"></i>Discover</h3>
           <ul>
             <li>Top Artists</li>
             <li>Top Tracks</li>
             <li>Trending</li>
           </ul>
-          <h2>Your Music</h2>
+          <h3><i className="fa fa-user"></i>Your Music</h3>
           <ul>
             <li>Recent plays</li>
             <li>Library</li>
           </ul>
-          <h2>Playlists</h2>
+          <h3><i className="fa fa-list"></i>Playlists</h3>
         </div>
         <SearchAutoComplete
           artists={artists}
