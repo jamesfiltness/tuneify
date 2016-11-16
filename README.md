@@ -28,9 +28,9 @@ Then run:
 npm start
 ```
 
-To run against mocks (this project is mainly developed on my commute in to work ;))
+To run against a mock LastFm server:
 
-cd to `mocks` and `npm i`, then 'node .' to start mock server and then in main project run:
+`cd` to `mocks` and run npm i`. Then run `node .` to start mock server and then in main project run:
 
 
 ```
