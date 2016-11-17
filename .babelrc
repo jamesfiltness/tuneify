@@ -4,6 +4,7 @@
   ],
   "plugins": [
     "transform-react-jsx",
-    "babel-plugin-transform-object-rest-spread"
+    "babel-plugin-transform-object-rest-spread",
+    "transform-class-properties",
   ]
 }

@@ -59,7 +59,11 @@ export class App extends React.Component {
           {this.props.children}
         </div>
         <div className="sidebar sidebar--right">
-          <CurrentTrackSummary trackData={trackSummary} />
+          <CurrentTrackSummary 
+            trackName={trackSummary.trackName}
+            artist={trackSummary.artist}
+            image={trackSummary.image}
+          />
           <YouTubePlayer videoData={videoData} />
           <PlayQueue tracks={playQueueTracks} />
           <PlayQueueTools />

@@ -1,5 +1,3 @@
-
-
 .play-queue {
   max-height: calc(100% - 450px);
   overflow: auto;
@@ -27,6 +25,10 @@
 
   &::-webkit-scrollbar-corner {
     background-color:#000000;
+  }
+  
+  &__placeholder {
+    height: calc(100% - 450px);
   }
 
   &__list {
