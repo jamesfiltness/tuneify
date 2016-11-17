@@ -11,6 +11,7 @@ import YouTubePlayer from '../youtube-player';
 import PlayQueue from '../play-queue';
 import PlayQueueTools from '../play-queue-tools';
 import CurrentTrackSummary from '../current-track-summary';
+import UserSidebar from '../user-sidebar';
 
 export class App extends React.Component {
   constructor(props) {
@@ -48,8 +49,7 @@ export class App extends React.Component {
             />
           </div>
         </header>
-        <div className="sidebar sidebar--left">
-        </div>
+        <UserSidebar />
         <SearchAutoComplete
           artists={artists}
           tracks={tracks}

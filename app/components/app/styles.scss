@@ -57,4 +57,10 @@ body {
     background: #282727;
     border-right: 4px solid #282727;
   }
+
+  &--left {
+    .fa {
+      margin-right: 10px;
+    }
+  }
 }
