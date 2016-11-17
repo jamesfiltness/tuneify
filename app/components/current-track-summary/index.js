@@ -1,12 +1,19 @@
 import React from 'react';
 
 class CurrentTrackSummary extends React.Component {
+  static defaultProps = {
+    trackName: 'Welcome to Tuneify',
+    artist: 'Free streaming music',
+  };
+  
   render() {
+    let imageSrc;
+
     const {
       trackName,
       artist,
       image,
-    } = this.props.trackData;
+    } = this.props;
     
     return (
       <div className="current-track-summary">
