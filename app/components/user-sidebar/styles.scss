@@ -1,0 +1,18 @@
+.user-sidebar {
+  padding: 10px 0 0 30px;
+  &__heading {
+    text-transform: uppercase;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__list {
+    margin: 10px 0 30px 23px;
+    font-size: 14px;
+
+    &-item {
+      margin-bottom: 10px;
+    }
+  }
+}
