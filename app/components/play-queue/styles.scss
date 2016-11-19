@@ -1,9 +1,12 @@
 .play-queue {
   max-height: calc(100% - 450px);
   overflow: auto;
+  top: 0;
+  position: relative;
   padding: 3px 0px 3px 5px;
   border-top: 4px solid #333;
   border-bottom: 4px solid #333;
+  transition: top 2s ease 0s;
 
   &::-webkit-scrollbar {
     width:11px;
@@ -37,7 +40,7 @@
   }
 
   &__list-item {
-    padding: 7px 10px 7px 4px;
+    padding: 8px 10px 7px 4px;
     font-size: 12px;
     line-height: 1;
     cursor: pointer;

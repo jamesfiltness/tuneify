@@ -7,10 +7,12 @@ class PlayQueue extends React.Component {
   constructor() {
     super();
 
+    this.currentScrollTop = 0;
+    
     this.state = {
       renderPlayQueue: false,
     };
-
+    
     this.onSelectTrack = this.onSelectTrack.bind(this);
   }
 
@@ -20,14 +22,70 @@ class PlayQueue extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.shouldRenderPlayQueue(nextProps);
+
+    if (
+      this.props.playQueueCurrentIndex !== 
+      nextProps.playQueueCurrentIndex
+    ) {
+      this.scrollToCurrentIndex(nextProps);
+    }
+  }
+
+  scrollToCurrentIndex(props) {
+    //29 is the height of one item in the play queue
+   this.animateScroll(props.playQueueCurrentIndex);
+  }
+
+  animateScroll(trackOffset) {
+    console.log((trackOffset * 30) / 10);
+    const step = trackOffset 
+    if (trackOffset < this.props.playQueueCurrentIndex) {
+     console.log('scroll amount', trackOffset * 30);
+      let iterations = 0;
+      const timer = setInterval(() => {
+      const nextStep = this.currentScrollTop - step;
+     //   this.playQueueWrap.scrollTop = nextStep;
+     //   this.currentScrollTop = nextStep;
+     //   if (iterations === 10) {
+     //     this.currentScrollTop = top;
+     //     this.playQueueWrap.scrollTop = top;
+     //     clearInterval(timer);
+     //   }
+     //   iterations += 1;
+     // }, 50);
+      // if it's less we need to do currentscrolltop - step
+    } else {
+     // console.log('in scroll top');
+
+     // const step = Math.round((top - this.currentScrollTop) / 10);
+     // let iterations = 0;
+     // const timer = setInterval(() => {
+     //   const nextStep = this.currentScrollTop + step;
+     //   console.log(nextStep);
+     //   this.playQueueWrap.scrollTop = nextStep;
+     //   this.currentScrollTop = nextStep;
+     //   if (iterations === 10) {
+     //     this.currentScrollTop = top;
+     //     this.playQueueWrap.scrollTop = top;
+     //     clearInterval(timer);
+     //   }
+     //   iterations += 1;
+     // }, 50);
+    }
   }
 
   shouldRenderPlayQueue(props) {
-    if(props.tracks && props.tracks.length) {
-      this.setState({
-        renderPlayQueue: true,
-      });
-    } 
+    let renderPlayQueue;
+    
+    if (props.tracks && props.tracks.length) {
+      renderPlayQueue = true;
+    } else {
+      renderPlayQueue = false;
+    }
+
+    this.setState({
+      renderPlayQueue,
+    });
   }
 
   onSelectTrack(track, index) {
@@ -45,7 +103,10 @@ class PlayQueue extends React.Component {
         this.props.playQueueCurrentIndex ? 
         this.props.playQueueCurrentIndex : 0;
       return (
-        <div className="play-queue">
+        <div 
+          className="play-queue"
+          ref={(playQueueWrap) => this.playQueueWrap = playQueueWrap }
+        >
           <ul className="play-queue__list">
             {
               this.props.tracks.map((track, i) => {
