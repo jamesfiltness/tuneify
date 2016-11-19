@@ -1,3 +1,5 @@
+@import "../../styles/breakpoints";
+
 body {
   background: #111;
   color: #eee;
@@ -31,9 +33,13 @@ body {
 }
 
 .route-content {
-  margin: 61px 325px 0 240px;
+  margin: 61px 325px 0 174px;
   height: 100%;
   min-height: 600px;
+  
+  @include breakpoint(1024px) {
+    margin-left: 240px;
+  }
 }
 
 .sidebar {
@@ -41,11 +47,16 @@ body {
   height: 100%;
   background: #161616;
   top: 61px;
+  z-index: 2;
 
   &--left {
-    width: 240px;
+    width: 175px;
     border-right: 4px solid #282727;
     padding: 0 20px;
+
+    @include breakpoint(1024px) {
+      width: 240px;
+    }
   }
 
   &--right {
