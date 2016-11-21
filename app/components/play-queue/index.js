@@ -32,21 +32,24 @@ class PlayQueue extends React.Component {
   }
 
   scrollToCurrentIndex(props) {
-    //29 is the height of one item in the play queue
-   this.animateScroll(props.playQueueCurrentIndex);
-  }
-
-  animateScroll(track) {
-    const trackPos = ((track + 1) * 30);
+    let scrollBy;
+    const track = props.playQueueCurrentIndex;
+    const trackEl = this.playQueueWrap.querySelectorAll('.play-queue__list-item')[0];
+    const trackElHeight = trackEl.getBoundingClientRect().height;
+    const trackPos = ((track + 1) * trackElHeight);
     const playQueueHeight = this.playQueueWrap.getBoundingClientRect().height;  
     const scrollTopPos = this.playQueueWrap.scrollTop;
-    if (trackPos  > (playQueueHeight + scrollTopPos)) {
+    if (trackPos > (playQueueHeight + scrollTopPos)) {
       const move  = trackPos - (playQueueHeight + scrollTopPos);
-      this.playQueueWrap.scrollTop = scrollTopPos + move;
-    } else if ((track * 30) < scrollTopPos) {
-      const moveUpBy =  scrollTopPos - (track * 30);
-      this.playQueueWrap.scrollTop = scrollTopPos - moveUpBy;
+      this.animateScroll(scrollTopPos + move);
+    } else if ((track * trackElHeight) < scrollTopPos) {
+      const moveUpBy =  scrollTopPos - (track * trackElHeight);
+      this.animateScroll(scrollTopPos - moveUpBy);
     }
+  }
+
+  animateScroll(scrollBy) {
+    this.playQueueWrap.scrollTop = scrollBy;
   }
 
   shouldRenderPlayQueue(props) {
