@@ -36,41 +36,16 @@ class PlayQueue extends React.Component {
    this.animateScroll(props.playQueueCurrentIndex);
   }
 
-  animateScroll(trackOffset) {
-    console.log((trackOffset * 30) / 10);
-    const step = trackOffset 
-    if (trackOffset < this.props.playQueueCurrentIndex) {
-     console.log('scroll amount', trackOffset * 30);
-      let iterations = 0;
-      const timer = setInterval(() => {
-      const nextStep = this.currentScrollTop - step;
-     //   this.playQueueWrap.scrollTop = nextStep;
-     //   this.currentScrollTop = nextStep;
-     //   if (iterations === 10) {
-     //     this.currentScrollTop = top;
-     //     this.playQueueWrap.scrollTop = top;
-     //     clearInterval(timer);
-     //   }
-     //   iterations += 1;
-     // }, 50);
-      // if it's less we need to do currentscrolltop - step
-    } else {
-     // console.log('in scroll top');
-
-     // const step = Math.round((top - this.currentScrollTop) / 10);
-     // let iterations = 0;
-     // const timer = setInterval(() => {
-     //   const nextStep = this.currentScrollTop + step;
-     //   console.log(nextStep);
-     //   this.playQueueWrap.scrollTop = nextStep;
-     //   this.currentScrollTop = nextStep;
-     //   if (iterations === 10) {
-     //     this.currentScrollTop = top;
-     //     this.playQueueWrap.scrollTop = top;
-     //     clearInterval(timer);
-     //   }
-     //   iterations += 1;
-     // }, 50);
+  animateScroll(track) {
+    const trackPos = ((track + 1) * 30);
+    const playQueueHeight = this.playQueueWrap.getBoundingClientRect().height;  
+    const scrollTopPos = this.playQueueWrap.scrollTop;
+    if (trackPos  > (playQueueHeight + scrollTopPos)) {
+      const move  = trackPos - (playQueueHeight + scrollTopPos);
+      this.playQueueWrap.scrollTop = scrollTopPos + move;
+    } else if ((track * 30) < scrollTopPos) {
+      const moveUpBy =  scrollTopPos - (track * 30);
+      this.playQueueWrap.scrollTop = scrollTopPos - moveUpBy;
     }
   }
 
