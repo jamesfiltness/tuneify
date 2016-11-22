@@ -43,7 +43,11 @@ export function incrementCurrentIndex() {
     const playQueue = getState().playQueue;
     if(playQueue.shuffle) {
       dispatch(playRandomIndex());
-    } else if(
+    } 
+    
+    // if repeat is enabled and we're on the last track
+    // play the play queue from the beginning again
+    else if(
         playQueue.repeat &&
         playQueue.playQueueTracks.length -1  === playQueue.playQueueCurrentIndex
       ) {

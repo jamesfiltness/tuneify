@@ -7,10 +7,12 @@ class PlayQueue extends React.Component {
   constructor() {
     super();
 
+    this.currentScrollTop = 0;
+    
     this.state = {
       renderPlayQueue: false,
     };
-
+    
     this.onSelectTrack = this.onSelectTrack.bind(this);
   }
 
@@ -20,14 +22,47 @@ class PlayQueue extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.shouldRenderPlayQueue(nextProps);
+
+    if (
+      this.props.playQueueCurrentIndex !== 
+      nextProps.playQueueCurrentIndex
+    ) {
+      this.scrollToCurrentIndex(nextProps);
+    }
+  }
+
+  scrollToCurrentIndex(props) {
+    let move;
+
+    const track = props.playQueueCurrentIndex;
+    const trackEl = this.playQueueWrap.querySelectorAll('.play-queue__list-item')[0];
+    const trackElHeight = trackEl.getBoundingClientRect().height;
+    const trackPos = track * trackElHeight;
+    const trackPosBottomEdge = trackPos + trackElHeight;
+    const playQueueHeight = this.playQueueWrap.getBoundingClientRect().height;  
+    const scrollTopPos = this.playQueueWrap.scrollTop;
+    
+    if (trackPosBottomEdge > (playQueueHeight + scrollTopPos)) {
+      move = trackPosBottomEdge - (playQueueHeight + scrollTopPos);
+      this.playQueueWrap.scrollTop = scrollTopPos + move;
+    } else if (trackPos < scrollTopPos) {
+      move = scrollTopPos - trackPos;
+      this.playQueueWrap.scrollTop = scrollTopPos - move;
+    }
   }
 
   shouldRenderPlayQueue(props) {
-    if(props.tracks && props.tracks.length) {
-      this.setState({
-        renderPlayQueue: true,
-      });
-    } 
+    let renderPlayQueue;
+    
+    if (props.tracks && props.tracks.length) {
+      renderPlayQueue = true;
+    } else {
+      renderPlayQueue = false;
+    }
+
+    this.setState({
+      renderPlayQueue,
+    });
   }
 
   onSelectTrack(track, index) {
@@ -45,7 +80,10 @@ class PlayQueue extends React.Component {
         this.props.playQueueCurrentIndex ? 
         this.props.playQueueCurrentIndex : 0;
       return (
-        <div className="play-queue">
+        <div 
+          className="play-queue"
+          ref={(playQueueWrap) => this.playQueueWrap = playQueueWrap }
+        >
           <ul className="play-queue__list">
             {
               this.props.tracks.map((track, i) => {
