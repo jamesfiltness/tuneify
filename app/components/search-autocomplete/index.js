@@ -1,8 +1,7 @@
 import React from 'react';
-import SearchAutoCompleteSection from '../search-autocomplete-section';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-
+import SearchAutoCompleteSection from '../search-autocomplete-section';
 import { 
   autocompleteTrackSelected,
   autocompleteArtistSelected,
@@ -17,8 +16,6 @@ class SearchAutoComplete extends React.Component {
     this.state = {
       autoCompleteVisible: false, 
     };
-
-    this.onRouteChange();
   }
   
   componentWillReceiveProps(nextProps) {
@@ -41,6 +38,8 @@ class SearchAutoComplete extends React.Component {
   componentDidMount() {
     document.addEventListener('click', this.handleDocumentClick.bind(this), false);
     window.addEventListener('resize', this.handleDocumentResize.bind(this), false);
+
+    this.handleRouteChange();
   }
 
   componentWillUnmount() {
@@ -48,7 +47,7 @@ class SearchAutoComplete extends React.Component {
     window.removeEventListener('resize', this.handleDocumentResize.bind(this), false);
   }
 
-  onRouteChange() {
+  handleRouteChange() {
     browserHistory.listen( location =>  {
       this.setState({
         autoCompleteVisible: false,
@@ -63,24 +62,13 @@ class SearchAutoComplete extends React.Component {
   }
 
   handleDocumentClick(e) {
-    if (!this.autoComplete.contains(e.target)) {
-      this.setState({
-        autoCompleteVisible: false,
-      }); 
+    if (this.state.autoCompleteVisible) {
+      if (!this.autoComplete.contains(e.target)) {
+        this.setState({
+          autoCompleteVisible: false,
+        }); 
+      }
     }
-  }
-
-  onWindowResize() {
-  
-  }
-
-  onWindowClick() {
-  
-  }
-  
-  //get the left position of the element in question
-  getSearchPosition() {
-    
   }
 
   render() {
@@ -91,14 +79,11 @@ class SearchAutoComplete extends React.Component {
       albums
     }  = this.props;
     
-    return (
-    <div 
-      className="autocomplete__wrap"
-      ref={(autoComplete) => this.autoComplete = autoComplete }
-    >
-    {this.state.autoCompleteVisible ?
+    if (this.state.autoCompleteVisible) {
+      return (
         <div 
           className="autocomplete"
+          ref={(autoComplete) => this.autoComplete = autoComplete }
         >
           <SearchAutoCompleteSection 
             title="Artists" 
@@ -118,10 +103,10 @@ class SearchAutoComplete extends React.Component {
             data={albums}
           />
         </div>
-      :  null
+      )
+    } else {
+      return null;
     }
-      </div>
-      );
-}
+  }
 }
 export default connect()(SearchAutoComplete)
