@@ -65,18 +65,25 @@ class Artist extends React.Component {
       } else {
         return (
           <div className="artist">
-            <h3>{artistPageData.name}</h3>
-            <img 
-              src={artistPageData.image} 
-            />
+            <div className="artist__header">
+              <img 
+                src={artistPageData.image} 
+                className="artist__header-image"
+                alt={artistPageData.name}
+                width="174"
+                height="174"
+              />
+              <h5 className="artist__header-identifier">Artist</h5>
+              <h1 className="artist__header-name">{artistPageData.name}</h1>
+            </div>
             <div 
-              className="artist-page__bio" 
+              className="artist__bio" 
               dangerouslySetInnerHTML={
                 this.renderBio(artistPageData.bio.summary)
               } 
             />
-            <div className="artist-page__similar">
-              <ul className="artist-page__similar-list">
+            <div className="artist__similar">
+              <ul className="artist__similar-list">
                 {this.renderSimilarArtists(artistPageData.similar)}
               </ul>
             </div>
