@@ -2,20 +2,19 @@ import * as types from '../../constants/ActionTypes.js';
 import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions';
 import { resetPlayQueueIndex, playCurrentIndex } from '../play-queue';
 
-export function getAlbumPageData(mbid) {
-  const actions =  
-    [
-      types.LAST_FM_API_REQUEST, 
-      types.RECEIVE_ALBUM_PAGE_DATA,
-      types.ALBUM_PAGE_DATA_ERROR
-    ];
-
-  const params = { 
+export function getAlbumPageData(params) {
+  const actions = [
+    types.LAST_FM_API_REQUEST, 
+    types.RECEIVE_ALBUM_PAGE_DATA,
+    types.ALBUM_PAGE_DATA_ERROR
+  ];
+  
+  const query = { 
     method: 'album.getinfo',
-    mbid,
+    ...params,
   };
   
-  return fetchLastFmData(actions, params);
+  return fetchLastFmData(actions, query);
 }
 
 export function clearAlbumPageData() {

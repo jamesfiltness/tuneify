@@ -1,7 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router'
-import SearchAutoCompleteThumbnail from '../search-autocomplete-thumbnail'
-import prepareStringForUrl from '../../utils/prepare-string-for-url'
+import React from 'react';
+import { Link } from 'react-router';
+import SearchAutoCompleteThumbnail from '../search-autocomplete-thumbnail';
 
 class SearchAutoCompleteSection extends React.Component {
   constructor() {
@@ -42,8 +41,14 @@ class SearchAutoCompleteSection extends React.Component {
   }
 
   renderAlbumResults(result) {
+    let path = `/album/${result.mbid}`;
+    
+    if (!result.mbid) {
+      path = `/album/${encodeURIComponent(result.artist)}/${encodeURIComponent(result.name)}`;
+    }
+
     return (
-      <Link to={{ pathname: `/album/${result.mbid}` }}>
+      <Link to={{ pathname: path }}>
         {this.resultContent(result)}
       </Link>
     )
