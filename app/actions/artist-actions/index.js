@@ -1,7 +1,7 @@
 import * as types from '../../constants/ActionTypes.js'
 import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions'
 
-export function getArtistPageData(mbid) {
+export function getArtistPageData(params) {
   const actions =  
     [
       types.LAST_FM_API_REQUEST, 
@@ -9,12 +9,12 @@ export function getArtistPageData(mbid) {
       types.ARTIST_PAGE_DATA_ERROR
     ];
 
-  const params = { 
+  const query = { 
     method: 'artist.getinfo',
-    mbid,
+    ...params,
   };
   
-  return fetchLastFmData(actions, params);
+  return fetchLastFmData(actions, query);
 };
 
 export function clearArtistPageData() {
