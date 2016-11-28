@@ -55,8 +55,14 @@ class SearchAutoCompleteSection extends React.Component {
   }
 
   renderArtistResults(result) {
+    let path =  `/artist/${result.mbid}`;
+    
+    if(!result.mbid) {
+      path = `/artist/${encodeURIComponent(result.artist)}`;
+    }
+
     return (
-      <Link to={{ pathname: `/artist/${result.mbid}` }}>
+      <Link to={{ pathname: path }}>
         {this.resultContent(result)}
       </Link>
     ) 
