@@ -21,24 +21,40 @@ class Album extends React.Component {
   }
 
   componentDidMount() {
-    this.getAlbumData(this.props.params.mbid);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.params.mbid !== this.props.params.mbid) {
-      // TODO:  investigate whether getAlbumPageData action creator
-      // can use a thunk as well as using promise middleware
-      // if so we can just dispatch one action instead of three here
-      this.props.dispatch(clearAlbumPageData());
-      this.props.dispatch(clearAlbumPageError());
-      this.getAlbumData(nextProps.params.mbid);
+    if (this.props.params.mbid) {
+      this.getAlbumData({ mbid: this.props.params.mbid});
+    } else {
+      this.getAlbumData({
+        artist: this.props.params.artist, 
+        album: this.props.params.album
+      });
     }
   }
 
-  getAlbumData(mbid) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.mbid) {
+      if(nextProps.params.mbid !== this.props.params.mbid) {
+        // TODO:  investigate whether getAlbumPageDat action creator
+        // can use a thunk as well as using promise middleware
+        // if so we can just dispatch one action instead of three here
+        this.props.dispatch(clearAlbumPageData());
+        this.props.dispatch(clearAlbumPageError());
+        this.getAlbumData({ mbid: nextProps.params.mbid});
+      }
+    } else if (nextProps.params.album !== this.props.params.album) {
+      this.props.dispatch(clearAlbumPageData());
+      this.props.dispatch(clearAlbumPageError());
+      this.getAlbumData({
+        artist: nextProps.params.artist, 
+        album: nextProps.params.album
+      });
+    }
+  }
+  
+  getAlbumData(params) {
     this.props.dispatch(
       getAlbumPageData(
-        mbid,
+        params,
       )
     );
   } 
@@ -87,7 +103,7 @@ class Album extends React.Component {
       albumPageData,
       currentAlbumPageError,
     } = this.props;
-
+    
     if (albumPageData) {
       // sometimes lastfm returns successfully but with an empty 
       // json object. To counter this the reducer has a case for

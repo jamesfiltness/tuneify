@@ -12,23 +12,33 @@ class Artist extends React.Component {
   // rate limiting allows 5 requests per second
   // per originating IP adress averaged over a 5 minute period
   componentDidMount() {
-    this.getArtistData(this.props.params.mbid);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.params.mbid !== this.props.params.mbid) {
-      // TODO:  investigate whether getArtistPageData action creator
-      // can use a thunk as well as using promise middleware
-      // if so we can just dispatch one action instead of three here
-      this.props.dispatch(clearArtistPageData());
-      this.props.dispatch(clearArtistPageError());
-      this.getArtistData(nextProps.params.mbid);
+    if (this.props.params.mbid) {
+      this.getArtistData({ mbid: this.props.params.mbid });
+    } else {
+      this.getArtistData({ artist: this.props.params.artist });
     }
   }
 
-  getArtistData(mbid) {
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.params.mbid) {
+      if(nextProps.params.mbid !== this.props.params.mbid) {
+        // TODO:  investigate whether getArtistPageData action creator
+        // can use a thunk as well as using promise middleware
+        // if so we can just dispatch one action instead of three here
+        this.props.dispatch(clearArtistPageData());
+        this.props.dispatch(clearArtistPageError());
+        this.getArtistData({ mbid: nextProps.params.mbid });
+      }
+    } else if (nextProps.params.artist !== this.props.params.artist) {
+      this.props.dispatch(clearArtistPageData());
+      this.props.dispatch(clearArtistPageError());
+      this.getArtistData({ artist: nextProps.params.artist });
+    }
+  }
+
+  getArtistData(params) {
     this.props.dispatch(
-      getArtistPageData(mbid)
+      getArtistPageData(params)
     );
   } 
 
