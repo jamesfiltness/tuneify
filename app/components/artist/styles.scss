@@ -1,5 +1,6 @@
 .artist {
   padding: 40px 40px 0 40px;
+  max-width: 1000px;
   &__header {
     overflow: hidden;
   }
@@ -12,13 +13,66 @@
   &__header-identifier {
     text-transform: uppercase;
     color: #ccc;
-    margin-top: 0px;
+    margin: 0px 0 25px 0;
   }
 
   &__bio {
     font-size: 14px;
-    margin-top: 20px;
     height: 49px;
     overflow: hidden;
+  }
+
+  &__read-more {
+    margin: 0;
+    text-decoration: none;
+  }
+
+  &__read-more-link {
+    text-decoration: none;
+    font-size: 12px;
+    color: #19b736;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__similar {
+    margin-top: 35px;
+  }
+
+  &__similar-artist-image {
+    display:block;
+  }
+
+  &__similar-artist-wrap {
+    width: 64px;
+    margin: 0 auto;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+
+  &__similar-artist-item {
+    float: left;
+    margin-right: 10px;
+    width: calc(16% - 10px);
+  }
+
+  &__similar-artist-text {
+    display: block;
+    text-align: center;
+    margin-top: 6px;
+  }
+
+  &__similar-artist-link {
+    display:block;
+    font-size: 13px;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
