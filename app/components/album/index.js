@@ -68,7 +68,16 @@ class Album extends React.Component {
               this.props.albumPageData.tracks.map((track, i) => {
                 return (
                   <tr className="album__track-row" key={i}>
-                    <td className="album__track-cell">{track['@attr'].rank}</td>
+                    <td 
+                      className="album__track-cell"
+                    >
+                      <span className="album__track-rank">
+                        {track['@attr'].rank}
+                      </span>
+                      <span className="album__track-play">
+                        <i className="fa fa-play" />
+                      </span>
+                    </td>
                     <td className="album__track-cell">{track.name}</td>
                   </tr>
                 )
