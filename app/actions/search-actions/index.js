@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import * as types from '../../constants/ActionTypes.js';
 import { playVideo } from '../player-actions';
 import { playTrack, trackSelected } from '../common-actions';
+import { appendTrackToPlayQueueAndPlay } from '../album-actions';
 import { handleErrors, handleServerErrors } from '../../utils/handleErrors';
 import { push } from 'react-router-redux';
 import { fetchLastFmData } from '../lastfm-actions';
@@ -35,9 +36,8 @@ export function autocompleteTrackSelected(selectedTrackData) {
       )
     );
     dispatch(
-      playTrack(
-        selectedTrackData.name, 
-        selectedTrackData.artist 
+      appendTrackToPlayQueueAndPlay(
+        selectedTrackData
       )
     );
   }
