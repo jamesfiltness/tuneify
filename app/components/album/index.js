@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { 
   clearAlbumPageError, 
@@ -14,9 +14,14 @@ class Album extends React.Component {
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second
   // per originating IP adress averaged over a 5 album period
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    albumPageData: PropTypes.object,
+    currentAlbumPageError: PropTypes.string,
+  };
+
   constructor() {
     super();
-
     this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
     this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
     this.onSelectTrack = this.onSelectTrack.bind(this);

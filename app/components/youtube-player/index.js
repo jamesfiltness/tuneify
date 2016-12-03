@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classNames';
 import { 
@@ -24,6 +24,12 @@ const PLAYER_HEIGHT = 200;
 
 
 class YouTubePlayer extends React.Component {
+  
+  static PropTypes = {
+    dispatch: PropTypes.func.isRequired,
+    videoData: PropTypes.array,
+  };
+
   constructor() {
     super();
     this.loaded = false;

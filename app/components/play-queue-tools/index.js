@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classNames';
 import { 
@@ -8,6 +8,13 @@ import {
 } from '../../actions/play-queue';
 
 class PlayQueueTools extends React.Component {
+
+  static PropTypes = {
+    dispatch: PropTypes.func.isRequired,
+    shuffle: PropTypes.bool.isRequired,
+    repeat: PropTypes.bool.isRequired,
+  };
+
   constructor() {
     super();
     
