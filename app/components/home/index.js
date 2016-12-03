@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { 
   getTopArtists, 
 } from '../../actions/homepage-actions';
 
 class Home extends React.Component {
+  
+  static PropTypes = {
+    dispatch: PropTypes.func.isRequired,
+    topArtistData: PropTypes.array,
+    topArtistDataError: PropTypes.string,
+  };
+
   // only call for data once the page
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second

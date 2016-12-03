@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
@@ -14,14 +14,22 @@ import CurrentTrackSummary from '../current-track-summary';
 import UserSidebar from '../user-sidebar';
 
 export class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  
+  static propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    currentSearch: PropTypes.string,
+    artists: PropTypes.array,
+    tracks: PropTypes.array,
+    albums: PropTypes.array,
+    children: React.PropTypes.object,
+    currentSearch: React.PropTypes.string,
+    playQueueTracks: React.PropTypes.array,
+    trackSummary: React.PropTypes.object,
+  };
 
   render() {
     const { 
-      dispatch, 
-      currentTrack,
+      dispatch,
       artists, 
       albums, 
       tracks,
@@ -73,17 +81,12 @@ export class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  children: React.PropTypes.object,
-};
-
 function mapStateToProps(state) {
   return {
     currentSearch : state.currentSearch,
     artists : state.autocomplete.autocompleteArtistData,
     tracks : state.autocomplete.autocompleteTrackData,
     albums : state.autocomplete.autocompleteAlbumData,
-    currentTrack: state.currentTrack,
     videoData: state.videoData,
     playQueueTracks: state.playQueue.playQueueTracks,
     trackSummary: state.currentTrackSummaryData,

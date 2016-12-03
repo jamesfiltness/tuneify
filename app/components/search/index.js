@@ -1,7 +1,11 @@
-import React from 'react'
-import _ from 'lodash'
+import React, { PropTypes } from 'react';
+import _ from 'lodash';
 
 class Search extends React.Component {
+  static PropTypes = {
+    onSearch: PropTypes.func.isRequired,
+  };
+
   constructor() {
    super();
    this.handleSearch = _.throttle(this.handleSearch, 1000);
