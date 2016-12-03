@@ -1,4 +1,3 @@
-/* Search Action types */
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_ARTIST_DATA = 'RECEIVE_ARTIST_DATA';
 export const RECEIVE_TRACK_DATA = 'RECEIVE_TRACK_DATA';
@@ -32,3 +31,4 @@ export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX';
 export const TRASH_PLAY_QUEUE = 'TRASH_PLAY_QUEUE';
 export const SHUFFLE = 'SHUFFLE';
 export const REPEAT = 'REPEAT';
+export const APPEND_TRACK_TO_PLAY_QUEUE = 'APPEND_TRACK_TO_PLAY_QUEUE';
