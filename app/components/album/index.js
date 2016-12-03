@@ -5,6 +5,7 @@ import {
   getAlbumPageData, 
   clearAlbumPageData,
   appendAlbumToPlayQueue,
+  appendTrackToPlayQueueAndPlay,
   replaceQueueWithAlbumAndPlay,
 } from '../../actions/album-actions'
 
@@ -18,6 +19,7 @@ class Album extends React.Component {
 
     this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
     this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
+    this.onSelectTrack = this.onSelectTrack.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +61,12 @@ class Album extends React.Component {
     );
   } 
 
+  onSelectTrack(track) {
+    this.props.dispatch(
+      appendTrackToPlayQueueAndPlay(track)
+    )
+  }
+
   renderTracks() {
     if(this.props.albumPageData.tracks) {
       return (
@@ -67,7 +75,11 @@ class Album extends React.Component {
             {
               this.props.albumPageData.tracks.map((track, i) => {
                 return (
-                  <tr className="album__track-row" key={i}>
+                  <tr 
+                    className="album__track-row" 
+                    key={i}
+                    onClick={() => {this.onSelectTrack(track, i)}}
+                  >
                     <td 
                       className="album__track-cell"
                     >
