@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 class CurrentTrackSummary extends React.Component {
   static defaultProps = {
     trackName: 'Welcome to Tuneify',
     artist: 'Free streaming music',
   };
-  
+
+  static propTypes = {
+    trackName: PropTypes.string,
+    artist: PropTypes.string,
+    image: PropTypes.string,
+  };
+
   render() {
     let imageSrc;
-
+    
     const {
       trackName,
       artist,
