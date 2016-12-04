@@ -6,7 +6,10 @@
   "scripts": {
     "start:mocks": "NODE_ENV=MOCK node .",
     "start": "NODE_ENV=development node .",
-    "test": "mocha --compilers js:babel-register test/helper app/**/spec.js"
+    "test": "mocha --compilers js:babel-register test/helper app/**/spec.js",
+    "eslint": "eslint",
+    "postinstall": "npm run hooks",
+    "hooks": "chmod +x hooks/*; cd .git/hooks && ln -sf ../../hooks/* ."
   },
   "author": "James Filtness",
   "license": "MIT",
@@ -41,8 +44,8 @@
     "babel-loader": "6.2.4",
     "babel-plugin-transform-object-rest-spread": "6.8.0",
     "chai": "3.5.0",
-    "chai-enzyme": "^0.6.0",
-    "cheerio": "^0.22.0",
+    "chai-enzyme": "0.6.0",
+    "cheerio": "0.22.0",
     "enzyme": "2.6.0",
     "eslint": "3.3.0",
     "eslint-config-airbnb": "10.0.1",
