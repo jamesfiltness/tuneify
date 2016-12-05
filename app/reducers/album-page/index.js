@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 export function albumPageData(state = null, action) {
   switch (action.type) {
     case types.RECEIVE_ALBUM_PAGE_DATA:
-      // need a better solution for dealing with images here
+      // TODO: need a better solution for dealing with images here
       // what if this image is not defined
       // need to also confirm that all the required properties are here
       if(action.json.album.tracks.track.length === 0) {

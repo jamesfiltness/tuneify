@@ -83,6 +83,7 @@
   &__player-wrap {
     padding-bottom: 4px;
     position: relative;
+    clear: both;
     &:hover {
       .youtube-player__progress-bar,
       .youtube-player__elapsed,
