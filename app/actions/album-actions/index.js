@@ -51,7 +51,14 @@ const appendTrack = (track, dispatch) => new Promise((resolve, reject) => {
 
 export function appendTrackToPlayQueueAndPlay(track) {
   return (dispatch, getState) => {
-    appendTrack(track, dispatch).then(() => {
+    let trackObj = track;
+    
+    // This is a hack.......
+    if (!trackObj.artist.name) {
+      trackObj = { ...track, ...{ artist: { name: track.artist, mbid: track.mbid } } };
+    }
+    
+    appendTrack(trackObj, dispatch).then(() => {
       dispatch(
         setCurrentIndex(
           getState().playQueue.playQueueTracks.length - 1

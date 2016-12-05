@@ -1,11 +1,13 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes } from 'react';
 
+// TODO: should be stateless
 class SearchAutoCompleteThumbnail extends React.Component {
   render() {
     let { thumb, altText }  = this.props;
     let img;
     
-    if(thumb[0]['#text'] === '') {
+    // TODO: This needs some work
+    if (thumb[0]['#text'] === '') {
 	    img = 'http://placehold.it/34x34'
 	  } else {
 	    img = thumb[0]['#text'];
@@ -18,7 +20,7 @@ class SearchAutoCompleteThumbnail extends React.Component {
 }
 
 SearchAutoCompleteThumbnail.propTypes = {
-  thumb: PropTypes.string,
+  thumb: PropTypes.array,
   altText: PropTypes.string,
 };
 

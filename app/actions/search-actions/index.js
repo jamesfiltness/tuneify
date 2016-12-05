@@ -7,6 +7,7 @@ import { appendTrackToPlayQueueAndPlay } from '../album-actions';
 import { handleErrors, handleServerErrors } from '../../utils/handleErrors';
 import { push } from 'react-router-redux';
 import { fetchLastFmData } from '../lastfm-actions';
+
 export function clearSearch() {
   return {
     type: types.CLEAR_SEARCH
