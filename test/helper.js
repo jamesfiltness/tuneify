@@ -1,6 +1,7 @@
 // TODO: comment this file
 import chai  from 'chai';
 import chaiEnzyme from 'chai-enzyme';
+import sinonChai from 'sinon-chai';
 import { shallow, mount, render } from 'enzyme';
 
 const jsdom = require('jsdom').jsdom;
@@ -24,6 +25,7 @@ global.navigator = {
 
 
 chai.use(chaiEnzyme());
+chai.use(sinonChai);
 
 global.expect = chai.expect;
 global.mount = mount;
