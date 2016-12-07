@@ -8,6 +8,7 @@ function UserSidebar() {
         <li className="user-sidebar__list-item">Top Artists</li>
         <li className="user-sidebar__list-item">Top Tracks</li>
         <li className="user-sidebar__list-item">Trending</li>
+        <li className="user-sidebar__list-item">Decade</li>
       </ul>
       <h3 className="user-sidebar__heading"><i className="fa fa-user"></i>Your Music</h3>
       <ul className="user-sidebar__list">
