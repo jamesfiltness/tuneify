@@ -105,4 +105,39 @@ describe('Artist component', () => {
     );
     expect(artistStub).to.have.been.calledWith({ artist: '22-20s' });
   });
+
+  it('if the same mbid param is provided the page should not be updated', () => {
+    component.setProps(
+      { params: { mbid: 'some-mbid' } }
+    );
+    expect(artistStub).to.not.have.been.called;
+  });
+
+  it('if new artist data has been proided via props the component should be updated', () => {
+    component.setProps( 
+      {
+        artistPageData: {
+          name: "The Cure",
+          bio: {
+            summary: "The Cure summary"
+          },
+          similar: [{
+            name: "Thom Yorke",
+            image: [
+              {"#text": 'http://example.com/thom.jpg'},
+              {"#text": 'http://example.com/thom.jpg'}
+            ],
+          }],
+          image: 'http://example.com/image.jpg',
+        }
+      }
+    );
+
+    expect(component.find('h3')).to.have.text('The Cure');
+    expect(
+      component
+        .find('.artist-page__bio')
+        .html()
+    ).to.be.equal('<div class="artist-page__bio">The Cure summary</div>');
+  });
 });
