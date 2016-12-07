@@ -7,7 +7,7 @@ import {
   repeat,
 } from '../../actions/play-queue';
 
-class PlayQueueTools extends React.Component {
+export class PlayQueueTools extends React.Component {
 
   static PropTypes = {
     dispatch: PropTypes.func.isRequired,
