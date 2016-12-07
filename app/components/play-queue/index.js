@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classNames';
 import { connect } from 'react-redux';
 import { playQueueTrackSelected, removeTrackFromQueue } from '../../actions/play-queue';
 
 class PlayQueue extends React.Component {
+  
+  static PropTypes = {
+    dispatch: PropTypes.func.isRequired,
+    playQueueCurrentIndex: PropTypes.number,
+    playQueueTracks: PropTypes.bool.array,
+  }
+
   constructor() {
     super();
 

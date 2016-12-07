@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { 
   clearArtistPageError, 
@@ -11,6 +11,16 @@ class Artist extends React.Component {
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second
   // per originating IP adress averaged over a 5 minute period
+
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    currentAlbumPageError: PropTypes.string,
+    artists: PropTypes.array,
+    tracks: PropTypes.array,
+    albums: PropTypes.array,
+    children: React.PropTypes.object,
+  }
+
   componentDidMount() {
     if (this.props.params.mbid) {
       this.getArtistData({ mbid: this.props.params.mbid });

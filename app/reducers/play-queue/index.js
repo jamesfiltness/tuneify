@@ -3,6 +3,8 @@ import { combineReducers } from 'redux';
 
 export function playQueueTracks(state = [], action) {
   switch (action.type) {
+    case types.APPEND_TRACK_TO_PLAY_QUEUE:
+      return state.concat(action.track);
     case types.ADD_TRACKS_TO_PLAY_QUEUE:
       return state.concat(action.tracks);
     case types.REPLACE_QUEUE_WITH_TRACKS:

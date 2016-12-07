@@ -45,13 +45,16 @@ export function incrementCurrentIndex() {
       dispatch(playRandomIndex());
     } 
     
-    // if repeat is enabled and we're on the last track
-    // play the play queue from the beginning again
     else if(
-        playQueue.repeat &&
         playQueue.playQueueTracks.length -1  === playQueue.playQueueCurrentIndex
       ) {
-      dispatch(setCurrentIndex(0));
+        if (playQueue.repeat) {
+          // if repeat is enabled and we're on the last track
+          // play the play queue from the beginning again
+          dispatch(setCurrentIndex(0));
+        } else {
+          return;
+        }
     } else {
       dispatch({
         type: types.INCREMENT_CURRENT_INDEX,

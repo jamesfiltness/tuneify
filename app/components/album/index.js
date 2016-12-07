@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { 
   clearAlbumPageError, 
   getAlbumPageData, 
   clearAlbumPageData,
   appendAlbumToPlayQueue,
+  appendTrackToPlayQueueAndPlay,
   replaceQueueWithAlbumAndPlay,
 } from '../../actions/album-actions'
 
@@ -13,11 +14,17 @@ class Album extends React.Component {
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second
   // per originating IP adress averaged over a 5 album period
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    albumPageData: PropTypes.object,
+    currentAlbumPageError: PropTypes.string,
+  };
+
   constructor() {
     super();
-
     this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
     this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
+    this.onSelectTrack = this.onSelectTrack.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +66,12 @@ class Album extends React.Component {
     );
   } 
 
+  onSelectTrack(track) {
+    this.props.dispatch(
+      appendTrackToPlayQueueAndPlay(track)
+    )
+  }
+
   renderTracks() {
     if(this.props.albumPageData.tracks) {
       return (
@@ -67,8 +80,21 @@ class Album extends React.Component {
             {
               this.props.albumPageData.tracks.map((track, i) => {
                 return (
-                  <tr className="album__track-row" key={i}>
-                    <td className="album__track-cell">{track['@attr'].rank}</td>
+                  <tr 
+                    className="album__track-row" 
+                    key={i}
+                    onClick={() => {this.onSelectTrack(track, i)}}
+                  >
+                    <td 
+                      className="album__track-cell"
+                    >
+                      <span className="album__track-rank">
+                        {track['@attr'].rank}
+                      </span>
+                      <span className="album__track-play">
+                        <i className="fa fa-play" />
+                      </span>
+                    </td>
                     <td className="album__track-cell">{track.name}</td>
                   </tr>
                 )

@@ -1,6 +1,7 @@
 import * as types from '../../constants/ActionTypes.js';
 import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions';
 import { resetPlayQueueIndex, playCurrentIndex } from '../play-queue';
+import { setCurrentIndex } from '../play-queue';
 
 export function getAlbumPageData(params) {
   const actions = [
@@ -33,6 +34,38 @@ export function appendAlbumToPlayQueue(tracks) {
   return {
     type: types.ADD_TRACKS_TO_PLAY_QUEUE,
     tracks,
+  }
+}
+
+export function appendTrackToPlayQueue(track) {
+  return {
+    type: types.APPEND_TRACK_TO_PLAY_QUEUE,
+    track
+  }
+}
+
+const appendTrack = (track, dispatch) => new Promise((resolve, reject) => {
+  dispatch(appendTrackToPlayQueue(track));
+  resolve();
+});
+
+export function appendTrackToPlayQueueAndPlay(track) {
+  return (dispatch, getState) => {
+    let trackObj = track;
+    
+    // This is a hack.......
+    if (!trackObj.artist.name) {
+      trackObj = { ...track, ...{ artist: { name: track.artist, mbid: track.mbid } } };
+    }
+    
+    appendTrack(trackObj, dispatch).then(() => {
+      dispatch(
+        setCurrentIndex(
+          getState().playQueue.playQueueTracks.length - 1
+        )
+      )
+      dispatch(playCurrentIndex());
+    })
   }
 }
 
