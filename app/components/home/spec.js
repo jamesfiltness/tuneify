@@ -1,8 +1,7 @@
 import React from 'react';
 import { Home } from './';
-import sinon from 'sinon';
 
-describe.only('Home component', () => {
+describe('Home component', () => {
   let component;
   
   beforeEach(() => { 
