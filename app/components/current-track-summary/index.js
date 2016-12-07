@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-class CurrentTrackSummary extends React.Component {
+export class CurrentTrackSummary extends React.Component {
   static defaultProps = {
     trackName: 'Welcome to Tuneify',
     artist: 'Free streaming music',
@@ -36,4 +36,5 @@ class CurrentTrackSummary extends React.Component {
   }
 }
 
-export default CurrentTrackSummary;
+export default CurrentTrackSummary
+
