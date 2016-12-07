@@ -4,7 +4,7 @@ import {
   getTopArtists, 
 } from '../../actions/homepage-actions';
 
-class Home extends React.Component {
+export class Home extends React.Component {
   
   static PropTypes = {
     dispatch: PropTypes.func.isRequired,
