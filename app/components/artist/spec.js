@@ -36,7 +36,7 @@ describe('Artist component', () => {
   })
 
   it('renders the artist wrapper', () => {
-   expect(component.find('.artist')).to.have.length(1);
+   expect(component.find('.artist')).to.be.present();
   });
   
   it('renders the artist heading', () => {
@@ -59,7 +59,7 @@ describe('Artist component', () => {
     expect(
       component
         .find('.artist-page__similar')
-    ).to.have.length(1);
+    ).to.be.present();
   });
   
   it('renders the similar artists list', () => {
@@ -89,7 +89,7 @@ describe('Artist component', () => {
         dispatch={() => {}}
       />
     );
-    expect(component.find('.route-content-spinner')).to.have.length(1);
+    expect(component.find('.route-content-spinner')).to.be.present();
   });
 
   it('if a new mbid param is provided the page should be updated', () => {

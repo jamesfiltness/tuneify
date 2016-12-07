@@ -25,11 +25,11 @@ describe('Home component', () => {
   });
 
   it('renders the topArtist list wrapper', () => {
-    expect(component.find('.top-artist')).to.have.length(1);
+    expect(component.find('.top-artist')).to.be.present();
   });
 
   it('renders the topArtist list', () => {
-    expect(component.find('.top-artist__list').find('.top-artist__list-item')).to.have.length(1);
+    expect(component.find('.top-artist__list').find('.top-artist__list-item')).to.be.present();
   });
   
   it('renders the image for the topArtist list item', () => {
