@@ -40,31 +40,31 @@ describe('Artist component', () => {
   });
   
   it('renders the artist heading', () => {
-    expect(component.find('h3')).to.have.text('Radiohead');
+    expect(component.find('.artist__header-name')).to.have.text('Radiohead');
   });
   
   it('renders the artist image', () => {
-    expect(component.find('.artist__thumbnail')).to.have.attr('src', 'http://example.com/image.jpg');
+    expect(component.find('.artist__header-image')).to.have.attr('src', 'http://example.com/image.jpg');
   });
   
   it('renders the artist summary bio', () => {
     expect(
       component
-        .find('.artist-page__bio')
+        .find('.artist__bio')
         .html()
-    ).to.be.equal('<div class="artist-page__bio">some summary about the artist</div>');
+    ).to.be.equal('<div class="artist__bio">some summary about the artist</div>');
   });
 
   it('renders the similar artists wrapper', () => {
     expect(
       component
-        .find('.artist-page__similar')
+        .find('.artist__similar')
     ).to.be.present();
   });
   
   it('renders the similar artists list', () => {
     const listItem = component
-      .find('.artist-page__similar-list')
+      .find('.artist__similar-list')
       .find('li')
     
     expect(listItem.find('a')).to.have.text('Thom Yorke');
@@ -133,11 +133,11 @@ describe('Artist component', () => {
       }
     );
 
-    expect(component.find('h3')).to.have.text('The Cure');
+    expect(component.find('.artist__header-name')).to.have.text('The Cure');
     expect(
       component
-        .find('.artist-page__bio')
+        .find('.artist__bio')
         .html()
-    ).to.be.equal('<div class="artist-page__bio">The Cure summary</div>');
+    ).to.be.equal('<div class="artist__bio">The Cure summary</div>');
   });
 });

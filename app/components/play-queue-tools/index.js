@@ -15,26 +15,6 @@ export class PlayQueueTools extends React.Component {
     repeat: PropTypes.bool.isRequired,
   };
 
-  constructor() {
-    super();
-    
-    this.trashPlayQueue = this.trashPlayQueue.bind(this);
-    this.shuffle = this.shuffle.bind(this);
-    this.repeat = this.repeat.bind(this);
-  }
-
-  trashPlayQueue() {
-    this.props.dispatch(trashPlayQueue());
-  }
-
-  shuffle() {
-    this.props.dispatch(shuffle());
-  }
-
-  repeat() {
-    this.props.dispatch(repeat());
-  }
-  
   render() {
     const shuffleState = this.props.shuffle ? 'on' : 'off';
     const repeatState = this.props.repeat ? 'on' : 'off';
@@ -49,34 +29,39 @@ export class PlayQueueTools extends React.Component {
       'play-queue-tools__repeat',
       `play-queue-tools__repeat--${repeatState}`,
     );
-
-
+    
     return (
       <ul className="play-queue-tools">
         <li className="play-queue-tools__tool fa fa-save"></li>
         <li 
           className={repeatClasses}
-          onClick={this.repeat}
+          onClick={this.props.onRepeat}
         ></li>
         <li 
           className={shuffleClasses}
-          onClick={this.shuffle}
+          onClick={this.props.onShuffle}
         ></li>
         <li 
           className="play-queue-tools__tool fa fa-trash"
-          onClick={this.trashPlayQueue}
-        >
-        </li>
+          onClick={this.props.onTrashPlayQueue}
+        ></li>
       </ul>
     );
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     shuffle: state.playQueue.shuffle,
     repeat: state.playQueue.repeat, 
   }
 }
 
-export default connect(mapStateToProps)(PlayQueueTools);
+export default connect(
+  mapStateToProps,
+  { 
+    onShuffle: shuffle, 
+    onRepeat: repeat, 
+    onTrashPlayQueue: trashPlayQueue,  
+  },
+  )(PlayQueueTools);

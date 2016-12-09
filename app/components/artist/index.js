@@ -51,7 +51,7 @@ export class Artist extends React.Component {
 
   renderBio(bioHtml) {
     return {
-      __html : bioHtml
+      __html : bioHtml 
     };
   }
 
@@ -59,9 +59,26 @@ export class Artist extends React.Component {
     if (similar && similar.length > 0) {
       return similar.map((artist, i) => {
         return (
-          <li key={i}>
-            <a href="#">{artist.name}</a>
-            <img src={artist.image[1]['#text']} />
+          <li 
+            className="artist__similar-artist-item" 
+            key={i}
+          >
+          <div className="artist__similar-artist-wrap">
+            <a 
+              className="artist__similar-artist-link" 
+              href="#"
+            >
+              <img
+                className="artist__similar-artist-image"
+                src={artist.image[1]['#text']} 
+              />
+              <span 
+                className="artist__similar-artist-text"
+              >
+                {artist.name}
+              </span>
+            </a>
+            </div>
           </li>
         );
       });
@@ -85,19 +102,34 @@ export class Artist extends React.Component {
       } else {
         return (
           <div className="artist">
-            <h3>{artistPageData.name}</h3>
-            <img
-              className="artist__thumbnail"
-              src={artistPageData.image} 
-            />
-            <div 
-              className="artist-page__bio" 
-              dangerouslySetInnerHTML={
-                this.renderBio(artistPageData.bio.summary)
-              } 
-            />
-            <div className="artist-page__similar">
-              <ul className="artist-page__similar-list">
+            <div className="artist__header">
+              <img 
+                src={artistPageData.image} 
+                className="artist__header-image"
+                alt={artistPageData.name}
+                width="174"
+                height="174"
+              />
+              <h5 className="artist__header-identifier">Artist</h5>
+              <h1 className="artist__header-name">{artistPageData.name}</h1>
+              <div 
+                className="artist__bio" 
+                dangerouslySetInnerHTML={
+                  this.renderBio(`${artistPageData.bio.summary}`)
+                } 
+              />
+              <p 
+                className="artist__read-more"
+              >
+                <a 
+                  href="#"
+                  className="artist__read-more-link"
+                >Read more</a>
+              </p>
+            </div>
+            <div className="artist__similar">
+              <h4 className="uppercase">Similar artists</h4>
+              <ul className="artist__similar-list">
                 {this.renderSimilarArtists(artistPageData.similar)}
               </ul>
             </div>
