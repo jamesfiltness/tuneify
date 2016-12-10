@@ -56,7 +56,7 @@ describe('PlayQueueTools component', () => {
   });
 
   it('calls the onTrashPlayQueue callback when trash button is clicked on', () => {
-    const callback = sinon.stub();
+    const callback = sinon.spy();
 
     component = shallow(
       <PlayQueueTools
@@ -70,7 +70,7 @@ describe('PlayQueueTools component', () => {
   });
 
   it('calls the onShuffle prop when the shuffle button is clicked on', () => {
-    const callback = sinon.stub();
+    const callback = sinon.spy();
     
     component = shallow(
       <PlayQueueTools
@@ -85,7 +85,7 @@ describe('PlayQueueTools component', () => {
   });
   
   it('calls the onRepeat prop when the repeat button is clicked  on', () => {
-    const callback = sinon.stub();
+    const callback = sinon.spy();
     
     component = shallow(
       <PlayQueueTools
