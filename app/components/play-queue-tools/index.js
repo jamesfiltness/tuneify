@@ -12,6 +12,9 @@ export class PlayQueueTools extends React.Component {
   static PropTypes = {
     dispatch: PropTypes.func.isRequired,
     shuffle: PropTypes.bool.isRequired,
+    onShuffle: PropTypes.func.isRequired, 
+    onRepeat: PropTypes.func.isRequired, 
+    onTrashPlayQueue: PropTypes.func.isRequired,  
     repeat: PropTypes.bool.isRequired,
   };
 
