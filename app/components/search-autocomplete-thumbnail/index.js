@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 // TODO: should be stateless
-class SearchAutoCompleteThumbnail extends React.Component {
+export class SearchAutoCompleteThumbnail extends React.Component {
   render() {
     let { thumb, altText }  = this.props;
     let img;

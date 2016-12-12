@@ -40,7 +40,7 @@ describe('Album component', () => {
     component = shallow(
       <Album
         onClearAlbumPageError={clearAlbumErrorSpy} 
-        onGetAlbumData={getAlbumDataSpy}
+        onGetAlbumPageData={getAlbumDataSpy}
         onClearAlbumPageData={clearAlbumDataSpy}
         onAppendAlbumToPlayQueue={appendAlbumSpy}
         onAppendTrackToPlayQueueAndPlay={appendTrackAndPlaySpy}
@@ -79,7 +79,12 @@ describe('Album component', () => {
   it('renders the error message when one is provided', () => {
     component = shallow(
       <Album
-        dispatch={() => {}}
+        onClearAlbumPageError={clearAlbumErrorSpy} 
+        onGetAlbumPageData={getAlbumDataSpy}
+        onClearAlbumPageData={clearAlbumDataSpy}
+        onAppendAlbumToPlayQueue={appendAlbumSpy}
+        onAppendTrackToPlayQueueAndPlay={appendTrackAndPlaySpy}
+        onReplaceQueueWithAlbumAndPlay={replaceAlbumAndPlaySpy}
         albumPageData={{
           error: "Some error",          
         }}
@@ -91,7 +96,12 @@ describe('Album component', () => {
   it('renders the spinner if no album data is provided', () => {
     component = shallow(
       <Album
-        dispatch={() => {}}
+        onClearAlbumPageError={clearAlbumErrorSpy} 
+        onGetAlbumPageData={getAlbumDataSpy}
+        onClearAlbumPageData={clearAlbumDataSpy}
+        onAppendAlbumToPlayQueue={appendAlbumSpy}
+        onAppendTrackToPlayQueueAndPlay={appendTrackAndPlaySpy}
+        onReplaceQueueWithAlbumAndPlay={replaceAlbumAndPlaySpy}
       />
     );
     expect(component.find('.route-content-spinner')).to.be.present();

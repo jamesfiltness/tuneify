@@ -18,8 +18,8 @@ export class Album extends React.Component {
   // TODO: Sort out the length of some of these prop names!
   static propTypes = {
     onClearAlbumPageError: PropTypes.func.isRequired,
-    onGetAlbumData: PropTypes.func.isRequired, 
-    onClearAlbumData: PropTypes.func.isRequired,
+    onGetAlbumPageData: PropTypes.func.isRequired, 
+    onClearAlbumPageData: PropTypes.func.isRequired,
     onAppendAlbumToPlayQueue: PropTypes.func.isRequired,
     onAppendTrackToPlayQueueAndPlay: PropTypes.func.isRequired,
     onReplaceQueueWithAlbumAndPlay: PropTypes.func.isRequired,
@@ -35,9 +35,9 @@ export class Album extends React.Component {
 
   componentDidMount() {
     if (this.props.params.mbid) {
-      this.props.onGetAlbumData({ mbid: this.props.params.mbid});
+      this.props.onGetAlbumPageData({ mbid: this.props.params.mbid});
     } else {
-      this.props.onGetAlbumData({
+      this.props.onGetAlbumPageData({
         artist: this.props.params.artist, 
         album: this.props.params.album
       });
@@ -52,12 +52,12 @@ export class Album extends React.Component {
         // if so we can just dispatch one action instead of three here
         this.props.onClearAlbumPageData();
         this.props.onClearAlbumPageError();
-        this.props.onGetAlbumData({ mbid: nextProps.params.mbid});
+        this.props.onGetAlbumPageData({ mbid: nextProps.params.mbid});
       }
     } else if (nextProps.params.album !== this.props.params.album) {
       this.props.onClearAlbumPageData();
       this.props.onClearAlbumPageError();
-      this.props.onGetAlbumData({
+      this.props.onGetAlbumPageData({
         artist: nextProps.params.artist, 
         album: nextProps.params.album
       });
@@ -183,8 +183,8 @@ export default connect(
   mapStateToProps,
   { 
     onClearAlbumPageError: clearAlbumPageError, 
-    onGetAlbumData: getAlbumPageData, 
-    onClearAlbumData: clearAlbumPageData,
+    onGetAlbumPageData: getAlbumPageData, 
+    onClearAlbumPageData: clearAlbumPageData,
     onAppendAlbumToPlayQueue: appendAlbumToPlayQueue,
     onAppendTrackToPlayQueueAndPlay: appendTrackToPlayQueueAndPlay,
     onReplaceQueueWithAlbumAndPlay: replaceQueueWithAlbumAndPlay,

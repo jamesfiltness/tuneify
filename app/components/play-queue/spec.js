@@ -5,6 +5,7 @@ import sinon from 'sinon';
 let component;
 let onPlayQueueTrackSelectedSpy;
 let onRemoveTrackFromQueueSpy;
+
 const tracks = [
   {
     "name": "Airbag",
@@ -35,7 +36,7 @@ beforeEach(() => {
   );
 });
 
-describe.only('PlayQueue component', () => {
+describe('PlayQueue component', () => {
   it('renders the playQueue placeholder if no tracks are provided', () => {
     component = shallow(
       <PlayQueue />
