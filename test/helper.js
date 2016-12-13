@@ -1,17 +1,13 @@
 // TODO: comment this file
-import chai  from 'chai';
-import chaiEnzyme from 'chai-enzyme';
-import sinonChai from 'sinon-chai';
-import { shallow, mount, render } from 'enzyme';
 
-const jsdom = require('jsdom').jsdom;
+global.document = require('jsdom').jsdom('');
+global.window = document.defaultView;
+global.navigator = {
+  userAgent: 'node.js',
+};
 
 const exposedProperties = ['window', 'navigator', 'document'];
 
-global.document = jsdom('');
-
-//grab the window object out of the document
-global.window = document.defaultView;
 Object.keys(document.defaultView).forEach((property) => {
   if (typeof global[property] === 'undefined') {
     exposedProperties.push(property);
@@ -19,16 +15,17 @@ Object.keys(document.defaultView).forEach((property) => {
   }
 });
 
-global.navigator = {
-  userAgent: 'node.js'
-};
+const chai = require('chai');
+const sinonChai = require('sinon-chai');
+const chaiEnzyme = require('chai-enzyme');
+const { mount, shallow, render } = require('enzyme');
 
-
-chai.use(chaiEnzyme());
+chai.should();
 chai.use(sinonChai);
 
-global.expect = chai.expect;
 global.mount = mount;
 global.shallow = shallow;
 global.render = render;
+global.expect = chai.expect;
 
+chai.use(chaiEnzyme());
