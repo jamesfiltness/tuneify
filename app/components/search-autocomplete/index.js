@@ -1,19 +1,16 @@
+
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import SearchAutoCompleteSection from '../search-autocomplete-section';
-import { 
-  autocompleteTrackSelected,
-  autocompleteArtistSelected,
-  autocompleteAlbumSelected,
-} from '../../actions/search-actions';
+import { autocompleteTrackSelected } from '../../actions/search-actions';
 
-class SearchAutoComplete extends React.Component {
+export class SearchAutoComplete extends React.Component {
   static PropTypes = {
-    dispatch: PropTypes.func.isRequired,
     artists: PropTypes.array,  
     albums: PropTypes.array,  
     tracks: PropTypes.array,
+    onAutoCompleteTrackSelected: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -79,7 +76,6 @@ class SearchAutoComplete extends React.Component {
 
   render() {
     const { 
-      dispatch,
       artists,
       tracks,
       albums
@@ -91,21 +87,21 @@ class SearchAutoComplete extends React.Component {
           className="autocomplete"
           ref={(autoComplete) => this.autoComplete = autoComplete }
         >
-          <SearchAutoCompleteSection 
-            title="Artists" 
+         <SearchAutoCompleteSection
+            title="Artists"
             data={artists}
           />
-          <SearchAutoCompleteSection 
-            title="Tracks" 
+          <SearchAutoCompleteSection
+            title="Tracks"
             data={tracks}
             onSelectResult={
-              searchParams => dispatch(
-                autocompleteTrackSelected(searchParams)
-              )
+             (searchParams) => { 
+               this.props.onAutocompleteTrackSelected(searchParams) 
+             }
             }
           />
-          <SearchAutoCompleteSection 
-            title="Albums" 
+          <SearchAutoCompleteSection
+            title="Albums"
             data={albums}
           />
         </div>
@@ -115,4 +111,9 @@ class SearchAutoComplete extends React.Component {
     }
   }
 }
-export default connect()(SearchAutoComplete)
+export default connect(
+  null,
+  {
+    onAutocompleteTrackSelected: autocompleteTrackSelected,
+  }
+)(SearchAutoComplete)
