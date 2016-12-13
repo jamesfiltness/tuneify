@@ -14,18 +14,6 @@ export function clearSearch() {
   }
 };
 
-export function autocompleteArtistSelected(selectedArtistData) {
-  return (dispatch, getState)  => {
-    dispatch(push('/artist'))
-  }
-};
-
-export function autocompleteAlbumSelected(selectedAlbumData) {
-  return (dispatch, getState)  => {
-    dispatch(push('/album'))
-  }
-};
-
 export function autocompleteTrackSelected(selectedTrackData) {
   return (dispatch, getState)  => {
     dispatch(
@@ -117,6 +105,7 @@ export function searchPerformed(searchTerm) {
 
 export function fetchVideoData(selectedTrackData) {
   // refator this string concatenation in to a reusable method living in utils
+  // TODO: Move url out in to config
   const selectedTrackString = `${selectedTrackData.name} - ${selectedTrackData.artist}`;
   return dispatch => {
     return fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedTrackString}&type=video&key=AIzaSyBXmXzAhx7HgpOx9jdDh6X_y5ar13WAGBE` ,{mode: 'cors'})

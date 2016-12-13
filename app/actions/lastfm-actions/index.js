@@ -1,7 +1,6 @@
 require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch'
 import * as types from '../../constants/ActionTypes.js'
-import { handleErrors, handleServerErrors } from '../../utils/handleErrors'
 
 export function fetchLastFmData(actions, params) {
   return {
