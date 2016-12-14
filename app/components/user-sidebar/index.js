@@ -1,6 +1,6 @@
 import React from 'react'
 
-function UserSidebar() {
+export function UserSidebar() {
   return (
     <div className="sidebar sidebar--left user-sidebar">
       <h3 className="user-sidebar__heading"><i className="fa fa-list"></i>Discover</h3>

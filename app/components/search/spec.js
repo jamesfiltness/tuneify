@@ -15,18 +15,6 @@ beforeEach(() => {
   );
 });
 
-
-      //<div className="search">
-      //  <input
-      //    className="search__input"  
-      //    type="text"
-      //    autoFocus
-      //    ref={(input) => this.input = input} 
-      //    placeholder="Artist, Album or Track"
-      //    onChange={() => this.handleSearch()} 
-      //  />
-      //</div>
-    
 afterEach(() => {
   onSearchSpy.reset();
 });
