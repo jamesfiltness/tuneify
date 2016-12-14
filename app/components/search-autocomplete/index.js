@@ -66,11 +66,9 @@ export class SearchAutoComplete extends React.Component {
 
   handleDocumentClick(e) {
     if (this.state.autoCompleteVisible) {
-      if (!this.autoComplete.contains(e.target)) {
-        this.setState({
-          autoCompleteVisible: false,
-        }); 
-      }
+      this.setState({
+        autoCompleteVisible: false,
+      });  
     }
   }
 
