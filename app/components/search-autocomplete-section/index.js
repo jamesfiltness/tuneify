@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import SearchAutoCompleteThumbnail from '../search-autocomplete-thumbnail';
 
-class SearchAutoCompleteSection extends React.Component {
+export class SearchAutoCompleteSection extends React.Component {
   
   static PropTypes = {
     onSelectResult: PropTypes.func.isRequired,
@@ -12,7 +12,6 @@ class SearchAutoCompleteSection extends React.Component {
   
   constructor() {
     super();
-
     this.resultSelected = this.resultSelected.bind(this);
   }
   
@@ -53,7 +52,7 @@ class SearchAutoCompleteSection extends React.Component {
     if (!result.mbid) {
       path = `/album/${encodeURIComponent(result.artist)}/${encodeURIComponent(result.name)}`;
     }
-
+    
     return (
       <Link to={{ pathname: path }}>
         {this.resultContent(result)}

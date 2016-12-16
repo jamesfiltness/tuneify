@@ -83,10 +83,10 @@ export class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    currentSearch : state.currentSearch,
-    artists : state.autocomplete.autocompleteArtistData,
-    tracks : state.autocomplete.autocompleteTrackData,
-    albums : state.autocomplete.autocompleteAlbumData,
+    currentSearch: state.currentSearch,
+    artists: state.autocomplete.autocompleteArtistData,
+    tracks: state.autocomplete.autocompleteTrackData,
+    albums: state.autocomplete.autocompleteAlbumData,
     videoData: state.videoData,
     playQueueTracks: state.playQueue.playQueueTracks,
     trackSummary: state.currentTrackSummaryData,

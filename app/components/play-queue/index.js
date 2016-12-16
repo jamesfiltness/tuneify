@@ -3,10 +3,11 @@ import classNames from 'classNames';
 import { connect } from 'react-redux';
 import { playQueueTrackSelected, removeTrackFromQueue } from '../../actions/play-queue';
 
-class PlayQueue extends React.Component {
+export class PlayQueue extends React.Component {
   
   static PropTypes = {
-    dispatch: PropTypes.func.isRequired,
+    onPlayQueueTrackSelected: PropTypes.func.isRequired,
+    onRemoveTrackFromQueue: PropTypes.func.isRequired,
     playQueueCurrentIndex: PropTypes.number,
     playQueueTracks: PropTypes.bool.array,
   }
@@ -19,8 +20,6 @@ class PlayQueue extends React.Component {
     this.state = {
       renderPlayQueue: false,
     };
-    
-    this.onSelectTrack = this.onSelectTrack.bind(this);
   }
 
   componentWillMount(nextProps) {
@@ -72,17 +71,13 @@ class PlayQueue extends React.Component {
     });
   }
 
-  onSelectTrack(track, index) {
-    this.props.dispatch(playQueueTrackSelected(track, index));
-  }
-
   onRemoveTrackFromQueue(event, index) {
     event.stopPropagation();
-    this.props.dispatch(removeTrackFromQueue(index));
+    this.props.onRemoveTrackFromQueue(index);
   }
 
   render() {
-    if(this.state.renderPlayQueue) {
+    if (this.state.renderPlayQueue) {
       const currentIndex = 
         this.props.playQueueCurrentIndex ? 
         this.props.playQueueCurrentIndex : 0;
@@ -105,7 +100,7 @@ class PlayQueue extends React.Component {
                 return (
                   <li
                     key={i}
-                    onClick={() => {this.onSelectTrack(track, i)}}
+                    onClick={() => {this.props.onPlayQueueTrackSelected(track, i)}}
                     className={classes}
                   >
                     <span className="play-queue__artist">
@@ -121,7 +116,7 @@ class PlayQueue extends React.Component {
                         }
                       }
                       className="play-queue__remove-track">
-                      X
+                        <i className="fa fa-times" aria-hidden="true"></i>
                     </span>
                   </li>
                 )
@@ -144,4 +139,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(PlayQueue);
+export default connect(
+  mapStateToProps,
+  { 
+    onPlayQueueTrackSelected: playQueueTrackSelected,
+    onRemoveTrackFromQueue: removeTrackFromQueue,
+  }
+)(PlayQueue);

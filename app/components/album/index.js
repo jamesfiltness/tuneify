@@ -9,13 +9,20 @@ import {
   replaceQueueWithAlbumAndPlay,
 } from '../../actions/album-actions'
 
-class Album extends React.Component {
+export class Album extends React.Component {
   // only call for data once the page
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second
   // per originating IP adress averaged over a 5 album period
+
+  // TODO: Sort out the length of some of these prop names!
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    onClearAlbumPageError: PropTypes.func.isRequired,
+    onGetAlbumPageData: PropTypes.func.isRequired, 
+    onClearAlbumPageData: PropTypes.func.isRequired,
+    onAppendAlbumToPlayQueue: PropTypes.func.isRequired,
+    onAppendTrackToPlayQueueAndPlay: PropTypes.func.isRequired,
+    onReplaceQueueWithAlbumAndPlay: PropTypes.func.isRequired,
     albumPageData: PropTypes.object,
     currentAlbumPageError: PropTypes.string,
   };
@@ -24,14 +31,13 @@ class Album extends React.Component {
     super();
     this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
     this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
-    this.onSelectTrack = this.onSelectTrack.bind(this);
   }
 
   componentDidMount() {
     if (this.props.params.mbid) {
-      this.getAlbumData({ mbid: this.props.params.mbid});
+      this.props.onGetAlbumPageData({ mbid: this.props.params.mbid});
     } else {
-      this.getAlbumData({
+      this.props.onGetAlbumPageData({
         artist: this.props.params.artist, 
         album: this.props.params.album
       });
@@ -44,34 +50,21 @@ class Album extends React.Component {
         // TODO:  investigate whether getAlbumPageDat action creator
         // can use a thunk as well as using promise middleware
         // if so we can just dispatch one action instead of three here
-        this.props.dispatch(clearAlbumPageData());
-        this.props.dispatch(clearAlbumPageError());
-        this.getAlbumData({ mbid: nextProps.params.mbid});
+        this.props.onClearAlbumPageData();
+        this.props.onClearAlbumPageError();
+        this.props.onGetAlbumPageData({ mbid: nextProps.params.mbid});
       }
     } else if (nextProps.params.album !== this.props.params.album) {
-      this.props.dispatch(clearAlbumPageData());
-      this.props.dispatch(clearAlbumPageError());
-      this.getAlbumData({
+      this.props.onClearAlbumPageData();
+      this.props.onClearAlbumPageError();
+      this.props.onGetAlbumPageData({
         artist: nextProps.params.artist, 
         album: nextProps.params.album
       });
     }
   }
-  
-  getAlbumData(params) {
-    this.props.dispatch(
-      getAlbumPageData(
-        params,
-      )
-    );
-  } 
-
-  onSelectTrack(track) {
-    this.props.dispatch(
-      appendTrackToPlayQueueAndPlay(track)
-    )
-  }
-
+   
+  // TODO : Break out in to a separate Tracks component
   renderTracks() {
     if(this.props.albumPageData.tracks) {
       return (
@@ -83,7 +76,7 @@ class Album extends React.Component {
                   <tr 
                     className="album__track-row" 
                     key={i}
-                    onClick={() => {this.onSelectTrack(track, i)}}
+                    onClick={() => {this.props.onAppendTrackToPlayQueueAndPlay(track)}}
                   >
                     <td 
                       className="album__track-cell"
@@ -109,18 +102,14 @@ class Album extends React.Component {
   }
 
   appendAlbumToQueue() {
-    this.props.dispatch(
-      appendAlbumToPlayQueue(
-        this.props.albumPageData.tracks
-      )
+    this.props.onAppendAlbumToPlayQueue(
+     this.props.albumPageData.tracks
     );
   }
 
   replaceQueueWithAlbumAndPlay() {
-    this.props.dispatch(
-      replaceQueueWithAlbumAndPlay(
-        this.props.albumPageData.tracks
-      )
+    this.props.onReplaceQueueWithAlbumAndPlay(
+      this.props.albumPageData.tracks
     );
   }
 
@@ -162,7 +151,7 @@ class Album extends React.Component {
                 onClick={this.appendAlbumToQueue}
                 className="button button--add"
                 >
-                +
+               Queue Album 
               </button>
             </div>
             <div className="album__tracks">
@@ -190,4 +179,15 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Album);
+export default connect(
+  mapStateToProps,
+  { 
+    onClearAlbumPageError: clearAlbumPageError, 
+    onGetAlbumPageData: getAlbumPageData, 
+    onClearAlbumPageData: clearAlbumPageData,
+    onAppendAlbumToPlayQueue: appendAlbumToPlayQueue,
+    onAppendTrackToPlayQueueAndPlay: appendTrackToPlayQueueAndPlay,
+    onReplaceQueueWithAlbumAndPlay: replaceQueueWithAlbumAndPlay,
+  }
+)(Album);
+

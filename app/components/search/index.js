@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 
-class Search extends React.Component {
+export class Search extends React.Component {
   static PropTypes = {
     onSearch: PropTypes.func.isRequired,
   };
@@ -26,7 +26,7 @@ class Search extends React.Component {
     )
   }
 
-  handleSearch(e) {
+  handleSearch() {
     const text = this.input.value;
     this.props.onSearch(text)
   }

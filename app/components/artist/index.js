@@ -6,7 +6,7 @@ import {
   clearArtistPageData 
 } from '../../actions/artist-actions';
 
-class Artist extends React.Component {
+export class Artist extends React.Component {
   // only call for data once the page
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second
@@ -14,11 +14,8 @@ class Artist extends React.Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    currentAlbumPageError: PropTypes.string,
-    artists: PropTypes.array,
-    tracks: PropTypes.array,
-    albums: PropTypes.array,
-    children: React.PropTypes.object,
+    currentArtistPageError: PropTypes.string,
+    artistPageData: PropTypes.object,
   }
 
   componentDidMount() {
@@ -59,31 +56,33 @@ class Artist extends React.Component {
   }
 
   renderSimilarArtists(similar) {
-    return similar.map((artist, i) => {
-      return (
-        <li 
-          className="artist__similar-artist-item" 
-          key={i}
-        >
-        <div className="artist__similar-artist-wrap">
-          <a 
-            className="artist__similar-artist-link" 
-            href="#"
+    if (similar && similar.length > 0) {
+      return similar.map((artist, i) => {
+        return (
+          <li 
+            className="artist__similar-artist-item" 
+            key={i}
           >
-            <img
-              className="artist__similar-artist-image"
-              src={artist.image[1]['#text']} 
-            />
-            <span 
-              className="artist__similar-artist-text"
+          <div className="artist__similar-artist-wrap">
+            <a 
+              className="artist__similar-artist-link" 
+              href="#"
             >
-              {artist.name}
-            </span>
-          </a>
-          </div>
-        </li>
-      );
-    });
+              <img
+                className="artist__similar-artist-image"
+                src={artist.image[1]['#text']} 
+              />
+              <span 
+                className="artist__similar-artist-text"
+              >
+                {artist.name}
+              </span>
+            </a>
+            </div>
+          </li>
+        );
+      });
+    }
   }
 
   render() {

@@ -53,7 +53,8 @@ export function appendTrackToPlayQueueAndPlay(track) {
   return (dispatch, getState) => {
     let trackObj = track;
     
-    // This is a hack.......
+    // This is a hack - in most cases the artist is in track.artist.name
+    // but in some cases it's nested at the root level track.artist
     if (!trackObj.artist.name) {
       trackObj = { ...track, ...{ artist: { name: track.artist, mbid: track.mbid } } };
     }
