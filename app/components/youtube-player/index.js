@@ -22,12 +22,13 @@ const PLAYER_HEIGHT = 200;
 
 *********/
 
-
-class YouTubePlayer extends React.Component {
+export class YouTubePlayer extends React.Component {
   
   static PropTypes = {
-    dispatch: PropTypes.func.isRequired,
     videoData: PropTypes.array,
+    onTrackEnded: PropTypes.func.isRequired,
+    onPlayNextTrack: PropTypes.func.isRequired,
+    onPlayPreviousTrack: PropTypes.func.isRequired,
   };
 
   constructor() {
@@ -48,8 +49,6 @@ class YouTubePlayer extends React.Component {
 
     this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
     this.playPauseVideo = this.playPauseVideo.bind(this);
-    this.playNextTrack = this.playNextTrack.bind(this);
-    this.playPreviousTrack = this.playPreviousTrack.bind(this);
     this.adjustVolume = this.adjustVolume.bind(this);
     this.onCancelChangeVolume = this.onCancelChangeVolume.bind(this);
     this.onChangeVolume = this.onChangeVolume.bind(this);
@@ -78,14 +77,6 @@ class YouTubePlayer extends React.Component {
       }
     }
   } 
-
-  playNextTrack() {
-    this.props.dispatch(playNextTrack());
-  }
-  
-  playPreviousTrack() {
-    this.props.dispatch(playPreviousTrack());
-  }
 
   playPauseVideo() {
     let playerState = this.player.getPlayerState();
@@ -248,7 +239,7 @@ class YouTubePlayer extends React.Component {
 
   onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {
-      this.props.dispatch(trackEnded());
+      this.props.onTrackEnded();
       this.resetProgressBar();
       this.resetTimer();
     }
@@ -333,7 +324,7 @@ class YouTubePlayer extends React.Component {
         <div className="youtube-player__controls">
           <span
             className="youtube-player__control youtube-player__prev-track"
-            onClick={this.playPreviousTrack}
+            onClick={this.props.onPlayPreviousTrack}
           />
           <span 
             className={playButtonClasses}
@@ -341,7 +332,7 @@ class YouTubePlayer extends React.Component {
           />
           <span
             className="youtube-player__control youtube-player__next-track"
-            onClick={this.playNextTrack}
+            onClick={this.props.onPlayNextTrack}
           />
           <div className="youtube-player__time">
             <span 
@@ -376,4 +367,11 @@ class YouTubePlayer extends React.Component {
   }
 }
 
-export default connect()(YouTubePlayer);
+export default connect(
+  null,
+  {
+    onTrackEnded: trackEnded,
+    onPlayNextTrack: playNextTrack,
+    onPlayPreviousTrack: playPreviousTrack,
+  }
+)(YouTubePlayer);

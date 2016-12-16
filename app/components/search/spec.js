@@ -19,7 +19,7 @@ afterEach(() => {
   onSearchSpy.reset();
 });
 
-describe('Search component  component', () => {
+describe('Search component', () => {
   it('renders a wrapping search div', () => {
     expect(component.find('.search')).to.be.present();
   });
