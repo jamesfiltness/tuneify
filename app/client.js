@@ -18,11 +18,13 @@ import { artistPage } from './reducers/artist-page';
 import { topArtists } from './reducers/top-artists';
 import { videoData } from './reducers/video-data';
 import { playQueue } from './reducers/play-queue';
+import { authenticated } from './reducers/auth';
+
 import routes from './components/routes';
 
 const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
 
-// this should live in the index.js of reducers: import rootReducer from './reducers'
+//TODO:  this should live in the index.js of reducers: import rootReducer from './reducers'
 const rootReducer = combineReducers({
   currentSearch,
   currentTrackSummaryData,
@@ -32,9 +34,11 @@ const rootReducer = combineReducers({
   autocomplete,
   artistPage,
   topArtists,
+  authenticated,
   playQueue,
   routing: routerReducer,
 });
+
 const logger = createLogger(); // eslint-disable-line no-unused-vars
 const reactRouterReduxMiddleware = routerMiddleware(browserHistory);
 const createStoreWithMiddleware = applyMiddleware(
@@ -43,14 +47,16 @@ const createStoreWithMiddleware = applyMiddleware(
   reactRouterReduxMiddleware,
 )(createStore);
 
-const store = createStoreWithMiddleware(rootReducer, initialState);
+// export the store so it can be imported and used to allow dispatch to work in non-react components
+// such as the authService
+export const store = createStoreWithMiddleware(rootReducer, initialState);
 
 const history = syncHistoryWithStore(browserHistory, store);
 
 render(
   <Provider store={store}>
     <Router 
-      history={browserHistory}
+      history={history}
     >
       {routes}
     </Router>
