@@ -32,3 +32,5 @@ export const TRASH_PLAY_QUEUE = 'TRASH_PLAY_QUEUE';
 export const SHUFFLE = 'SHUFFLE';
 export const REPEAT = 'REPEAT';
 export const APPEND_TRACK_TO_PLAY_QUEUE = 'APPEND_TRACK_TO_PLAY_QUEUE';
+export const LOGGEDIN = 'LOGGEDIN';
+export const LOGGEDOUT = 'LOGGEDOUT';

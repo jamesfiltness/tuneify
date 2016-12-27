@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router';
 
 export function UserSidebar() {
   return (
@@ -12,7 +13,11 @@ export function UserSidebar() {
       </ul>
       <h3 className="user-sidebar__heading"><i className="fa fa-user"></i>Your Music</h3>
       <ul className="user-sidebar__list">
-        <li className="user-sidebar__list-item">Recent plays</li>
+        <li className="user-sidebar__list-item">
+          <Link to="/recent-plays">
+            Recent plays
+          </Link>
+        </li>
         <li className="user-sidebar__list-item">Library</li>
       </ul>
       <h3 className="user-sidebar__heading"><i className="fa fa-list"></i>Playlists</h3>

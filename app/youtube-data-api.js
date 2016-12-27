@@ -1,11 +1,6 @@
 class YouTubeDataApi {
   constructor() {
-    window.gapi.load('client', this.ApiLoaded);
     this.loadApi();
-  }
-
-  ApiLoaded() {
-    console.log('Data API loaded');
   }
 
   loadApi() {

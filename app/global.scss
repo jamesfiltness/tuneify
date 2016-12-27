@@ -68,3 +68,13 @@ body::-webkit-scrollbar-corner
 .uppercase {
   text-transform: uppercase;
 }
+
+/* overrride auth0 lock styles */
+.auth0-lock-header-logo {
+  display: none !important;
+}
+
+.auth0-lock.auth0-lock .auth0-lock-header {
+  height: 50px !important;
+  font-family: arial, sans-serif !important;
+}

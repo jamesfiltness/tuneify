@@ -12,6 +12,7 @@ import PlayQueue from '../play-queue';
 import PlayQueueTools from '../play-queue-tools';
 import CurrentTrackSummary from '../current-track-summary';
 import UserSidebar from '../user-sidebar';
+import Login from '../login';
 
 export class App extends React.Component {
   
@@ -56,6 +57,7 @@ export class App extends React.Component {
               } 
             />
           </div>
+          <Login />
         </header>
         <UserSidebar />
         <SearchAutoComplete

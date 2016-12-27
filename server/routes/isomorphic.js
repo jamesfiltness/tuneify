@@ -1,7 +1,5 @@
 import config from 'config';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { Provider } from 'react-redux';
 import createStore from '../../app/redux/create';
 import { match, RouterContext } from 'react-router';
 import routes from '../../app/components/routes';
@@ -54,11 +52,6 @@ export default function(app) {
       } else if (redirectLocation) {
         res.redirect(302, redirectLocation.pathname + redirectLocation.search);
       } else if (renderProps) {
-        const componentHTML = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>
-        );
         // Get the redux state so that it can be passed down to rehydrate the client
         const serverState = store.getState();
         const HTML = `
@@ -70,12 +63,13 @@ export default function(app) {
             <link rel=styleSheet href="/styles.css" type="text/css" />
           </head>
           <body>
-            <div id="react-view">${componentHTML}</div>
+            <div id="react-view"></div>
             <script>
               window.__PRELOADED_STATE__ = ${JSON.stringify(serverState)}
               window.clientConfig = ${JSON.stringify(clientConfig)}
             </script>
             <script src="https://apis.google.com/js/api.js"></script>
+            <script src="http://cdn.auth0.com/js/lock/10.7.3/lock.min.js"></script>
             <script type="application/javascript" src="/bundle.js"></script>
           </body>
         </html>
