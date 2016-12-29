@@ -8,6 +8,16 @@ export class Login extends React.Component {
     loggedIn: PropTypes.func.isRequired,
     authenticated: PropTypes.bool.isRequired
   };
+
+  constructor(props) {
+    super(props);
+    // if on page load there is a valid token then dispatch
+    // an action so that the Login component knows to show
+    // the correct state
+    if (props.authService.isLoggedIn()) {
+      props.loggedIn();
+    }
+  }
   
   authenticated() {
     this.props.loggedIn();
@@ -15,9 +25,8 @@ export class Login extends React.Component {
   }
 
   logOut() {
-    this.props.authService.logOut(() => {
-      this.props.loggedOut();
-    });
+    this.props.loggedOut();
+    this.props.authService.logOut();
   }
 
   showProfile() {
