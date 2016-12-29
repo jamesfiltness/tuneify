@@ -14,6 +14,7 @@
 @import './components/play-queue-tools/styles';
 @import './components/current-track-summary/styles';
 @import './components/user-sidebar/styles';
+@import './components/login/styles';
 
 .route-content-spinner {
    background:  url('images/spinner.svg') no-repeat;
@@ -67,4 +68,16 @@ body::-webkit-scrollbar-corner
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.auth0-lock-widget-container {
+  font-family: arial, sans-serif !important;
+}
+
+.auth0-lock-header-logo {
+  display: none !important;
+}
+
+.auth0-lock-header {
+  height: 50px !important;
 }

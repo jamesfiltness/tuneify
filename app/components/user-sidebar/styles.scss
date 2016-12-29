@@ -13,6 +13,15 @@
 
     &-item {
       margin-bottom: 10px;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
