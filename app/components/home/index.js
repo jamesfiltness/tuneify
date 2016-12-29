@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classNames';
 import { 
   getTopArtists, 
 } from '../../actions/homepage-actions';
@@ -12,6 +13,15 @@ export class Home extends React.Component {
     topArtistDataError: PropTypes.string,
   };
 
+  constructor() {
+    super();
+    this.imageLoadCount = 0;
+
+    this.state = {
+      imagesLoaded: false,
+    }
+  }
+
   // only call for data once the page
   // has rendered on the client as lastfm's
   // rate limiting allows 5 requests per second
@@ -20,6 +30,15 @@ export class Home extends React.Component {
     this.props.dispatch(
       getTopArtists()
     );
+  }
+
+  imageLoaded() {
+    this.imageLoadCount++;
+    if (this.imageLoadCount === 50) {
+      this.setState({
+        imagesLoaded: true
+      });
+    }
   }
 
   render() {
@@ -33,6 +52,11 @@ export class Home extends React.Component {
           <h3>No data found.</h3>
         )
       } else {
+      
+        const classes = classNames(
+          'top-artist__name',
+           this.state.imagesLoaded ? 'top-artist__name--visible' : '',
+        );
         return (
           <div className="top-artist">
             <ul className="top-artist__list">
@@ -42,12 +66,13 @@ export class Home extends React.Component {
                     return (
                       <li className="top-artist__list-item" key={i}>
                         <img 
+                          onLoad={() => {this.imageLoaded()}}
                           className="top-artist__image" 
                           src={artist.image[3]['#text']}
                           height="230"
                           width="230"
                         />
-                        <span className="top-artist__name">{artist.name}</span>
+                        <span className={classes}>{artist.name}</span>
                       </li>
                     );
                   }
