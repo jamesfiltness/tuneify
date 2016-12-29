@@ -15,8 +15,9 @@ export class Login extends React.Component {
   }
 
   logOut() {
-    this.props.authService.logOut();
-    this.props.loggedOut();
+    this.props.authService.logOut(() => {
+      this.props.loggedOut();
+    });
   }
 
   showProfile() {

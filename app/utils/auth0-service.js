@@ -51,10 +51,11 @@ export default class auth0Service {
     return null;
   }
 
-  logOut() {
+  logOut(callback) {
     // Clear user token and profile data from local storage
     this.unsetToken('idToken');
     this.unsetToken('profile');
+    callback();
   }
 
   authenticate(callback) {
