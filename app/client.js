@@ -1,38 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
-import fetchMiddleware from './redux/middleware/fetch-middleware';
-import authMiddleware from './redux/middleware/auth-middleware';
 import { Provider } from 'react-redux';
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
+import store from './redux/modules/store';
 import styles from './global.scss';
+import auth0Service from './utils/auth0-service';
+
+import { loggedIn, loggedOut } from './actions/auth-actions';
 
 import App from './components/app';
 import Home  from './components/home';
 import Artist from './components/artist';
 import Album from './components/album';
 import PageNotFound from './components/page-not-found';
-import auth0Service from './utils/auth0-service';
-import reducers from './redux/modules/reducers';
-import { loggedIn, loggedOut } from './actions/auth-actions';
-
-const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
-
-const logger = createLogger(); // eslint-disable-line no-unused-vars
-const reactRouterReduxMiddleware = routerMiddleware(browserHistory);
-const createStoreWithMiddleware = applyMiddleware(
-  authMiddleware,
-  fetchMiddleware,
-  thunkMiddleware,
-  reactRouterReduxMiddleware,
-)(createStore);
-
-// export the store so it can be imported and used to allow dispatch to work in non-react components
-// such as the authService
-const store = createStoreWithMiddleware(reducers, initialState);
 
 const history = syncHistoryWithStore(browserHistory, store);
 
