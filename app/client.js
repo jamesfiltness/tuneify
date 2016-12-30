@@ -7,7 +7,7 @@ import fetchMiddleware from './redux/middleware/fetch-middleware';
 import authMiddleware from './redux/middleware/auth-middleware';
 import { Provider } from 'react-redux';
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import styles from './global.scss';
 
 import App from './components/app';
@@ -16,35 +16,10 @@ import Artist from './components/artist';
 import Album from './components/album';
 import PageNotFound from './components/page-not-found';
 import auth0Service from './utils/auth0-service';
-
-import { currentSearch } from './reducers/search';
-import { currentTrackSummaryData } from './reducers/track-summary';
-import { autocomplete } from './reducers/autocomplete';
-import { currentVideo } from './reducers/video-player';
-import { albumPage } from './reducers/album-page';
-import { artistPage } from './reducers/artist-page';
-import { topArtists } from './reducers/top-artists';
-import { videoData } from './reducers/video-data';
-import { playQueue } from './reducers/play-queue';
-import { authenticated } from './reducers/auth';
+import reducers from './redux/modules/reducers';
 import { loggedIn, loggedOut } from './actions/auth-actions';
 
 const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
-
-// this should live in the index.js of reducers: import rootReducer from './reducers'
-const rootReducer = combineReducers({
-  currentSearch,
-  currentTrackSummaryData,
-  currentVideo,
-  videoData,
-  albumPage,
-  autocomplete,
-  authenticated,
-  artistPage,
-  topArtists,
-  playQueue,
-  routing: routerReducer,
-});
 
 const logger = createLogger(); // eslint-disable-line no-unused-vars
 const reactRouterReduxMiddleware = routerMiddleware(browserHistory);
@@ -57,11 +32,12 @@ const createStoreWithMiddleware = applyMiddleware(
 
 // export the store so it can be imported and used to allow dispatch to work in non-react components
 // such as the authService
-const store = createStoreWithMiddleware(rootReducer, initialState);
+const store = createStoreWithMiddleware(reducers, initialState);
 
 const history = syncHistoryWithStore(browserHistory, store);
 
 const authService = new auth0Service();
+
 const authenticateRoute = (nextState, replace, callback) => {
   if (authService.isLoggedIn()) {
     callback();
