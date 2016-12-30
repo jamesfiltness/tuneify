@@ -9,7 +9,12 @@ const authMiddleware = store => next => action => {
   if (!authenticate || authService.isLoggedIn()) {
     return next(action);
   } else {
-    authService.authenticate(() => next(action));
+    authService.authenticate(
+      () => {
+        store.dispatch(loggedIn());
+        next(action)
+      }
+    );
   }
 }
   
