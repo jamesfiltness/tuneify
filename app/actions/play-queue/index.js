@@ -26,6 +26,14 @@ export function playQueueTrackSelected(selectedTrackData, index) {
   }
 }
 
+export function savePlayList() {
+  return {
+    type: types.SAVE_PLAYLIST,
+    authenticate: true,
+  }
+}
+
+
 function randomIndex(max, min = 0) {
   return Math.floor(Math.random() * (max - min)) + min;
 }

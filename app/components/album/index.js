@@ -37,7 +37,7 @@ export class Album extends React.Component {
     if (this.props.params.mbid) {
       this.getAlbumDataByMbid(this.props.params.mbid);
     } else {
-      this.getAlbumPageName(
+      this.getAlbumDataByName(
         this.props.params.artist, 
         this.props.params.album
       );
@@ -50,7 +50,7 @@ export class Album extends React.Component {
         this.getAlbumDataByMbid(nextProps.params.mbid);
       }
     } else if (nextProps.params.album !== this.props.params.album) {
-      this.getAlbumPageName(nextProps.params.artist, nextProps.params.album);
+      this.getAlbumDataByName(nextProps.params.artist, nextProps.params.album);
     }
   }
   

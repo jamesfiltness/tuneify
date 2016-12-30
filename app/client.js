@@ -4,6 +4,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import fetchMiddleware from './redux/middleware/fetch-middleware';
+import authMiddleware from './redux/middleware/auth-middleware';
 import { Provider } from 'react-redux';
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
@@ -48,6 +49,7 @@ const rootReducer = combineReducers({
 const logger = createLogger(); // eslint-disable-line no-unused-vars
 const reactRouterReduxMiddleware = routerMiddleware(browserHistory);
 const createStoreWithMiddleware = applyMiddleware(
+  authMiddleware,
   fetchMiddleware,
   thunkMiddleware,
   reactRouterReduxMiddleware,

@@ -35,6 +35,9 @@ const fetchMiddleware  = store => next => action => {
   // allow a class to be instantiated here which starts up fetch mock
   // const mockFetch = new fetchMockProxy();
   const actionPromise = fetch(promiseUrl, promise);
+  
+  // Monitor the amount of calls made to lastfm api  
+  // store.dispatch(incrementCallsToLastFmApi());
   actionPromise
     .then((response) =>  response.json())
     .then(json => next({ ...rest, json, type: SUCCESS }))
