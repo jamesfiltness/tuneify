@@ -2,7 +2,7 @@ import express from 'express';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import cookieParser from 'cookie-parser';
-import isomorphic from '../routes/isomorphic';
+import application from '../routes/application';
 
 export default function() {
 const app = express();
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
     )
   );
   
-  isomorphic(app);
+  application(app);
 }
   return app;
 }
