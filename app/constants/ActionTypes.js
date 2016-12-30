@@ -34,3 +34,4 @@ export const REPEAT = 'REPEAT';
 export const APPEND_TRACK_TO_PLAY_QUEUE = 'APPEND_TRACK_TO_PLAY_QUEUE';
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGGED_OUT = 'LOGGED_OUT';
+export const SAVE_PLAYLIST = 'SAVE_PLAYLIST';

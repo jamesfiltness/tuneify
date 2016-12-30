@@ -4,18 +4,19 @@ import classNames from 'classNames';
 import { 
   trashPlayQueue,
   shuffle,
+  savePlayList,
   repeat,
 } from '../../actions/play-queue';
 
 export class PlayQueueTools extends React.Component {
 
   static PropTypes = {
-    dispatch: PropTypes.func.isRequired,
     shuffle: PropTypes.bool.isRequired,
-    onShuffle: PropTypes.func.isRequired, 
+    repeat: PropTypes.bool.isRequired,
+    onSavePlayList: PropTypes.func.isRequired, 
+    onShuffle: PropTypes.func.isrequired, 
     onRepeat: PropTypes.func.isRequired, 
     onTrashPlayQueue: PropTypes.func.isRequired,  
-    repeat: PropTypes.bool.isRequired,
   };
 
   render() {
@@ -35,7 +36,10 @@ export class PlayQueueTools extends React.Component {
     
     return (
       <ul className="play-queue-tools">
-        <li className="play-queue-tools__tool fa fa-save"></li>
+        <li 
+          className="play-queue-tools__tool fa fa-save"
+          onClick={this.props.onSavePlayList}
+        ></li>
         <li 
           className={repeatClasses}
           onClick={this.props.onRepeat}
@@ -60,11 +64,14 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { 
+const mapDispatchToProps = {
     onShuffle: shuffle, 
     onRepeat: repeat, 
-    onTrashPlayQueue: trashPlayQueue,  
-  },
-  )(PlayQueueTools);
+    onTrashPlayQueue: trashPlayQueue,
+    onSavePlayList: savePlayList,
+}
+
+export default connect(
+ mapStateToProps, 
+ mapDispatchToProps
+)(PlayQueueTools);

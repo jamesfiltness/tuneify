@@ -8,7 +8,7 @@ import PageNotFound from '../page-not-found';
 import auth0Service from '../../utils/auth0-service';
 import { loggedIn, loggedOut } from '../../actions/auth-actions';
 
-const authService = new auth0Service({ loggedIn, loggedOut });
+const authService = new auth0Service();
  
 export default class routes extends React.Component {
 
