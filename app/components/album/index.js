@@ -7,7 +7,7 @@ import {
   appendAlbumToPlayQueue,
   appendTrackToPlayQueueAndPlay,
   replaceQueueWithAlbumAndPlay,
-} from '../../actions/album-actions'
+} from '../../actions/album'
 
 export class Album extends React.Component {
   // only call for data once the page

@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { searchPerformed } from '../../actions/search-actions';
-import { playVideo } from '../../actions/player-actions';
+import { searchPerformed } from '../../actions/search';
+import { playVideo } from '../../actions/player';
 
 import Search from '../search';
 import SearchAutoComplete from '../search-autocomplete';

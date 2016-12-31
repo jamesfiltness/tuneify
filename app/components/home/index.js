@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import classNames from 'classNames';
 import { 
   getTopArtists, 
-} from '../../actions/homepage-actions';
+} from '../../actions/homepage';
 
 export class Home extends React.Component {
   

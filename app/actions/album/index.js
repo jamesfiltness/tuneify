@@ -1,5 +1,5 @@
 import * as types from '../../constants/ActionTypes.js';
-import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions';
+import { fetchLastFmData, lastFmApiRequest } from '../lastfm';
 import { resetPlayQueueIndex, playCurrentIndex } from '../play-queue';
 import { setCurrentIndex } from '../play-queue';
 

@@ -3,7 +3,7 @@ import {
   playTrack, 
   getTrackInfo, 
   trackSelected, 
-} from '../common-actions';
+} from '../common';
 
 export function playQueueTrackSelected(selectedTrackData, index) {
   return (dispatch, getState)  => {

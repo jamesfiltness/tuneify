@@ -5,7 +5,7 @@ import {
   trackEnded,
   playNextTrack,
   playPreviousTrack,
-} from '../../actions/player-actions';
+} from '../../actions/player';
 
 const PLAYER_WIDTH = 320;
 const PLAYER_HEIGHT = 200;

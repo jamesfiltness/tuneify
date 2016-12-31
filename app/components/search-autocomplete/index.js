@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import SearchAutoCompleteSection from '../search-autocomplete-section';
-import { autocompleteTrackSelected } from '../../actions/search-actions';
+import { autocompleteTrackSelected } from '../../actions/search';
 
 export class SearchAutoComplete extends React.Component {
   static PropTypes = {
