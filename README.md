@@ -1,10 +1,10 @@
 # Tuneify
 
-A project to explore building an isomorphic React/Redux app backed by an express backend.
+A project to explore building a React/Redux app backed by an serverless architecture.
 
-Tuneify is a streaming music app built on the YouTube and LastFm APIs. Current progress is a basic prototype featuring a simple player, album, artist and home routes.
+Tuneify is a streaming music app built on the YouTube and LastFm APIs. Current progress is a basic prototype featuring a functioning player with album and artist routes and authentication using Auth0.
 
-![alt tag](https://media.giphy.com/media/l3vRfFkNi8qVEcm0E/source.gif)
+![alt tag](https://media.giphy.com/media/l0HlzayaF0jLB5TS8/source.gif)
 
 ## Tech:
 
@@ -14,8 +14,9 @@ Tuneify is a streaming music app built on the YouTube and LastFm APIs. Current p
 * Webpack
 * ES6 / Babel
 * Node (express)
-* Passport
+* Auth0
 * Mocha / Chai / Enzyme / Sinon
+* Serverless framework
 
 ##Installation
 
