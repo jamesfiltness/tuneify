@@ -7,7 +7,7 @@ import store from './redux/modules/store';
 import styles from './global.scss';
 import auth0Service from './utils/auth0-service';
 
-import { loggedIn, loggedOut } from './actions/auth-actions';
+import { loggedIn, loggedOut } from './actions/auth';
 
 import App from './components/app';
 import Home  from './components/home';

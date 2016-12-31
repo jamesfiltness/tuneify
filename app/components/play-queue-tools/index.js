@@ -6,7 +6,7 @@ import {
   shuffle,
   savePlayList,
   repeat,
-} from '../../actions/play-queue';
+} from '../../actions/player';
 
 export class PlayQueueTools extends React.Component {
 

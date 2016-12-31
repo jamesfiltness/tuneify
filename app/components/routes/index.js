@@ -6,7 +6,7 @@ import Artist from '../artist';
 import Album from '../album';
 import PageNotFound from '../page-not-found';
 import auth0Service from '../../utils/auth0-service';
-import { loggedIn, loggedOut } from '../../actions/auth-actions';
+import { loggedIn, loggedOut } from '../../actions/auth';
 
 const authService = new auth0Service();
  

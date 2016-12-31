@@ -4,7 +4,7 @@ import {
   clearArtistPageError, 
   getArtistPageData, 
   clearArtistPageData 
-} from '../../actions/artist-actions';
+} from '../../actions/artist';
 
 export class Artist extends React.Component {
   // only call for data once the page

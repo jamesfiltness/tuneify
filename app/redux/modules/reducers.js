@@ -13,7 +13,7 @@ import { videoData } from '../../reducers/video-data';
 import { playQueue } from '../../reducers/play-queue';
 import { authenticated } from '../../reducers/auth';
 
-import { loggedIn, loggedOut } from '../../actions/auth-actions';
+import { loggedIn, loggedOut } from '../../actions/auth';
 
 const reducers = combineReducers(
   {

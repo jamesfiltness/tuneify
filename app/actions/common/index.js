@@ -1,6 +1,6 @@
 import * as types from '../../constants/ActionTypes.js'
-import { fetchLastFmData, lastFmApiRequest } from '../lastfm-actions'
-import { playVideo } from '../player-actions'
+import { fetchLastFmData, lastFmApiRequest } from '../lastfm'
+import { playVideo } from '../player'
 
 export function receiveVideoData(json) {
   return {

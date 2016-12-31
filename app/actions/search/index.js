@@ -1,11 +1,11 @@
 require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch';
-import * as types from '../../constants/ActionTypes.js';
-import { playVideo } from '../player-actions';
-import { playTrack, trackSelected } from '../common-actions';
-import { appendTrackToPlayQueueAndPlay } from '../album-actions';
 import { push } from 'react-router-redux';
-import { fetchLastFmData } from '../lastfm-actions';
+import * as types from '../../constants/ActionTypes.js';
+import { playVideo } from '../player';
+import { playTrack, trackSelected } from '../common';
+import { appendTrackToPlayQueueAndPlay } from '../album';
+import { fetchLastFmData } from '../lastfm';
 
 export function clearSearch() {
   return {
