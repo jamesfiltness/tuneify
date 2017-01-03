@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:mocks": "NODE_ENV=MOCK node .",
-    "start": "NODE_ENV=development node .",
+    "start:mocks": "NODE_ENV=MOCK babel-node .",
+    "start": "NODE_ENV=development babel-node .",
     "test": "mocha --compilers js:babel-register test/helper app/**/spec.js"
   },
   "author": "James Filtness",
@@ -38,6 +38,7 @@
     "webpack-dev-middleware": "1.6.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
     "babel-core": "6.13.2",
     "babel-eslint": "6.1.2",
     "babel-loader": "6.2.4",
