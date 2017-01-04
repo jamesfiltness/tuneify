@@ -6,7 +6,10 @@
   "scripts": {
     "start:mocks": "NODE_ENV=MOCK node .",
     "start": "NODE_ENV=development node .",
-    "test": "mocha --compilers js:babel-register test/helper app/**/spec.js"
+    "test": "mocha --compilers js:babel-register test/helper app/**/spec.js",
+    "eslint": "eslint",
+    "postinstall": "npm run hooks",
+    "hooks": "chmod +x hooks/*; cd .git/hooks && ln -sf ../../hooks/* ."
   },
   "author": "James Filtness",
   "license": "MIT",
