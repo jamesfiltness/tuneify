@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:mocks": "NODE_ENV=MOCK node .",
-    "start": "NODE_ENV=development node .",
+    "start:mocks": "NODE_ENV=MOCK babel-node .",
+    "start": "NODE_ENV=development babel-node .",
     "test": "mocha --compilers js:babel-register test/helper app/**/spec.js"
   },
   "author": "James Filtness",
