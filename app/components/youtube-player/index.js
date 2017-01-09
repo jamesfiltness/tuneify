@@ -254,6 +254,9 @@ export class YouTubePlayer extends React.Component {
       this.videoDuration = this.player.getDuration();
       this.initProgressBar();
       this.initTimer();
+      this.setState({
+        playerState: YT.PlayerState.PLAYING,
+      });
     }
 
     if (event.data === YT.PlayerState.BUFFERING) {
@@ -262,6 +265,9 @@ export class YouTubePlayer extends React.Component {
     
     if (event.data === YT.PlayerState.PAUSED) {
       this.pauseProgressBar();
+      this.setState({
+        playerState: YT.PlayerState.PAUSED,
+      });
     }
   }
 
