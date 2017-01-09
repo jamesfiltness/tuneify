@@ -27,8 +27,8 @@
     "isomorphic-fetch": "2.2.1",
     "jwt-decode": "2.1.0",
     "lodash": "4.16.1",
-    "react": "15.4.1",
-    "react-dom": "15.4.0",
+    "react": "15.3.1",
+    "react-dom": "15.3.0",
     "react-redux": "4.4.5",
     "react-router": "2.6.1",
     "react-router-redux": "4.0.5",
@@ -54,7 +54,7 @@
     "file-loader": "0.9.0",
     "jsdom": "9.8.3",
     "mocha": "3.1.2",
-    "react-addons-test-utils": "15.3.0",
+    "react-addons-test-utils": "15.2.0",
     "sinon": "1.17.6",
     "sinon-chai": "2.8.0"
   }
