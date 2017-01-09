@@ -28,6 +28,26 @@ export class App extends React.Component {
     trackSummary: React.PropTypes.object,
   };
 
+  constructor() {
+    super();
+
+    this.state = {
+      searchFocused: false,
+    }
+  }
+
+  searchFocused() {
+    this.setState({
+      searchFocused: true,
+    });
+  }
+
+  searchBlurred() {
+    this.setState({
+      searchFocused: false,
+    });
+  }
+
   render() {
     const { 
       dispatch,
@@ -52,7 +72,9 @@ export class App extends React.Component {
                 Tuneify
               </Link>
             </h1>
-            <Search 
+            <Search
+              onFocus={this.searchFocused.bind(this)}
+              onBlur={this.searchBlurred.bind(this)}
               onSearch={ 
                 text => dispatch(searchPerformed(text)) 
               } 
@@ -65,6 +87,7 @@ export class App extends React.Component {
           artists={artists}
           tracks={tracks}
           albums={albums}
+          searchFocused={this.state.searchFocused}
         />
         <div className="route-content">
           {this.props.children}
