@@ -4,13 +4,15 @@ import _ from 'lodash';
 export class Search extends React.Component {
   static PropTypes = {
     onSearch: PropTypes.func.isRequired,
+    onFocus: PropTypes.func.isRequired,
+    onBlur: PropTypes.func.isRequired,
   };
 
   constructor() {
    super();
    this.handleSearch = _.throttle(this.handleSearch, 1000);
   }
-
+  
   render() {
     return (
       <div className="search">
@@ -21,6 +23,8 @@ export class Search extends React.Component {
           ref={(input) => this.input = input} 
           placeholder="Artist, Album or Track"
           onChange={() => this.handleSearch()} 
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
         />
       </div>
     )
