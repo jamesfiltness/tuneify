@@ -26,8 +26,8 @@ export class SearchAutoComplete extends React.Component {
     if (
       nextProps.artists.length || 
       nextProps.tracks.length || 
-      nextProps.albums.length ||
-      nextProps.showAutoComplete
+      nextProps.albums.length && 
+      nextProps.searchFocused
     ) {
       autoCompleteVisible = true;
     }
@@ -64,7 +64,10 @@ export class SearchAutoComplete extends React.Component {
   }
 
   handleDocumentClick(e) {
-    if (this.state.autoCompleteVisible) {
+    if (
+      this.state.autoCompleteVisible && 
+      e.target.className !== 'search__input'
+    ) {
       this.setState({
         autoCompleteVisible: false,
       });  
