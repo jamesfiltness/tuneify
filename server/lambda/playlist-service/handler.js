@@ -1,5 +1,22 @@
 'use strict';
 
+function generatePolicyDocument(principalId, effect, resource) {
+	var authResponse = {};
+	authResponse.principalId = principalId;
+	if (effect && resource) {
+		var policyDocument = {};
+		policyDocument.Version = '2012-10-17'; // default version
+		policyDocument.Statement = [];
+		var statementOne = {};
+		statementOne.Action = 'execute-api:Invoke'; // default action
+		statementOne.Effect = effect;
+		statementOne.Resource = resource;
+		policyDocument.Statement[0] = statementOne;
+		authResponse.policyDocument = policyDocument;
+	}
+	return authResponse;
+}
+
 module.exports.Playlist = (event, context, callback) => {
   const response = {
     statusCode: 200,
@@ -10,19 +27,12 @@ module.exports.Playlist = (event, context, callback) => {
   };
 
   callback(null, response);
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
 };
 
 module.exports.Authorise = (event, context, callback) => {
-  const response = {
-    statusCode: 403,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
-  };
-
-  callback(null, response);
+  if (event.authorizationToken === 'pass') {
+    context.succeed(generatePolicyDocument('jamesasid', 'Allow', event.methodArn));
+  } else {
+    context.fail();
+  }
 };

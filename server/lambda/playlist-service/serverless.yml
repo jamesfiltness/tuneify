@@ -12,5 +12,6 @@ functions:
       - http:
           path: playlist 
           method: get
+          authorizer: authorizerFunc
   authorizerFunc:
     handler: handler.Authorise
