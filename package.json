@@ -7,7 +7,7 @@
     "start:mocks": "NODE_ENV=MOCK babel-node .",
     "start": "NODE_ENV=development babel-node .",
     "test": "mocha --compilers js:babel-register test/helper app/**/spec.js",
-    "coverage": "node_modules/.bin/nyc --reporter=text --reporter=lcov --require babel-core/register node_modules/.bin/mocha test/helper app/**/spec.js"
+    "coverage": "node_modules/.bin/nyc --reporter=text --reporter=lcov --require babel-core/register --all node_modules/.bin/mocha test/helper app/**/spec.js"
   },
   "author": "James Filtness",
   "license": "MIT",
