@@ -1,0 +1,46 @@
+service: playlist-service
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  profile: personal-admin
+  region: eu-west-1
+functions:
+  playlist:
+    handler: handler.playlist
+    events:
+      - http:
+          path: playlist 
+          method: get
+          authorizer:
+            arn: arn:aws:lambda:eu-west-1:979816914021:function:authentication-service-dev-authorise
+resources:  
+  Resources:
+    DynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: playlists 
+        AttributeDefinitions:
+          - AttributeName: id 
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+    DynamoDBIamPolicy:
+      Type: AWS::IAM::Policy
+      DependsOn: DynamoDbTable
+      Properties:
+        PolicyName: lambda-dynamodb
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:PutItem
+              Resource: arn:aws:dynamodb:*:*:table/playlists
+        Roles:
+          - Ref: IamRoleLambdaExecution

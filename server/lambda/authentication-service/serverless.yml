@@ -1,0 +1,11 @@
+service: authentication-service
+provider:
+  name: aws
+  runtime: nodejs4.3
+  profile: personal-admin
+  region: eu-west-1
+functions:
+  authorise:
+    handler: handler.authorise
+    environment:
+      AUTH0_SECRET: ${env:AUTH0_SECRET}

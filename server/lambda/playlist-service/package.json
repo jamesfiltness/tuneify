@@ -1,0 +1,12 @@
+{
+  "name": "playlist-service",
+  "version": "1.0.0",
+  "description": "Playlist service for Tuneify",
+  "main": "handler.js",
+  "scripts": {
+  },
+  "author": "James Filtness",
+  "license": "MIT",
+  "dependencies": {
+  }
+}

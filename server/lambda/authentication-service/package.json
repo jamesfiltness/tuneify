@@ -1,0 +1,12 @@
+{
+  "name": "authentication-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {},
+  "author": "James Filtness",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "7.2.1"
+  }
+}
