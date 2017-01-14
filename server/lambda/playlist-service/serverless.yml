@@ -7,16 +7,13 @@ provider:
   region: eu-west-1
 functions:
   playlist:
-    handler: handler.Playlist
+    handler: handler.playlist
     events:
       - http:
           path: playlist 
           method: get
-          authorizer: authorizerFunc
-  authorizerFunc:
-    handler: handler.Authorise
-    environment:
-      AUTH0_SECRET: ${env:AUTH0_SECRET}
+          authorizer:
+            arn: arn:aws:lambda:eu-west-1:979816914021:function:authentication-service-dev-authorise
 resources:  
   Resources:
     DynamoDbTable:

@@ -1,12 +1,12 @@
 {
-  "name": "playlist-service",
+  "name": "authentication-service",
   "version": "1.0.0",
-  "description": "Playlist service for Tuneify",
+  "description": "",
   "main": "handler.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "James Filtness",
   "license": "MIT",
   "dependencies": {
+    "jsonwebtoken": "7.2.1"
   }
 }
