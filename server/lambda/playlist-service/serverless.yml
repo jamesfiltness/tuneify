@@ -4,16 +4,6 @@ provider:
   runtime: nodejs4.3
   profile: personal-admin
   region: eu-west-1
-  iamRoleStatements:
-    - Effect: Allow
-      Action: 
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: arn:aws:dynamodb:eu-west-1:${env:AWS_ACCOUNT_NO}:table/users
 functions:
   playlist:
     handler: handler.playlist
@@ -32,12 +22,27 @@ resources:
         AttributeDefinitions:
           - AttributeName: id 
             AttributeType: S
+          - AttributeName: userid 
+            AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
+        # Allow queries to get playlists by userID
+        GlobalSecondaryIndexes:
+          - IndexName: PlaylistUsers
+            KeySchema:
+              - AttributeName: userid
+                KeyType: HASH
+              - AttributeName: id
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 5
+              WriteCapacityUnits: 5
     DynamoDBIamPolicy:
       Type: AWS::IAM::Policy
       DependsOn: DynamoDbTable
@@ -50,6 +55,9 @@ resources:
               Action:
                 - dynamodb:GetItem
                 - dynamodb:PutItem
-              Resource: arn:aws:dynamodb:*:*:table/playlists
+                - dynamodb:Query
+              Resource: 
+                - arn:aws:dynamodb:*:*:table/playlists
+                - arn:aws:dynamodb:*:*:table/playlists/index/*
         Roles:
           - Ref: IamRoleLambdaExecution
