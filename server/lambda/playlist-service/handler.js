@@ -6,12 +6,13 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports.playlist = (event, context, callback) => {
   const params = {
-    TableName: 'playlists',
+    TableName: 'users',
     Item: {
       id: 'ea92a194-2d60-35c7-9d56-0e1dba20cd45',
-      tracks: [
+      playlists: [
         {
-          artist: 'Radiohead', track: 'Airbag'
+          id: 492635,
+          name: 'My Sunday Playlist' 
         }
       ]
     }
