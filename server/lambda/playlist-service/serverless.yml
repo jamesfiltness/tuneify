@@ -1,10 +1,19 @@
 service: playlist-service
-
 provider:
   name: aws
   runtime: nodejs4.3
   profile: personal-admin
   region: eu-west-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action: 
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: arn:aws:dynamodb:eu-west-1:${env:AWS_ACCOUNT_NO}:table/users
 functions:
   playlist:
     handler: handler.playlist
@@ -13,7 +22,7 @@ functions:
           path: playlist 
           method: get
           authorizer:
-            arn: arn:aws:lambda:eu-west-1:979816914021:function:authentication-service-dev-authorise
+            arn: arn:aws:lambda:eu-west-1:${env:AWS_ACCOUNT_NO}:function:authentication-service-dev-authorise
 resources:  
   Resources:
     DynamoDbTable:
