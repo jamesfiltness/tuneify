@@ -32,7 +32,7 @@ module.exports.authorise = (event, context, callback) => {
       callback("Unauthorized");
     } else if (decoded) {
       const userId = decoded.sub;
-      callback(null, generatePolicyDocument(userId, 'Allow', event.methodArn));
+      callback(null, generatePolicyDocument(userId, 'Allow', '*'));
     }
   });
 };
