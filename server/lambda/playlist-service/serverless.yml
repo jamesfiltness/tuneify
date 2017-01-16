@@ -5,12 +5,20 @@ provider:
   profile: personal-admin
   region: eu-west-1
 functions:
-  playlist:
-    handler: handler.playlist
+  getPlaylistsByUserId:
+    handler: handler.getPlaylistsByUserId
     events:
       - http:
-          path: playlist 
+          path: playlists 
           method: get
+          authorizer:
+            arn: arn:aws:lambda:eu-west-1:${env:AWS_ACCOUNT_NO}:function:authentication-service-dev-authorise
+  savePlaylist:
+    handler: handler.savePlaylist
+    events:
+      - http:
+          path: playlists 
+          method: post
           authorizer:
             arn: arn:aws:lambda:eu-west-1:${env:AWS_ACCOUNT_NO}:function:authentication-service-dev-authorise
 resources:  
@@ -53,9 +61,7 @@ resources:
           Statement:
             - Effect: Allow
               Action:
-                - dynamodb:GetItem
-                - dynamodb:PutItem
-                - dynamodb:Query
+                - dynamodb:*
               Resource: 
                 - arn:aws:dynamodb:*:*:table/playlists
                 - arn:aws:dynamodb:*:*:table/playlists/index/*
