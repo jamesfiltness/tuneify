@@ -36,7 +36,7 @@ const fetchMiddleware  = store => next => action => {
   
   actionPromise
     .then((response) => response.json())
-    .then(json => { console.log(json); next({ ...rest, json, type: SUCCESS })} )
+    .then(json => { next({ ...rest, json, type: SUCCESS })} )
     .catch(error => next({ ...rest, error, type: FAILURE }));
 
   return actionPromise;
