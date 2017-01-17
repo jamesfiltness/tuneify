@@ -19,7 +19,7 @@ const fetchMiddleware  = store => next => action => {
   
   // fetch does not support passing a params object
   // so build the queryString here and append to the url
-  if (promise.params) {
+  if (promise.params && Object.keys(promise.params).length > 0) {
     queryString = Object.keys(promise.params).map(function(key) {
       return [key, promise.params[key]].map(encodeURIComponent).join("=");
     }).join("&");
@@ -31,19 +31,15 @@ const fetchMiddleware  = store => next => action => {
   const [REQUEST, SUCCESS, FAILURE] = actions;
   // dispatch the request action
   next({ ...rest, type: REQUEST });
-  // so here if there's a command line flag in place
-  // allow a class to be instantiated here which starts up fetch mock
-  // const mockFetch = new fetchMockProxy();
+  
   const actionPromise = fetch(promiseUrl, promise);
   
-  // Monitor the amount of calls made to lastfm api  
-  // store.dispatch(incrementCallsToLastFmApi());
   actionPromise
-    .then((response) =>  response.json())
-    .then(json => next({ ...rest, json, type: SUCCESS }))
+    .then((response) => response.json())
+    .then(json => { console.log(json); next({ ...rest, json, type: SUCCESS })} )
     .catch(error => next({ ...rest, error, type: FAILURE }));
 
-    return actionPromise;
+  return actionPromise;
 };
 
 export default fetchMiddleware

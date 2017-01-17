@@ -6,9 +6,9 @@ module.exports.savePlaylist = (event, context, callback) => {
   const params = {
     TableName: 'playlists',
     Item: {
-      id: 'ea92a194-2d60-35c7-9d56-0e1dba20cd45',
+      id: 'a92a194-2d60-35c7-9d56-0e1dba20cd45',
       name: 'My playlist',
-      userid: 'c16ba271-f7e8-4a41-ac2c-c74d1dc37c5f',
+      userid: 'facebook|10153850071335834',
       tracks: [
         {
           artist: 'Radiohead',
@@ -41,12 +41,13 @@ module.exports.savePlaylist = (event, context, callback) => {
 }
 
 module.exports.getPlaylistsByUserId = (event, context, callback) => {
+  const userId = event.requestContext.authorizer.userId;
   const params = {
     TableName: 'playlists',
     IndexName: 'PlaylistUsers',
     KeyConditionExpression: "userid = :a",
     ExpressionAttributeValues: {
-      ":a": "c16ba271-f7e8-4a41-ac2c-c74d1dc37c5f"
+      ":a": userId
     }
   }
 
@@ -56,6 +57,9 @@ module.exports.getPlaylistsByUserId = (event, context, callback) => {
     } else { 
       const response = {
         statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin" : "*"
+        },
         body: JSON.stringify({
           data: data
         }),

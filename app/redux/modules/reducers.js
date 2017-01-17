@@ -12,6 +12,7 @@ import { topArtists } from '../../reducers/top-artists';
 import { videoData } from '../../reducers/video-data';
 import { playQueue } from '../../reducers/play-queue';
 import { authenticated } from '../../reducers/auth';
+import { playlists } from '../../reducers/playlists';
 
 import { loggedIn, loggedOut } from '../../actions/auth';
 
@@ -27,6 +28,7 @@ const reducers = combineReducers(
     artistPage,
     topArtists,
     playQueue,
+    playlists,
     routing: routerReducer,
   }
 );

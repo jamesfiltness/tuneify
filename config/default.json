@@ -4,6 +4,9 @@
     "lastfm": { 
       "url": "http://ws.audioscrobbler.com/2.0/",
       "api_key": "57ee3318536b23ee81d6b27e36997cde"
+    },
+    "awslambda": {
+      "url": "https://om2mx762gd.execute-api.eu-west-1.amazonaws.com/dev/"
     }
   }
 }
