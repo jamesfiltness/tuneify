@@ -1,5 +1,6 @@
 import React from 'react'
 import  { Link } from 'react-router';
+import Playlists from '../playlists';
 
 export function UserSidebar() {
   return (
@@ -21,6 +22,7 @@ export function UserSidebar() {
         <li className="user-sidebar__list-item">Library</li>
       </ul>
       <h3 className="user-sidebar__heading"><i className="fa fa-list"></i>Playlists</h3>
+      <Playlists />
     </div>
   );
 }

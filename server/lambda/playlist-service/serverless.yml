@@ -11,6 +11,7 @@ functions:
       - http:
           path: playlists 
           method: get
+          cors: true
           authorizer:
             arn: arn:aws:lambda:eu-west-1:${env:AWS_ACCOUNT_NO}:function:authentication-service-dev-authorise
   savePlaylist:
@@ -19,6 +20,7 @@ functions:
       - http:
           path: playlists 
           method: post
+          cors: true
           authorizer:
             arn: arn:aws:lambda:eu-west-1:${env:AWS_ACCOUNT_NO}:function:authentication-service-dev-authorise
 resources:  
