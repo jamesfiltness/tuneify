@@ -33,10 +33,6 @@ export class Playlists extends React.Component {
     this.renderSpinner(nextProps.requestingPlaylists);
   }
 
-  getUserPlaylists() {
-    this.props.getUserPlaylists(); 
-  }
-
   renderPlaylists() {
     return this.props.userPlaylists.map((playlist, i) => {
       let path = `/playlist/${playlist.id}`;
@@ -55,13 +51,8 @@ export class Playlists extends React.Component {
   }
 
   renderSpinner(shouldRenderSpinner) {
-    let render = false;
-    if (shouldRenderSpinner) {
-      render = true;
-    } else {
-      render = false;
-    }
-    
+    const render = shouldRenderSpinner ? true : false;
+
     this.setState({
       shouldRenderSpinner: render,
     });
