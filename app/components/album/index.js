@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Track from '../track';
 import { 
   clearAlbumPageError, 
   getAlbumPageData, 
@@ -77,27 +78,27 @@ export class Album extends React.Component {
     if(this.props.albumPageData.tracks) {
       return (
         <table className="album__tracks-table">
-          <tbody>
+            <thead className="album__tracks-header">
+              <tr>
+                <th className="album__tracks-heading">No</th>
+                <th className="album__tracks-heading">Track</th>
+                <th className="album__tracks-heading">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
             {
               this.props.albumPageData.tracks.map((track, i) => {
                 return (
-                  <tr 
-                    className="album__track-row" 
+                  <Track
+                    rank={track['@attr'].rank}
+                    name={track.name}
                     key={i}
-                    onClick={() => {this.props.onAppendTrackToPlayQueueAndPlay(track)}}
-                  >
-                    <td 
-                      className="album__track-cell"
-                    >
-                      <span className="album__track-rank">
-                        {track['@attr'].rank}
-                      </span>
-                      <span className="album__track-play">
-                        <i className="fa fa-play" />
-                      </span>
-                    </td>
-                    <td className="album__track-cell">{track.name}</td>
-                  </tr>
+                    onClick={
+                      () => {
+                        this.props.onAppendTrackToPlayQueueAndPlay(track)
+                      } 
+                    }
+                  />
                 )
               })
             }

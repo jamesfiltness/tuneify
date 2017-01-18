@@ -20,58 +20,17 @@
     margin: 40px 0;
   }
 
+  &__tracks-heading {
+    text-transform: uppercase;
+    color: #999;
+    font-weight: normal;
+    font-size: 12px;
+    padding: 10px;
+    text-align: left;
+  }
+
   &__tracks-table {
     border-collapse: collapse; 
     width: 100%;
-  }
-
-  &__track-play {
-    display: none;
-    border: 1px solid #fff;
-    border-radius: 52px;
-    width: 26px;
-    height: 26px;
-    position: absolute;
-    left: 5px;
-    top: 9px;
-    z-index: 2;
-    background: #222;
-
-    .fa {
-      margin: 3px 0 0 7px;
-    }
-    
-    .album__track-row:hover & {
-      display: block;
-    }
-  }
-
-  &__track-cell {
-    position: relative;
-
-    &:first-of-type {
-      width: 20px;
-    }
-  }
-
-  &__track-rank {
-    .album__track-row:hover & {
-      visibility: hidden;
-    }
-  }
-
-  &__track-row {
-    position: relative;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-    cursor: pointer;
-
-    &:hover {
-      background: #222;
-    }
-
-    td {
-      padding: 13px 10px;
-    }
   }
 }
