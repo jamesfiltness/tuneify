@@ -1,36 +1,3 @@
 .album {
-  padding: 40px 40px 0 40px;
-  
-  &__header {
-    overflow: hidden;
-  }
-
-  &__header-image {
-    float: left;
-    margin-right: 20px;
-  }
-
-  &__header-identifier {
-    text-transform: uppercase;
-    color: #ccc;
-    margin-top: 0px;
-  }
-
-  &__tracks {
-    margin: 40px 0;
-  }
-
-  &__tracks-heading {
-    text-transform: uppercase;
-    color: #999;
-    font-weight: normal;
-    font-size: 12px;
-    padding: 10px;
-    text-align: left;
-  }
-
-  &__tracks-table {
-    border-collapse: collapse; 
-    width: 100%;
-  }
+  padding: $route-content-padding;
 }
