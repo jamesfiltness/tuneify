@@ -1,6 +1,9 @@
 @import './styles/normalize.css';
 @import './styles/base.scss';
 @import './styles/font-awesome.css';
+@import './styles/variables.scss';
+@import './styles/hero.scss';
+@import './styles/tracks.scss';
 
 @import './components/app/styles';
 @import './components/search/styles';
@@ -16,6 +19,7 @@
 @import './components/user-sidebar/styles';
 @import './components/login/styles';
 @import './components/playlists/styles';
+@import './components/playlist/styles';
 @import './components/track/styles';
 
 .route-content-spinner {
