@@ -102,16 +102,16 @@ export class Artist extends React.Component {
       } else {
         return (
           <div className="artist">
-            <div className="artist__header">
+            <div className="hero">
               <img 
                 src={artistPageData.image} 
-                className="artist__header-image"
+                className="hero__image"
                 alt={artistPageData.name}
                 width="174"
                 height="174"
               />
-              <h5 className="artist__header-identifier">Artist</h5>
-              <h1 className="artist__header-name">{artistPageData.name}</h1>
+              <h5 className="hero__identifier">Artist</h5>
+              <h1 className="hero__name">{artistPageData.name}</h1>
               <div 
                 className="artist__bio" 
                 dangerouslySetInnerHTML={
