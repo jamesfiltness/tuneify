@@ -1,0 +1,14 @@
+.hero {
+  overflow: hidden;
+
+  &__image {
+    float: left;
+    margin-right: 20px;
+  }
+
+  &__identifier {
+    text-transform: uppercase;
+    color: #ccc;
+    margin-top: 0px;
+  }
+}

@@ -24,6 +24,7 @@ export class Playlists extends React.Component {
     if (this.props.authenticated === false && nextProps.authenticated) {
       this.props.getUserPlaylists();
     }
+
     if (nextProps.userPlaylists.length) {
       this.setState({
         shouldRenderPlaylists: true,

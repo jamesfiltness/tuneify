@@ -14,7 +14,7 @@ export function requestingUserPlaylists(state = false, action) {
   }    
 }
 
-export function userPlaylists(state = {}, action) {
+export function userPlaylists(state = [], action) {
   switch (action.type) {
     case types.RECEIVE_USER_PLAYLIST_DATA:
       return action

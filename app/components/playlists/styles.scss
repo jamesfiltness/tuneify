@@ -1,5 +1,10 @@
 .playlist {
   font-size: 14px;
+
+  &__item {
+    margin: 0 0 10px 23px;
+  }
+  
   &__link {
     color: #fff;
     text-decoration: none;

@@ -1,0 +1,52 @@
+.track {
+  position: relative;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  
+  &:hover {
+    background: #222;
+  }
+  
+  &__cell {
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 13px 10px;
+    &:first-of-type {
+      width: 20px;
+    }
+  }
+
+  &__rank {
+    .track:hover & {
+      visibility: hidden;
+    }
+  }
+ 
+  &__play {
+    display: none;
+    border: 1px solid #fff;
+    border-radius: 52px;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    left: 5px;
+    top: 9px;
+    z-index: 2;
+    background: #222;
+
+    .fa {
+      margin: 3px 0 0 7px;
+    }
+    
+    .track:hover & {
+      display: block;
+    }
+  }
+
+  &__option {
+    float:right;
+  }
+}

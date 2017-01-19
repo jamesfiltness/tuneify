@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Track from '../track';
 import { 
   clearAlbumPageError, 
   getAlbumPageData, 
@@ -76,33 +77,47 @@ export class Album extends React.Component {
   renderTracks() {
     if(this.props.albumPageData.tracks) {
       return (
-        <table className="album__tracks-table">
-          <tbody>
-            {
-              this.props.albumPageData.tracks.map((track, i) => {
-                return (
-                  <tr 
-                    className="album__track-row" 
-                    key={i}
-                    onClick={() => {this.props.onAppendTrackToPlayQueueAndPlay(track)}}
-                  >
-                    <td 
-                      className="album__track-cell"
-                    >
-                      <span className="album__track-rank">
-                        {track['@attr'].rank}
-                      </span>
-                      <span className="album__track-play">
-                        <i className="fa fa-play" />
-                      </span>
-                    </td>
-                    <td className="album__track-cell">{track.name}</td>
-                  </tr>
-                )
-              })
-            }
-          </tbody>
-        </table> 
+        <div className="tracks">
+          <table className="tracks__table">
+            <thead className="tracks__header">
+              <tr>
+                <th 
+                  className="tracks__heading tracks__heading--no"
+                >
+                  No
+                </th>
+                <th 
+                  className="tracks__heading tracks__heading--track"
+                >
+                  Track
+                </th>
+                <th 
+                  className="tracks__heading tracks__heading--actions"
+                >
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.props.albumPageData.tracks.map((track, i) => {
+                  return (
+                    <Track
+                      rank={track['@attr'].rank}
+                      name={track.name}
+                      key={i}
+                      onClick={
+                        () => {
+                          this.props.onAppendTrackToPlayQueueAndPlay(track)
+                        } 
+                      }
+                    />
+                  )
+                })
+              }
+            </tbody>
+          </table>
+        </div>
       )
     } else {
       return null;
@@ -138,17 +153,17 @@ export class Album extends React.Component {
       } else {
         return (
           <div className="album">
-            <div className="album__header">
+            <div className="hero">
               <img 
                 src={albumPageData.image} 
-                className="album__header-image"
+                className="hero__image"
                 alt={`${albumPageData.name} by ${albumPageData.artist}`}
                 width="174"
                 height="174"
               />
-              <h5 className="album__header-identifier">Album</h5>
-              <h1 className="album__header-name">{albumPageData.name}</h1>
-              <h3 className="album__header-artist">{albumPageData.artist}</h3>
+              <h5 className="hero__identifier">Album</h5>
+              <h1 className="hero__name">{albumPageData.name}</h1>
+              <h3 className="hero__artist">{albumPageData.artist}</h3>
               <button 
                 onClick={this.replaceQueueWithAlbumAndPlay}
                 className="button button--primary button--play"
@@ -162,9 +177,7 @@ export class Album extends React.Component {
                Queue Album 
               </button>
             </div>
-            <div className="album__tracks">
-              {this.renderTracks()}
-            </div>
+            {this.renderTracks()}
           </div>
         );
       }
