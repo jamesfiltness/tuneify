@@ -4,7 +4,8 @@ export default class Track extends React.Component {
   static PropTypes = {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-    rank: PropTypes.number
+    rank: PropTypes.number,
+    artist: PropTypes.string,
   };
 
   constructor(props) {
@@ -22,7 +23,6 @@ export default class Track extends React.Component {
   }
  
   render() {
-    console.log(this.props);
     return (
       <tr 
         className="track" 
@@ -39,6 +39,13 @@ export default class Track extends React.Component {
           </span>
         </td>
         <td className="track__cell track__name">{this.props.name}</td>
+        {
+          this.props.artist ? 
+            <td className="track__cell track__artist">
+              {this.props.artist}
+            </td> : 
+            null
+        }
         <td 
           className="track__cell track__options"
           onClick={this.optionSelected}

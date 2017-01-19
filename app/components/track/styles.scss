@@ -10,6 +10,9 @@
   
   &__cell {
     position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding: 13px 10px;
     &:first-of-type {
       width: 20px;
@@ -41,14 +44,6 @@
     .track:hover & {
       display: block;
     }
-  }
-
-  &__name {
-    width: calc(100% - 40px);
-  }
-
-  &__options {
-    width: 20px;
   }
 
   &__option {
