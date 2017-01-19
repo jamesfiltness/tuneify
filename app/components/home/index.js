@@ -47,7 +47,7 @@ export class Home extends React.Component {
       // sometimes lastfm returns successfully but with an empty 
       // json object. To counter this the reducer has a case for
       // this an returns and error property when it does happen
-      if(topArtistData.error) {
+      if (topArtistData.error) {
         return (
           <h3>No data found.</h3>
         )

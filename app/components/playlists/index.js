@@ -25,6 +25,7 @@ export class Playlists extends React.Component {
       this.props.getUserPlaylists();
     }
     if (nextProps.userPlaylists.length) {
+      console.log('should render', nextProps.userPlaylists);
       this.setState({
         shouldRenderPlaylists: true,
       })  
