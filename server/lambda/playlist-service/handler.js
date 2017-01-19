@@ -6,17 +6,29 @@ module.exports.savePlaylist = (event, context, callback) => {
   const params = {
     TableName: 'playlists',
     Item: {
-      id: 'a92a194-2d60-35c7-9d56-0e1dba20cd45',
-      name: 'My playlist',
+      id: '992a194-2d60-35c7-9d56-0e1dba20cd45',
+      name: 'Another playlist',
       userid: 'facebook|10153850071335834',
       tracks: [
         {
           artist: 'Radiohead',
-          track: 'airbag' 
+          track: 'Karma Police' 
         },
         {
-          artist: 'Real Estate',
-          track: 'Snow Days'
+          artist: 'The Police',
+          track: 'Roxanne'
+        },
+        {
+          artist: 'Pink Floyd',
+          track: 'Money'
+        },
+        {
+          artist: 'Bill Ryder-Jones',
+          track: 'Daniel'
+        },
+        {
+          artist: 'Brian Jonestown Massacre',
+          track: 'Anenome'
         }
       ]
     }
