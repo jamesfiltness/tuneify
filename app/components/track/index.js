@@ -16,7 +16,6 @@ export default class Track extends React.Component {
 
   optionSelected(e) {
     e.stopPropagation();
-    console.log('option selected - do something');
     // this should display a popup, with the following options
     // Add to playQueue
     // Add to playlist
