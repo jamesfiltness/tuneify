@@ -147,6 +147,7 @@ export class Album extends React.Component {
       // json object. To counter this the reducer has a case for
       // this an returns and error property when it does happen
       if(albumPageData.error) {
+        console.log(albumPageData.error);
         return(
           <h3>No album found for this search result.</h3>
         )

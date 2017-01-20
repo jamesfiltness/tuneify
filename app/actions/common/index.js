@@ -52,3 +52,17 @@ export function playTrack(trackName, artist) {
     });
   }
 }
+
+export function authenticate() {
+  return {
+    type: types.AUTHENTICATE,
+    authenticate: true,
+  }
+}
+
+export function showModal(modalType) {
+  return {
+    type: types.SHOW_MODAL,
+    modalType,
+  }
+}

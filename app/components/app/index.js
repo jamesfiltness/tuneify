@@ -13,6 +13,7 @@ import PlayQueueTools from '../play-queue-tools';
 import CurrentTrackSummary from '../current-track-summary';
 import UserSidebar from '../user-sidebar';
 import Login from '../login';
+import Modal from '../modal';
 
 export class App extends React.Component {
   
@@ -62,6 +63,7 @@ export class App extends React.Component {
     
     return (
       <div className="app">
+        <Modal />
         <header className="header">
           <div className="header__container">
             <h1 className="header__title">

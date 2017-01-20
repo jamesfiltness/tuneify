@@ -2,7 +2,9 @@ import * as types from '../../constants/ActionTypes.js';
 import { 
   playTrack, 
   getTrackInfo, 
-  trackSelected, 
+  trackSelected,
+  authenticate,
+  showModal,
 } from '../common';
 
 export function playQueueTrackSelected(selectedTrackData, index) {
@@ -27,9 +29,11 @@ export function playQueueTrackSelected(selectedTrackData, index) {
 }
 
 export function savePlayList() {
-  return {
-    type: types.SAVE_PLAYLIST,
-    authenticate: true,
+  return (dispatch, getState) => {
+    if (!getState().authenticated) {
+      dispatch(authenticate());   
+    }
+    dispatch(showModal('savePlaylist'))
   }
 }
 

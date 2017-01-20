@@ -58,6 +58,7 @@ export class PlayQueueTools extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     shuffle: state.playQueue.shuffle,
     repeat: state.playQueue.repeat, 

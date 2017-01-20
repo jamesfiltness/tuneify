@@ -32,3 +32,20 @@ export function getUserPlaylists() {
   
   return fetchLambda(actions, 'playlists', 'GET');
 }
+
+export function createPlaylist(playlistName) {
+  return (dispatch, getState) => {
+    const actions = [
+      types.CREATE_PLAYLIST, 
+      types.PLAYLIST_CREATED,
+      types.PLAYLIST_CREATE_ERROR
+    ];
+
+    const body = {
+      playlistName,
+      playQueue: getState().playQueue.playQueueTracks,
+    };
+    
+    return fetchLambda(actions, 'playlists', 'POST', null, body);
+  }
+}

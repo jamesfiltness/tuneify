@@ -13,6 +13,7 @@ import { videoData } from '../../reducers/video-data';
 import { playQueue } from '../../reducers/play-queue';
 import { authenticated } from '../../reducers/auth';
 import { playlists } from '../../reducers/playlists';
+import { modal } from '../../reducers/modal';
 
 import { loggedIn, loggedOut } from '../../actions/auth';
 
@@ -29,6 +30,7 @@ const reducers = combineReducers(
     topArtists,
     playQueue,
     playlists,
+    modal,
     routing: routerReducer,
   }
 );

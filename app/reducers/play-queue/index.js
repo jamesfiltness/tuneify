@@ -55,9 +55,22 @@ export function repeat(state = false, action) {
   }
 }
 
+export function savePlaylistPopupVisible(state = false, action) {
+  switch(action.type) {
+    case types.SHOW_SAVE_PLAYLIST_POPUP:
+      return true;
+    case types.HIDE_SAVE_PLAYLIST_POPUP:
+      return false;
+    default:
+      return state;
+  }
+}
+
+
 export const playQueue = combineReducers({
   playQueueTracks,
   playQueueCurrentIndex,
   shuffle,
   repeat,
+  savePlaylistPopupVisible,
 });
