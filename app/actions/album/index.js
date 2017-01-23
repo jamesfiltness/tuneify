@@ -1,3 +1,6 @@
+LOCK YOUR COMPUTER NEXT TIME!!!
+
+
 import * as types from '../../constants/ActionTypes.js';
 import { fetchLastFmData, lastFmApiRequest } from '../lastfm';
 import { resetPlayQueueIndex, playCurrentIndex } from '../play-queue';
