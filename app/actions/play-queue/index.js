@@ -1,7 +1,6 @@
 import * as types from '../../constants/ActionTypes.js';
 import { 
   playTrack, 
-  getTrackInfo, 
   trackSelected,
   authenticate,
   showModal,
@@ -9,20 +8,12 @@ import {
 
 export function playQueueTrackSelected(selectedTrackData, index) {
   return (dispatch, getState)  => {
-    const trackName = selectedTrackData.name;
-    const artist = selectedTrackData.artist.name;
-
-    // if user is selecting a result from the play queue then there 
-    // isn't an image because the play queue is retrieved form the album.getInfo
-    // lastfm endpoint which doesn't include images in the response
-    // so make another call to get the image for the CurrentTrackSummary
-    // component
-    dispatch(getTrackInfo(trackName, artist));
     dispatch(setCurrentIndex(index));
+    dispatch(trackSelected(currentTrack));
     dispatch(
       playTrack(
         selectedTrackData.name, 
-        selectedTrackData.artist.name,
+        selectedTrackData.artist,
       )
     );
   }
@@ -75,13 +66,6 @@ export function incrementCurrentIndex() {
   }
 }
 
-export function setCurrentIndex(index) {
-  return {
-    type: types.SET_CURRENT_INDEX,
-    index,
-  }
-}
-
 export function decrementCurrentIndex() {
   return (dispatch, getState) => {
     if(getState().playQueue.shuffle) {
@@ -98,38 +82,14 @@ export function playCurrentIndex() {
   return (dispatch, getState) => {
     const currentIndex = getState().playQueue.playQueueCurrentIndex;
     const currentTrack = getState().playQueue.playQueueTracks[currentIndex];
-    dispatch(
-      getTrackInfo(
-        currentTrack.name, 
-        currentTrack.artist.name
-      )
-    );
+    dispatch(trackSelected(currentTrack));
 
     dispatch(
       playTrack(
         currentTrack.name, 
-        currentTrack.artist.name
+        currentTrack.artist
       )
     );
-  }
-}
-
-export function resetPlayQueueIndex() {
-  return {
-    type: types.RESET_PLAY_QUEUE_INDEX,
-  }
-}
-
-export function removeTrackFromQueue(index) {
-  return {
-    type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
-    index,
-  }
-}
-
-export function trashPlayQueue() {
-  return {
-    type: types.TRASH_PLAY_QUEUE,
   }
 }
 
@@ -158,6 +118,32 @@ export function toggleRepeat(on) {
   return {
     type: types.REPEAT,
     enabled: on,
+  }
+}
+
+export function resetPlayQueueIndex() {
+  return {
+    type: types.RESET_PLAY_QUEUE_INDEX,
+  }
+}
+
+export function removeTrackFromQueue(index) {
+  return {
+    type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
+    index,
+  }
+}
+
+export function trashPlayQueue() {
+  return {
+    type: types.TRASH_PLAY_QUEUE,
+  }
+}
+
+export function setCurrentIndex(index) {
+  return {
+    type: types.SET_CURRENT_INDEX,
+    index,
   }
 }
 

@@ -3,6 +3,17 @@ import { fetchLastFmData, lastFmApiRequest } from '../lastfm';
 import { resetPlayQueueIndex, playCurrentIndex } from '../play-queue';
 import { setCurrentIndex } from '../play-queue';
 
+const prepareTrackData = (trackArr, img) => {
+  return trackArr.map((track) => {
+    console.log(track);
+    return {
+      name: track.name,
+      artist: track.artist.name,
+      image: img
+    }
+  });
+}
+
 export function getAlbumPageData(params) {
   const actions = [
     types.LAST_FM_API_REQUEST, 
@@ -30,10 +41,11 @@ export function clearAlbumPageError() {
   }
 }
 
-export function appendAlbumToPlayQueue(tracks) {
+export function appendAlbumToPlayQueue(tracks, img) {
+  const trackData = prepareTrackData(tracks, img);
   return {
     type: types.ADD_TRACKS_TO_PLAY_QUEUE,
-    tracks,
+    trackData,
   }
 }
 
@@ -49,16 +61,10 @@ const appendTrack = (track, dispatch) => new Promise((resolve, reject) => {
   resolve();
 });
 
-export function appendTrackToPlayQueueAndPlay(track) {
+export function appendTrackToPlayQueueAndPlay(track, img) {
   return (dispatch, getState) => {
-    let trackObj = track;
-    
-    // This is a hack - in most cases the artist is in track.artist.name
-    // but in some cases it's nested at the root level track.artist
-    if (!trackObj.artist.name) {
-      trackObj = { ...track, ...{ artist: { name: track.artist, mbid: track.mbid } } };
-    }
-    
+    const trackObj = prepareTrackData([track], img);
+
     appendTrack(trackObj, dispatch).then(() => {
       dispatch(
         setCurrentIndex(
@@ -70,16 +76,17 @@ export function appendTrackToPlayQueueAndPlay(track) {
   }
 }
 
-export function replaceQueueWithTracks(tracks) {
+export function replaceQueueWithTracks(tracks, img) {
+  const trackData = prepareTrackData(tracks, img);
   return {
     type: types.REPLACE_QUEUE_WITH_TRACKS,
-    tracks,
+    trackData,
   }
 }
 
-export function replaceQueueWithAlbumAndPlay(tracks) {
+export function replaceQueueWithAlbumAndPlay(tracks, img) {
   return (dispatch, getState)  => {
-    dispatch(replaceQueueWithTracks(tracks));
+    dispatch(replaceQueueWithTracks(tracks, img));
     dispatch(resetPlayQueueIndex());
     dispatch(playCurrentIndex());
   }

@@ -20,30 +20,12 @@ export function fetchVideoData(selectedTrackString) {
     }
 }
 
-export function trackSelected(selectedTrackSummaryData, from) {
+export function trackSelected(selectedTrackSummaryData) {
   return {
     type: types.TRACK_SELECTED,
     selectedTrackSummaryData,
   }
 }
-
-export function getTrackInfo(track, artist) {
-  // TODO : This should obv not be calling RECIEVE_ARTIST_DATA when it fails
-  const actions =  
-    [
-      types.LAST_FM_API_REQUEST, 
-      types.RECEIVE_CURRENT_TRACK_DATA,
-      types.RECEIVE_ARTIST_DATA
-    ];
-
-  const params = { 
-    method: 'track.getInfo',
-    artist,
-    track,
-  };
-
-  return fetchLastFmData(actions, params);
-};
 
 export function playTrack(trackName, artist) {
   return (dispatch, getState)  => {

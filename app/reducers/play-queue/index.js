@@ -6,9 +6,9 @@ export function playQueueTracks(state = [], action) {
     case types.APPEND_TRACK_TO_PLAY_QUEUE:
       return state.concat(action.track);
     case types.ADD_TRACKS_TO_PLAY_QUEUE:
-      return state.concat(action.tracks);
+      return state.concat(action.trackData);
     case types.REPLACE_QUEUE_WITH_TRACKS:
-      return [].concat(action.tracks);
+      return [].concat(action.trackData);
     case types.REMOVE_TRACK_FROM_PLAY_QUEUE:
       return [
         ...state.slice(0, action.index),

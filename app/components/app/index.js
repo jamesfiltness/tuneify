@@ -96,7 +96,7 @@ export class App extends React.Component {
         </div>
         <div className="sidebar sidebar--right">
           <CurrentTrackSummary 
-            trackName={trackSummary.trackName}
+            name={trackSummary.name}
             artist={trackSummary.artist}
             image={trackSummary.image}
           />

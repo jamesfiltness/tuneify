@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Playlist service for Tuneify",
   "main": "handler.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "James Filtness",
   "license": "MIT",
   "dependencies": {
+    "node-uuid": "^1.4.7"
   }
 }

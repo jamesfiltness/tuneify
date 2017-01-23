@@ -16,16 +16,12 @@ export function clearSearch() {
 export function autocompleteTrackSelected(selectedTrackData) {
   return (dispatch, getState)  => {
     dispatch(
-      trackSelected({
-        trackName: selectedTrackData.name, 
-        artist: selectedTrackData.artist,
-        image: selectedTrackData.image[1]['#text'],
-      }
-      )
-    );
-    dispatch(
       appendTrackToPlayQueueAndPlay(
-        selectedTrackData
+        { 
+          name: selectedTrackData.name,
+          artist: { name: selectedTrackData.artist },
+        },
+        selectedTrackData.image[1]['#text'],
       )
     );
   }
@@ -101,16 +97,3 @@ export function searchPerformed(searchTerm) {
     }
   }
 }
-
-export function fetchVideoData(selectedTrackData) {
-  // refator this string concatenation in to a reusable method living in utils
-  // TODO: Move url out in to config
-  const selectedTrackString = `${selectedTrackData.name} - ${selectedTrackData.artist}`;
-  return dispatch => {
-    return fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedTrackString}&type=video&key=AIzaSyBXmXzAhx7HgpOx9jdDh6X_y5ar13WAGBE` ,{mode: 'cors'})
-      .then(response => response.json())
-      .then(json => { dispatch(receiveVideoData(json)) })
-      .catch(handleServerErrors)
-    }
-}
-

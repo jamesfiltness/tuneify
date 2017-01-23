@@ -1,46 +1,40 @@
 const AWS = require('aws-sdk');
+const uuid = require('node-uuid');
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
+preparePlaylistData = (playlist) => {
+  
+}
+
 module.exports.savePlaylist = (event, context, callback) => {
+  const jsonPayload = JSON.parse(event.body);
+  console.log(jsonPayload);
+  const userId = event.requestContext.authorizer.userId;
+  const playlistId = uuid.v4();
+  const playlist = JSON.stringify(jsonPayload.playlist);
+
   const params = {
     TableName: 'playlists',
     Item: {
-      id: '992a194-2d60-35c7-9d56-0e1dba20cd45',
-      name: 'Another playlist',
-      userid: 'facebook|10153850071335834',
-      tracks: [
-        {
-          artist: 'Radiohead',
-          track: 'Karma Police' 
-        },
-        {
-          artist: 'The Police',
-          track: 'Roxanne'
-        },
-        {
-          artist: 'Pink Floyd',
-          track: 'Money'
-        },
-        {
-          artist: 'Bill Ryder-Jones',
-          track: 'Daniel'
-        },
-        {
-          artist: 'Brian Jonestown Massacre',
-          track: 'Anenome'
-        }
-      ]
+      id: playlistId,
+      name: jsonPayload.playlistName,
+      userid: userId,
+      tracks: playlist
     }
   }
 
   docClient.put(params, function(err, data) {
     if (err) { 
+      console.log(error);
       callback(err);
     }
     else { 
       const response = {
         statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin" : "*"
+        },
         body: JSON.stringify({
           data: data,
           input: event,

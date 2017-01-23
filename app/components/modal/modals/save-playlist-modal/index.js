@@ -8,7 +8,7 @@ export class SavePlaylistModal extends React.Component {
   };
    
   render() {
-    this.props.createPlaylist('name');
+    this.props.createPlaylist('name', this.props.playQueue);
     return (
       <div className="save-playlist-modal">
         <h3>Save playlist modal</h3>
@@ -22,9 +22,18 @@ export class SavePlaylistModal extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  { 
-    createPlaylist: createPlaylist,
+
+const mapStateToProps = (state) => {
+  return {
+    playQueue: state.playQueue.playQueueTracks,
   }
+}
+
+const mapDispatchToProps = {
+  createPlaylist
+}
+
+export default connect(
+ mapStateToProps, 
+ mapDispatchToProps
 )(SavePlaylistModal);

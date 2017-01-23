@@ -56,12 +56,12 @@ export class Album extends React.Component {
   }
   
   getAlbumDataByMbid(mbid) {
-    // TODO:  investigate whether getAlbumPageDat action creator
+    // TODO:  investigate whether getAlbumPageData action creator
     // can use a thunk as well as using promise middleware
     // if so we can just dispatch one action instead of three here
     this.props.onClearAlbumPageData();
     this.props.onClearAlbumPageError();
-    this.props.onGetAlbumPageData({ mbid: mbid});
+    this.props.onGetAlbumPageData({ mbid: mbid });
   }
 
   getAlbumDataByName(artist, album) {
@@ -108,7 +108,10 @@ export class Album extends React.Component {
                       key={i}
                       onClick={
                         () => {
-                          this.props.onAppendTrackToPlayQueueAndPlay(track)
+                          this.props.onAppendTrackToPlayQueueAndPlay(
+                            track, 
+                            this.props.albumPageData.image
+                          )
                         } 
                       }
                     />
@@ -126,13 +129,15 @@ export class Album extends React.Component {
 
   appendAlbumToQueue() {
     this.props.onAppendAlbumToPlayQueue(
-     this.props.albumPageData.tracks
+     this.props.albumPageData.tracks,
+     this.props.albumPageData.image,
     );
   }
 
   replaceQueueWithAlbumAndPlay() {
     this.props.onReplaceQueueWithAlbumAndPlay(
-      this.props.albumPageData.tracks
+      this.props.albumPageData.tracks,
+      this.props.albumPageData.image,
     );
   }
 
