@@ -1,8 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
 const fetchMiddleware  = store => next => action => { 
-  console.log('ACTION PROM');  
-
   let queryString = '';
   // if action is a function this middleware is  not interested in it
   // it's probably a thunk, so just return it so that thunk middleware
@@ -33,7 +31,6 @@ const fetchMiddleware  = store => next => action => {
   const [REQUEST, SUCCESS, FAILURE] = actions;
   // dispatch the request action
   next({ ...rest, type: REQUEST });
-  console.log(promise); 
   const actionPromise = fetch(promiseUrl, promise);
   
   actionPromise

@@ -9,7 +9,6 @@ preparePlaylistData = (playlist) => {
 
 module.exports.savePlaylist = (event, context, callback) => {
   const jsonPayload = JSON.parse(event.body);
-  console.log(jsonPayload);
   const userId = event.requestContext.authorizer.userId;
   const playlistId = uuid.v4();
   const playlist = JSON.stringify(jsonPayload.playlist);

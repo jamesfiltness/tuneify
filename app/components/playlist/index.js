@@ -41,7 +41,7 @@ export class Playlist extends React.Component {
   render() {
     if (this.state.playlistData) {
       const tracks = JSON.parse(this.state.playlistData.tracks);
-      console.log(tracks); 
+      
       return (
         <div className="playlist-page">
           <div className="hero">
@@ -84,7 +84,6 @@ export class Playlist extends React.Component {
               <tbody>
                 {
                   tracks.map((track, i) => {
-                    console.log('sdf', track);
                     return (
                       <Track
                         rank={i + 1}
