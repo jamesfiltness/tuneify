@@ -7,6 +7,10 @@
     },
     "awslambda": {
       "url": "https://om2mx762gd.execute-api.eu-west-1.amazonaws.com/dev/"
+    },
+    "youtube" : {
+      "url": "https://www.googleapis.com/youtube/v3/search?part=snippet&q=",
+      "api_key": "AIzaSyBXmXzAhx7HgpOx9jdDh6X_y5ar13WAGBE"
     }
   }
 }

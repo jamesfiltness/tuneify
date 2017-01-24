@@ -2,7 +2,8 @@ import * as types from '../../constants/ActionTypes.js';
 
 export function fetchLambda(actions, endpoint, httpMethod, params, body) {
   const jwt = localStorage.getItem('idToken');
-  
+  const bodyPayload = JSON.stringify(body);
+
   return {
     actions,
     promise: {
@@ -10,14 +11,13 @@ export function fetchLambda(actions, endpoint, httpMethod, params, body) {
       url: `${window.clientConfig.endpoints.awslambda.url}${endpoint}`,
       headers: {
         'Authorization': jwt,
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
       params: {
         ...params
       },
-      body: {
-        ...body
-      },
+      body: bodyPayload,
       mode: 'cors'
     },
   }
@@ -31,4 +31,19 @@ export function getUserPlaylists() {
   ];
   
   return fetchLambda(actions, 'playlists', 'GET');
+}
+
+export function createPlaylist(playlistName, playlist) {
+  const actions = [
+    types.CREATE_PLAYLIST, 
+    types.PLAYLIST_CREATED,
+    types.PLAYLIST_CREATE_ERROR
+  ];
+
+  const body = {
+    playlistName,
+    playlist,
+  };
+ 
+  return fetchLambda(actions, 'playlists', 'POST', null, body);
 }

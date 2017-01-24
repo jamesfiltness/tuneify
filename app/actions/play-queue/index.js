@@ -1,41 +1,123 @@
 import * as types from '../../constants/ActionTypes.js';
-import { 
-  playTrack, 
-  getTrackInfo, 
-  trackSelected, 
-} from '../common';
+import { playTrack } from '../player';
+import { showModal } from '../modal';
+import { authenticate } from '../auth';
+
+const prepareTrackData = (trackArr, img) => {
+  return trackArr.map((track) => {
+
+    const artist = typeof track.artist === 'object' ? 
+    track.artist.name : 
+    track.artist;
+  
+    return {
+      name: track.name,
+      artist,
+      image: img
+    }
+  });
+}
+
+const appendTrackToQueue = (track, dispatch) => new Promise((resolve, reject) => {
+  dispatch(appendTrackToPlayQueue(track));
+  resolve();
+});
+
+const randomIndex = (max, min = 0) => {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+export function toggleShuffle(on) {
+  return {
+    type: types.SHUFFLE,
+    enabled: on,
+  }
+}
+
+export function toggleRepeat(on) {
+  return {
+    type: types.REPEAT,
+    enabled: on,
+  }
+}
+
+export function resetPlayQueueIndex() {
+  return {
+    type: types.RESET_PLAY_QUEUE_INDEX,
+  }
+}
+
+export function removeTrackFromQueue(index) {
+  return {
+    type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
+    index,
+  }
+}
+
+export function trashPlayQueue() {
+  return {
+    type: types.TRASH_PLAY_QUEUE,
+  }
+}
+
+export function setCurrentIndex(index) {
+  return {
+    type: types.SET_CURRENT_INDEX,
+    index,
+  }
+}
+
+export function trackSelected(selectedTrackSummaryData) {
+  return {
+    type: types.TRACK_SELECTED,
+    selectedTrackSummaryData,
+  }
+}
 
 export function playQueueTrackSelected(selectedTrackData, index) {
   return (dispatch, getState)  => {
-    const trackName = selectedTrackData.name;
-    const artist = selectedTrackData.artist.name;
-
-    // if user is selecting a result from the play queue then there 
-    // isn't an image because the play queue is retrieved form the album.getInfo
-    // lastfm endpoint which doesn't include images in the response
-    // so make another call to get the image for the CurrentTrackSummary
-    // component
-    dispatch(getTrackInfo(trackName, artist));
     dispatch(setCurrentIndex(index));
+    const currentTrack = getState().playQueue.playQueueTracks[index];
+    
+    dispatch(trackSelected(currentTrack));
     dispatch(
       playTrack(
         selectedTrackData.name, 
-        selectedTrackData.artist.name,
+        selectedTrackData.artist,
       )
     );
   }
 }
 
-export function savePlayList() {
+export function appendTrackToPlayQueue(track) {
   return {
-    type: types.SAVE_PLAYLIST,
-    authenticate: true,
+    type: types.APPEND_TRACK_TO_PLAY_QUEUE,
+    track
   }
 }
 
+export function addTrackToQueueAndPlay(track, img) {
+  return (dispatch, getState) => {
+    const trackObj = prepareTrackData([track], img);
 
-function randomIndex(max, min = 0) {
-  return Math.floor(Math.random() * (max - min)) + min;
+    appendTrackToQueue(trackObj, dispatch).then(() => {
+      dispatch(
+        setCurrentIndex(
+          getState().playQueue.playQueueTracks.length - 1
+        )
+      )
+      dispatch(playCurrentIndex());
+    })
+  }
+}
+
+export function savePlayList() {
+  return (dispatch, getState) => {
+    if (!getState().authenticated) {
+      dispatch(authenticate());   
+    }
+    dispatch(showModal('savePlaylist'))
+  }
 }
 
 export function playRandomIndex() {
@@ -71,13 +153,6 @@ export function incrementCurrentIndex() {
   }
 }
 
-export function setCurrentIndex(index) {
-  return {
-    type: types.SET_CURRENT_INDEX,
-    index,
-  }
-}
-
 export function decrementCurrentIndex() {
   return (dispatch, getState) => {
     if(getState().playQueue.shuffle) {
@@ -94,38 +169,14 @@ export function playCurrentIndex() {
   return (dispatch, getState) => {
     const currentIndex = getState().playQueue.playQueueCurrentIndex;
     const currentTrack = getState().playQueue.playQueueTracks[currentIndex];
-    dispatch(
-      getTrackInfo(
-        currentTrack.name, 
-        currentTrack.artist.name
-      )
-    );
+    dispatch(trackSelected(currentTrack));
 
     dispatch(
       playTrack(
         currentTrack.name, 
-        currentTrack.artist.name
+        currentTrack.artist
       )
     );
-  }
-}
-
-export function resetPlayQueueIndex() {
-  return {
-    type: types.RESET_PLAY_QUEUE_INDEX,
-  }
-}
-
-export function removeTrackFromQueue(index) {
-  return {
-    type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
-    index,
-  }
-}
-
-export function trashPlayQueue() {
-  return {
-    type: types.TRASH_PLAY_QUEUE,
   }
 }
 
@@ -143,17 +194,27 @@ export function repeat() {
   }
 }
 
-export function toggleShuffle(on) {
+export function replaceQueueWithTracks(tracks, img) {
+  const trackData = prepareTrackData(tracks, img);
   return {
-    type: types.SHUFFLE,
-    enabled: on,
+    type: types.REPLACE_QUEUE_WITH_TRACKS,
+    trackData,
   }
 }
 
-export function toggleRepeat(on) {
+export function replaceQueueWithTracksAndPlay(tracks, img) {
+  return (dispatch, getState)  => {
+    dispatch(replaceQueueWithTracks(tracks, img));
+    dispatch(resetPlayQueueIndex());
+    dispatch(playCurrentIndex());
+  }
+}
+
+export function appendTracksToPlayQueue(tracks, img) {
+  const trackData = prepareTrackData(tracks, img);
   return {
-    type: types.REPEAT,
-    enabled: on,
+    type: types.ADD_TRACKS_TO_PLAY_QUEUE,
+    trackData,
   }
 }
 

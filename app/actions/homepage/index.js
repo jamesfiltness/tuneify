@@ -1,5 +1,5 @@
 import * as types from '../../constants/ActionTypes.js'
-import { fetchLastFmData, lastFmApiRequest } from '../lastfm'
+import { fetchLastFmData } from '../lastfm';
 
 export function getTopArtists() {
   const actions =  

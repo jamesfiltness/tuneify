@@ -11,3 +11,10 @@ export function loggedOut() {
     type: types.LOGGED_OUT,
   }
 };
+
+export function authenticate() {
+  return {
+    type: types.AUTHENTICATE,
+    authenticate: true,
+  }
+}

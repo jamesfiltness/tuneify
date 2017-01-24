@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Track from '../track';
 import { 
-  appendTrackToPlayQueueAndPlay,
-} from '../../actions/album';
+  addTrackToQueueAndPlay,
+} from '../../actions/play-queue';
 
 export class Playlist extends React.Component {
   static propTypes = {
@@ -32,7 +32,6 @@ export class Playlist extends React.Component {
     
     if (props.userPlaylists.length) {
       const playlistData = props.userPlaylists.find(playlist => playlist.id === playlistId);
-      
       this.setState({
         playlistData,
       });
@@ -41,6 +40,8 @@ export class Playlist extends React.Component {
   
   render() {
     if (this.state.playlistData) {
+      const tracks = JSON.parse(this.state.playlistData.tracks);
+      console.log(tracks); 
       return (
         <div className="playlist-page">
           <div className="hero">
@@ -82,16 +83,20 @@ export class Playlist extends React.Component {
               </thead>
               <tbody>
                 {
-                  this.state.playlistData.tracks.map((track, i) => {
+                  tracks.map((track, i) => {
+                    console.log('sdf', track);
                     return (
                       <Track
                         rank={i + 1}
-                        name={track.track}
+                        name={track.name}
                         artist={track.artist}
                         key={i}
                         onClick={
                           () => {
-                            this.props.onAppendTrackToPlayQueueAndPlay(track)
+                            this.props.addTrackToQueueAndPlay(
+                              track,
+                              track.image
+                            )
                           } 
                         }
                       />
@@ -120,6 +125,6 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
-    onAppendTrackToPlayQueueAndPlay: appendTrackToPlayQueueAndPlay,
+    addTrackToQueueAndPlay: addTrackToQueueAndPlay,
   }
 )(Playlist);

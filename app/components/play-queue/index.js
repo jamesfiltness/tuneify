@@ -104,7 +104,7 @@ export class PlayQueue extends React.Component {
                     className={classes}
                   >
                     <span className="play-queue__artist">
-                      {track.artist.name}
+                      {track.artist}
                     </span>
                     <span className="play-queue__track">
                       {track.name}

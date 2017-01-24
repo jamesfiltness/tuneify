@@ -2,9 +2,7 @@ require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
 import * as types from '../../constants/ActionTypes.js';
-import { playVideo } from '../player';
-import { playTrack, trackSelected } from '../common';
-import { appendTrackToPlayQueueAndPlay } from '../album';
+import { addTrackToQueueAndPlay } from '../play-queue';
 import { fetchLastFmData } from '../lastfm';
 
 export function clearSearch() {
@@ -16,28 +14,16 @@ export function clearSearch() {
 export function autocompleteTrackSelected(selectedTrackData) {
   return (dispatch, getState)  => {
     dispatch(
-      trackSelected({
-        trackName: selectedTrackData.name, 
-        artist: selectedTrackData.artist,
-        image: selectedTrackData.image[1]['#text'],
-      }
-      )
-    );
-    dispatch(
-      appendTrackToPlayQueueAndPlay(
-        selectedTrackData
+      addTrackToQueueAndPlay(
+        { 
+          name: selectedTrackData.name,
+          artist: selectedTrackData.artist,
+        },
+        selectedTrackData.image[1]['#text'],
       )
     );
   }
 };
-
-
-export function receiveVideoData(json) {
-  return {
-    type: types.RECEIVE_VIDEO_DATA,
-    videoData : json.items
-  }
-}
 
 export function fetchArtistData(searchTerm, limit = 3) {
   const actions =  
@@ -101,16 +87,3 @@ export function searchPerformed(searchTerm) {
     }
   }
 }
-
-export function fetchVideoData(selectedTrackData) {
-  // refator this string concatenation in to a reusable method living in utils
-  // TODO: Move url out in to config
-  const selectedTrackString = `${selectedTrackData.name} - ${selectedTrackData.artist}`;
-  return dispatch => {
-    return fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedTrackString}&type=video&key=AIzaSyBXmXzAhx7HgpOx9jdDh6X_y5ar13WAGBE` ,{mode: 'cors'})
-      .then(response => response.json())
-      .then(json => { dispatch(receiveVideoData(json)) })
-      .catch(handleServerErrors)
-    }
-}
-

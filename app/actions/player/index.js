@@ -32,3 +32,34 @@ export function playPreviousTrack() {
     dispatch(playCurrentIndex());
   }
 }
+
+export function receiveVideoData(json) {
+  return {
+    type: types.RECEIVE_VIDEO_DATA,
+    videoData : json.items
+  }
+}
+
+export function fetchVideoData(selectedTrackString) {
+  return dispatch => {
+    // TODO: move this url out in to config
+    const query = encodeURIComponent(selectedTrackString);
+    const youtubeUrl = window.clientConfig.endpoints.youtube.url;
+    const youtubeApiKey = window.clientConfig.endpoints.youtube.api_key;
+    
+    return fetch(
+      `${youtubeUrl}${query}&type=video&key=${youtubeApiKey}`,
+      { mode: 'cors' }
+    )
+    .then(response => response.json())
+    .then(json => { dispatch(receiveVideoData(json)) })
+  }
+}
+
+export function playTrack(trackName, artist) {
+  return (dispatch, getState)  => {
+    dispatch(fetchVideoData(`${trackName} - ${artist}`)).then(() => {
+      dispatch(playVideo(getState().videoData));
+    });
+  }
+}

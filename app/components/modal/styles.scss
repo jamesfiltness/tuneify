@@ -1,0 +1,31 @@
+@import './modals/save-playlist-modal/styles';
+
+.modal {
+  display: none;
+  
+  &__overlay {
+    z-index: 4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  &__dialog {
+    z-index: 5;
+    padding: 15px;
+    background: #ccc;
+    position: absolute;
+    width: 400px;
+    background: #282727;
+    height: 100px;
+    top: calc(50% - 50px);
+    left: calc(50% - 200px)
+  }
+
+  &--visible {
+    display: block;
+  }
+}
