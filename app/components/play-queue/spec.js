@@ -9,17 +9,13 @@ let onRemoveTrackFromQueueSpy;
 const tracks = [
   {
     "name": "Airbag",
-    "@attr": {"rank":"1"},
-    "artist": {
-      "name":"Radiohead",
-    }
+    "image": "http://google.com",
+    "artist": "Radiohead",
   },
   {
     "name": "Paranoid Android",
-    "@attr": {"rank":"2"},
-    "artist": {
-      "name":"Radiohead",
-    }
+    "image": "http://google.com",
+    "artist": "Radiohead",
   }
 ];
 
@@ -29,8 +25,8 @@ beforeEach(() => {
   
   component = mount(
     <PlayQueue 
-      onRemoveTrackFromQueue={onRemoveTrackFromQueueSpy}
-      onPlayQueueTrackSelected={onPlayQueueTrackSelectedSpy}
+      removeTrackFromQueue={onRemoveTrackFromQueueSpy}
+      playQueueTrackSelected={onPlayQueueTrackSelectedSpy}
       tracks={tracks} 
     />
   );

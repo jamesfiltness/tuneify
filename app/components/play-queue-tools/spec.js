@@ -10,7 +10,7 @@ beforeEach(() => {
   );
 });
 
-describe('PlayQueueTools component', () => {
+describe.only('PlayQueueTools component', () => {
   it('renders the wrapping ul', () => {
     expect(component.find('.play-queue-tools')).to.be.present();   
   });

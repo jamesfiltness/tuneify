@@ -1,13 +1,16 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classNames';
 import { connect } from 'react-redux';
-import { playQueueTrackSelected, removeTrackFromQueue } from '../../actions/play-queue';
+import { 
+  playQueueTrackSelected, 
+  removeTrackFromQueue 
+} from '../../actions/play-queue';
 
 export class PlayQueue extends React.Component {
   
   static PropTypes = {
-    onPlayQueueTrackSelected: PropTypes.func.isRequired,
-    onRemoveTrackFromQueue: PropTypes.func.isRequired,
+    playQueueTrackSelected: PropTypes.func.isRequired,
+    removeTrackFromQueue: PropTypes.func.isRequired,
     playQueueCurrentIndex: PropTypes.number,
     playQueueTracks: PropTypes.bool.array,
   }
@@ -142,7 +145,7 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   { 
-    onPlayQueueTrackSelected: playQueueTrackSelected,
-    onRemoveTrackFromQueue: removeTrackFromQueue,
+    playQueueTrackSelected: playQueueTrackSelected,
+    removeTrackFromQueue: removeTrackFromQueue,
   }
 )(PlayQueue);

@@ -15,17 +15,11 @@ describe('Album component', () => {
   const tracks = [
     {
       "name": "Airbag",
-      "@attr": {"rank":"1"},
-      "artist": {
-        "name":"Radiohead",
-      }
+      "artist": "Radiohead",
     },
     {
       "name": "Paranoid Android",
-      "@attr": {"rank":"2"},
-      "artist": {
-        "name":"Radiohead",
-      }
+      "artist": "Radiohead",
     }
   ];
 
