@@ -14,7 +14,7 @@ export class CurrentTrackSummary extends React.Component {
 
   render() {
     let imageSrc;
-    
+    console.log('props in currenttrack', this.props); 
     const {
       name,
       artist,

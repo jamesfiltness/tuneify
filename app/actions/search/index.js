@@ -2,9 +2,7 @@ require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
 import * as types from '../../constants/ActionTypes.js';
-import { playVideo } from '../player';
-import { playTrack, trackSelected } from '../common';
-import { appendTrackToPlayQueueAndPlay } from '../album';
+import { addTrackToQueueAndPlay } from '../play-queue';
 import { fetchLastFmData } from '../lastfm';
 
 export function clearSearch() {
@@ -16,24 +14,16 @@ export function clearSearch() {
 export function autocompleteTrackSelected(selectedTrackData) {
   return (dispatch, getState)  => {
     dispatch(
-      appendTrackToPlayQueueAndPlay(
+      addTrackToQueueAndPlay(
         { 
           name: selectedTrackData.name,
-          artist: { name: selectedTrackData.artist },
+          artist: selectedTrackData.artist,
         },
         selectedTrackData.image[1]['#text'],
       )
     );
   }
 };
-
-
-export function receiveVideoData(json) {
-  return {
-    type: types.RECEIVE_VIDEO_DATA,
-    videoData : json.items
-  }
-}
 
 export function fetchArtistData(searchTerm, limit = 3) {
   const actions =  

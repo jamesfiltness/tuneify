@@ -5,25 +5,22 @@ import {
   clearAlbumPageError, 
   getAlbumPageData, 
   clearAlbumPageData,
-  appendAlbumToPlayQueue,
-  appendTrackToPlayQueueAndPlay,
-  replaceQueueWithAlbumAndPlay,
-} from '../../actions/album'
+} from '../../actions/album';
+
+import { 
+  addTrackToQueueAndPlay,
+  appendTracksToPlayQueue,
+  replaceQueueWithTracksAndPlay,
+} from '../../actions/play-queue';
 
 export class Album extends React.Component {
-  // only call for data once the page
-  // has rendered on the client as lastfm's
-  // rate limiting allows 5 requests per second
-  // per originating IP adress averaged over a 5 album period
-
-  // TODO: Sort out the length of some of these prop names!
   static propTypes = {
     onClearAlbumPageError: PropTypes.func.isRequired,
     onGetAlbumPageData: PropTypes.func.isRequired, 
     onClearAlbumPageData: PropTypes.func.isRequired,
-    onAppendAlbumToPlayQueue: PropTypes.func.isRequired,
-    onAppendTrackToPlayQueueAndPlay: PropTypes.func.isRequired,
-    onReplaceQueueWithAlbumAndPlay: PropTypes.func.isRequired,
+    appendTracksToPlayQueue: PropTypes.func.isRequired,
+    addTrackToQueueAndPlay: PropTypes.func.isRequired,
+    replaceQueueWithTracksAndPlay: PropTypes.func.isRequired,
     albumPageData: PropTypes.object,
     currentAlbumPageError: PropTypes.string,
   };
@@ -56,7 +53,7 @@ export class Album extends React.Component {
   }
   
   getAlbumDataByMbid(mbid) {
-    // TODO:  investigate whether getAlbumPageData action creator
+    // TODO: investigate whether getAlbumPageData action creator
     // can use a thunk as well as using promise middleware
     // if so we can just dispatch one action instead of three here
     this.props.onClearAlbumPageData();
@@ -108,8 +105,8 @@ export class Album extends React.Component {
                       key={i}
                       onClick={
                         () => {
-                          this.props.onAppendTrackToPlayQueueAndPlay(
-                            track, 
+                          this.props.addTrackToQueueAndPlay(
+                            track,
                             this.props.albumPageData.image
                           )
                         } 
@@ -128,14 +125,14 @@ export class Album extends React.Component {
   }
 
   appendAlbumToQueue() {
-    this.props.onAppendAlbumToPlayQueue(
+    this.props.appendTracksToPlayQueue(
      this.props.albumPageData.tracks,
      this.props.albumPageData.image,
     );
   }
 
   replaceQueueWithAlbumAndPlay() {
-    this.props.onReplaceQueueWithAlbumAndPlay(
+    this.props.replaceQueueWithTracksAndPlay(
       this.props.albumPageData.tracks,
       this.props.albumPageData.image,
     );
@@ -212,9 +209,9 @@ export default connect(
     onClearAlbumPageError: clearAlbumPageError, 
     onGetAlbumPageData: getAlbumPageData, 
     onClearAlbumPageData: clearAlbumPageData,
-    onAppendAlbumToPlayQueue: appendAlbumToPlayQueue,
-    onAppendTrackToPlayQueueAndPlay: appendTrackToPlayQueueAndPlay,
-    onReplaceQueueWithAlbumAndPlay: replaceQueueWithAlbumAndPlay,
+    appendTracksToPlayQueue: appendTracksToPlayQueue,
+    addTrackToQueueAndPlay: addTrackToQueueAndPlay,
+    replaceQueueWithTracksAndPlay: replaceQueueWithTracksAndPlay,
   }
 )(Album);
 

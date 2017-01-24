@@ -1,14 +1,84 @@
 import * as types from '../../constants/ActionTypes.js';
-import { 
-  playTrack, 
-  trackSelected,
-  authenticate,
-  showModal,
-} from '../common';
+import { playTrack } from '../player';
+import { showModal } from '../modal';
+import { authenticate } from '../auth';
+
+const prepareTrackData = (trackArr, img) => {
+  return trackArr.map((track) => {
+
+    const artist = typeof track.artist === 'object' ? 
+    track.artist.name : 
+    track.artist;
+  
+    return {
+      name: track.name,
+      artist,
+      image: img
+    }
+  });
+}
+
+const appendTrackToQueue = (track, dispatch) => new Promise((resolve, reject) => {
+  dispatch(appendTrackToPlayQueue(track));
+  resolve();
+});
+
+const randomIndex = (max, min = 0) => {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+export function toggleShuffle(on) {
+  return {
+    type: types.SHUFFLE,
+    enabled: on,
+  }
+}
+
+export function toggleRepeat(on) {
+  return {
+    type: types.REPEAT,
+    enabled: on,
+  }
+}
+
+export function resetPlayQueueIndex() {
+  return {
+    type: types.RESET_PLAY_QUEUE_INDEX,
+  }
+}
+
+export function removeTrackFromQueue(index) {
+  return {
+    type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
+    index,
+  }
+}
+
+export function trashPlayQueue() {
+  return {
+    type: types.TRASH_PLAY_QUEUE,
+  }
+}
+
+export function setCurrentIndex(index) {
+  return {
+    type: types.SET_CURRENT_INDEX,
+    index,
+  }
+}
+
+export function trackSelected(selectedTrackSummaryData) {
+  return {
+    type: types.TRACK_SELECTED,
+    selectedTrackSummaryData,
+  }
+}
 
 export function playQueueTrackSelected(selectedTrackData, index) {
   return (dispatch, getState)  => {
     dispatch(setCurrentIndex(index));
+    const currentTrack = getState().playQueue.playQueueTracks[index];
+    
     dispatch(trackSelected(currentTrack));
     dispatch(
       playTrack(
@@ -19,6 +89,28 @@ export function playQueueTrackSelected(selectedTrackData, index) {
   }
 }
 
+export function appendTrackToPlayQueue(track) {
+  return {
+    type: types.APPEND_TRACK_TO_PLAY_QUEUE,
+    track
+  }
+}
+
+export function addTrackToQueueAndPlay(track, img) {
+  return (dispatch, getState) => {
+    const trackObj = prepareTrackData([track], img);
+
+    appendTrackToQueue(trackObj, dispatch).then(() => {
+      dispatch(
+        setCurrentIndex(
+          getState().playQueue.playQueueTracks.length - 1
+        )
+      )
+      dispatch(playCurrentIndex());
+    })
+  }
+}
+
 export function savePlayList() {
   return (dispatch, getState) => {
     if (!getState().authenticated) {
@@ -26,11 +118,6 @@ export function savePlayList() {
     }
     dispatch(showModal('savePlaylist'))
   }
-}
-
-
-function randomIndex(max, min = 0) {
-  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 export function playRandomIndex() {
@@ -107,43 +194,27 @@ export function repeat() {
   }
 }
 
-export function toggleShuffle(on) {
+export function replaceQueueWithTracks(tracks, img) {
+  const trackData = prepareTrackData(tracks, img);
   return {
-    type: types.SHUFFLE,
-    enabled: on,
+    type: types.REPLACE_QUEUE_WITH_TRACKS,
+    trackData,
   }
 }
 
-export function toggleRepeat(on) {
-  return {
-    type: types.REPEAT,
-    enabled: on,
+export function replaceQueueWithTracksAndPlay(tracks, img) {
+  return (dispatch, getState)  => {
+    dispatch(replaceQueueWithTracks(tracks, img));
+    dispatch(resetPlayQueueIndex());
+    dispatch(playCurrentIndex());
   }
 }
 
-export function resetPlayQueueIndex() {
+export function appendTracksToPlayQueue(tracks, img) {
+  const trackData = prepareTrackData(tracks, img);
   return {
-    type: types.RESET_PLAY_QUEUE_INDEX,
-  }
-}
-
-export function removeTrackFromQueue(index) {
-  return {
-    type: types.REMOVE_TRACK_FROM_PLAY_QUEUE,
-    index,
-  }
-}
-
-export function trashPlayQueue() {
-  return {
-    type: types.TRASH_PLAY_QUEUE,
-  }
-}
-
-export function setCurrentIndex(index) {
-  return {
-    type: types.SET_CURRENT_INDEX,
-    index,
+    type: types.ADD_TRACKS_TO_PLAY_QUEUE,
+    trackData,
   }
 }
 
