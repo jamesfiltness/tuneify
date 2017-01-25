@@ -3,6 +3,8 @@
   float: left;
   overflow: hidden;
   width: 100%;
+  position: relative;
+  z-index: 2;
   &__thumb {
     float: left;
     margin-right: 10px;

@@ -1,4 +1,8 @@
 .youtube-player {
+  background: #282727;
+  position: relative;
+  z-index: 1;
+  
   &__player {
     display: block;
     width: 320px;
