@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Track from '../track';
 import { 
   addTrackToQueueAndPlay,
+  appendTracksToPlayQueue,
+  replaceQueueWithTracksAndPlay,
 } from '../../actions/play-queue';
 
 export class Playlist extends React.Component {
@@ -12,6 +14,9 @@ export class Playlist extends React.Component {
 
   constructor(props) {
     super(props);
+    
+    this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
+    this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
     
     this.state = {
       playlistData: null,
@@ -31,13 +36,31 @@ export class Playlist extends React.Component {
     const playlistId = props.params.playlistid;
     
     if (props.userPlaylists.length) {
-      const playlistData = props.userPlaylists.find(playlist => playlist.id === playlistId);
+      const playlistData = props.userPlaylists.find(
+        playlist => playlist.id === playlistId
+      )
+      
       this.setState({
         playlistData,
       });
     }
   }
   
+  appendAlbumToQueue() {
+    this.props.appendTracksToPlayQueue(
+      this.state.playlistData.tracks,
+      "http://placehold.it/174x174"
+    );
+  }
+
+  replaceQueueWithAlbumAndPlay() {
+    console.log(this.state.playlistData.tracks);
+    this.props.replaceQueueWithTracksAndPlay(
+      this.state.playlistData.tracks,
+      "http://placehold.it/174x174"
+    );
+  }
+
   render() {
     if (this.state.playlistData) {
       const tracks = JSON.parse(this.state.playlistData.tracks);
@@ -54,6 +77,18 @@ export class Playlist extends React.Component {
             />
             <h5 className="hero__identifier">Playlist</h5>
             <h1 className="hero__name">{this.state.playlistData.name}</h1>
+            <button 
+              onClick={this.replaceQueueWithAlbumAndPlay}
+              className="button button--primary button--play"
+              >
+              Play
+            </button>
+            <button 
+              onClick={this.appendAlbumToQueue}
+              className="button button--add"
+              >
+             Queue Album 
+            </button>
           </div>
           <div className="tracks">
             <table className="tracks__table">
@@ -124,6 +159,8 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
+    appendTracksToPlayQueue: appendTracksToPlayQueue,
     addTrackToQueueAndPlay: addTrackToQueueAndPlay,
+    replaceQueueWithTracksAndPlay: replaceQueueWithTracksAndPlay,
   }
 )(Playlist);
