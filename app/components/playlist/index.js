@@ -54,7 +54,6 @@ export class Playlist extends React.Component {
   }
 
   replaceQueueWithAlbumAndPlay() {
-    console.log(typeof this.state.playlistData.tracks);
     this.props.replaceQueueWithTracksAndPlay(
       this.state.playlistData.tracks,
       "http://placehold.it/174x174"
