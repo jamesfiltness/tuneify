@@ -6,6 +6,7 @@ export function modalVisible(state = false, action) {
     case types.SHOW_MODAL:
       return true;
     case types.HIDE_MODAL:
+    case types.PLAYLIST_CREATED:
       return false;
     default: 
       return state

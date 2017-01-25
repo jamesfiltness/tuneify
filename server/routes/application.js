@@ -52,6 +52,7 @@ export default function(app) {
           <head>
             <meta charset="utf-8">
             <title>Tuneify</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel=styleSheet href="/styles.css" type="text/css" />
           </head>
           <body>
