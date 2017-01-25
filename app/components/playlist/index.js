@@ -54,7 +54,7 @@ export class Playlist extends React.Component {
   }
 
   replaceQueueWithAlbumAndPlay() {
-    console.log(this.state.playlistData.tracks);
+    console.log(typeof this.state.playlistData.tracks);
     this.props.replaceQueueWithTracksAndPlay(
       this.state.playlistData.tracks,
       "http://placehold.it/174x174"
@@ -63,7 +63,7 @@ export class Playlist extends React.Component {
 
   render() {
     if (this.state.playlistData) {
-      const tracks = JSON.parse(this.state.playlistData.tracks);
+      const tracks = this.state.playlistData.tracks;
       
       return (
         <div className="playlist-page">

@@ -35,6 +35,7 @@ export class Playlists extends React.Component {
   }
 
   renderPlaylists() {
+    console.log(this.props.userPlaylists);
     return this.props.userPlaylists.map((playlist, i) => {
       let path = `/playlist/${playlist.id}`;
       return (

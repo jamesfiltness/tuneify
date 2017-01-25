@@ -17,12 +17,14 @@ export function requestingUserPlaylists(state = false, action) {
 export function userPlaylists(state = [], action) {
   switch (action.type) {
     case types.RECEIVE_USER_PLAYLIST_DATA:
-      return action
-        .json
-        .data
-        .Items;
+      return action.json.data.Items.map((item) => {
+        return {
+          ...item,
+          tracks: JSON.parse(item.tracks),
+        }      
+      })
     case types.USER_PLAYLIST_REQUEST_ERROR:
-      return {}
+      return []
     default: 
       return state
   }
