@@ -1,0 +1,14 @@
+.hero__image-combo {
+  img {
+    float: left;
+  }
+  &--count-2,
+  &--count-3,
+  &--count-4,
+  {
+    img {
+      width: 50%;
+      height: 50%;
+    }
+  }
+}
