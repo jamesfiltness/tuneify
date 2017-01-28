@@ -136,7 +136,6 @@ export class PlayQueue extends React.Component {
 
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     playQueueCurrentIndex: state.playQueue.playQueueCurrentIndex,
     playQueueTracks: state.playQueue.playQueueTracks,

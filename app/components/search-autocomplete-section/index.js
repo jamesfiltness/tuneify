@@ -91,8 +91,12 @@ export class SearchAutoCompleteSection extends React.Component {
                 return (
                   <li className="autocomplete-section__list-item" key={i}>
                     {
-                      title === 'Tracks' ? this.renderTrackResults(result) :
-                      title === 'Artists' ? this.renderArtistResults(result) :
+                      title === 'Tracks' ? 
+                      this.renderTrackResults(result) :
+
+                      title === 'Artists' ? 
+                      this.renderArtistResults(result) :
+                      
                       this.renderAlbumResults(result)
                     }
                   </li>

@@ -13,7 +13,7 @@
 
   &__dialog {
     z-index: 5;
-    position: absolute;
+    position: fixed;
     width: 400px;
     background: #282727;
     top: calc(50% - 50px);

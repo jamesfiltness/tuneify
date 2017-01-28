@@ -1,16 +1,59 @@
 .playlist {
   font-size: 14px;
+  padding-bottom: 125px;
 
   &__item {
-    margin: 0 0 10px 0px;
+    margin: 0;
+    padding: 5px 0;
   }
   
   &__link {
-    color: #fff;
+    color: #aaa;
+    display: block;
     text-decoration: none;
 
     &:hover {
-      text-decoration: underline;
+      color: #fff;
     }
+  }
+
+  &__spinner {
+    color: #aaa;
+    position: absolute;
+    left: calc(50% - 30px);
+  }
+}
+
+.new-playlist {
+  border-top: 1px solid #282727;
+  padding: 15px;
+  cursor: pointer;
+  z-index: 1;
+  background: #161616;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: #aaa;
+  border-right: 4px solid #282727;
+  width: 175px;
+
+  &:hover {
+    color: #fff;
+  }
+  
+  @include breakpoint(1024px) {
+    width: 240px;
+  }
+  
+  &__icon {
+    float: left;
+  }
+
+  &__text {
+   float: left;
+   background: #161616;
+   margin: 0 0 0 5px;
+   line-height: 28px;
   }
 }

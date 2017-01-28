@@ -5,7 +5,10 @@ import { createPlaylist } from '../../../../actions/playlists';
 
 export class SavePlaylistModal extends React.Component {
   static PropTypes = {
-    playQueue: PropTypes.array.isRequired
+    playQueue: PropTypes.array.isRequired,
+    text: PropTypes.string.isRequired,
+    createPlaylist: PropTypes.func.isRequired,
+    creatingUserPlaylist: PropTypes.bool.isRequired,
   };
   
   constructor(props) {
@@ -53,7 +56,6 @@ export class SavePlaylistModal extends React.Component {
   }
 
   render() {
-    console.log('11111sdfsdfsfd', this.props);
     const inputClasses = classNames(
       'dialog__input',
       this.state.saveError ? 'dialog__input--error' : '',
@@ -67,7 +69,7 @@ export class SavePlaylistModal extends React.Component {
     return (
       <div className="save-playlist-modal">
         <h3 className="dialog__heading">
-          Save playlist 
+          {this.props.text}
         </h3>
         <div className="dialog__content">
           {this.showErrorMessage()}
