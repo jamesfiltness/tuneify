@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import classNames from 'classNames';
 import { connect } from 'react-redux';
 import SavePlaylistModal from './modals/save-playlist-modal';
+import CreatePlaylistModal from './modals/create-playlist-modal';
 import { hideModal } from '../../actions/modal';
 
 export class Modal extends React.Component {
@@ -19,7 +20,9 @@ export class Modal extends React.Component {
   getModalContent() {
     switch(this.props.modalType) {
       case 'savePlaylist' :
-        return <SavePlaylistModal modalVisible={this.props.modalVisible} />
+        return <SavePlaylistModal text="Save Playlist" />
+      case 'createPlaylist' :
+        return <CreatePlaylistModal text="New Playlist" />
       default: 
         return null
     }

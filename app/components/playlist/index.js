@@ -140,8 +140,8 @@ export class Playlist extends React.Component {
       )
     } else {
       return (
-        <p>Waiting!</p>
-       )
+        <div className="route-content-spinner" />
+      );
     }
   }
 }

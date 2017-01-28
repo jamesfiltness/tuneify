@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { getUserPlaylists } from '../../actions/playlists';
+import { createPlaylist } from '../../actions/play-queue';
 
 export class Playlists extends React.Component {
   constructor(props) {
@@ -20,7 +21,6 @@ export class Playlists extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('bext props', nextProps);
     // if the user has just authenticated then we need to call to get their playlists
     if (this.props.authenticated === false && nextProps.authenticated) {
       this.props.getUserPlaylists();
@@ -63,14 +63,28 @@ export class Playlists extends React.Component {
   render() {
     if (this.state.shouldRenderPlaylists) {
       return(
-        <ul className="playlist">
+      <div className="playlist">
+        <ul className="playlist__list">
           {this.renderPlaylists()}
         </ul>
+        <div 
+          className="playlist__add-new new-playlist"
+          onClick={this.props.createPlaylist}
+        >
+          <i 
+            className="fa fa-plus-square-o fa-2x new-playlist__icon" 
+            aria-hidden="true"
+          ></i>
+          <a className="new-playlist__text">New Playlist</a> 
+        </div>
+      </div>
       )
     } else if(this.state.shouldRenderSpinner) {
       return (
-        // TODO: Add a spinner icon here
-        <p>Spinner</p>
+        <div className="playlist__spinner">
+          <i className="fa fa-circle-o-notch fa-spin fa-fw"></i>
+          <span className="sr-only">Loading...</span>
+        </div>
       )
     } else {
       return null
@@ -86,9 +100,12 @@ function mapStateToProps(state) {
   }
 }
 
+const mapDispatchToProps = {
+  createPlaylist,
+  getUserPlaylists
+}
+
 export default connect(
   mapStateToProps,
-  {
-    getUserPlaylists: getUserPlaylists,
-  }
+  mapDispatchToProps
 )(Playlists);

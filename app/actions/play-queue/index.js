@@ -124,6 +124,14 @@ export function savePlayList() {
   }
 }
 
+export function createPlaylist() {
+  return (dispatch, getState) => {
+    if (!getState().authenticated) {
+      dispatch(authenticate());   
+    }
+    dispatch(showModal('createPlaylist'))
+  }
+}
 export function playRandomIndex() {
   return(dispatch, getState) => {
     const playQueueLength = getState().playQueue.playQueueTracks.length;

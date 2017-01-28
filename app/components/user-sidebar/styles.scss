@@ -1,5 +1,7 @@
 .user-sidebar {
   padding: 10px 0 0 30px;
+  overflow: scroll;
+
   &__heading {
     text-transform: uppercase;
     color: #aaa;
@@ -15,11 +17,12 @@
       margin-bottom: 10px;
 
       a {
-        color: #fff;
+        color: #aaa;
         text-decoration: none;
+        display: block;
 
         &:hover {
-          text-decoration: underline;
+          color: #fff;
         }
       }
     }
