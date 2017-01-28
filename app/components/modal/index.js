@@ -2,13 +2,19 @@ import React, { PropTypes } from 'react';
 import classNames from 'classNames';
 import { connect } from 'react-redux';
 import SavePlaylistModal from './modals/save-playlist-modal';
+import { hideModal } from '../../actions/modal';
 
 export class Modal extends React.Component {
-  
   static PropTypes = {
     modalVisible: PropTypes.bool.isRequired,
     modalType: PropTypes.string.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.hideModal = this.hideModal.bind(this);
+  }
 
   getModalContent() {
     switch(this.props.modalType) {
@@ -17,6 +23,11 @@ export class Modal extends React.Component {
       default: 
         return null
     }
+  }
+
+  // Hides the modal and the overlay
+  hideModal() {
+    this.props.hideModal();    
   }
   
   render() {
@@ -29,12 +40,18 @@ export class Modal extends React.Component {
 
     return (
       <div className={classes}>
-        <div className="modal__overlay">
+        <div 
+          className="modal__overlay"
+          onClick={this.hideModal}
+        >
         </div>
         <div className="modal__dialog dialog">
-          <div className="dialog__content">
+          <div className="dialog__content-container">
             {modalContent}
-            <div className="dialog__close">
+            <div 
+              className="dialog__close"
+              onClick={this.hideModal}
+            >
               <i className="fa fa-times" aria-hidden="true"></i>
             </div>
           </div>
@@ -51,7 +68,11 @@ function mapStateToProps(state) {
   }
 }
 
+const mapDispatchToProps = {
+  hideModal: hideModal, 
+}
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(Modal);

@@ -89,3 +89,10 @@ body::-webkit-scrollbar-corner
 .auth0-lock-header {
   height: 50px !important;
 }
+
+::selection {
+  background: #aaa; 
+}
+::-moz-selection {
+  background: #aaa; 
+}

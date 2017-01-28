@@ -22,4 +22,11 @@
       color: #19b736;
     }
   }
+
+  &__save {
+    &--disabled {
+      color: #bbb;
+      cursor: default;
+    }
+  }
 }

@@ -40,6 +40,7 @@ render(
     <Router
       createElement={createElement}
       history={history}
+      onUpdate={() => window.scrollTo(0, 0)}
     >
     
   <Route component={App} path="/">

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { createPlaylist } from '../../../../actions/playlists';
 
 export class SavePlaylistModal extends React.Component {
@@ -9,27 +10,77 @@ export class SavePlaylistModal extends React.Component {
   
   constructor(props) {
     super(props);
+    
+    this.state = {
+      saveError: false,
+    }
+
     this.savePlaylist = this.savePlaylist.bind(this);
+    this.updateErrorState = this.updateErrorState.bind(this);
   }
   
   savePlaylist() {
-    this.props.createPlaylist(this.input.value, this.props.playQueue);
+    if (!this.input.value.length) {
+      this.showErrorState(); 
+    } else {
+      this.props.createPlaylist(
+        this.input.value, 
+        this.props.playQueue
+      );
+      
+      this.hideErrorState(); 
+    }
   }
-   
+
+  showErrorState() {
+    this.setState({
+      saveError: true,  
+    })
+  }
+
+  showErrorMessage() {
+    return this.state.saveError ?
+    <p className="dialog__error-text">
+      Please give your playlist a name
+    </p> : 
+    null
+  }
+
+  updateErrorState() {
+    if (this.input.value.length) {
+      this.setState({
+        saveError: false,
+      });
+    }  
+  }
+
   render() {
+    const inputClasses = classNames(
+      'dialog__input',
+      this.state.saveError ? 'dialog__input--error' : '',
+    );
+
     return (
       <div className="save-playlist-modal">
-        <h3>Save playlist modal</h3>
-        <input 
-          type="text" 
-          placeholder="Give your playlist a name" 
-          ref={(input) => { this.input = input }}
-        />
-        <button
-          onClick={this.savePlaylist}
-        >
-          Create
-        </button>
+        <h3 className="dialog__heading">
+          Save playlist 
+        </h3>
+        <div className="dialog__content">
+          {this.showErrorMessage()}
+          <input 
+            type="text" 
+            onChange={this.updateErrorState}
+            placeholder="Give your playlist a name" 
+            ref={(input) => { this.input = input }}
+            className={inputClasses}
+          />
+          <button
+            onClick={this.savePlaylist}
+            className="dialog__button"
+          >
+            Create
+          </button>
+        </div>
       </div>
     )
   }
