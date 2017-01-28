@@ -14,6 +14,18 @@ export function requestingUserPlaylists(state = false, action) {
   }    
 }
 
+export function creatingUserPlaylist(state = false, action) {
+  switch (action.type) {
+    case types.CREATE_PLAYLIST:
+      return true;
+    case types.PLAYLIST_CREATED:
+    case types.PLAYLIST_CREATE_ERROR:
+      return false;
+    default: 
+      return state;
+  }
+}
+
 export function userPlaylists(state = [], action) {
   switch (action.type) {
     case types.RECEIVE_USER_PLAYLIST_DATA:
@@ -23,6 +35,17 @@ export function userPlaylists(state = [], action) {
           tracks: JSON.parse(item.tracks),
         }      
       })
+    case types.PLAYLIST_CREATED:
+     const newPlaylist = action.json;
+     
+     return [ 
+       ...state, 
+       {
+         ...newPlaylist,
+         tracks: JSON.parse(action.json.tracks), 
+       }
+     ];
+     
     case types.USER_PLAYLIST_REQUEST_ERROR:
       return []
     default: 
@@ -32,5 +55,6 @@ export function userPlaylists(state = [], action) {
 
 export const playlists = combineReducers({
   requestingUserPlaylists,
-  userPlaylists
+  userPlaylists,
+  creatingUserPlaylist,
 });

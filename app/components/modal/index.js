@@ -19,7 +19,7 @@ export class Modal extends React.Component {
   getModalContent() {
     switch(this.props.modalType) {
       case 'savePlaylist' :
-        return <SavePlaylistModal />
+        return <SavePlaylistModal modalVisible={this.props.modalVisible} />
       default: 
         return null
     }
@@ -27,7 +27,7 @@ export class Modal extends React.Component {
 
   // Hides the modal and the overlay
   hideModal() {
-    this.props.hideModal();    
+    this.props.hideModal();
   }
   
   render() {

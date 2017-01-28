@@ -20,6 +20,7 @@ export class Playlists extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('bext props', nextProps);
     // if the user has just authenticated then we need to call to get their playlists
     if (this.props.authenticated === false && nextProps.authenticated) {
       this.props.getUserPlaylists();

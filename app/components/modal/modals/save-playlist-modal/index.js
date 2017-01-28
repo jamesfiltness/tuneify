@@ -27,8 +27,6 @@ export class SavePlaylistModal extends React.Component {
         this.input.value, 
         this.props.playQueue
       );
-      
-      this.hideErrorState(); 
     }
   }
 
@@ -55,9 +53,15 @@ export class SavePlaylistModal extends React.Component {
   }
 
   render() {
+    console.log('11111sdfsdfsfd', this.props);
     const inputClasses = classNames(
       'dialog__input',
       this.state.saveError ? 'dialog__input--error' : '',
+    );
+    
+    const spinnerClasses = classNames(
+      'dialog__spinner',
+      this.props.creatingUserPlaylist ? 'dialog__spinner--visible' : '',
     );
 
     return (
@@ -80,6 +84,10 @@ export class SavePlaylistModal extends React.Component {
           >
             Create
           </button>
+          <div className={spinnerClasses}>
+            <i className="fa fa-circle-o-notch fa-spin fa-fw"></i>
+            <span className="sr-only">Loading...</span>
+          </div>
         </div>
       </div>
     )
@@ -89,6 +97,7 @@ export class SavePlaylistModal extends React.Component {
 const mapStateToProps = (state) => {
   return {
     playQueue: state.playQueue.playQueueTracks,
+    creatingUserPlaylist: state.playlists.creatingUserPlaylist,
   }
 }
 
