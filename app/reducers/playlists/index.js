@@ -47,6 +47,7 @@ export function userPlaylists(state = [], action) {
      ];
      
     case types.USER_PLAYLIST_REQUEST_ERROR:
+    case types.LOGGED_OUT:
       return []
     default: 
       return state

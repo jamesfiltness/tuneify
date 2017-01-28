@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { loggedIn, loggedOut } from '../../actions/auth';
 
 export class Login extends React.Component {
@@ -27,6 +28,7 @@ export class Login extends React.Component {
   logOut() {
     this.props.loggedOut();
     this.props.authService.logOut();
+    browserHistory.push('/');
   }
 
   showProfile() {
