@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Track from '../track';
+import PlaylistImage from '../playlist-image';
 import { 
   addTrackToQueueAndPlay,
   appendTracksToPlayQueue,
@@ -67,12 +68,8 @@ export class Playlist extends React.Component {
       return (
         <div className="playlist-page">
           <div className="hero">
-            <img 
-              src="http://placehold.it/174x174" 
-              className="hero__image"
-              alt="This will get populated"
-              width="174"
-              height="174"
+            <PlaylistImage 
+              tracks={this.state.playlistData.tracks} 
             />
             <h5 className="hero__identifier">Playlist</h5>
             <h1 className="hero__name">{this.state.playlistData.name}</h1>

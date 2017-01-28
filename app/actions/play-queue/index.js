@@ -116,7 +116,10 @@ export function savePlayList() {
     if (!getState().authenticated) {
       dispatch(authenticate());   
     }
-    dispatch(showModal('savePlaylist'))
+
+    if (getState().playQueue.playQueueTracks.length) {
+      dispatch(showModal('savePlaylist'))
+    }
   }
 }
 
@@ -131,11 +134,11 @@ export function playRandomIndex() {
 export function incrementCurrentIndex() {
   return (dispatch, getState) => {
     const playQueue = getState().playQueue;
-    if(playQueue.shuffle) {
+    if (playQueue.shuffle) {
       dispatch(playRandomIndex());
     } 
     
-    else if(
+    else if (
         playQueue.playQueueTracks.length -1  === playQueue.playQueueCurrentIndex
       ) {
         if (playQueue.repeat) {
@@ -155,7 +158,7 @@ export function incrementCurrentIndex() {
 
 export function decrementCurrentIndex() {
   return (dispatch, getState) => {
-    if(getState().playQueue.shuffle) {
+    if (getState().playQueue.shuffle) {
       dispatch(playRandomIndex());
     } else {
       dispatch({

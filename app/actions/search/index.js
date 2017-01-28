@@ -19,7 +19,7 @@ export function autocompleteTrackSelected(selectedTrackData) {
           name: selectedTrackData.name,
           artist: selectedTrackData.artist,
         },
-        selectedTrackData.image[1]['#text'],
+        selectedTrackData.image[2]['#text'],
       )
     );
   }

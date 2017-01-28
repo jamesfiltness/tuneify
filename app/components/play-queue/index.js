@@ -76,7 +76,7 @@ export class PlayQueue extends React.Component {
 
   onRemoveTrackFromQueue(event, index) {
     event.stopPropagation();
-    this.props.onRemoveTrackFromQueue(index);
+    this.props.removeTrackFromQueue(index);
   }
 
   render() {
@@ -103,7 +103,7 @@ export class PlayQueue extends React.Component {
                 return (
                   <li
                     key={i}
-                    onClick={() => {this.props.onPlayQueueTrackSelected(track, i)}}
+                    onClick={() => {this.props.playQueueTrackSelected(track, i)}}
                     className={classes}
                   >
                     <span className="play-queue__artist">
@@ -136,6 +136,7 @@ export class PlayQueue extends React.Component {
 
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     playQueueCurrentIndex: state.playQueue.playQueueCurrentIndex,
     playQueueTracks: state.playQueue.playQueueTracks,

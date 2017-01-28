@@ -1,9 +1,16 @@
 .hero {
   overflow: hidden;
 
-  &__image {
+  &__image,
+  &__image-combo {
     float: left;
     margin-right: 20px;
+  }
+
+  &__image-combo {
+    width: 174px;
+    height: 174px;
+    position: relative;
   }
 
   &__identifier {

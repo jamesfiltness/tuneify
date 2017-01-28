@@ -6,3 +6,9 @@ export function showModal(modalType) {
     modalType,
   }
 }
+
+export function hideModal() {
+  return {
+    type: types.HIDE_MODAL,
+  }
+}
