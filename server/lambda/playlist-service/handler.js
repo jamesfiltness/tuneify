@@ -3,10 +3,6 @@ const uuid = require('node-uuid');
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-preparePlaylistData = (playlist) => {
-  
-}
-
 module.exports.savePlaylist = (event, context, callback) => {
   const jsonPayload = JSON.parse(event.body);
   const userId = event.requestContext.authorizer.userId;
@@ -35,8 +31,10 @@ module.exports.savePlaylist = (event, context, callback) => {
           "Access-Control-Allow-Origin" : "*"
         },
         body: JSON.stringify({
-          data: data,
-          input: event,
+          id: playlistId,
+          name: jsonPayload.playlistName,
+          tracks: playlist,
+          userId,
         }),
       };
       

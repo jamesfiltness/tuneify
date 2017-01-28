@@ -1,5 +1,3 @@
-@import './modals/save-playlist-modal/styles';
-
 .modal {
   display: none;
   
@@ -57,7 +55,7 @@
     color: #ddd;
     width: 200px;
     margin-right: 10px;
-    width: 293px;
+    width: 260px;
 
     &--error {
       border: 1px solid red;
@@ -75,5 +73,17 @@
   &__error-text {
     color: red;
     margin: 0 0 15px 0;
+  }
+
+  &__spinner {
+    position: absolute;
+    top: 61px;
+    right: 15px;
+    display: none;
+    color: #ccc;
+
+    &--visible {
+      display: block;
+    }
   }
 }
