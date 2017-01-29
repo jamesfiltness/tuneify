@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
-import SavePlaylistModal from '../save-playlist-modal';
+import { connect } from 'react-redux';
+import { SavePlaylistModal } from '../save-playlist-modal';
+import { createPlaylist } from '../../../../actions/playlists';
 
 // HOC seemed like the wrong decision here...
 // TODO: look in to using HOC if it can be used appropriately here
-export default class CreatePlaylistModal extends SavePlaylistModal {
+export class CreatePlaylistModal extends SavePlaylistModal {
   savePlaylist() {
     if (!this.input.value.length) {
       this.showErrorState(); 
@@ -15,3 +17,19 @@ export default class CreatePlaylistModal extends SavePlaylistModal {
     }
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    playQueue: state.playQueue.playQueueTracks,
+    creatingUserPlaylist: state.playlists.creatingUserPlaylist,
+  }
+}
+
+const mapDispatchToProps = {
+  createPlaylist
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreatePlaylistModal);

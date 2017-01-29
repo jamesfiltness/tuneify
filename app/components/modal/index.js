@@ -22,6 +22,7 @@ export class Modal extends React.Component {
       case 'savePlaylist' :
         return <SavePlaylistModal text="Save Playlist" />
       case 'createPlaylist' :
+      console.log('sdfsdfdfsdfsdf11');
         return <CreatePlaylistModal text="New Playlist" />
       default: 
         return null

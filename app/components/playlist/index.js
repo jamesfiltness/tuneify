@@ -61,6 +61,39 @@ export class Playlist extends React.Component {
     );
   }
 
+  renderPlaylistTableHeader() {
+    if(this.state.playlistData.tracks.length) {
+      return (
+        <thead className="tracks__header">
+          <tr>
+            <th 
+              className="tracks__heading tracks__heading--no"
+            >
+              No
+            </th>
+            <th 
+              className="tracks__heading tracks__heading--track"
+            >
+              Track
+            </th>
+            <th 
+              className="tracks__heading tracks__heading--artist"
+            >
+              Artist
+            </th>
+            <th 
+              className="tracks__heading tracks__heading--actions"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+      )
+    }
+
+    return null;
+  }
+
   render() {
     if (this.state.playlistData) {
       const tracks = this.state.playlistData.tracks;
@@ -88,30 +121,7 @@ export class Playlist extends React.Component {
           </div>
           <div className="tracks">
             <table className="tracks__table">
-              <thead className="tracks__header">
-                <tr>
-                  <th 
-                    className="tracks__heading tracks__heading--no"
-                  >
-                    No
-                  </th>
-                  <th 
-                    className="tracks__heading tracks__heading--track"
-                  >
-                    Track
-                  </th>
-                  <th 
-                    className="tracks__heading tracks__heading--artist"
-                  >
-                    Artist
-                  </th>
-                  <th 
-                    className="tracks__heading tracks__heading--actions"
-                  >
-                    Actions
-                  </th>
-                </tr>
-              </thead>
+              {this.renderPlaylistTableHeader()}
               <tbody>
                 {
                   tracks.map((track, i) => {
