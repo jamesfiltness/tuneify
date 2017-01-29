@@ -1,12 +1,16 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classNames';
+import auth0Service from '../../utils/auth0-service';
 import { 
   trashPlayQueue,
   shuffle,
   savePlayList,
   repeat,
 } from '../../actions/play-queue';
+import { loggedIn } from '../../actions/auth';
+
+const authService = new auth0Service();
 
 export class PlayQueueTools extends React.Component {
 
@@ -19,6 +23,25 @@ export class PlayQueueTools extends React.Component {
     onTrashPlayQueue: PropTypes.func.isRequired,  
     playQueueTracks: PropTypes.array.isRequired,
   };
+  
+  constructor(props) {
+    super(props);
+
+    this.savePlaylist = this.savePlaylist.bind(this);
+  }
+
+  savePlaylist() {
+    if (this.props.playQueueTracks.length) {
+      if (!this.props.authenticated) {
+        authService.authenticate(() => {
+          this.props.loggedIn();
+          this.props.onSavePlayList();
+        })      
+      } else {
+        this.props.onSavePlayList();
+      }
+    }
+  }
 
   render() {
     const shuffleState = this.props.shuffle ? 'on' : 'off';
@@ -40,25 +63,28 @@ export class PlayQueueTools extends React.Component {
       'play-queue-tools__save',
       !this.props.playQueueTracks.length ? 'play-queue-tools__save--disabled' : '', 
       'fa fa-save',
-
     )
     
     return (
       <ul className="play-queue-tools">
         <li 
           className={saveClasses}
-          onClick={this.props.onSavePlayList}
+          title="Save queue as Playlist"
+          onClick={this.savePlaylist}
         ></li>
         <li 
           className={repeatClasses}
+          title="Repeat"
           onClick={this.props.onRepeat}
         ></li>
         <li 
           className={shuffleClasses}
+          title="Shuffle"
           onClick={this.props.onShuffle}
         ></li>
         <li 
           className="play-queue-tools__tool fa fa-trash"
+          title="Trash play queue"
           onClick={this.props.onTrashPlayQueue}
         ></li>
       </ul>
@@ -71,6 +97,7 @@ const mapStateToProps = (state) => {
     shuffle: state.playQueue.shuffle,
     repeat: state.playQueue.repeat,
     playQueueTracks: state.playQueue.playQueueTracks,
+    authenticated: state.authenticated,
   }
 }
 
@@ -79,6 +106,7 @@ const mapDispatchToProps = {
   onRepeat: repeat, 
   onTrashPlayQueue: trashPlayQueue,
   onSavePlayList: savePlayList,
+  loggedIn
 }
 
 export default connect(

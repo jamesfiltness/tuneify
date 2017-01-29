@@ -114,10 +114,6 @@ export function addTrackToQueueAndPlay(track, img) {
 
 export function savePlayList() {
   return (dispatch, getState) => {
-    if (!getState().authenticated) {
-      dispatch(authenticate());   
-    }
-
     if (getState().playQueue.playQueueTracks.length) {
       dispatch(showModal('savePlaylist'))
     }

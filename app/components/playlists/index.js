@@ -25,14 +25,14 @@ export class Playlists extends React.Component {
     if (this.props.authenticated === false && nextProps.authenticated) {
       this.props.getUserPlaylists();
     }
-
-    if (nextProps.userPlaylists.length) {
-      this.setState({
-        shouldRenderPlaylists: true,
-      })  
-    } 
     
-    this.renderSpinner(nextProps.requestingPlaylists);
+    const shouldRenderPlaylists = nextProps.userPlaylists.length ? true : false;
+    
+    this.setState({
+      shouldRenderPlaylists,
+    });
+
+    this.renderSpinner(nextProps.requestingPlaylists); 
   }
 
   renderPlaylists() {
@@ -49,7 +49,6 @@ export class Playlists extends React.Component {
         </li>
       )
     })
-    
   }
 
   renderSpinner(shouldRenderSpinner) {
