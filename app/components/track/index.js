@@ -4,6 +4,7 @@ export default class Track extends React.Component {
   static PropTypes = {
     name: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
+    onClickTrackTools: PropTypes.func.isRequired,
     rank: PropTypes.number,
     artist: PropTypes.string,
   };
@@ -16,11 +17,9 @@ export default class Track extends React.Component {
 
   optionSelected(e) {
     e.stopPropagation();
-    // this should display a popup, with the following options
-    // Add to playQueue
-    // Add to playlist
+    this.props.onClickTrackTools(e);
   }
- 
+
   render() {
     return (
       <tr 

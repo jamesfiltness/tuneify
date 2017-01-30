@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Track from '../track';
+import TrackTools from '../track-tools';
 import PlaylistImage from '../playlist-image';
 import { 
   addTrackToQueueAndPlay,
@@ -16,11 +17,14 @@ export class Playlist extends React.Component {
   constructor(props) {
     super(props);
     
+    this.showTrackTools = this.showTrackTools.bind(this);
     this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
     this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
     
     this.state = {
       playlistData: null,
+      trackToolsVisible: false,
+      trackToolsElement: null,
     };
   }
 
@@ -94,12 +98,28 @@ export class Playlist extends React.Component {
     return null;
   }
 
+  showTrackTools(event) {
+    const pos = {
+      left: event.target.getBoundingClientRect().left,
+      top: event.target.getBoundingClientRect().top,
+    };
+
+    this.setState({
+      trackToolsVisible: true,
+      trackToolsElement: pos,
+    });
+  }
+
   render() {
     if (this.state.playlistData) {
       const tracks = this.state.playlistData.tracks;
       
       return (
         <div className="playlist-page">
+          <TrackTools
+            visible={this.state.trackToolsVisible}
+            elementPos={this.state.trackToolsElement}
+          />
           <div className="hero">
             <PlaylistImage 
               tracks={this.state.playlistData.tracks} 
@@ -131,6 +151,7 @@ export class Playlist extends React.Component {
                         name={track.name}
                         artist={track.artist}
                         key={i}
+                        onClickTrackTools={this.showTrackTools}
                         onClick={
                           () => {
                             this.props.addTrackToQueueAndPlay(
