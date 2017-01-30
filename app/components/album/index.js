@@ -15,9 +15,9 @@ import {
 
 export class Album extends React.Component {
   static propTypes = {
-    onClearAlbumPageError: PropTypes.func.isRequired,
-    onGetAlbumPageData: PropTypes.func.isRequired, 
-    onClearAlbumPageData: PropTypes.func.isRequired,
+    clearAlbumPageError: PropTypes.func.isRequired,
+    getAlbumPageData: PropTypes.func.isRequired, 
+    clearAlbumPageData: PropTypes.func.isRequired,
     appendTracksToPlayQueue: PropTypes.func.isRequired,
     addTrackToQueueAndPlay: PropTypes.func.isRequired,
     replaceQueueWithTracksAndPlay: PropTypes.func.isRequired,
@@ -56,15 +56,15 @@ export class Album extends React.Component {
     // TODO: investigate whether getAlbumPageData action creator
     // can use a thunk as well as using promise middleware
     // if so we can just dispatch one action instead of three here
-    this.props.onClearAlbumPageData();
-    this.props.onClearAlbumPageError();
-    this.props.onGetAlbumPageData({ mbid: mbid });
+    this.props.clearAlbumPageData();
+    this.props.clearAlbumPageError();
+    this.props.getAlbumPageData({ mbid: mbid });
   }
 
   getAlbumDataByName(artist, album) {
-    this.props.onClearAlbumPageData();
-    this.props.onClearAlbumPageError();
-    this.props.onGetAlbumPageData({
+    this.props.clearAlbumPageData();
+    this.props.clearAlbumPageError();
+    this.props.getAlbumPageData({
       artist: artist, 
       album: album
     });
@@ -202,15 +202,17 @@ function mapStateToProps(state) {
   }
 }
 
+const mapDispatchToProps = {
+  clearAlbumPageError, 
+  getAlbumPageData, 
+  clearAlbumPageData,
+  appendTracksToPlayQueue,
+  addTrackToQueueAndPlay,
+  replaceQueueWithTracksAndPlay,
+}
+
 export default connect(
   mapStateToProps,
-  { 
-    onClearAlbumPageError: clearAlbumPageError, 
-    onGetAlbumPageData: getAlbumPageData, 
-    onClearAlbumPageData: clearAlbumPageData,
-    appendTracksToPlayQueue: appendTracksToPlayQueue,
-    addTrackToQueueAndPlay: addTrackToQueueAndPlay,
-    replaceQueueWithTracksAndPlay: replaceQueueWithTracksAndPlay,
-  }
+  mapDispatchToProps
 )(Album);
 

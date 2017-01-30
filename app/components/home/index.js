@@ -6,7 +6,6 @@ import {
 } from '../../actions/homepage';
 
 export class Home extends React.Component {
-  
   static PropTypes = {
     dispatch: PropTypes.func.isRequired,
     topArtistData: PropTypes.array,

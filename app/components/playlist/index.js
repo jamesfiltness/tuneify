@@ -11,7 +11,10 @@ import {
 
 export class Playlist extends React.Component {
   static propTypes = {
-     
+    userPlaylists: PropTypes.array,
+    appendTracksToPlayQueue: PropTypes.func.isRequired, 
+    replaceQueueWithTracksAndPlay: PropTypes.func.isRequired,
+    addTrackToQueueAndPlay: PropTypes.func.isRequired,
   };
 
   constructor(props) {
