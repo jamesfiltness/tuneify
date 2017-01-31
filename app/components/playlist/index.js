@@ -4,8 +4,9 @@ import Track from '../track';
 import TrackTools from '../track-tools';
 import PlaylistImage from '../playlist-image';
 import { 
-  addTrackToQueueAndPlay,
   appendTracksToPlayQueue,
+  appendTrackToPlayQueue,
+  addTrackToQueueAndPlay,
   replaceQueueWithTracksAndPlay,
 } from '../../actions/play-queue';
 
@@ -13,6 +14,7 @@ export class Playlist extends React.Component {
   static propTypes = {
     userPlaylists: PropTypes.array,
     appendTracksToPlayQueue: PropTypes.func.isRequired, 
+    appendTrackToPlayQueue: PropTypes.func.isRequired, 
     replaceQueueWithTracksAndPlay: PropTypes.func.isRequired,
     addTrackToQueueAndPlay: PropTypes.func.isRequired,
   };
@@ -101,7 +103,7 @@ export class Playlist extends React.Component {
     return null;
   }
 
-  showTrackTools(event) {
+  showTrackTools(track, event) {
     const pos = {
       left: event.target.getBoundingClientRect().left,
       top: event.target.getBoundingClientRect().top,
@@ -110,6 +112,7 @@ export class Playlist extends React.Component {
     this.setState({
       trackToolsVisible: true,
       trackToolsElement: pos,
+      currentTrack: track,
     });
   }
 
@@ -122,6 +125,11 @@ export class Playlist extends React.Component {
           <TrackTools
             visible={this.state.trackToolsVisible}
             elementPos={this.state.trackToolsElement}
+            addToQueue={
+              () => {
+                this.props.appendTrackToPlayQueue(this.state.currentTrack)
+              }
+            }
           />
           <div className="hero">
             <PlaylistImage 
@@ -154,7 +162,11 @@ export class Playlist extends React.Component {
                         name={track.name}
                         artist={track.artist}
                         key={i}
-                        onClickTrackTools={this.showTrackTools}
+                        onClickTrackTools={
+                          (event) => {
+                            this.showTrackTools(track, event)
+                          }
+                        }
                         onClick={
                           () => {
                             this.props.addTrackToQueueAndPlay(
@@ -186,11 +198,14 @@ function mapStateToProps(state) {
   }
 }
 
+const mapDispatchToProps = {
+  appendTrackToPlayQueue,
+  appendTracksToPlayQueue,
+  addTrackToQueueAndPlay,
+  replaceQueueWithTracksAndPlay,
+}
+
 export default connect(
   mapStateToProps,
-  {
-    appendTracksToPlayQueue: appendTracksToPlayQueue,
-    addTrackToQueueAndPlay: addTrackToQueueAndPlay,
-    replaceQueueWithTracksAndPlay: replaceQueueWithTracksAndPlay,
-  }
+  mapDispatchToProps
 )(Playlist);

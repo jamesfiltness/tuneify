@@ -15,8 +15,16 @@ export  class TrackTools extends React.Component {
     this.showPlaylists = this.showPlaylists.bind(this);
   }
 
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleDocumentClick.bind(this), false);
+  }
+
+  handleDocumentClick() {
+  }
+
   showPlaylists() {
-   console.log(this.props.userPlaylists) 
+    console.log(this.props.userPlaylists) 
   }
 
   render() {
@@ -29,10 +37,14 @@ export  class TrackTools extends React.Component {
           style={{ left: elementPos.left, top: (elementPos.top + 20) }}
         >
           <ul className="track-tools__list track-tools-list">
-            <li className="track-tools-list__item">Add to Queue</li>
             <li 
               className="track-tools-list__item"
-              onHover={this.showPlaylists}
+              onClick={this.props.addToQueue}
+            >
+              Add to Queue
+            </li>
+            <li 
+              className="track-tools-list__item"
             >
               Add to Playlist
               <i className="fa fa-caret-right" aria-hidden="true"></i>
