@@ -15,14 +15,6 @@ export  class TrackTools extends React.Component {
     this.showPlaylists = this.showPlaylists.bind(this);
   }
 
-
-  componentDidMount() {
-    document.addEventListener('click', this.handleDocumentClick.bind(this), false);
-  }
-
-  handleDocumentClick() {
-  }
-
   showPlaylists() {
     console.log(this.props.userPlaylists) 
   }

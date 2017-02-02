@@ -48,10 +48,6 @@ export default class Track extends React.Component {
           className="track__cell track__options"
           onClick={this.optionSelected}
         >
-          <i 
-            className="fa fa-ellipsis-h track__option" 
-            aria-hidden="true"
-          ></i>
         </td>
       </tr>
     )

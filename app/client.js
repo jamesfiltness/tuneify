@@ -13,7 +13,7 @@ import App from './components/app';
 import Home  from './components/home';
 import Artist from './components/artist';
 import Album from './components/album';
-import Playlist from './components/playlist';
+import PlaylistPage from './components/playlist-page';
 import PageNotFound from './components/page-not-found';
 
 const history = syncHistoryWithStore(browserHistory, store);
@@ -49,7 +49,7 @@ render(
     <Route component={Album} path="album/:artist/:album" />
     <Route component={Album} path="album/:mbid" />
     <Route component={Album} path="recent-plays" onEnter={authenticateRoute} />
-    <Route component={Playlist} path="playlist/:playlistid" onEnter={authenticateRoute} />
+    <Route component={PlaylistPage} path="playlist/:playlistid" onEnter={authenticateRoute} />
     <Route component={PageNotFound} path="*" />
   </Route>
     </Router>

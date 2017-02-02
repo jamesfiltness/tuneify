@@ -46,8 +46,17 @@
     }
   }
 
-  &__option {
-    float:right;
+  &__options {
+    &:before {
+      content: "\f141"; 
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
   }
 }
 
