@@ -7,7 +7,6 @@ import {
 } from '../../actions/play-queue';
 
 export class PlayQueue extends React.Component {
-  
   static PropTypes = {
     playQueueTrackSelected: PropTypes.func.isRequired,
     removeTrackFromQueue: PropTypes.func.isRequired,
@@ -142,10 +141,12 @@ function mapStateToProps(state) {
   }
 }
 
+const mapDispatchToProps = {
+  playQueueTrackSelected,
+  removeTrackFromQueue,
+};
+
 export default connect(
   mapStateToProps,
-  { 
-    playQueueTrackSelected: playQueueTrackSelected,
-    removeTrackFromQueue: removeTrackFromQueue,
-  }
+  mapDispatchToProps
 )(PlayQueue);

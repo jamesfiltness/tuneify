@@ -24,7 +24,6 @@ export class App extends React.Component {
     tracks: PropTypes.array,
     albums: PropTypes.array,
     children: React.PropTypes.object,
-    currentSearch: React.PropTypes.string,
     playQueueTracks: React.PropTypes.array,
     trackSummary: React.PropTypes.object,
   };
@@ -111,7 +110,7 @@ export class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    currentSearch: state.currentSearch,
+    currentSearch: state.search.currentSearch,
     artists: state.autocomplete.autocompleteArtistData,
     tracks: state.autocomplete.autocompleteTrackData,
     albums: state.autocomplete.autocompleteAlbumData,

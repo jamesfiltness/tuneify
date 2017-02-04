@@ -1,35 +1,20 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Track from '../track';
+import Playlist from '../playlist';
 import { 
   clearAlbumPageError, 
   getAlbumPageData, 
   clearAlbumPageData,
 } from '../../actions/album';
 
-import { 
-  addTrackToQueueAndPlay,
-  appendTracksToPlayQueue,
-  replaceQueueWithTracksAndPlay,
-} from '../../actions/play-queue';
-
 export class Album extends React.Component {
   static propTypes = {
-    onClearAlbumPageError: PropTypes.func.isRequired,
-    onGetAlbumPageData: PropTypes.func.isRequired, 
-    onClearAlbumPageData: PropTypes.func.isRequired,
-    appendTracksToPlayQueue: PropTypes.func.isRequired,
-    addTrackToQueueAndPlay: PropTypes.func.isRequired,
-    replaceQueueWithTracksAndPlay: PropTypes.func.isRequired,
+    clearAlbumPageError: PropTypes.func.isRequired,
+    getAlbumPageData: PropTypes.func.isRequired, 
+    clearAlbumPageData: PropTypes.func.isRequired,
     albumPageData: PropTypes.object,
     currentAlbumPageError: PropTypes.string,
   };
-
-  constructor() {
-    super();
-    this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
-    this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
-  }
 
   componentDidMount() {
     if (this.props.params.mbid) {
@@ -44,7 +29,7 @@ export class Album extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.mbid) {
-      if(nextProps.params.mbid !== this.props.params.mbid) {
+      if (nextProps.params.mbid !== this.props.params.mbid) {
         this.getAlbumDataByMbid(nextProps.params.mbid);
       }
     } else if (nextProps.params.album !== this.props.params.album) {
@@ -56,86 +41,18 @@ export class Album extends React.Component {
     // TODO: investigate whether getAlbumPageData action creator
     // can use a thunk as well as using promise middleware
     // if so we can just dispatch one action instead of three here
-    this.props.onClearAlbumPageData();
-    this.props.onClearAlbumPageError();
-    this.props.onGetAlbumPageData({ mbid: mbid });
+    this.props.clearAlbumPageData();
+    this.props.clearAlbumPageError();
+    this.props.getAlbumPageData({ mbid: mbid });
   }
 
   getAlbumDataByName(artist, album) {
-    this.props.onClearAlbumPageData();
-    this.props.onClearAlbumPageError();
-    this.props.onGetAlbumPageData({
+    this.props.clearAlbumPageData();
+    this.props.clearAlbumPageError();
+    this.props.getAlbumPageData({
       artist: artist, 
       album: album
     });
-  }
-
-  // TODO : Break out in to a separate Tracks component
-  renderTracks() {
-    if(this.props.albumPageData.tracks) {
-      return (
-        <div className="tracks">
-          <table className="tracks__table">
-            <thead className="tracks__header">
-              <tr>
-                <th 
-                  className="tracks__heading tracks__heading--no"
-                >
-                  No
-                </th>
-                <th 
-                  className="tracks__heading tracks__heading--track"
-                >
-                  Track
-                </th>
-                <th 
-                  className="tracks__heading tracks__heading--actions"
-                >
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                this.props.albumPageData.tracks.map((track, i) => {
-                  return (
-                    <Track
-                      rank={track['@attr'].rank}
-                      name={track.name}
-                      key={i}
-                      onClick={
-                        () => {
-                          this.props.addTrackToQueueAndPlay(
-                            track,
-                            this.props.albumPageData.image
-                          )
-                        } 
-                      }
-                    />
-                  )
-                })
-              }
-            </tbody>
-          </table>
-        </div>
-      )
-    } else {
-      return null;
-    }
-  }
-
-  appendAlbumToQueue() {
-    this.props.appendTracksToPlayQueue(
-     this.props.albumPageData.tracks,
-     this.props.albumPageData.image,
-    );
-  }
-
-  replaceQueueWithAlbumAndPlay() {
-    this.props.replaceQueueWithTracksAndPlay(
-      this.props.albumPageData.tracks,
-      this.props.albumPageData.image,
-    );
   }
 
   render() {
@@ -154,33 +71,13 @@ export class Album extends React.Component {
         )
       } else {
         return (
-          <div className="album">
-            <div className="hero">
-              <img 
-                src={albumPageData.image} 
-                className="hero__image"
-                alt={`${albumPageData.name} by ${albumPageData.artist}`}
-                width="174"
-                height="174"
-              />
-              <h5 className="hero__identifier">Album</h5>
-              <h1 className="hero__name">{albumPageData.name}</h1>
-              <h3 className="hero__artist">{albumPageData.artist}</h3>
-              <button 
-                onClick={this.replaceQueueWithAlbumAndPlay}
-                className="button button--primary button--play"
-                >
-                Play
-              </button>
-              <button 
-                onClick={this.appendAlbumToQueue}
-                className="button button--add"
-                >
-               Queue Album 
-              </button>
-            </div>
-            {this.renderTracks()}
-          </div>
+          <Playlist 
+            tracks={albumPageData.tracks}
+            heading="Album"
+            name={albumPageData.name}
+            artist={albumPageData.artist}
+            image={albumPageData.image}
+          />
         );
       }
     } else if(currentAlbumPageError) {
@@ -202,15 +99,14 @@ function mapStateToProps(state) {
   }
 }
 
+const mapDispatchToProps = {
+  clearAlbumPageError, 
+  getAlbumPageData, 
+  clearAlbumPageData,
+}
+
 export default connect(
   mapStateToProps,
-  { 
-    onClearAlbumPageError: clearAlbumPageError, 
-    onGetAlbumPageData: getAlbumPageData, 
-    onClearAlbumPageData: clearAlbumPageData,
-    appendTracksToPlayQueue: appendTracksToPlayQueue,
-    addTrackToQueueAndPlay: addTrackToQueueAndPlay,
-    replaceQueueWithTracksAndPlay: replaceQueueWithTracksAndPlay,
-  }
+  mapDispatchToProps
 )(Album);
 

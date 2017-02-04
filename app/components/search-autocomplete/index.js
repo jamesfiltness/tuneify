@@ -9,7 +9,7 @@ export class SearchAutoComplete extends React.Component {
     artists: PropTypes.array,  
     albums: PropTypes.array,  
     tracks: PropTypes.array,
-    onAutoCompleteTrackSelected: PropTypes.func.isRequired,
+    autoCompleteTrackSelected: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -96,7 +96,7 @@ export class SearchAutoComplete extends React.Component {
             data={tracks}
             onSelectResult={
              (searchParams) => { 
-               this.props.onAutocompleteTrackSelected(searchParams) 
+               this.props.autocompleteTrackSelected(searchParams) 
              }
             }
           />
@@ -111,9 +111,12 @@ export class SearchAutoComplete extends React.Component {
     }
   }
 }
+
+const mapDispatchToProps = {
+  autocompleteTrackSelected,
+};
+
 export default connect(
   null,
-  {
-    onAutocompleteTrackSelected: autocompleteTrackSelected,
-  }
+  mapDispatchToProps,
 )(SearchAutoComplete)

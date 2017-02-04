@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import SearchAutoCompleteThumbnail from '../search-autocomplete-thumbnail';
 
 export class SearchAutoCompleteSection extends React.Component {
-  
   static PropTypes = {
     onSelectResult: PropTypes.func.isRequired,
     title: PropTypes.string, 

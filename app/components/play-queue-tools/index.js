@@ -13,7 +13,6 @@ import { loggedIn } from '../../actions/auth';
 const authService = new auth0Service();
 
 export class PlayQueueTools extends React.Component {
-
   static PropTypes = {
     shuffle: PropTypes.bool.isRequired,
     repeat: PropTypes.bool.isRequired,

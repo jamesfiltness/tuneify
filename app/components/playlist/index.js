@@ -1,172 +1,148 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Track from '../track';
+import TrackTable from '../track-table';
+import TrackTools from '../track-tools';
 import PlaylistImage from '../playlist-image';
 import { 
-  addTrackToQueueAndPlay,
   appendTracksToPlayQueue,
+  appendTrackToPlayQueue,
+  addTrackToQueueAndPlay,
   replaceQueueWithTracksAndPlay,
 } from '../../actions/play-queue';
 
 export class Playlist extends React.Component {
-  static propTypes = {
-     
+  static PropTypes = {
+    heading: PropTypes.string.isRequired,
+    tracks: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
+    appendTracksToPlayQueue: PropTypes.func.isRequired, 
+    appendTrackToPlayQueue: PropTypes.func.isRequired, 
+    replaceQueueWithTracksAndPlay: PropTypes.func.isRequired,
+    addTrackToQueueAndPlay: PropTypes.func.isRequired,
+    image: PropTypes.string,
+    artist: PropTypes.string,
   };
 
   constructor(props) {
     super(props);
     
-    this.appendAlbumToQueue = this.appendAlbumToQueue.bind(this);
-    this.replaceQueueWithAlbumAndPlay = this.replaceQueueWithAlbumAndPlay.bind(this);
-    
+    this.showTrackTools = this.showTrackTools.bind(this);
+    this.appendPlaylistToQueue = this.appendPlaylistToQueue.bind(this);
+    this.replaceQueueWithPlaylistAndPlay = this.replaceQueueWithPlaylistAndPlay.bind(this);
+    this.handleDocumentClick = this.handleDocumentClick.bind(this);
+
     this.state = {
-      playlistData: null,
-    };
+      trackToolsVisible: false,
+      trackToolsElement: null,
+    }
+  }
+  
+  componentDidMount() { 
+    document.addEventListener(
+      'click', 
+      this.handleDocumentClick, false
+    );
   }
 
-  componentDidMount() {
-    this.extractPlaylist(this.props);
+  componentWillUnmount() {
+    document.removeEventListener(
+      'click', 
+      this.handleDocumentClick, false
+    );
   }
-  
-  componentWillReceiveProps(nextProps) {
-    this.extractPlaylist(nextProps);   
-  }
-  
-  // get the playlist from the userPlaylists state
-  extractPlaylist(props) {
-    const playlistId = props.params.playlistid;
-    
-    if (props.userPlaylists.length) {
-      const playlistData = props.userPlaylists.find(
-        playlist => playlist.id === playlistId
-      )
-      
+
+  handleDocumentClick(e) {
+    if (!e.target.classList.contains('track__options')) {
       this.setState({
-        playlistData,
+        trackToolsVisible: false,  
       });
     }
   }
+
+  showTrackTools(track, event) {
+    const pos = {
+      left: event.target.getBoundingClientRect().left,
+      top: (event.target.getBoundingClientRect().top + window.pageYOffset),
+    };
+
+    this.setState({
+      trackToolsVisible: true,
+      trackToolsElement: pos,
+      currentTrack: track,
+    });
+  }
   
-  appendAlbumToQueue() {
+  appendPlaylistToQueue() {
     this.props.appendTracksToPlayQueue(
-      this.state.playlistData.tracks,
-      "http://placehold.it/174x174"
+      this.props.tracks
     );
   }
 
-  replaceQueueWithAlbumAndPlay() {
+  replaceQueueWithPlaylistAndPlay() {
     this.props.replaceQueueWithTracksAndPlay(
-      this.state.playlistData.tracks,
-      "http://placehold.it/174x174"
+      this.props.tracks
     );
   }
 
-  renderPlaylistTableHeader() {
-    if(this.state.playlistData.tracks.length) {
-      return (
-        <thead className="tracks__header">
-          <tr>
-            <th 
-              className="tracks__heading tracks__heading--no"
-            >
-              No
-            </th>
-            <th 
-              className="tracks__heading tracks__heading--track"
-            >
-              Track
-            </th>
-            <th 
-              className="tracks__heading tracks__heading--artist"
-            >
-              Artist
-            </th>
-            <th 
-              className="tracks__heading tracks__heading--actions"
-            >
-              Actions
-            </th>
-          </tr>
-        </thead>
-      )
-    }
-
-    return null;
+  renderArtistHeading() {
+    return this.props.artist ? 
+    <h3 className="hero__artist">{this.props.artist}</h3> : 
+    null;
   }
-
+  
   render() {
-    if (this.state.playlistData) {
-      const tracks = this.state.playlistData.tracks;
-      
-      return (
-        <div className="playlist-page">
-          <div className="hero">
-            <PlaylistImage 
-              tracks={this.state.playlistData.tracks} 
-            />
-            <h5 className="hero__identifier">Playlist</h5>
-            <h1 className="hero__name">{this.state.playlistData.name}</h1>
-            <button 
-              onClick={this.replaceQueueWithAlbumAndPlay}
-              className="button button--primary button--play"
-              >
-              Play
-            </button>
-            <button 
-              onClick={this.appendAlbumToQueue}
-              className="button button--add"
-              >
-             Queue Album 
-            </button>
-          </div>
-          <div className="tracks">
-            <table className="tracks__table">
-              {this.renderPlaylistTableHeader()}
-              <tbody>
-                {
-                  tracks.map((track, i) => {
-                    return (
-                      <Track
-                        rank={i + 1}
-                        name={track.name}
-                        artist={track.artist}
-                        key={i}
-                        onClick={
-                          () => {
-                            this.props.addTrackToQueueAndPlay(
-                              track,
-                              track.image
-                            )
-                          } 
-                        }
-                      />
-                    )
-                  })
-                }
-              </tbody>
-            </table> 
-          </div>
+    console.log(this.props.artist);
+    return (
+      <div className="playlist page-with-padding">
+        <TrackTools
+          visible={this.state.trackToolsVisible}
+          elementPos={this.state.trackToolsElement}
+          addToQueue={
+            () => {
+              this.props.appendTrackToPlayQueue(this.state.currentTrack)
+            }
+          }
+        />
+        <div className="hero">
+          <PlaylistImage 
+            tracks={this.props.tracks}
+            image={this.props.image}
+          />
+          <h5 className="hero__identifier">{this.props.heading}</h5>
+          <h1 className="hero__name">{this.props.name}</h1>
+          {this.renderArtistHeading()}
+          <button 
+            onClick={this.replaceQueueWithPlaylistAndPlay}
+            className="button button--primary button--play"
+            >
+            Play
+          </button>
+          <button 
+            onClick={this.appendPlaylistToQueue}
+            className="button button--add"
+            >
+           Queue Album 
+          </button>
         </div>
-      )
-    } else {
-      return (
-        <div className="route-content-spinner" />
-      );
-    }
+        <TrackTable 
+          playlist={this.props.tracks}
+          onClickTrackTools={this.showTrackTools}
+          onClickTrack={this.props.addTrackToQueueAndPlay}
+          renderArtistCol={!this.props.artist}
+        />
+      </div>
+    )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    userPlaylists: state.playlists.userPlaylists,
-  }
+const mapDispatchToProps = {
+  appendTrackToPlayQueue,
+  appendTracksToPlayQueue,
+  addTrackToQueueAndPlay,
+  replaceQueueWithTracksAndPlay,
 }
 
 export default connect(
-  mapStateToProps,
-  {
-    appendTracksToPlayQueue: appendTracksToPlayQueue,
-    addTrackToQueueAndPlay: addTrackToQueueAndPlay,
-    replaceQueueWithTracksAndPlay: replaceQueueWithTracksAndPlay,
-  }
+  null, 
+  mapDispatchToProps
 )(Playlist);

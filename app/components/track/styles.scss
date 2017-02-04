@@ -38,7 +38,7 @@
     background: #222;
 
     .fa {
-      margin: 3px 0 0 7px;
+      margin: 5px 0 0 8px;
     }
     
     .track:hover & {
@@ -46,7 +46,17 @@
     }
   }
 
-  &__option {
-    float:right;
+  &__options {
+    &:before {
+      content: "\f141"; 
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      position: absolute;
+      right: 15px;
+      top: 14px;
+    }
   }
 }
+

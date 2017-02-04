@@ -6,7 +6,10 @@ import { match, RouterContext } from 'react-router';
 const store = createStore(
   // Placeholder data until server app is built
   {
-    currentSearch: '',
+    search: {
+      currentSearch: '',
+      searching: false,
+    },
     autocomplete: {
       autocompleteArtistData : [],
       autocompleteAlbumData : [],

@@ -7,11 +7,6 @@ import {
 } from '../../actions/artist';
 
 export class Artist extends React.Component {
-  // only call for data once the page
-  // has rendered on the client as lastfm's
-  // rate limiting allows 5 requests per second
-  // per originating IP adress averaged over a 5 minute period
-
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     currentArtistPageError: PropTypes.string,

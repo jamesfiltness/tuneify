@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router';
 import { loggedIn, loggedOut } from '../../actions/auth';
 
 export class Login extends React.Component {
-  
   static PropTypes = {
     loggedIn: PropTypes.func.isRequired,
     authenticated: PropTypes.bool.isRequired
@@ -79,11 +78,12 @@ function mapStateToProps(state) {
   }
 }
 
+const mapDispatchToProps = {
+  loggedIn,
+  loggedOut,
+};
 
 export default connect(
   mapStateToProps,
-  { 
-    loggedIn: loggedIn,
-    loggedOut: loggedOut,
-  }
+  mapDispatchToProps,
 )(Login);

@@ -5,6 +5,12 @@ import { getUserPlaylists } from '../../actions/playlists';
 import { createPlaylist } from '../../actions/play-queue';
 
 export class Playlists extends React.Component {
+  static propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    userPlaylists: PropTypes.array,
+    requestingPlaylists: PropTypes.bool.isRequired,
+  }
+  
   constructor(props) {
     super(props);
 

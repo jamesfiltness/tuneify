@@ -23,12 +23,11 @@ const PLAYER_HEIGHT = 200;
 *********/
 
 export class YouTubePlayer extends React.Component {
-  
   static PropTypes = {
     videoData: PropTypes.array,
-    onTrackEnded: PropTypes.func.isRequired,
-    onPlayNextTrack: PropTypes.func.isRequired,
-    onPlayPreviousTrack: PropTypes.func.isRequired,
+    trackEnded: PropTypes.func.isRequired,
+    playNextTrack: PropTypes.func.isRequired,
+    playPreviousTrack: PropTypes.func.isRequired,
   };
 
   constructor() {
@@ -239,7 +238,7 @@ export class YouTubePlayer extends React.Component {
 
   onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {
-      this.props.onTrackEnded();
+      this.props.trackEnded();
       this.resetProgressBar();
       this.resetTimer();
     }
@@ -330,7 +329,7 @@ export class YouTubePlayer extends React.Component {
         <div className="youtube-player__controls">
           <span
             className="youtube-player__control youtube-player__prev-track"
-            onClick={this.props.onPlayPreviousTrack}
+            onClick={this.props.playPreviousTrack}
           />
           <span 
             className={playButtonClasses}
@@ -338,7 +337,7 @@ export class YouTubePlayer extends React.Component {
           />
           <span
             className="youtube-player__control youtube-player__next-track"
-            onClick={this.props.onPlayNextTrack}
+            onClick={this.props.playNextTrack}
           />
           <div className="youtube-player__time">
             <span 
@@ -373,11 +372,13 @@ export class YouTubePlayer extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  trackEnded,
+  playNextTrack,
+  playPreviousTrack,
+}
+
 export default connect(
   null,
-  {
-    onTrackEnded: trackEnded,
-    onPlayNextTrack: playNextTrack,
-    onPlayPreviousTrack: playPreviousTrack,
-  }
+  mapDispatchToProps
 )(YouTubePlayer);

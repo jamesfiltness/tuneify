@@ -4,7 +4,7 @@ import App from '../app';
 import Home  from '../home';
 import Artist from '../artist';
 import Album from '../album';
-import Playlist from '../playlist';
+import PlaylistPage from '../playlist-page';
 import PageNotFound from '../page-not-found';
 import auth0Service from '../../utils/auth0-service';
 
@@ -29,7 +29,7 @@ export default class routes extends React.Component {
         <Route component={Album} path="album/:artist/:album" />
         <Route component={Album} path="album/:mbid" />
         <Route component={Album} path="recent-plays" onEnter={this.authenticateRoute} />
-        <Route component={Playlist} path="playlist/:playlistid" onEnter={this.authenticateRoute} />
+        <Route component={PlaylistPage} path="playlist/:playlistid" onEnter={this.authenticateRoute} />
         <Route component={PageNotFound} path="*" />
       </Route>
     );
