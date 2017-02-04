@@ -1,9 +1,11 @@
 .search {
   display: inline-block;
-  
+  position: relative;
+
   &__input {
-    padding: 8px;
+    padding: 8px 30px 8px 8px;
     font-size: 20px;
+    width: 232px;
     background: #444;
     border: 1px solid #000;
     color: #ddd;
@@ -12,5 +14,11 @@
       outline: none;
     }
   }
-
+  
+  &__wait {
+    color: #888;
+    position: absolute;
+    right: 7px;
+    top: 13px;
+  }
 }

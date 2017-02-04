@@ -1,8 +1,8 @@
-import { createStore, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 
-import { currentSearch } from '../../reducers/search';
+import { search } from '../../reducers/search';
 import { currentTrackSummaryData } from '../../reducers/track-summary';
 import { autocomplete } from '../../reducers/autocomplete';
 import { currentVideo } from '../../reducers/video-player';
@@ -19,7 +19,7 @@ import { loggedIn, loggedOut } from '../../actions/auth';
 
 const reducers = combineReducers(
   {
-    currentSearch,
+    search,
     currentTrackSummaryData,
     currentVideo,
     videoData,

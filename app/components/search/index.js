@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
 export class Search extends React.Component {
@@ -6,11 +7,30 @@ export class Search extends React.Component {
     onSearch: PropTypes.func.isRequired,
     onFocus: PropTypes.func.isRequired,
     onBlur: PropTypes.func.isRequired,
+    searching: PropTypes.bool.isRequired,
   };
 
   constructor() {
-   super();
-   this.handleSearch = _.throttle(this.handleSearch, 1000);
+    super();
+    this.handleSearch = _.throttle(this.handleSearch, 1000);
+
+    this.state = {
+      searching: false,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const searching = nextProps.searching;
+    
+    this.setState({
+      searching, 
+    });
+  }
+
+  searching() {
+    return this.state.searching ? 
+      <i className="search__wait fa fa-circle-o-notch fa-spin fa-fw"></i> :
+      null
   }
   
   render() {
@@ -26,6 +46,7 @@ export class Search extends React.Component {
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
         />
+        {this.searching()}
       </div>
     )
   }
@@ -36,4 +57,13 @@ export class Search extends React.Component {
   }
 }
 
-export default Search
+function mapStateToProps(state) {
+  return {
+    searching: state.search.searching,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+)(Search);
+

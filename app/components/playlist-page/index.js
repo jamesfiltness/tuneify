@@ -30,7 +30,6 @@ export class PlaylistPage extends React.Component {
       const playlistData = props.userPlaylists.find(
         playlist => playlist.id === playlistId
       )
-      
       this.setState({
         playlistData,
       });
@@ -38,11 +37,19 @@ export class PlaylistPage extends React.Component {
   }
   
   render() {
-    return (
-      <Playlist 
-        playlistData={this.state.playlistData}
-      />
-    )
+    if (this.state.playlistData) {
+      return (
+        <Playlist 
+          tracks={this.state.playlistData.tracks}
+          heading="Playlist"
+          name={this.state.playlistData.name}
+        />
+      )
+    } else {
+      return (
+        <div className="route-content-spinner" />
+      );
+    }
   }
 }
 
@@ -51,7 +58,6 @@ function mapStateToProps(state) {
     userPlaylists: state.playlists.userPlaylists,
   }
 }
-
 
 export default connect(
   mapStateToProps,

@@ -42,6 +42,7 @@ export function fetchArtistData(searchTerm, limit = 3) {
   return fetchLastFmData(actions, params);
 };
 
+// TODO: Add error actions here!
 export function fetchAlbumData(searchTerm, limit = 3) {
   const actions =  
     [
@@ -76,9 +77,16 @@ export function fetchTrackData(searchTerm, limit = 3) {
   return fetchLastFmData(actions, params);
 };
 
+export function initialisingSearch() {
+  return {
+    type: types.INITIALISING_SEARCH,
+  }
+};
+
 export function searchPerformed(searchTerm) {
   return dispatch => {
     if(searchTerm.length > 1) {
+      dispatch(initialisingSearch());
       dispatch(fetchArtistData(searchTerm));
       dispatch(fetchTrackData(searchTerm));
       dispatch(fetchAlbumData(searchTerm));
@@ -86,4 +94,4 @@ export function searchPerformed(searchTerm) {
       dispatch(clearSearch())
     }
   }
-}
+};

@@ -12,11 +12,15 @@ import {
 
 export class Playlist extends React.Component {
   static PropTypes = {
-    playlistData: PropTypes.array,
+    heading: PropTypes.string.isRequired,
+    tracks: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
     appendTracksToPlayQueue: PropTypes.func.isRequired, 
     appendTrackToPlayQueue: PropTypes.func.isRequired, 
     replaceQueueWithTracksAndPlay: PropTypes.func.isRequired,
     addTrackToQueueAndPlay: PropTypes.func.isRequired,
+    image: PropTypes.string,
+    artist: PropTypes.string,
   };
 
   constructor(props) {
@@ -70,62 +74,64 @@ export class Playlist extends React.Component {
   
   appendPlaylistToQueue() {
     this.props.appendTracksToPlayQueue(
-      this.props.playlistData.tracks
+      this.props.tracks
     );
   }
 
   replaceQueueWithPlaylistAndPlay() {
     this.props.replaceQueueWithTracksAndPlay(
-      this.props.playlistData.tracks
+      this.props.tracks
     );
   }
 
+  renderArtistHeading() {
+    return this.props.artist ? 
+    <h3 className="hero__artist">{this.props.artist}</h3> : 
+    null;
+  }
+  
   render() {
-    if (this.props.playlistData) {
-      const tracks = this.props.playlistData.tracks;
-      
-      return (
-        <div className="playlist">
-          <TrackTools
-            visible={this.state.trackToolsVisible}
-            elementPos={this.state.trackToolsElement}
-            addToQueue={
-              () => {
-                this.props.appendTrackToPlayQueue(this.state.currentTrack)
-              }
+    console.log(this.props.artist);
+    return (
+      <div className="playlist page-with-padding">
+        <TrackTools
+          visible={this.state.trackToolsVisible}
+          elementPos={this.state.trackToolsElement}
+          addToQueue={
+            () => {
+              this.props.appendTrackToPlayQueue(this.state.currentTrack)
             }
+          }
+        />
+        <div className="hero">
+          <PlaylistImage 
+            tracks={this.props.tracks}
+            image={this.props.image}
           />
-          <div className="hero">
-            <PlaylistImage 
-              tracks={this.props.playlistData.tracks} 
-            />
-            <h5 className="hero__identifier">Playlist</h5>
-            <h1 className="hero__name">{this.props.playlistData.name}</h1>
-            <button 
-              onClick={this.replaceQueueWithPlaylistAndPlay}
-              className="button button--primary button--play"
-              >
-              Play
-            </button>
-            <button 
-              onClick={this.appendPlaylistToQueue}
-              className="button button--add"
-              >
-             Queue Album 
-            </button>
-          </div>
-          <TrackTable 
-            tracks={tracks}
-            onClickTrackTools={this.showTrackTools}
-            onClickTrack={this.props.addTrackToQueueAndPlay}
-          />
+          <h5 className="hero__identifier">{this.props.heading}</h5>
+          <h1 className="hero__name">{this.props.name}</h1>
+          {this.renderArtistHeading()}
+          <button 
+            onClick={this.replaceQueueWithPlaylistAndPlay}
+            className="button button--primary button--play"
+            >
+            Play
+          </button>
+          <button 
+            onClick={this.appendPlaylistToQueue}
+            className="button button--add"
+            >
+           Queue Album 
+          </button>
         </div>
-      )
-    } else {
-      return (
-        <div className="route-content-spinner" />
-      );
-    }
+        <TrackTable 
+          playlist={this.props.tracks}
+          onClickTrackTools={this.showTrackTools}
+          onClickTrack={this.props.addTrackToQueueAndPlay}
+          renderArtistCol={!this.props.artist}
+        />
+      </div>
+    )
   }
 }
 

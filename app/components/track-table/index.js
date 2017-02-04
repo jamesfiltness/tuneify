@@ -4,24 +4,49 @@ import TrackTableHeader from './track-table-header';
 
 export default class TrackTable extends React.Component {
   static PropTypes = {
-    tracks: PropTypes.array.isRequired,
+    playlist: PropTypes.array.isRequired,
     onClickTrack: PropTypes.func.isRequired,
     onClickTrackTools: PropTypes.func.isRequired,
+    renderArtistCol: PropTypes.string.isRequired,
+    playlistImg: PropTypes.string,
   };
-  
+
+  constructor(props) {
+    super(props);
+
+    this.onClickTrack = this.onClickTrack.bind(this);
+  }
+
+  onClickTrack(track) {
+    const globalPlaylistImg = this.props.playlistImg;
+    const image = globalPlaylistImg ? gloabalPlaylistImg : track.img;
+
+    this.props.onClickTrack(
+      track,
+      image
+    )
+  }
+
   render() {
     return (
       <div className="tracks">
         <table className="tracks__table">
-          <TrackTableHeader />
+          <TrackTableHeader 
+            renderArtistCol={this.props.renderArtistCol} 
+          />
           <tbody>
             {
-              this.props.tracks.map((track, i) => {
+              this.props.playlist.map((track, i) => {
+                const artist = typeof track.artist === 'string' ? 
+                track.artist : 
+                null; 
+                
                 return (
                   <Track
                     rank={i + 1}
                     name={track.name}
-                    artist={track.artist}
+                    artist={artist}
+                    renderArtistCol={this.props.renderArtistCol}
                     key={i}
                     onClickTrackTools={
                       (event) => {
@@ -30,11 +55,8 @@ export default class TrackTable extends React.Component {
                     }
                     onClick={
                       () => {
-                        this.props.onClickTrack(
-                          track,
-                          track.image
-                        )
-                      } 
+                        this.onClickTrack(track)
+                      }
                     }
                   />
                 )
