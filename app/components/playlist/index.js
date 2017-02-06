@@ -91,12 +91,16 @@ export class Playlist extends React.Component {
   }
   
   render() {
-    console.log(this.props.artist);
     return (
       <div className="playlist page-with-padding">
         <TrackTools
           visible={this.state.trackToolsVisible}
           elementPos={this.state.trackToolsElement}
+          addToPlaylist={
+            (playlist) => {
+               
+            }
+          }
           addToQueue={
             () => {
               this.props.appendTrackToPlayQueue(this.state.currentTrack)
