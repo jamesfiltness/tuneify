@@ -47,3 +47,7 @@ export function createPlaylist(playlistName, playlist) {
  
   return fetchLambda(actions, 'playlists', 'POST', null, body);
 }
+
+export function updatePlaylist(playlistid, playlist) {
+  
+}
