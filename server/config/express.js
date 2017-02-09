@@ -1,25 +1,13 @@
 import express from 'express';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
 import cookieParser from 'cookie-parser';
 import application from '../routes/application';
 
-export default function() {
-const app = express();
-app.use(cookieParser());
+export default function () {
+  const app = express();
+  app.use(cookieParser());
 
-// Use https://www.npmjs.com/package/babel-plugin-transform-require-ignore to ignore css imports (CSS modules)
-if (process.env.NODE_ENV !== 'production') {
-  const devConfig = require('../../webpack.dev.config.js');
-  app.use(
-    webpackDevMiddleware(
-      webpack(
-        devConfig
-      )
-    )
-  );
-  
+  // Use https://www.npmjs.com/package/babel-plugin-transform-require-ignore to ignore css imports (CSS modules)
   application(app);
-}
+
   return app;
 }
