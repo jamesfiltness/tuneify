@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import throttle from 'throttleit';
 
 export class Search extends React.Component {
   static PropTypes = {
@@ -12,27 +12,32 @@ export class Search extends React.Component {
 
   constructor() {
     super();
-    this.handleSearch = _.throttle(this.handleSearch, 1000);
+    this.handleSearch = throttle(this.handleSearch, 1000);
 
     this.state = {
       searching: false,
-    }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     const searching = nextProps.searching;
-    
+
     this.setState({
-      searching, 
+      searching,
     });
   }
 
   searching() {
-    return this.state.searching ? 
-      <i className="search__wait fa fa-circle-o-notch fa-spin fa-fw"></i> :
-      null
+    return this.state.searching ?
+      <i className="search__wait fa fa-circle-o-notch fa-spin fa-fw" /> :
+      null;
   }
-  
+
+  handleSearch() {
+    const text = this.input.value;
+    this.props.onSearch(text);
+  }
+
   render() {
     return (
       <div className="search">
@@ -48,19 +53,14 @@ export class Search extends React.Component {
         />
         {this.searching()}
       </div>
-    )
-  }
-
-  handleSearch() {
-    const text = this.input.value;
-    this.props.onSearch(text)
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     searching: state.search.searching,
-  }
+  };
 }
 
 export default connect(

@@ -9,6 +9,7 @@
     "start:server": "NODE_ENV=development babel-node .",
     "start-mock": "npm-run-all -p mocks start:client",
     "mocks": "NODE_ENV=MOCK babel-node .",
+    "build": "rm -rf ./dist && webpack -p --config ./webpack.production.config.js",
     "test": "mocha --compilers js:babel-register test/helper app/**/spec.js",
     "coverage": "node_modules/.bin/nyc --reporter=text --reporter=lcov --require babel-core/register --all node_modules/.bin/mocha test/helper app/**/spec.js"
   },
@@ -31,7 +32,6 @@
     "extract-text-webpack-plugin": "2.0.0-rc.3",
     "isomorphic-fetch": "2.2.1",
     "jwt-decode": "2.1.0",
-    "lodash": "4.16.1",
     "react": "15.4.1",
     "react-dom": "15.4.1",
     "react-redux": "4.4.5",
@@ -39,7 +39,8 @@
     "react-router-redux": "4.0.5",
     "redux": "3.5.2",
     "redux-logger": "2.8.1",
-    "redux-thunk": "2.1.0"
+    "redux-thunk": "2.1.0",
+    "throttleit": "1.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.22.2",
@@ -59,6 +60,7 @@
     "eslint-plugin-react": "6.1.0",
     "extract-text-webpack-plugin": "2.0.0-rc.3",
     "file-loader": "0.9.0",
+    "html-webpack-plugin": "2.28.0",
     "jsdom": "9.8.3",
     "mocha": "3.1.2",
     "node-sass": "4.5.0",
