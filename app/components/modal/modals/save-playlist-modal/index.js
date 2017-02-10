@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
+import classNames from 'classNames';
 import { createPlaylist } from '../../../../actions/playlists';
 
 export class SavePlaylistModal extends React.Component {

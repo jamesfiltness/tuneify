@@ -1,6 +1,6 @@
 # Tuneify
 
-A project to explore building an ~~isomorphic~~ React/Redux app backed by an serverless (AWS Lambda) architecture.
+A project to explore building an ~~universal~~ React/Redux app backed by an serverless (AWS Lambda) architecture.
 
 Tuneify is a streaming music app built on the YouTube and LastFm APIs. 
 
