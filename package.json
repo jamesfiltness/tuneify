@@ -4,11 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm-run-all -p start:*",
+    "start": "npm run start:client",
     "start:client": "webpack-dev-server",
-    "start:server": "NODE_ENV=development babel-node .",
-    "start-mock": "npm-run-all -p mocks start:client",
-    "mocks": "NODE_ENV=MOCK babel-node .",
     "build": "rm -rf ./dist && webpack -p --config ./webpack.production.config.js",
     "test": "mocha --compilers js:babel-register test/helper app/**/spec.js",
     "coverage": "node_modules/.bin/nyc --reporter=text --reporter=lcov --require babel-core/register --all node_modules/.bin/mocha test/helper app/**/spec.js"

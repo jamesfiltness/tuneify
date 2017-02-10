@@ -1,4 +1,5 @@
 const config = require('config');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
@@ -9,8 +10,8 @@ module.exports = {
     ],
   },
   output: {
-    path: '/',
-    publicPath: '/',
+    path: path.resolve(__dirname, './dist'),
+    filename: 'bundle-[chunkhash].js',
   },
   module: {
     rules: [
@@ -33,17 +34,21 @@ module.exports = {
       },
     ],
   },
-  devServer: {
-    proxy: {
-      '*': {
-        target: `http://localhost:${config.get('port')}`,
-        secure: false,
-        port: 8081,
-      },
-    },
-  },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
+    new HtmlWebpackPlugin({
+      title: config.get('app-title'),
+      template: 'layout.ejs',
+      window: {
+        clientConfig: {
+          endpoints: config.get('endpoints'),
+        },
+      },
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+      },
+    }),
+    new ExtractTextPlugin('styles-[chunkhash].css'),
   ],
 };
 

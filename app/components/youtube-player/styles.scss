@@ -102,30 +102,30 @@
     border-radius: 90px;
     background-position: 11px 9px;
     &--playing {
-      background-image: url('images/pause.svg');
+      background-image: url('../images/pause.svg');
       background-position: 9px;
     }
     &--paused {
-      background-image: url('images/play.svg');
+      background-image: url('../images/play.svg');
 
     }
   }
 
   &__mute-unmute {
     &--unmuted {
-      background-image: url('images/volume-high.svg');
+      background-image: url('../images/volume-high.svg');
     }
 
     &--muted {
-      background-image: url('images/volume-mute.svg');
+      background-image: url('../images/volume-mute.svg');
     }
   }
 
   &__prev-track {
-    background-image: url('images/previous.svg');
+    background-image: url('../images/previous.svg');
   }
 
   &__next-track {
-    background-image: url('images/next.svg');
+    background-image: url('../images/next.svg');
   }
 }
