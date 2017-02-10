@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if (htmlWebpackPlugin.files.favicon) { %>
+      <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon %>">
+    <% } %>
+  </head>
+  <body>
+    <div id="react-view"></div>
+    <% if (htmlWebpackPlugin.options.window) { %>
+      <script>
+        <% for (var varName in htmlWebpackPlugin.options.window) { %>
+          window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+        <% } %>
+      </script>
+    <% } %>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="http://cdn.auth0.com/js/lock/10.7.3/lock.min.js"></script>
+  </body>
+</html>

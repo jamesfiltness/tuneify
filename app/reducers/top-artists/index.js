@@ -13,7 +13,7 @@ export function topArtistData(state = null, action) {
 }
 
 // TODO: these actions are not properly hooked up yet...
-export function topArtistDataError(state = [], action) {
+export function topArtistDataError(state = null, action) {
   switch(action.type) {
     case types.TOP_ARTIST__DATA_ERROR:
       return {
