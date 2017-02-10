@@ -15,7 +15,6 @@ WIP!
 * React Router / React Router Redux
 * Webpack
 * ES6 / Babel
-* Node (express)
 * Auth0
 * Mocha / Chai / Enzyme / Sinon
 * Serverless framework (Lambda, Dynamodb)

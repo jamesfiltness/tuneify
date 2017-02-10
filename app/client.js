@@ -2,15 +2,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, IndexRoute, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 import store from './redux/modules/store';
-import styles from './global.scss';
+import styles from './styles/global.scss';
 import auth0Service from './utils/auth0-service';
 
-import { loggedIn, loggedOut } from './actions/auth';
+import { loggedIn } from './actions/auth';
 
 import App from './components/app';
-import Home  from './components/home';
+import Home from './components/home';
 import Artist from './components/artist';
 import Album from './components/album';
 import PlaylistPage from './components/playlist-page';
@@ -25,15 +25,14 @@ const authenticateRoute = (nextState, replace, callback) => {
     callback();
   } else {
     authService.authenticate(() => {
-      callback()
+      callback();
       store.dispatch(loggedIn());
     });
   }
-}
+};
 
-const createElement = (Component, props) => {
-  return <Component authService={authService} {...props} />
-}
+const createElement = (Component, props) =>
+  <Component authService={authService} {...props} />
 
 render(
   <Provider store={store}>
