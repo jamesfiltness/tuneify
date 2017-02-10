@@ -17,5 +17,5 @@ WIP!
 * ES6 / Babel
 * Auth0
 * Mocha / Chai / Enzyme / Sinon
-* Serverless framework (Lambda, Dynamodb)
+* Serverless framework (Lambda, API Gateway Dynamodb)
 
