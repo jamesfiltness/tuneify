@@ -12,8 +12,10 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
+    publicPath: '/',
     filename: 'bundle-[chunkhash].js',
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -56,7 +58,7 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       comments: false,
-      sourceMap: false,
+      sourceMap: true,
     }),
   ],
 };
