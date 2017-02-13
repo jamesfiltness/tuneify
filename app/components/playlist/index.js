@@ -135,6 +135,7 @@ export class Playlist extends React.Component {
           onClickTrackTools={this.showTrackTools}
           onClickTrack={this.props.addTrackToQueueAndPlay}
           renderArtistCol={!this.props.artist}
+          playlistImg={this.props.image}
         />
       </div>
     )

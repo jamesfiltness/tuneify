@@ -19,8 +19,8 @@ export default class TrackTable extends React.Component {
 
   onClickTrack(track) {
     const globalPlaylistImg = this.props.playlistImg;
-    const image = globalPlaylistImg ? gloabalPlaylistImg : track.img;
-
+    const image = globalPlaylistImg ? globalPlaylistImg : track.img;
+    console.log('@@@@@@@@@@', image);
     this.props.onClickTrack(
       track,
       image
