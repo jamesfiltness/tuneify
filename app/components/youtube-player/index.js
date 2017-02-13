@@ -70,12 +70,18 @@ export class YouTubePlayer extends React.Component {
     if(nextProps.videoData.length > 0) {
       // TODO: this needs to be much more robust - although it seems never to have failed!
       if(nextProps.videoData[0].id.videoId === this.state.currentVideoId) {
-        // TODO: Just restart the current video
+        this.restartVideo();
       } else {
         this.playVideo(nextProps.videoData[0].id.videoId);   
       }
     }
   } 
+
+  restartVideo() {
+    this.player.seekTo(0);
+    this.resetProgressBar(0);
+    this.resetTimer();
+  }
 
   playPauseVideo() {
     let playerState = this.player.getPlayerState();
@@ -164,6 +170,7 @@ export class YouTubePlayer extends React.Component {
       this.elapsed = seekTo;
     }
     this.updateTimer();
+
     const elapsedToPixels = Math.floor(this.elapsed * this.pixelsPerSecond);
     this.elapsedEl.style.width = elapsedToPixels + 'px';
   }
