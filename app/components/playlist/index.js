@@ -74,13 +74,15 @@ export class Playlist extends React.Component {
   
   appendPlaylistToQueue() {
     this.props.appendTracksToPlayQueue(
-      this.props.tracks
+      this.props.tracks,
+      this.props.image
     );
   }
 
   replaceQueueWithPlaylistAndPlay() {
     this.props.replaceQueueWithTracksAndPlay(
-      this.props.tracks
+      this.props.tracks,
+      this.props.image
     );
   }
 
