@@ -16,7 +16,7 @@ import Login from '../login';
 import Modal from '../modal';
 
 export class App extends React.Component {
-  
+
   static propTypes = {
     dispatch: React.PropTypes.func.isRequired,
     currentSearch: PropTypes.string,
@@ -49,25 +49,25 @@ export class App extends React.Component {
   }
 
   render() {
-    const { 
+    const {
       dispatch,
-      artists, 
-      albums, 
+      artists,
+      albums,
       tracks,
       videoData,
       playQueueTracks,
       trackSummary,
       authService,
     } = this.props;
-    
+
     return (
       <div className="app">
         <Modal />
         <header className="header">
           <div className="header__container">
             <h1 className="header__title">
-              <Link 
-                className="header__title-link" 
+              <Link
+                className="header__title-link"
                 to="/"
               >
                 Tuneify
@@ -76,9 +76,9 @@ export class App extends React.Component {
             <Search
               onFocus={this.searchFocused.bind(this)}
               onBlur={this.searchBlurred.bind(this)}
-              onSearch={ 
-                text => dispatch(searchPerformed(text)) 
-              } 
+              onSearch={
+                text => dispatch(searchPerformed(text))
+              }
             />
           </div>
           <Login authService={authService} />
@@ -94,7 +94,7 @@ export class App extends React.Component {
           {this.props.children}
         </div>
         <div className="sidebar sidebar--right">
-          <CurrentTrackSummary 
+          <CurrentTrackSummary
             name={trackSummary.name}
             artist={trackSummary.artist}
             image={trackSummary.image}

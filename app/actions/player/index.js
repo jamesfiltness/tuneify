@@ -1,8 +1,8 @@
 import * as types from '../../constants/ActionTypes.js';
-import { 
-  incrementCurrentIndex, 
+import {
+  incrementCurrentIndex,
   decrementCurrentIndex,
-  playCurrentIndex 
+  playCurrentIndex
 } from '../play-queue';
 
 export function playVideo(videoData) {
@@ -40,13 +40,19 @@ export function receiveVideoData(json) {
   }
 }
 
+export function restartedTrack() {
+  return {
+    type: types.RESTARTED_TRACK,
+  }
+}
+
 export function fetchVideoData(selectedTrackString) {
   return dispatch => {
     // TODO: move this url out in to config
     const query = encodeURIComponent(selectedTrackString);
     const youtubeUrl = window.clientConfig.endpoints.youtube.url;
     const youtubeApiKey = window.clientConfig.endpoints.youtube.api_key;
-    
+
     return fetch(
       `${youtubeUrl}${query}&type=video&key=${youtubeApiKey}`,
       { mode: 'cors' }

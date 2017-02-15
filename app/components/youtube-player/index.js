@@ -1,23 +1,23 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classNames';
-import { 
+import {
   trackEnded,
   playNextTrack,
   playPreviousTrack,
+  restartedTrack,
 } from '../../actions/player';
-
 const PLAYER_WIDTH = 320;
 const PLAYER_HEIGHT = 200;
 
 /*********
- TODO:  
+ TODO:
   This needs a refactor:
   * Break out in to smaller components:
     - progress bar
     - timer
     - volume controls
-  * Refactor code. Progress bar and timer have led to 
+  * Refactor code. Progress bar and timer have led to
   repetitive code
 
 *********/
@@ -40,7 +40,7 @@ export class YouTubePlayer extends React.Component {
       totalDuration: {},
       currentDuration: {},
     }
-    
+
     this.volumeStartX = 0;
     this.volumeOffsetX = 0;
     this.volumeElement = {};
@@ -57,7 +57,7 @@ export class YouTubePlayer extends React.Component {
 
   componentDidMount() {
 	  const _this = this;
-		
+
     window.onYouTubeIframeAPIReady = function() {
       _this.loaded = true;
       _this.iFrameAPIReady();
@@ -67,15 +67,18 @@ export class YouTubePlayer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.videoData.length > 0) {
+    if (nextProps.videoData.length > 0) {
       // TODO: this needs to be much more robust - although it seems never to have failed!
-      if(nextProps.videoData[0].id.videoId === this.state.currentVideoId) {
-        this.restartVideo();
-      } else {
-        this.playVideo(nextProps.videoData[0].id.videoId);   
+      if (nextProps.videoData[0].id.videoId !== this.state.currentVideoId) {
+        this.playVideo(nextProps.videoData[0].id.videoId);
       }
     }
-  } 
+
+    if (nextProps.restartCurrentTrack) {
+      this.restartVideo();
+      this.props.restartedTrack();
+    }
+  }
 
   restartVideo() {
     this.player.seekTo(0);
@@ -85,11 +88,11 @@ export class YouTubePlayer extends React.Component {
 
   playPauseVideo() {
     let playerState = this.player.getPlayerState();
-    if(playerState  ===  YT.PlayerState.PLAYING) {
+    if (playerState  ===  YT.PlayerState.PLAYING) {
       this.player.pauseVideo();
       this.pauseProgressBar();
       playerState = YT.PlayerState.PAUSED;
-    } else if(playerState === YT.PlayerState.PAUSED) {
+    } else if (playerState === YT.PlayerState.PAUSED) {
       this.player.playVideo();
       playerState = YT.PlayerState.PLAYING;
     }
@@ -116,7 +119,7 @@ export class YouTubePlayer extends React.Component {
   }
 
   onCancelChangeVolume() {
-    document.removeEventListener('mousemove', this.adjustVolume, false);  
+    document.removeEventListener('mousemove', this.adjustVolume, false);
   }
 
   onMuteUnmute() {
@@ -125,36 +128,36 @@ export class YouTubePlayer extends React.Component {
     } else {
       this.player.unMute();
     }
-    
+
     this.setState({
       muted: !this.state.muted,
     })
   }
 
   seekTo(e) {
-    const clickPos = (e.clientX + document.body.scrollLeft) - 
+    const clickPos = (e.clientX + document.body.scrollLeft) -
       e.target.getBoundingClientRect().left;
     const seekTo  = clickPos / this.pixelsPerSecond;
     this.updateProgressBar(seekTo);
     this.player.seekTo(seekTo);
   }
-  
+
   // move in to reusable utils class - allow multiple scripts to be loaded
   loadPlayerIframe() {
     const tag = document.createElement('script');
     tag.src = "http://www.youtube.com/iframe_api";
     const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); 
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
 
   iFrameAPIReady() {
     this.player = new YT.Player('player', {
       height: PLAYER_HEIGHT,
       width: PLAYER_WIDTH,
-      playerVars: { 
-        autoplay: 1, 
-        controls: 0, 
-        showinfo: 0, 
+      playerVars: {
+        autoplay: 1,
+        controls: 0,
+        showinfo: 0,
         rel: 0,
       },
       events: {
@@ -212,11 +215,11 @@ export class YouTubePlayer extends React.Component {
       this.bufferedEl.style.width = bufferedPixels + 'px';
     }, 1000)
   }
-  
+
   // TODO : repitition
   initTimer() {
     const totalDuration = this.secondsToTime(this.videoDuration);
-    let currentDuration = this.state.currentDuration; 
+    let currentDuration = this.state.currentDuration;
     if(
       !currentDuration.minutes &&
       !currentDuration.seconds
@@ -268,7 +271,7 @@ export class YouTubePlayer extends React.Component {
     if (event.data === YT.PlayerState.BUFFERING) {
       this.initBufferBar();
     }
-    
+
     if (event.data === YT.PlayerState.PAUSED) {
       this.pauseProgressBar();
       this.setState({
@@ -289,7 +292,7 @@ export class YouTubePlayer extends React.Component {
   secondsToTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     let remainingSeconds = Math.floor(seconds - minutes * 60);
-    
+
     if (remainingSeconds < 10) {
       remainingSeconds = `0${remainingSeconds}`;
     }
@@ -319,15 +322,15 @@ export class YouTubePlayer extends React.Component {
       <div className="youtube-player">
         <div className="youtube-player__player-wrap">
           <div className="youtube-player__player" id="player" />
-          <div 
+          <div
             className="youtube-player__progress-bar"
             onClick={this.seekTo}
           >
-            <div 
-              className="youtube-player__buffered" 
+            <div
+              className="youtube-player__buffered"
               ref={(bufferedEl) => this.bufferedEl = bufferedEl}
             />
-            <div 
+            <div
               className="youtube-player__elapsed"
               ref={(elapsedEl) => this.elapsedEl = elapsedEl}
             />
@@ -338,7 +341,7 @@ export class YouTubePlayer extends React.Component {
             className="youtube-player__control youtube-player__prev-track"
             onClick={this.props.playPreviousTrack}
           />
-          <span 
+          <span
             className={playButtonClasses}
             onClick={this.playPauseVideo}
           />
@@ -347,16 +350,16 @@ export class YouTubePlayer extends React.Component {
             onClick={this.props.playNextTrack}
           />
           <div className="youtube-player__time">
-            <span 
+            <span
               className="youtube-player__elapsed-time"
             >
               {this.state.currentDuration.minutes || '0'}:
               {this.state.currentDuration.seconds || '00'}
             </span>
-            
+
             <span className="youtube-player__divider">|</span>
-            
-            <span 
+
+            <span
               className="youtube-player__total-time"
             >
               {this.state.totalDuration.minutes || '0'}:
@@ -368,7 +371,7 @@ export class YouTubePlayer extends React.Component {
               onClick={this.onMuteUnmute}
               className={muteUnmuteClasses}
             />
-            <span 
+            <span
               className="youtube-player__volume-control"
               onMouseDown={this.onChangeVolume}
             />
@@ -379,13 +382,20 @@ export class YouTubePlayer extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    restartCurrentTrack: state.videoPlayer.restartCurrentTrack,
+  };
+}
+
 const mapDispatchToProps = {
   trackEnded,
   playNextTrack,
   playPreviousTrack,
+  restartedTrack,
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(YouTubePlayer);
