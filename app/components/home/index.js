@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classNames';
-import { 
-  getTopArtists, 
+import {
+  getTopArtists,
 } from '../../actions/homepage';
 
 export class Home extends React.Component {
@@ -43,7 +44,7 @@ export class Home extends React.Component {
   render() {
     const { topArtistData, topArtistDataError } = this.props;
     if (topArtistData) {
-      // sometimes lastfm returns successfully but with an empty 
+      // sometimes lastfm returns successfully but with an empty
       // json object. To counter this the reducer has a case for
       // this an returns and error property when it does happen
       if (topArtistData.error) {
@@ -51,7 +52,7 @@ export class Home extends React.Component {
           <h3>No data found.</h3>
         )
       } else {
-      
+
         const classes = classNames(
           'top-artist__name',
            this.state.imagesLoaded ? 'top-artist__name--visible' : '',
@@ -64,14 +65,19 @@ export class Home extends React.Component {
                   (artist, i) => {
                     return (
                       <li className="top-artist__list-item" key={i}>
-                        <img 
-                          onLoad={() => {this.imageLoaded()}}
-                          className="top-artist__image" 
-                          src={artist.image[3]['#text']}
-                          height="230"
-                          width="230"
-                        />
-                        <span className={classes}>{artist.name}</span>
+                        <Link
+                          to={`/artist/${artist.mbid}`}
+                          className="top-artist__link"
+                        >
+                          <img
+                            onLoad={() => {this.imageLoaded()}}
+                            className="top-artist__image"
+                            src={artist.image[3]['#text']}
+                            height="230"
+                            width="230"
+                          />
+                          <span className={classes}>{artist.name}</span>
+                        </Link>
                       </li>
                     );
                   }

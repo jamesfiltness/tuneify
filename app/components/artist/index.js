@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { 
-  clearArtistPageError, 
-  getArtistPageData, 
-  clearArtistPageData 
+import {
+  clearArtistPageError,
+  getArtistPageData,
+  clearArtistPageData
 } from '../../actions/artist';
 
 export class Artist extends React.Component {
@@ -15,38 +15,46 @@ export class Artist extends React.Component {
 
   componentDidMount() {
     if (this.props.params.mbid) {
-      this.getArtistData({ mbid: this.props.params.mbid });
+      this.getArtistByMbid(this.props.params.mbid);
     } else {
-      this.getArtistData({ artist: this.props.params.artist });
+      this.getArtistByName(this.props.params.artist)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.params.mbid) {
       if(nextProps.params.mbid !== this.props.params.mbid) {
-        // TODO:  investigate whether getArtistPageData action creator
-        // can use a thunk as well as using promise middleware
-        // if so we can just dispatch one action instead of three here
-        this.props.dispatch(clearArtistPageData());
-        this.props.dispatch(clearArtistPageError());
-        this.getArtistData({ mbid: nextProps.params.mbid });
+        this.getArtistByMbid(nextProps.params.mbid);
       }
     } else if (nextProps.params.artist !== this.props.params.artist) {
-      this.props.dispatch(clearArtistPageData());
-      this.props.dispatch(clearArtistPageError());
-      this.getArtistData({ artist: nextProps.params.artist });
+      this.getArtistByName(nextProps.params.artist);
     }
+  }
+
+  getArtistByMbid(mbid) {
+    // TODO:  investigate whether getArtistPageData action creator
+    // can use a thunk as well as using promise middleware
+    // if so we can just dispatch one action instead of three here
+    this.props.dispatch(clearArtistPageData());
+    this.props.dispatch(clearArtistPageError());
+    this.getArtistData({ mbid: mbid });
+  }
+
+  getArtistByName(artist) {
+    this.props.dispatch(clearArtistPageData());
+    this.props.dispatch(clearArtistPageError());
+    this.getArtistData({ artist: artist });
   }
 
   getArtistData(params) {
     this.props.dispatch(
       getArtistPageData(params)
     );
-  } 
+  }
 
   renderBio(bioHtml) {
     return {
-      __html : bioHtml 
+      __html : bioHtml
     };
   }
 
@@ -54,20 +62,20 @@ export class Artist extends React.Component {
     if (similar && similar.length > 0) {
       return similar.map((artist, i) => {
         return (
-          <li 
-            className="artist__similar-artist-item" 
+          <li
+            className="artist__similar-artist-item"
             key={i}
           >
           <div className="artist__similar-artist-wrap">
-            <a 
-              className="artist__similar-artist-link" 
+            <a
+              className="artist__similar-artist-link"
               href="#"
             >
               <img
                 className="artist__similar-artist-image"
-                src={artist.image[1]['#text']} 
+                src={artist.image[1]['#text']}
               />
-              <span 
+              <span
                 className="artist__similar-artist-text"
               >
                 {artist.name}
@@ -85,9 +93,9 @@ export class Artist extends React.Component {
       artistPageData,
       currentArtistPageError,
     } = this.props;
-    
+
     if (artistPageData) {
-      // sometimes lastfm returns successfully but with an empty 
+      // sometimes lastfm returns successfully but with an empty
       // json object. To counter this the reducer has a case for
       // this an returns and error property when it does happen
       if(artistPageData.error) {
@@ -98,8 +106,8 @@ export class Artist extends React.Component {
         return (
           <div className="artist">
             <div className="hero">
-              <img 
-                src={artistPageData.image} 
+              <img
+                src={artistPageData.image}
                 className="hero__image"
                 alt={artistPageData.name}
                 width="174"
@@ -107,16 +115,16 @@ export class Artist extends React.Component {
               />
               <h5 className="hero__identifier">Artist</h5>
               <h1 className="hero__name">{artistPageData.name}</h1>
-              <div 
-                className="artist__bio" 
+              <div
+                className="artist__bio"
                 dangerouslySetInnerHTML={
                   this.renderBio(`${artistPageData.bio.summary}`)
-                } 
+                }
               />
-              <p 
+              <p
                 className="artist__read-more"
               >
-                <a 
+                <a
                   href="#"
                   className="artist__read-more-link"
                 >Read more</a>
