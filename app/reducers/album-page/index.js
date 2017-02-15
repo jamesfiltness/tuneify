@@ -18,14 +18,14 @@ export function albumPageData(state = null, action) {
         name: action.json.album.name,
         image: action.json.album.image[2]['#text'],
       }
-    case types.CLEAR_ALBUM_PAGE_DATA: 
+    case types.CLEAR_ALBUM_PAGE_DATA:
       return null;
-    default: 
+    default:
       return state
-  }    
+  }
 }
 
-export function currentAlbumPageError(state = [], action) {
+export function currentAlbumPageError(state = '', action) {
   switch(action.type) {
     case types.ALBUM_PAGE_DATA_ERROR:
       return {
@@ -33,7 +33,7 @@ export function currentAlbumPageError(state = [], action) {
       }
     case types.CLEAR_ALBUM_PAGE_ERROR:
       return null;
-    default: 
+    default:
       return state
   }
 }

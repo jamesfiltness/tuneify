@@ -13,14 +13,14 @@ export function artistPageData(state = null, action) {
         image: action.json.artist.image[2]['#text'],
         similar: action.json.artist.similar.artist,
       }
-    case types.CLEAR_ARTIST_PAGE_DATA: 
+    case types.CLEAR_ARTIST_PAGE_DATA:
       return null;
-    default: 
+    default:
       return state
-  }    
+  }
 }
 
-export function currentArtistPageError(state = [], action) {
+export function currentArtistPageError(state = '', action) {
   switch(action.type) {
     case types.ARTIST_PAGE_DATA_ERROR:
       return {
@@ -28,7 +28,7 @@ export function currentArtistPageError(state = [], action) {
       }
     case types.CLEAR_ARTIST_PAGE_ERROR:
       return null;
-    default: 
+    default:
       return state
   }
 }
