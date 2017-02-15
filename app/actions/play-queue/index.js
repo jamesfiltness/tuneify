@@ -5,10 +5,10 @@ import { authenticate } from '../auth';
 
 const prepareTrackData = (trackArr, img) => {
   return trackArr.map((track) => {
-    const artist = typeof track.artist === 'object' ? 
-    track.artist.name : 
+    const artist = typeof track.artist === 'object' ?
+    track.artist.name :
     track.artist;
-    
+
     const trackImg = track.image ? track.image : img;
 
     return {
@@ -75,18 +75,28 @@ export function trackSelected(selectedTrackSummaryData) {
   }
 }
 
+export function restartTrack() {
+  return {
+    type: types.RESTART_TRACK,
+  }
+}
+
 export function playQueueTrackSelected(selectedTrackData, index) {
   return (dispatch, getState)  => {
-    dispatch(setCurrentIndex(index));
-    const currentTrack = getState().playQueue.playQueueTracks[index];
-    
-    dispatch(trackSelected(currentTrack));
-    dispatch(
-      playTrack(
-        selectedTrackData.name, 
-        selectedTrackData.artist,
-      )
-    );
+    if (getState().playQueue.playQueueCurrentIndex === index) {
+      dispatch(restartTrack());
+    } else {
+      dispatch(setCurrentIndex(index));
+      const currentTrack = getState().playQueue.playQueueTracks[index];
+
+      dispatch(trackSelected(currentTrack));
+      dispatch(
+        playTrack(
+          selectedTrackData.name,
+          selectedTrackData.artist,
+        )
+      );
+    }
   }
 }
 
@@ -123,7 +133,7 @@ export function savePlayList() {
 export function createPlaylist() {
   return (dispatch, getState) => {
     if (!getState().authenticated) {
-      dispatch(authenticate());   
+      dispatch(authenticate());
     }
     dispatch(showModal('createPlaylist'))
   }
@@ -141,8 +151,8 @@ export function incrementCurrentIndex() {
     const playQueue = getState().playQueue;
     if (playQueue.shuffle) {
       dispatch(playRandomIndex());
-    } 
-    
+    }
+
     else if (
         playQueue.playQueueTracks.length -1  === playQueue.playQueueCurrentIndex
       ) {
@@ -181,7 +191,7 @@ export function playCurrentIndex() {
 
     dispatch(
       playTrack(
-        currentTrack.name, 
+        currentTrack.name,
         currentTrack.artist
       )
     );

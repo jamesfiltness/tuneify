@@ -5,7 +5,7 @@ import { routerReducer } from 'react-router-redux';
 import { search } from '../../reducers/search';
 import { currentTrackSummaryData } from '../../reducers/track-summary';
 import { autocomplete } from '../../reducers/autocomplete';
-import { currentVideo } from '../../reducers/video-player';
+import { videoPlayer } from '../../reducers/video-player';
 import { albumPage } from '../../reducers/album-page';
 import { artistPage } from '../../reducers/artist-page';
 import { topArtists } from '../../reducers/top-artists';
@@ -21,7 +21,7 @@ const reducers = combineReducers(
   {
     search,
     currentTrackSummaryData,
-    currentVideo,
+    videoPlayer,
     videoData,
     albumPage,
     autocomplete,
