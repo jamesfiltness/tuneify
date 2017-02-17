@@ -27,18 +27,6 @@
       width: 16.6%;
     }
 
-    &:hover {
-      &:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: rgba(0,0,0,0.5);
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-      }
-    }
 
     img {
       width: 100%;
@@ -52,6 +40,19 @@
     display: block;
     z-index: 2;
     position: relative;
+
+    &:hover {
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+    }
   }
 
   &__name {

@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import {
   clearArtistPageError,
   getArtistPageData,
-  clearArtistPageData
+  getArtistAlbums,
+  clearArtistPageData,
+  getSimilarArtists,
 } from '../../actions/artist';
 
 export class Artist extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
     currentArtistPageError: PropTypes.string,
     artistPageData: PropTypes.object,
   }
@@ -31,25 +33,25 @@ export class Artist extends React.Component {
     }
   }
 
+  clearArtistPageContent() {
+    this.props.clearArtistPageData();
+    this.props.clearArtistPageError();
+  }
+
   getArtistByMbid(mbid) {
-    // TODO:  investigate whether getArtistPageData action creator
-    // can use a thunk as well as using promise middleware
-    // if so we can just dispatch one action instead of three here
-    this.props.dispatch(clearArtistPageData());
-    this.props.dispatch(clearArtistPageError());
+    this.clearArtistPageContent();
     this.getArtistData({ mbid: mbid });
   }
 
   getArtistByName(artist) {
-    this.props.dispatch(clearArtistPageData());
-    this.props.dispatch(clearArtistPageError());
+    this.clearArtistPageContent();
     this.getArtistData({ artist: artist });
   }
 
   getArtistData(params) {
-    this.props.dispatch(
-      getArtistPageData(params)
-    );
+    this.props.getArtistPageData(params);
+    this.props.getArtistAlbums(params);
+    this.props.getSimilarArtists(params);
   }
 
   renderBio(bioHtml) {
@@ -58,34 +60,100 @@ export class Artist extends React.Component {
     };
   }
 
-  renderSimilarArtists(similar) {
-    if (similar && similar.length > 0) {
-      return similar.map((artist, i) => {
-        return (
-          <li
-            className="artist__similar-artist-item"
-            key={i}
-          >
-          <div className="artist__similar-artist-wrap">
-            <a
-              className="artist__similar-artist-link"
-              href="#"
-            >
-              <img
-                className="artist__similar-artist-image"
-                src={artist.image[1]['#text']}
-              />
-              <span
-                className="artist__similar-artist-text"
-              >
-                {artist.name}
-              </span>
-            </a>
-            </div>
-          </li>
-        );
-      });
+  // TODO: Break this and render albums out in to a seperate component
+  renderSimilarArtists() {
+    console.log(this.props);
+    if (this.props.similarArtists) {
+      return (
+        <div className="artist__related">
+          <h4 className="uppercase">Similar Artists</h4>
+          <ul className="artist__related-list">
+            {
+              this.props.similarArtists.map(
+                (artist, i) => {
+                  const image = artist.image[2]['#text'];
+                  const mbid = artist.mbid;
+
+                  if (image && mbid) {
+                    return (
+                      <li
+                        key={i}
+                        className="artist__related-item"
+                      >
+                        <Link
+                          to={`/artist/${mbid}`}
+                          className="artist__related-link"
+                        >
+                          <img
+                            src={image}
+                            alt={artist.name}
+                            className="artist__related-image"
+                          />
+                          <span className="artist__related-text">
+                            {artist.name}
+                          </span>
+                        </Link>
+                      </li>
+                    )
+                  }
+                }
+              )
+            }
+          </ul>
+        </div>
+      )
     }
+
+    return (
+      <div className="route-content-spinner" />
+    )
+  }
+
+  renderAlbums() {
+    if (this.props.artistPageAlbum) {
+      return (
+        <div className="artist__related">
+          <h4 className="uppercase">Top Albums</h4>
+          <ul className="artist__related-list">
+            {
+              this.props.artistPageAlbum.map(
+                (album, i) => {
+                  const image = album.image[2]['#text'];
+                  const mbid = album.mbid;
+
+                  if (image && mbid) {
+                    return (
+                      <li
+                        key={i}
+                        className="artist__related-item"
+                      >
+                        <Link
+                          to={`/album/${mbid}`}
+                          className="artist__related-link"
+                        >
+                          <img
+                            src={image}
+                            alt={album.name}
+                            className="artist__related-image"
+                          />
+                          <span className="artist__related-text">
+                            {album.name}
+                          </span>
+                        </Link>
+                      </li>
+                    )
+                  }
+                }
+              )
+            }
+          </ul>
+        </div>
+      )
+    }
+
+    return (
+      <div className="route-content-spinner" />
+    )
   }
 
   render() {
@@ -130,13 +198,8 @@ export class Artist extends React.Component {
                 >Read more</a>
               </p>
             </div>
-            <div className="artist__similar">
-              <h4 className="uppercase">Similar artists</h4>
-              <ul className="artist__similar-list">
-                {this.renderSimilarArtists(artistPageData.similar)}
-              </ul>
-            </div>
-
+            {this.renderAlbums()}
+            {this.renderSimilarArtists()}
           </div>
         );
       }
@@ -152,11 +215,24 @@ export class Artist extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  clearArtistPageError,
+  getArtistPageData,
+  getArtistAlbums,
+  clearArtistPageData,
+  getSimilarArtists,
+}
+
 function mapStateToProps(state) {
   return {
     artistPageData: state.artistPage.artistPageData,
+    artistPageAlbum: state.artistPage.artistPageAlbum,
     currentArtistPageError: state.artistPage.currentArtistPageError,
+    similarArtists: state.artistPage.similarArtists,
   }
 }
 
-export default connect(mapStateToProps)(Artist);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Artist);

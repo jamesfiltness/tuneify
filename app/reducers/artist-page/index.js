@@ -20,6 +20,30 @@ export function artistPageData(state = null, action) {
   }
 }
 
+export function artistPageAlbum(state = null, action) {
+  switch (action.type) {
+    case types.RECEIVE_ARTIST_ALBUM_DATA:
+      return action.json.topalbums.album;
+    case types.ARTIST_ALBUM_DATA_ERROR:
+    case types.CLEAR_ARTIST_PAGE_DATA:
+      return null;
+    default:
+      return state;
+  }
+}
+
+export function similarArtists(state = null, action) {
+  switch (action.type) {
+    case types.RECEIVE_SIMILAR_ARTIST_DATA:
+      return action.json.similarartists.artist.slice(0, 20);
+    case types.SIMILAR_ARTIST_ERROR:
+    case types.CLEAR_ARTIST_PAGE_DATA:
+      return null;
+    default:
+      return state;
+  }
+}
+
 export function currentArtistPageError(state = '', action) {
   switch(action.type) {
     case types.ARTIST_PAGE_DATA_ERROR:
@@ -36,5 +60,7 @@ export function currentArtistPageError(state = '', action) {
 
 export const artistPage = combineReducers({
   artistPageData,
+  artistPageAlbum,
   currentArtistPageError,
+  similarArtists,
 });
