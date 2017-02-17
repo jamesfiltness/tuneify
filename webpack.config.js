@@ -40,6 +40,7 @@ module.exports = {
     historyApiFallback: true,
     port: 8900,
   },
+  devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       title: config.get('app-title'),

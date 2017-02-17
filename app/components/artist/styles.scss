@@ -1,6 +1,5 @@
 .artist {
   padding: $route-content-padding;
-  max-width: 1000px;
   &__header {
     overflow: hidden;
   }
@@ -36,16 +35,22 @@
     }
   }
 
-  &__similar {
-    margin-top: 35px;
+  &__related {
+    clear: left;
+    padding-top: 25px;
   }
 
-  &__similar-artist-image {
+  &__related-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__related-image {
     display:block;
+    border-radius: 3px;
   }
 
-  &__similar-artist-wrap {
-    width: 64px;
+  &__related-wrap {
     margin: 0 auto;
 
     &:first-of-type {
@@ -53,19 +58,28 @@
     }
   }
 
-  &__similar-artist-item {
-    float: left;
+  &__related-item {
     margin-right: 10px;
-    width: calc(16% - 10px);
+    overflow: hidden;
+    width: calc(20% - 10px);
+
+    @include breakpoint(1700px) {
+      width: calc(10% - 10px);
+    }
+
   }
 
-  &__similar-artist-text {
+  &__related-image {
+    width: 100%;
+  }
+
+  &__related-text {
     display: block;
     text-align: center;
-    margin-top: 6px;
+    margin: 6px 0 20px 0;
   }
 
-  &__similar-artist-link {
+  &__related-link {
     display:block;
     font-size: 13px;
     color: #fff;
