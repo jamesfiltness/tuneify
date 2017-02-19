@@ -3,6 +3,7 @@ import classNames from 'classNames';
 import { connect } from 'react-redux';
 import SavePlaylistModal from './modals/save-playlist-modal';
 import CreatePlaylistModal from './modals/create-playlist-modal';
+import ArtistBioModal from './modals/artist-bio';
 import { hideModal } from '../../actions/modal';
 
 export class Modal extends React.Component {
@@ -23,7 +24,9 @@ export class Modal extends React.Component {
         return <SavePlaylistModal text="Save Playlist" />
       case 'createPlaylist' :
         return <CreatePlaylistModal text="New Playlist" />
-      default: 
+      case 'full-bio' :
+        return <ArtistBioModal text="Artist Bio" />
+      default:
         return null
     }
   }
@@ -32,18 +35,19 @@ export class Modal extends React.Component {
   hideModal() {
     this.props.hideModal();
   }
-  
+
   render() {
     const modalContent = this.getModalContent();
 
     const classes = classNames(
       'modal',
+      `modal--${this.props.modalType}`,
        this.props.modalVisible ? 'modal--visible' : '',
     );
 
     return (
       <div className={classes}>
-        <div 
+        <div
           className="modal__overlay"
           onClick={this.hideModal}
         >
@@ -51,7 +55,7 @@ export class Modal extends React.Component {
         <div className="modal__dialog dialog">
           <div className="dialog__content-container">
             {modalContent}
-            <div 
+            <div
               className="dialog__close"
               onClick={this.hideModal}
             >
@@ -63,7 +67,7 @@ export class Modal extends React.Component {
     )
   }
 }
-  
+
 function mapStateToProps(state) {
   return {
     modalVisible: state.modal.modalVisible,
@@ -72,7 +76,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  hideModal: hideModal, 
+  hideModal: hideModal,
 }
 
 export default connect(

@@ -24,6 +24,7 @@
 @import '../components/modal/styles';
 @import '../components/playlist-image/styles';
 @import '../components/track-tools/styles';
+@import '../components/modal/modals/artist-bio/styles';
 
 .route-content-spinner {
    background:  url('../images/spinner.svg') no-repeat;
@@ -33,16 +34,18 @@
 }
 
 
-body::-webkit-scrollbar
+*::-webkit-scrollbar
 {
 	width:11px;
-	background-color:#000000;
+	background-color: #000;
 }
-body::-webkit-scrollbar:horizontal
+
+*::-webkit-scrollbar:horizontal
 {
 	height:11px;
 }
-body::-webkit-scrollbar-thumb
+
+*::-webkit-scrollbar-thumb
 {
 	border:2px solid transparent;
 	background-color:#505050;
@@ -51,7 +54,8 @@ body::-webkit-scrollbar-thumb
 	-moz-border-radius:7px;
 	border-radius:7px;
 }
-body::-webkit-scrollbar-corner
+
+*::-webkit-scrollbar-corner
 {
 	background-color:#000000;
 }
@@ -65,7 +69,7 @@ body::-webkit-scrollbar-corner
   border: none;
   margin-right: 10px;
   cursor: pointer;
-  
+
   &:focus {
     outline: none;
   }
@@ -92,10 +96,10 @@ body::-webkit-scrollbar-corner
 }
 
 ::selection {
-  background: #aaa; 
+  background: #aaa;
 }
 ::-moz-selection {
-  background: #aaa; 
+  background: #aaa;
 }
 
 .page-with-padding {

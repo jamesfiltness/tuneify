@@ -1,5 +1,6 @@
 import * as types from '../../constants/ActionTypes.js'
 import { fetchLastFmData } from '../lastfm'
+import { showModal } from '../modal';
 
 export function getArtistPageData(params) {
   const actions =
@@ -32,6 +33,12 @@ export function getArtistAlbums(params) {
 
   return fetchLastFmData(actions, query);
 };
+
+export function showFullBio(props) {
+  return (dispatch, getState) => {
+    dispatch(showModal('full-bio', props))
+  }
+}
 
 export function getSimilarArtists(params) {
   const actions =

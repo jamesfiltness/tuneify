@@ -90,3 +90,13 @@
     }
   }
 }
+
+.modal {
+  &--full-bio {
+    .modal__dialog {
+      top: 10px;
+      width: 650px;
+      left: calc(50% - 325px);
+    }
+  }
+}
