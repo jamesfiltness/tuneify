@@ -7,6 +7,7 @@ import {
   getArtistAlbums,
   clearArtistPageData,
   getSimilarArtists,
+  showFullBio,
 } from '../../actions/artist';
 
 export class Artist extends React.Component {
@@ -15,6 +16,11 @@ export class Artist extends React.Component {
     artistPageData: PropTypes.object,
   }
 
+  constructor(props) {
+    super(props);
+
+    this.showFullBio = this.showFullBio.bind(this);
+  }
   componentDidMount() {
     if (this.props.params.mbid) {
       this.getArtistByMbid(this.props.params.mbid);
@@ -60,9 +66,12 @@ export class Artist extends React.Component {
     };
   }
 
+  showFullBio() {
+    this.props.showFullBio(this.props);
+  }
+
   // TODO: Break this and render albums out in to a seperate component
   renderSimilarArtists() {
-    console.log(this.props);
     if (this.props.similarArtists) {
       return (
         <div className="artist__related">
@@ -195,6 +204,7 @@ export class Artist extends React.Component {
                 <a
                   href="#"
                   className="artist__read-more-link"
+                  onClick={this.showFullBio}
                 >Read more</a>
               </p>
             </div>
@@ -221,6 +231,7 @@ const mapDispatchToProps = {
   getArtistAlbums,
   clearArtistPageData,
   getSimilarArtists,
+  showFullBio,
 }
 
 function mapStateToProps(state) {

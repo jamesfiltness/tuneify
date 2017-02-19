@@ -2,6 +2,10 @@
   padding: 10px 0 0 30px;
   overflow: scroll;
 
+  &::-webkit-scrollbar {
+    background: #191919;
+  }
+
   &__heading {
     text-transform: uppercase;
     color: #aaa;
