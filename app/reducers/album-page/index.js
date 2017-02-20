@@ -7,11 +7,6 @@ export function albumPageData(state = null, action) {
       // TODO: need a better solution for dealing with images here
       // what if this image is not defined
       // need to also confirm that all the required properties are here
-      if(action.json.album.tracks.track.length === 0) {
-        return {
-          error: "JSON response empty",
-        }
-      }
       return {
         artist: action.json.album.artist,
         tracks: action.json.album.tracks.track,
@@ -25,16 +20,15 @@ export function albumPageData(state = null, action) {
   }
 }
 
-export function currentAlbumPageError(state = '', action) {
+export function currentAlbumPageError(state = false, action) {
   switch(action.type) {
     case types.ALBUM_PAGE_DATA_ERROR:
-      return {
-        error: action,
-      }
+      console.log('in');
+      return true;
     case types.CLEAR_ALBUM_PAGE_ERROR:
-      return null;
+      return false;
     default:
-      return state
+      return state;
   }
 }
 

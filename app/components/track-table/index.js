@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Track from '../track';
 import TrackTableHeader from './track-table-header';
+import ErrorMessage from '../error-message';
 
 export default class TrackTable extends React.Component {
   static PropTypes = {
@@ -20,7 +21,6 @@ export default class TrackTable extends React.Component {
   onClickTrack(track) {
     const globalPlaylistImg = this.props.playlistImg;
     const image = globalPlaylistImg ? globalPlaylistImg : track.img;
-    console.log('@@@@@@@@@@', image);
     this.props.onClickTrack(
       track,
       image
@@ -28,19 +28,20 @@ export default class TrackTable extends React.Component {
   }
 
   render() {
+    if (this.props.playlist.length) {
     return (
       <div className="tracks">
         <table className="tracks__table">
-          <TrackTableHeader 
-            renderArtistCol={this.props.renderArtistCol} 
+          <TrackTableHeader
+            renderArtistCol={this.props.renderArtistCol}
           />
           <tbody>
             {
               this.props.playlist.map((track, i) => {
-                const artist = typeof track.artist === 'string' ? 
-                track.artist : 
-                null; 
-                
+                const artist = typeof track.artist === 'string' ?
+                track.artist :
+                null;
+
                 return (
                   <Track
                     rank={i + 1}
@@ -63,8 +64,13 @@ export default class TrackTable extends React.Component {
               })
             }
           </tbody>
-        </table> 
+        </table>
       </div>
     )
+  } else {
+    return (
+      <ErrorMessage title="Sorry, we don't have the tracks for this album" />
+    )
   }
+}
 }

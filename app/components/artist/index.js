@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import ErrorMessage from '../error-message';
 import {
   clearArtistPageError,
   getArtistPageData,
@@ -12,7 +13,7 @@ import {
 
 export class Artist extends React.Component {
   static propTypes = {
-    currentArtistPageError: PropTypes.string,
+    currentArtistPageError: PropTypes.bool,
     artistPageData: PropTypes.object,
   }
 
@@ -176,8 +177,8 @@ export class Artist extends React.Component {
       // json object. To counter this the reducer has a case for
       // this an returns and error property when it does happen
       if(artistPageData.error) {
-        return(
-          <h3>No artist found for this search result.</h3>
+        return (
+          <ErrorMessage />
         )
       } else {
         return (
@@ -214,8 +215,8 @@ export class Artist extends React.Component {
         );
       }
     } else if(currentArtistPageError) {
-      return(
-        <h3>No artist found for this search result.</h3>
+      return (
+        <ErrorMessage />
       );
     } else {
       return (

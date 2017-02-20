@@ -44,14 +44,12 @@ export function similarArtists(state = null, action) {
   }
 }
 
-export function currentArtistPageError(state = '', action) {
+export function currentArtistPageError(state = false, action) {
   switch(action.type) {
     case types.ARTIST_PAGE_DATA_ERROR:
-      return {
-        error: action,
-      }
+      return true;
     case types.CLEAR_ARTIST_PAGE_ERROR:
-      return null;
+      return false;
     default:
       return state
   }
