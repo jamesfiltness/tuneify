@@ -9,7 +9,7 @@ export class PlaylistPage extends React.Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       playlistData: null,
     };
@@ -18,14 +18,14 @@ export class PlaylistPage extends React.Component {
   componentDidMount() {
     this.extractPlaylist(this.props);
   }
-  
+
   componentWillReceiveProps(nextProps) {
-    this.extractPlaylist(nextProps);   
+    this.extractPlaylist(nextProps);
   }
-   
+
   extractPlaylist(props) {
     const playlistId = props.params.playlistid;
-    
+
     if (props.userPlaylists.length) {
       const playlistData = props.userPlaylists.find(
         playlist => playlist.id === playlistId
@@ -35,15 +35,17 @@ export class PlaylistPage extends React.Component {
       });
     }
   }
-  
+
   render() {
     if (this.state.playlistData) {
       return (
-        <Playlist 
-          tracks={this.state.playlistData.tracks}
-          heading="Playlist"
-          name={this.state.playlistData.name}
-        />
+        <div className="playlist-page">
+          <Playlist
+            tracks={this.state.playlistData.tracks}
+            heading="Playlist"
+            name={this.state.playlistData.name}
+          />
+      </div>
       )
     } else {
       return (
