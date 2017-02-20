@@ -1,10 +1,10 @@
 import React from 'react'
 
-function ErrorMessage() {
+function ErrorMessage(props) {
   return (
     <div className="error-message page-with-padding">
       <h3 className="error-message__heading">
-        Sorry, We can't find what you're looking for
+        { props.title }
       </h3>
       <p>
         Because we're a completely free service we rely other free services to provide us
@@ -15,4 +15,8 @@ function ErrorMessage() {
   );
 }
 
-export default ErrorMessage;
+ErrorMessage.defaultProps = {
+  title: "Sorry, We can't find what you're looking for"
+};
+
+  export default ErrorMessage;
