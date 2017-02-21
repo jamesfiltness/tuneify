@@ -15,6 +15,7 @@ import Artist from './components/artist';
 import Album from './components/album';
 import PlaylistPage from './components/playlist-page';
 import PageNotFound from './components/page-not-found';
+import SearchResults from './components/search-results';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -41,9 +42,10 @@ render(
       history={history}
       onUpdate={() => window.scrollTo(0, 0)}
     >
-    
+
   <Route component={App} path="/">
     <IndexRoute component={Home} />
+    <Route component={SearchResults} path="search" />
     <Route component={Artist} path="artist/:mbid" />
     <Route component={Album} path="album/:artist/:album" />
     <Route component={Album} path="album/:mbid" />

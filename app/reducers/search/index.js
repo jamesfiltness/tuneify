@@ -3,13 +3,13 @@ import { combineReducers } from 'redux';
 
 export function currentSearch(state = '' , action) {
   switch (action.type) {
-    case types.REQUEST_DATA:
-      return  action.searchTerm
+    case types.INITIALISING_SEARCH:
+      return action.searchTerm
     case types.CLEAR_SEARCH:
       return  null;
-    default: 
+    default:
       return state
-  }    
+  }
 }
 
 export function searching(state = false, action) {

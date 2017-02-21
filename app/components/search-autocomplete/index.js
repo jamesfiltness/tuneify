@@ -1,37 +1,37 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import SearchAutoCompleteSection from '../search-autocomplete-section';
 import { autocompleteTrackSelected } from '../../actions/search';
 
 export class SearchAutoComplete extends React.Component {
   static PropTypes = {
-    artists: PropTypes.array,  
-    albums: PropTypes.array,  
+    artists: PropTypes.array,
+    albums: PropTypes.array,
     tracks: PropTypes.array,
     autoCompleteTrackSelected: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
-      autoCompleteVisible: false, 
+      autoCompleteVisible: false,
     };
   }
-  
+
   componentWillReceiveProps(nextProps) {
     let autoCompleteVisible = false;
-    
+
     if (
-      nextProps.artists.length || 
-      nextProps.tracks.length || 
-      nextProps.albums.length && 
+      nextProps.artists.length ||
+      nextProps.tracks.length ||
+      nextProps.albums.length &&
       nextProps.searchFocused
     ) {
       autoCompleteVisible = true;
     }
-    
+
     this.setState({
       autoCompleteVisible,
     });
@@ -65,25 +65,25 @@ export class SearchAutoComplete extends React.Component {
 
   handleDocumentClick(e) {
     if (
-      this.state.autoCompleteVisible && 
+      this.state.autoCompleteVisible &&
       e.target.className !== 'search__input'
     ) {
       this.setState({
         autoCompleteVisible: false,
-      });  
+      });
     }
   }
 
   render() {
-    const { 
+    const {
       artists,
       tracks,
       albums
     }  = this.props;
-    
+
     if (this.state.autoCompleteVisible) {
       return (
-        <div 
+        <div
           className="autocomplete"
           ref={(autoComplete) => this.autoComplete = autoComplete }
         >
@@ -95,8 +95,8 @@ export class SearchAutoComplete extends React.Component {
             title="Tracks"
             data={tracks}
             onSelectResult={
-             (searchParams) => { 
-               this.props.autocompleteTrackSelected(searchParams) 
+             (searchParams) => {
+               this.props.autocompleteTrackSelected(searchParams)
              }
             }
           />
@@ -104,6 +104,12 @@ export class SearchAutoComplete extends React.Component {
             title="Albums"
             data={albums}
           />
+          <Link
+            to="/search"
+            className="autocomplete__view-more"
+          >
+            {`More results for ${this.props.currentSearch}`}
+          </Link>
         </div>
       )
     } else {
@@ -116,7 +122,14 @@ const mapDispatchToProps = {
   autocompleteTrackSelected,
 };
 
+function mapStateToProps(state) {
+  console.log(state);
+  return {
+    currentSearch: state.search.currentSearch,
+  };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(SearchAutoComplete)

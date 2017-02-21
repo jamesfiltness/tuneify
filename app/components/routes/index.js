@@ -4,12 +4,13 @@ import App from '../app';
 import Home  from '../home';
 import Artist from '../artist';
 import Album from '../album';
+import SearchResults from '../search-results';
 import PlaylistPage from '../playlist-page';
 import PageNotFound from '../page-not-found';
 import auth0Service from '../../utils/auth0-service';
 
 const authService = new auth0Service();
- 
+
 export default class routes extends React.Component {
   authenticateRoute(nextState, replace, callback) {
     if (authService.isLoggedIn()) {
@@ -25,6 +26,7 @@ export default class routes extends React.Component {
     return (
       <Route component={App} path="/">
         <IndexRoute component={Home} />
+        <Route component={SearchResults} path="search" />
         <Route component={Artist} path="artist/:mbid" />
         <Route component={Album} path="album/:artist/:album" />
         <Route component={Album} path="album/:mbid" />
