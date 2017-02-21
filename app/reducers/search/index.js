@@ -16,9 +16,9 @@ export function searching(state = false, action) {
   switch(action.type) {
     case types.INITIALISING_SEARCH:
       return true;
-    case types.RECEIVE_TRACK_DATA:
-    case types.RECEIVE_ARTIST_DATA:
-    case types.RECEIVE_ALBUM_DATA:
+    case types.RECEIVE_AUTOCOMPLETE_TRACK_DATA:
+    case types.RECEIVE_AUTOCOMPLETE_ARTIST_DATA:
+    case types.RECEIVE_AUTOCOMPLETE_ALBUM_DATA:
       return false;
     default:
       return state;

@@ -25,12 +25,12 @@ export function autocompleteTrackSelected(selectedTrackData) {
   }
 };
 
-export function fetchArtistData(searchTerm, limit = 3) {
+export function fetchArtistData(searchTerm, type, limit = 3) {
   const actions =
     [
       types.LAST_FM_API_REQUEST,
-      types.RECEIVE_ARTIST_DATA,
-      types.RECEIVE_ARTIST_DATA
+      types[`RECEIVE_${type}_ARTIST_DATA`],
+      types[`RECEIVE_${type}_ARTIST_DATA`]
     ];
 
   const params = {
@@ -43,12 +43,12 @@ export function fetchArtistData(searchTerm, limit = 3) {
 };
 
 // TODO: Add error actions here!
-export function fetchAlbumData(searchTerm, limit = 3) {
+export function fetchAlbumData(searchTerm, type, limit = 3) {
   const actions =
     [
       types.LAST_FM_API_REQUEST,
-      types.RECEIVE_ALBUM_DATA,
-      types.RECEIVE_ALBUM_DATA
+      types[`RECEIVE_${type}_ALBUM_DATA`],
+      types[`RECEIVE_${type}_ALBUM_DATA`]
     ];
 
   const params = {
@@ -60,12 +60,12 @@ export function fetchAlbumData(searchTerm, limit = 3) {
   return fetchLastFmData(actions, params);
 };
 
-export function fetchTrackData(searchTerm, limit = 3) {
+export function fetchTrackData(searchTerm, type, limit = 3) {
   const actions =
     [
       types.LAST_FM_API_REQUEST,
-      types.RECEIVE_TRACK_DATA,
-      types.RECEIVE_TRACK_DATA
+      types[`RECEIVE_${type}_TRACK_DATA`],
+      types[`RECEIVE_${type}_TRACK_DATA`]
     ];
 
   const params = {
@@ -86,11 +86,11 @@ export function initialisingSearch(searchTerm) {
 
 export function searchPerformed(searchTerm) {
   return dispatch => {
-    if(searchTerm.length > 1) {
+    if (searchTerm.length > 1) {
       dispatch(initialisingSearch(searchTerm));
-      dispatch(fetchArtistData(searchTerm));
-      dispatch(fetchTrackData(searchTerm));
-      dispatch(fetchAlbumData(searchTerm));
+      dispatch(fetchArtistData(searchTerm, 'AUTOCOMPLETE'));
+      dispatch(fetchTrackData(searchTerm, 'AUTOCOMPLETE'));
+      dispatch(fetchAlbumData(searchTerm, 'AUTOCOMPLETE'));
     } else {
       dispatch(clearSearch())
     }

@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-
 import { search } from '../../reducers/search';
 import { currentTrackSummaryData } from '../../reducers/track-summary';
 import { autocomplete } from '../../reducers/autocomplete';
@@ -14,6 +13,7 @@ import { playQueue } from '../../reducers/play-queue';
 import { authenticated } from '../../reducers/auth';
 import { playlists } from '../../reducers/playlists';
 import { modal } from '../../reducers/modal';
+import { searchResults } from '../../reducers/search-results';
 
 import { loggedIn, loggedOut } from '../../actions/auth';
 
@@ -31,6 +31,7 @@ const reducers = combineReducers(
     playQueue,
     playlists,
     modal,
+    searchResults,
     routing: routerReducer,
   }
 );
