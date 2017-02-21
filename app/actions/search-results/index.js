@@ -8,7 +8,6 @@ import {
 } from '../search';
 
 export function getFullSearchResults(searchTerm) {
-  console.log('om ne');
   return dispatch => {
     const limit = 30;
 
