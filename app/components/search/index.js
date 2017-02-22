@@ -42,12 +42,12 @@ export class Search extends React.Component {
     return (
       <div className="search">
         <input
-          className="search__input"  
+          className="search__input"
           type="text"
           autoFocus
-          ref={(input) => this.input = input} 
+          ref={(input) => this.input = input}
           placeholder="Artist, Album or Track"
-          onChange={() => this.handleSearch()} 
+          onChange={() => this.handleSearch()}
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
         />

@@ -15,7 +15,7 @@ export function autocompleteTrackSelected(selectedTrackData) {
   return (dispatch, getState)  => {
     dispatch(
       addTrackToQueueAndPlay(
-        { 
+        {
           name: selectedTrackData.name,
           artist: selectedTrackData.artist,
         },
@@ -25,15 +25,15 @@ export function autocompleteTrackSelected(selectedTrackData) {
   }
 };
 
-export function fetchArtistData(searchTerm, limit = 3) {
-  const actions =  
+export function fetchArtistData(searchTerm, type, limit = 3) {
+  const actions =
     [
-      types.LAST_FM_API_REQUEST, 
-      types.RECEIVE_ARTIST_DATA,
-      types.RECEIVE_ARTIST_DATA
+      types.LAST_FM_API_REQUEST,
+      types[`RECEIVE_${type}_ARTIST_DATA`],
+      types[`RECEIVE_${type}_ARTIST_DATA`]
     ];
 
-  const params = { 
+  const params = {
     method: 'artist.search',
     artist: searchTerm,
     limit: limit,
@@ -43,15 +43,15 @@ export function fetchArtistData(searchTerm, limit = 3) {
 };
 
 // TODO: Add error actions here!
-export function fetchAlbumData(searchTerm, limit = 3) {
-  const actions =  
+export function fetchAlbumData(searchTerm, type, limit = 3) {
+  const actions =
     [
-      types.LAST_FM_API_REQUEST, 
-      types.RECEIVE_ALBUM_DATA,
-      types.RECEIVE_ALBUM_DATA
+      types.LAST_FM_API_REQUEST,
+      types[`RECEIVE_${type}_ALBUM_DATA`],
+      types[`RECEIVE_${type}_ALBUM_DATA`]
     ];
 
-  const params = { 
+  const params = {
     method: 'album.search',
     album: searchTerm,
     limit: limit,
@@ -60,15 +60,15 @@ export function fetchAlbumData(searchTerm, limit = 3) {
   return fetchLastFmData(actions, params);
 };
 
-export function fetchTrackData(searchTerm, limit = 3) {
-  const actions =  
+export function fetchTrackData(searchTerm, type, limit = 3) {
+  const actions =
     [
-      types.LAST_FM_API_REQUEST, 
-      types.RECEIVE_TRACK_DATA,
-      types.RECEIVE_TRACK_DATA
+      types.LAST_FM_API_REQUEST,
+      types[`RECEIVE_${type}_TRACK_DATA`],
+      types[`RECEIVE_${type}_TRACK_DATA`]
     ];
 
-  const params = { 
+  const params = {
     method: 'track.search',
     track: searchTerm,
     limit: limit,
@@ -77,19 +77,20 @@ export function fetchTrackData(searchTerm, limit = 3) {
   return fetchLastFmData(actions, params);
 };
 
-export function initialisingSearch() {
+export function initialisingSearch(searchTerm) {
   return {
     type: types.INITIALISING_SEARCH,
+    searchTerm,
   }
 };
 
 export function searchPerformed(searchTerm) {
   return dispatch => {
-    if(searchTerm.length > 1) {
-      dispatch(initialisingSearch());
-      dispatch(fetchArtistData(searchTerm));
-      dispatch(fetchTrackData(searchTerm));
-      dispatch(fetchAlbumData(searchTerm));
+    if (searchTerm.length > 1) {
+      dispatch(initialisingSearch(searchTerm));
+      dispatch(fetchArtistData(searchTerm, 'AUTOCOMPLETE'));
+      dispatch(fetchTrackData(searchTerm, 'AUTOCOMPLETE'));
+      dispatch(fetchAlbumData(searchTerm, 'AUTOCOMPLETE'));
     } else {
       dispatch(clearSearch())
     }

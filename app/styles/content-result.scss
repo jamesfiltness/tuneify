@@ -1,0 +1,54 @@
+.content-result {
+  clear: left;
+  padding-top: 25px;
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__image {
+    display:block;
+    border-radius: 3px;
+  }
+
+  &__wrap {
+    margin: 0 auto;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+
+  &__item {
+    margin-right: 10px;
+    overflow: hidden;
+    font-size: 13px;
+    width: calc(20% - 10px);
+
+    @include breakpoint(1700px) {
+      width: calc(10% - 10px);
+    }
+
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__text {
+    display: block;
+    text-align: center;
+    margin: 6px 0 20px 0;
+  }
+
+  &__link {
+    display:block;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
