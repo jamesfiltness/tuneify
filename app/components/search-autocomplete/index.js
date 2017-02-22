@@ -106,9 +106,12 @@ export class SearchAutoComplete extends React.Component {
           />
           <Link
             to="/search"
-            className="autocomplete__view-more"
+            className="autocomplete__view-more view-more"
           >
-            {`More results for ${this.props.currentSearch}`}
+            <i className="fa fa-search-plus" aria-hidden="true"></i>
+            <span className="view-more__link">
+              {`More results for "${this.props.currentSearch}"`}
+            </span>
           </Link>
         </div>
       )

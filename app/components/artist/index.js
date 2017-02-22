@@ -75,9 +75,9 @@ export class Artist extends React.Component {
   renderSimilarArtists() {
     if (this.props.similarArtists) {
       return (
-        <div className="artist__related">
+        <div className="content-result">
           <h4 className="uppercase">Similar Artists</h4>
-          <ul className="artist__related-list">
+          <ul className="content-result__list">
             {
               this.props.similarArtists.map(
                 (artist, i) => {
@@ -88,18 +88,18 @@ export class Artist extends React.Component {
                     return (
                       <li
                         key={i}
-                        className="artist__related-item"
+                        className="content-result__item"
                       >
                         <Link
                           to={`/artist/${mbid}`}
-                          className="artist__related-link"
+                          className="content-result__link"
                         >
                           <img
                             src={image}
                             alt={artist.name}
-                            className="artist__related-image"
+                            className="content-result__image"
                           />
-                          <span className="artist__related-text">
+                          <span className="content-result__text">
                             {artist.name}
                           </span>
                         </Link>
@@ -122,9 +122,9 @@ export class Artist extends React.Component {
   renderAlbums() {
     if (this.props.artistPageAlbum) {
       return (
-        <div className="artist__related">
+        <div className="content-result">
           <h4 className="uppercase">Top Albums</h4>
-          <ul className="artist__related-list">
+          <ul className="content-result__list">
             {
               this.props.artistPageAlbum.map(
                 (album, i) => {
@@ -135,18 +135,18 @@ export class Artist extends React.Component {
                     return (
                       <li
                         key={i}
-                        className="artist__related-item"
+                        className="content-result__item"
                       >
                         <Link
                           to={`/album/${mbid}`}
-                          className="artist__related-link"
+                          className="content-result__link"
                         >
                           <img
                             src={image}
                             alt={album.name}
-                            className="artist__related-image"
+                            className="content-result__image"
                           />
-                          <span className="artist__related-text">
+                          <span className="content-result__text">
                             {album.name}
                           </span>
                         </Link>

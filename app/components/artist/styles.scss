@@ -34,61 +34,6 @@
       text-decoration: underline;
     }
   }
-
-  &__related {
-    clear: left;
-    padding-top: 25px;
-  }
-
-  &__related-list {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  &__related-image {
-    display:block;
-    border-radius: 3px;
-  }
-
-  &__related-wrap {
-    margin: 0 auto;
-
-    &:first-of-type {
-      margin-left: 0;
-    }
-  }
-
-  &__related-item {
-    margin-right: 10px;
-    overflow: hidden;
-    width: calc(20% - 10px);
-
-    @include breakpoint(1700px) {
-      width: calc(10% - 10px);
-    }
-
-  }
-
-  &__related-image {
-    width: 100%;
-  }
-
-  &__related-text {
-    display: block;
-    text-align: center;
-    margin: 6px 0 20px 0;
-  }
-
-  &__related-link {
-    display:block;
-    font-size: 13px;
-    color: #fff;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 .modal {

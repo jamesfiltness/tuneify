@@ -7,3 +7,17 @@
 	background: #282727;
   z-index: 4;
 }
+
+.view-more {
+  color: #fff;
+  background: #444;
+  text-decoration: none;
+  display: block;
+  padding: 7px;
+  font-size: 15px;
+
+  &__link {
+    display: inline-block;
+    padding-left: 7px;
+  }
+}

@@ -13,6 +13,7 @@ export function artistData(state = [] , action) {
         .artistmatches.artist.map(child => child);
       return results.concat(artists);
     case types.CLEAR_SEARCH_PAGE:
+    case types.CLEAR_FULL_SEARCH_RESULTS:
       return []
     default:
       return state
@@ -31,6 +32,7 @@ export function trackData(state = [] , action) {
         .trackmatches.track.map(child => child);
       return results.concat(tracks);
     case types.CLEAR_SEARCH_PAGE:
+    case types.CLEAR_FULL_SEARCH_RESULTS:
       return []
     default:
       return state
@@ -49,6 +51,7 @@ export function albumData(state = [] , action) {
         .albummatches.album.map(child => child);
       return results.concat(albums);
     case types.CLEAR_SEARCH_PAGE:
+    case types.CLEAR_FULL_SEARCH_RESULTS:
       return []
     default:
       return state
