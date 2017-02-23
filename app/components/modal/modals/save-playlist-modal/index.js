@@ -10,24 +10,34 @@ export class SavePlaylistModal extends React.Component {
     createPlaylist: PropTypes.func.isRequired,
     creatingUserPlaylist: PropTypes.bool.isRequired,
   };
-  
+
   constructor(props) {
     super(props);
-    
+
     this.state = {
       saveError: false,
-    }
+      inputVal: '',
+    };
 
     this.savePlaylist = this.savePlaylist.bind(this);
-    this.updateErrorState = this.updateErrorState.bind(this);
+    this.updateFieldState = this.updateFieldState.bind(this);
+
   }
-  
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.creatingUserPlaylist) {
+      this.setState({
+        inputVal: '',
+      });
+    }
+  }
+
   savePlaylist() {
     if (!this.input.value.length) {
-      this.showErrorState(); 
+      this.showErrorState();
     } else {
       this.props.createPlaylist(
-        this.input.value, 
+        this.input.value,
         this.props.playQueue
       );
     }
@@ -35,7 +45,7 @@ export class SavePlaylistModal extends React.Component {
 
   showErrorState() {
     this.setState({
-      saveError: true,  
+      saveError: true,
     })
   }
 
@@ -43,16 +53,21 @@ export class SavePlaylistModal extends React.Component {
     return this.state.saveError ?
     <p className="dialog__error-text">
       Please give your playlist a name
-    </p> : 
+    </p> :
     null
   }
 
-  updateErrorState() {
+  updateFieldState() {
+    let saveError = true;
+
     if (this.input.value.length) {
-      this.setState({
-        saveError: false,
-      });
-    }  
+      saveError = false;
+    }
+
+    this.setState({
+      saveError,
+      inputVal: this.input.value,
+    });
   }
 
   render() {
@@ -60,7 +75,7 @@ export class SavePlaylistModal extends React.Component {
       'dialog__input',
       this.state.saveError ? 'dialog__input--error' : '',
     );
-    
+
     const spinnerClasses = classNames(
       'dialog__spinner',
       this.props.creatingUserPlaylist ? 'dialog__spinner--visible' : '',
@@ -73,10 +88,11 @@ export class SavePlaylistModal extends React.Component {
         </h3>
         <div className="dialog__content">
           {this.showErrorMessage()}
-          <input 
-            type="text" 
-            onChange={this.updateErrorState}
-            placeholder="Give your playlist a name" 
+          <input
+            type="text"
+            value={this.state.inputVal}
+            onChange={this.updateFieldState}
+            placeholder="Give your playlist a name"
             ref={(input) => { this.input = input }}
             className={inputClasses}
           />
@@ -108,6 +124,6 @@ const mapDispatchToProps = {
 }
 
 export default connect(
- mapStateToProps, 
+ mapStateToProps,
  mapDispatchToProps
 )(SavePlaylistModal);
