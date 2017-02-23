@@ -30,7 +30,7 @@ export function fetchArtistData(searchTerm, type, limit = 3) {
     [
       types.LAST_FM_API_REQUEST,
       types[`RECEIVE_${type}_ARTIST_DATA`],
-      types[`RECEIVE_${type}_ARTIST_DATA`]
+      types[`RECEIVE_${type}_ARTIST_DATA_ERROR`]
     ];
 
   const params = {
@@ -48,7 +48,7 @@ export function fetchAlbumData(searchTerm, type, limit = 3) {
     [
       types.LAST_FM_API_REQUEST,
       types[`RECEIVE_${type}_ALBUM_DATA`],
-      types[`RECEIVE_${type}_ALBUM_DATA`]
+      types[`RECEIVE_${type}_ALBUM_DATA_ERROR`]
     ];
 
   const params = {
@@ -65,7 +65,7 @@ export function fetchTrackData(searchTerm, type, limit = 3) {
     [
       types.LAST_FM_API_REQUEST,
       types[`RECEIVE_${type}_TRACK_DATA`],
-      types[`RECEIVE_${type}_TRACK_DATA`]
+      types[`RECEIVE_${type}_TRACK_DATA_ERROR`]
     ];
 
   const params = {
