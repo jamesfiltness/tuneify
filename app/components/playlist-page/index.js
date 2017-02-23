@@ -9,7 +9,7 @@ export class PlaylistPage extends React.Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       playlistData: null,
     };
@@ -18,14 +18,14 @@ export class PlaylistPage extends React.Component {
   componentDidMount() {
     this.extractPlaylist(this.props);
   }
-  
+
   componentWillReceiveProps(nextProps) {
-    this.extractPlaylist(nextProps);   
+    this.extractPlaylist(nextProps);
   }
-   
+
   extractPlaylist(props) {
     const playlistId = props.params.playlistid;
-    
+
     if (props.userPlaylists.length) {
       const playlistData = props.userPlaylists.find(
         playlist => playlist.id === playlistId
@@ -35,20 +35,30 @@ export class PlaylistPage extends React.Component {
       });
     }
   }
-  
+
   render() {
-    if (this.state.playlistData) {
-      return (
-        <Playlist 
-          tracks={this.state.playlistData.tracks}
-          heading="Playlist"
-          name={this.state.playlistData.name}
-        />
-      )
+    if (this.props.userPlaylists.length) {
+      if (this.state.playlistData) {
+        return (
+          <Playlist
+            tracks={this.state.playlistData.tracks}
+            heading="Playlist"
+            name={this.state.playlistData.name}
+          />
+        )
+      } else {
+        return (
+          <div className="error-message page-with-padding">
+            <h3 className="error-message__heading">
+              Sorry, We can't find what you're looking for
+            </h3>
+          </div>
+        );
+      }
     } else {
       return (
         <div className="route-content-spinner" />
-      );
+      )
     }
   }
 }
