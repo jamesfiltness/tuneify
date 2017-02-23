@@ -5,6 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import fetchMiddleware from '../middleware/fetch-middleware';
 import authMiddleware from '../middleware/auth-middleware';
+import lastFmCallCountMiddleware from '../middleware/lastfm';
 import reducers from './reducers';
 
 const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
@@ -14,6 +15,7 @@ const reactRouterReduxMiddleware = routerMiddleware(browserHistory);
 const createStoreWithMiddleware = applyMiddleware(
   authMiddleware,
   fetchMiddleware,
+  lastFmCallCountMiddleware,
   thunkMiddleware,
   reactRouterReduxMiddleware,
 )(createStore);
