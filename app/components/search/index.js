@@ -12,7 +12,7 @@ export class Search extends React.Component {
 
   constructor() {
     super();
-    this.handleSearch = throttle(this.handleSearch, 1000);
+    this.handleSearch = throttle(this.handleSearch, 1500);
 
     this.state = {
       searching: false,
