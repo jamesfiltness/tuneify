@@ -126,7 +126,6 @@ const mapDispatchToProps = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     currentSearch: state.search.currentSearch,
   };
