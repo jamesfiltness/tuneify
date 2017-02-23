@@ -3,8 +3,8 @@ import { browserHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import fetchMiddleware from '../middleware/fetch-middleware';
-import authMiddleware from '../middleware/auth-middleware';
+import fetchMiddleware from '../middleware/fetch';
+import authMiddleware from '../middleware/auth';
 import lastFmCallCountMiddleware from '../middleware/lastfm';
 import reducers from './reducers';
 
