@@ -42,6 +42,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: config.get('app-title'),
       template: 'layout.ejs',
+      favicon: './app/images/favicon.ico',
       window: {
         clientConfig: {
           endpoints: config.get('endpoints'),
