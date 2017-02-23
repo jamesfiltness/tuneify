@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import TrackTable from '../track-table';
 import TrackTools from '../track-tools';
 import PlaylistImage from '../playlist-image';
-import { 
+import {
   appendTracksToPlayQueue,
   appendTrackToPlayQueue,
   addTrackToQueueAndPlay,
@@ -15,8 +15,8 @@ export class Playlist extends React.Component {
     heading: PropTypes.string.isRequired,
     tracks: PropTypes.array.isRequired,
     name: PropTypes.string.isRequired,
-    appendTracksToPlayQueue: PropTypes.func.isRequired, 
-    appendTrackToPlayQueue: PropTypes.func.isRequired, 
+    appendTracksToPlayQueue: PropTypes.func.isRequired,
+    appendTrackToPlayQueue: PropTypes.func.isRequired,
     replaceQueueWithTracksAndPlay: PropTypes.func.isRequired,
     addTrackToQueueAndPlay: PropTypes.func.isRequired,
     image: PropTypes.string,
@@ -25,7 +25,7 @@ export class Playlist extends React.Component {
 
   constructor(props) {
     super(props);
-    
+
     this.showTrackTools = this.showTrackTools.bind(this);
     this.appendPlaylistToQueue = this.appendPlaylistToQueue.bind(this);
     this.replaceQueueWithPlaylistAndPlay = this.replaceQueueWithPlaylistAndPlay.bind(this);
@@ -36,17 +36,17 @@ export class Playlist extends React.Component {
       trackToolsElement: null,
     }
   }
-  
-  componentDidMount() { 
+
+  componentDidMount() {
     document.addEventListener(
-      'click', 
+      'click',
       this.handleDocumentClick, false
     );
   }
 
   componentWillUnmount() {
     document.removeEventListener(
-      'click', 
+      'click',
       this.handleDocumentClick, false
     );
   }
@@ -54,7 +54,7 @@ export class Playlist extends React.Component {
   handleDocumentClick(e) {
     if (!e.target.classList.contains('track__options')) {
       this.setState({
-        trackToolsVisible: false,  
+        trackToolsVisible: false,
       });
     }
   }
@@ -71,7 +71,7 @@ export class Playlist extends React.Component {
       currentTrack: track,
     });
   }
-  
+
   appendPlaylistToQueue() {
     this.props.appendTracksToPlayQueue(
       this.props.tracks,
@@ -87,11 +87,11 @@ export class Playlist extends React.Component {
   }
 
   renderArtistHeading() {
-    return this.props.artist ? 
-    <h3 className="hero__artist">{this.props.artist}</h3> : 
+    return this.props.artist ?
+    <h3 className="hero__artist">{this.props.artist}</h3> :
     null;
   }
-  
+
   render() {
     return (
       <div className="playlist page-with-padding">
@@ -100,7 +100,7 @@ export class Playlist extends React.Component {
           elementPos={this.state.trackToolsElement}
           addToPlaylist={
             (playlist) => {
-               
+
             }
           }
           addToQueue={
@@ -110,27 +110,28 @@ export class Playlist extends React.Component {
           }
         />
         <div className="hero">
-          <PlaylistImage 
+          <PlaylistImage
             tracks={this.props.tracks}
             image={this.props.image}
           />
           <h5 className="hero__identifier">{this.props.heading}</h5>
           <h1 className="hero__name">{this.props.name}</h1>
           {this.renderArtistHeading()}
-          <button 
+          <button
             onClick={this.replaceQueueWithPlaylistAndPlay}
             className="button button--primary button--play"
             >
             Play
           </button>
-          <button 
+          <button
             onClick={this.appendPlaylistToQueue}
             className="button button--add"
             >
-           Queue Album 
+           Queue Album
           </button>
         </div>
-        <TrackTable 
+        <TrackTable
+          showEmptyWarning={this.props.showEmptyWarning}
           playlist={this.props.tracks}
           onClickTrackTools={this.showTrackTools}
           onClickTrack={this.props.addTrackToQueueAndPlay}
@@ -150,6 +151,6 @@ const mapDispatchToProps = {
 }
 
 export default connect(
-  null, 
+  null,
   mapDispatchToProps
 )(Playlist);

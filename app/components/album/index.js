@@ -73,6 +73,7 @@ export class Album extends React.Component {
           name={albumPageData.name}
           artist={albumPageData.artist}
           image={albumPageData.image}
+          showEmptyWarning
         />
       );
     } else if (currentAlbumPageError) {

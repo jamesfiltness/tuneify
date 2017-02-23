@@ -67,9 +67,13 @@ export default class TrackTable extends React.Component {
         </table>
       </div>
     )
-  } else {
+  } else if (this.props.showEmptyWarning) {
     return (
       <ErrorMessage title="Sorry, we don't have the tracks for this album" />
+    )
+  } else {
+    return (
+      <h3>This playlist is empty.</h3>
     )
   }
 }
