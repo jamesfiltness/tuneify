@@ -14,6 +14,7 @@ export function artistData(state = [] , action) {
       return results.concat(artists);
     case types.CLEAR_SEARCH_PAGE:
     case types.CLEAR_FULL_SEARCH_RESULTS:
+    case types.RECEIVE_FULL_ARTIST_DATA_ERROR:
       return []
     default:
       return state
@@ -33,6 +34,7 @@ export function trackData(state = [] , action) {
       return results.concat(tracks);
     case types.CLEAR_SEARCH_PAGE:
     case types.CLEAR_FULL_SEARCH_RESULTS:
+    case types.RECEIVE_FULL_TRACK_DATA_ERROR:
       return []
     default:
       return state
@@ -52,6 +54,7 @@ export function albumData(state = [] , action) {
       return results.concat(albums);
     case types.CLEAR_SEARCH_PAGE:
     case types.CLEAR_FULL_SEARCH_RESULTS:
+    case types.RECEIVE_FULL_ALBUM_DATA_ERROR:
       return []
     default:
       return state

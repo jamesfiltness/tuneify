@@ -12,6 +12,7 @@ export function autocompleteArtistData(state = [] , action) {
         .results
         .artistmatches.artist.map(child => child);
       return results.concat(artists);
+    case types.RECEIVE_AUTOCOMPLETE_ARTIST_DATA_ERROR:
     case types.CLEAR_SEARCH:
       return []
     default:
@@ -30,6 +31,7 @@ export function autocompleteTrackData(state = [] , action) {
         .results
         .trackmatches.track.map(child => child);
       return results.concat(tracks);
+    case types.RECEIVE_AUTOCOMPLETE_TRACK_DATA_ERROR:
     case types.CLEAR_SEARCH:
       return []
     default:
@@ -48,6 +50,7 @@ export function autocompleteAlbumData(state = [] , action) {
         .results
         .albummatches.album.map(child => child);
       return results.concat(albums);
+    case types.RECEIVE_AUTOCOMPLETE_ALBUM_DATA_ERROR:
     case types.CLEAR_SEARCH:
       return []
     default:
