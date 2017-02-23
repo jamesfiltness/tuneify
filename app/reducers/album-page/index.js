@@ -23,7 +23,6 @@ export function albumPageData(state = null, action) {
 export function currentAlbumPageError(state = false, action) {
   switch(action.type) {
     case types.ALBUM_PAGE_DATA_ERROR:
-      console.log('in');
       return true;
     case types.CLEAR_ALBUM_PAGE_ERROR:
       return false;

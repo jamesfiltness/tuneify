@@ -2,36 +2,35 @@ import React, { PropTypes } from 'react';
 
 export default class TrackTableHeader extends React.Component {
   static PropTypes = {
-    renderArtistCol: PropTypes.bool.isRequired,  
+    renderArtistCol: PropTypes.bool.isRequired,
   };
-  
+
   renderArtistTableHeading() {
-    console.log('rederart', this.props.renderArtistCol);
     return this.props.renderArtistCol ?
-      <th 
+      <th
         className="tracks__heading tracks__heading--artist"
       >
         Artist
-      </th> : 
+      </th> :
       null;
   }
-  
+
   render() {
     return (
       <thead className="tracks__header">
         <tr>
-          <th 
+          <th
             className="tracks__heading tracks__heading--no"
           >
             No
           </th>
-          <th 
+          <th
             className="tracks__heading tracks__heading--track"
           >
             Track
           </th>
           {this.renderArtistTableHeading()}
-          <th 
+          <th
             className="tracks__heading tracks__heading--actions"
           >
             Actions

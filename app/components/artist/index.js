@@ -62,8 +62,9 @@ export class Artist extends React.Component {
   }
 
   renderBio(bioHtml) {
+    const bio = bioHtml.replace("Read more on Last.fm", '');
     return {
-      __html : bioHtml
+      __html : bio
     };
   }
 
