@@ -10,7 +10,9 @@ export function autocompleteArtistData(state = [] , action) {
       action
         .json
         .results
-        .artistmatches.artist.map(child => child);
+        .artistmatches.artist.filter(
+          artist => artist.mbid
+        )
       return results.concat(artists);
     case types.RECEIVE_AUTOCOMPLETE_ARTIST_DATA_ERROR:
     case types.CLEAR_SEARCH:
@@ -29,7 +31,9 @@ export function autocompleteTrackData(state = [] , action) {
       action
         .json
         .results
-        .trackmatches.track.map(child => child);
+        .trackmatches.track.filter(
+          track => track.mbid
+        );
       return results.concat(tracks);
     case types.RECEIVE_AUTOCOMPLETE_TRACK_DATA_ERROR:
     case types.CLEAR_SEARCH:
@@ -48,7 +52,9 @@ export function autocompleteAlbumData(state = [] , action) {
       action
         .json
         .results
-        .albummatches.album.map(child => child);
+        .albummatches.album.filter(
+          album => album.mbid
+        );
       return results.concat(albums);
     case types.RECEIVE_AUTOCOMPLETE_ALBUM_DATA_ERROR:
     case types.CLEAR_SEARCH:
