@@ -10,7 +10,7 @@ export function artistData(state = [] , action) {
       action
         .json
         .results
-        .artistmatches.artist.map(child => child);
+        .artistmatches.artist.filter(artist => artist.mbid);
       return results.concat(artists);
     case types.CLEAR_SEARCH_PAGE:
     case types.CLEAR_FULL_SEARCH_RESULTS:
@@ -30,7 +30,7 @@ export function trackData(state = [] , action) {
       action
         .json
         .results
-        .trackmatches.track.map(child => child);
+        .trackmatches.track.filter(track => track.mbid);
       return results.concat(tracks);
     case types.CLEAR_SEARCH_PAGE:
     case types.CLEAR_FULL_SEARCH_RESULTS:
@@ -50,7 +50,7 @@ export function albumData(state = [] , action) {
       action
         .json
         .results
-        .albummatches.album.map(child => child);
+        .albummatches.album.filter(album => album.mbid);
       return results.concat(albums);
     case types.CLEAR_SEARCH_PAGE:
     case types.CLEAR_FULL_SEARCH_RESULTS:

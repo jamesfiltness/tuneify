@@ -3,19 +3,18 @@
   position: absolute;
   width: 180px;
   background: #444;
-  padding: 10px;
   z-index: 3;
   -webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.35);
   -moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.35);
   box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.35);
 
   &__item {
-    padding: 5px;
+    padding: 10px;
     color: #ccc;
     font-size: 14px;
     cursor: pointer;
     cursor: pointer;
-    
+
     .fa {
       float: right;
     }
@@ -37,3 +36,22 @@
   }
 }
 
+.playlist-popup {
+  overflow: auto;
+  display: none;
+  position: fixed;
+  &::-webkit-scrollbar {
+    background: transparent;
+    color: red;
+  }
+
+
+  &::-webkit-scrollbar-thumb {
+	border:2px solid transparent;
+	background-color:#333;
+	background-clip:content-box;
+	-webkit-border-radius:7px;
+	-moz-border-radius:7px;
+	border-radius:7px;
+  }
+}
