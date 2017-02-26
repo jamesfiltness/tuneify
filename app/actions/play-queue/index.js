@@ -2,22 +2,7 @@ import * as types from '../../constants/ActionTypes.js';
 import { playTrack } from '../player';
 import { showModal } from '../modal';
 import { authenticate } from '../auth';
-
-const prepareTrackData = (trackArr, img) => {
-  return trackArr.map((track) => {
-    const artist = typeof track.artist === 'object' ?
-    track.artist.name :
-    track.artist;
-
-    const trackImg = track.image ? track.image : img;
-
-    return {
-      name: track.name,
-      artist,
-      image: trackImg,
-    }
-  });
-}
+import prepareTrackData from '../../utils/prepare-track-data';
 
 const appendTrackToQueue = (track, img,  dispatch) => new Promise((resolve, reject) => {
   dispatch(appendTrackToPlayQueue(track, img));

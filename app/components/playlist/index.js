@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import TrackTable from '../track-table';
 import TrackTools from '../track-tools';
 import PlaylistImage from '../playlist-image';
+import { updatePlaylist } from '../../actions/playlists';
 import {
   appendTracksToPlayQueue,
   appendTrackToPlayQueue,
@@ -98,9 +99,13 @@ export class Playlist extends React.Component {
         <TrackTools
           visible={this.state.trackToolsVisible}
           elementPos={this.state.trackToolsElement}
-          addToPlaylist={
+          addTrackToPlaylist={
             (playlist) => {
-
+              this.props.updatePlaylist(
+                playlist,
+                this.state.currentTrack,
+                this.props.image,
+              );
             }
           }
           addToQueue={
@@ -148,6 +153,7 @@ const mapDispatchToProps = {
   appendTracksToPlayQueue,
   addTrackToQueueAndPlay,
   replaceQueueWithTracksAndPlay,
+  updatePlaylist,
 }
 
 export default connect(

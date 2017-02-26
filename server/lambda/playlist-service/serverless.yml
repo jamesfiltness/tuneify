@@ -9,7 +9,7 @@ functions:
     handler: handler.getPlaylistsByUserId
     events:
       - http:
-          path: playlists 
+          path: playlists
           method: get
           cors: true
           authorizer:
@@ -18,21 +18,30 @@ functions:
     handler: handler.savePlaylist
     events:
       - http:
-          path: playlists 
+          path: playlists
           method: post
           cors: true
           authorizer:
             arn: arn:aws:lambda:eu-west-1:${env:AWS_ACCOUNT_NO}:function:authentication-service-dev-authorise
-resources:  
+  updatePlaylist:
+    handler: handler.updatePlaylist
+    events:
+      - http:
+          path: playlists
+          method: put
+          cors: true
+          authorizer:
+            arn: arn:aws:lambda:eu-west-1:${env:AWS_ACCOUNT_NO}:function:authentication-service-dev-authorise
+resources:
   Resources:
     DynamoDbTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: playlists 
+        TableName: playlists
         AttributeDefinitions:
-          - AttributeName: id 
+          - AttributeName: id
             AttributeType: S
-          - AttributeName: userid 
+          - AttributeName: userid
             AttributeType: S
         KeySchema:
           - AttributeName: id
@@ -64,7 +73,7 @@ resources:
             - Effect: Allow
               Action:
                 - dynamodb:*
-              Resource: 
+              Resource:
                 - arn:aws:dynamodb:*:*:table/playlists
                 - arn:aws:dynamodb:*:*:table/playlists/index/*
         Roles:

@@ -1,4 +1,5 @@
 import * as types from '../../constants/ActionTypes.js';
+import prepareTrackData from '../../utils/prepare-track-data';
 
 export function fetchLambda(actions, endpoint, httpMethod, params, body) {
   const jwt = localStorage.getItem('idToken');
@@ -25,17 +26,17 @@ export function fetchLambda(actions, endpoint, httpMethod, params, body) {
 
 export function getUserPlaylists() {
   const actions = [
-    types.REQUEST_USER_PLAYLISTS, 
+    types.REQUEST_USER_PLAYLISTS,
     types.RECEIVE_USER_PLAYLIST_DATA,
     types.USER_PLAYLIST_REQUEST_ERROR
   ];
-  
+
   return fetchLambda(actions, 'playlists', 'GET');
 }
 
 export function createPlaylist(playlistName, playlist) {
   const actions = [
-    types.CREATE_PLAYLIST, 
+    types.CREATE_PLAYLIST,
     types.PLAYLIST_CREATED,
     types.PLAYLIST_CREATE_ERROR
   ];
@@ -44,10 +45,26 @@ export function createPlaylist(playlistName, playlist) {
     playlistName,
     playlist,
   };
- 
+
   return fetchLambda(actions, 'playlists', 'POST', null, body);
 }
 
-export function updatePlaylist(playlistid, playlist) {
-  
+export function updatePlaylist(playlist, trackToAdd, trackToAddImg) {
+  const actions = [
+    types.UPDATE_PLAYLIST,
+    types.PLAYLIST_UPDATED,
+    types.PLAYLIST_UPDATE_ERROR
+  ];
+
+
+  const preparedTrack = prepareTrackData([trackToAdd], trackToAddImg);
+
+  const updatedTracklist = playlist.tracks.concat(preparedTrack);
+
+  const body = {
+    playlistId: playlist.id,
+    updatedTracklist,
+  };
+
+  return fetchLambda(actions, 'playlists', 'POST', null, body);
 }

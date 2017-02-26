@@ -20,11 +20,11 @@ module.exports.savePlaylist = (event, context, callback) => {
   }
 
   docClient.put(params, function(err, data) {
-    if (err) { 
+    if (err) {
       console.log(error);
       callback(err);
     }
-    else { 
+    else {
       const response = {
         statusCode: 200,
         headers: {
@@ -37,7 +37,45 @@ module.exports.savePlaylist = (event, context, callback) => {
           userId,
         }),
       };
-      
+
+      callback(null, response);
+    }
+  });
+}
+
+module.exports.updatePlaylist = (event, callback, context) => {
+  const jsonPayload = JSON.parse(event.body);
+  const playlistId = jsonPayload.playlistId;
+  const playlist = JSON.stringify(jsonPayload.updatedTracklist);
+
+  const params = {
+    TableName: 'playlists',
+    Item: {
+      id: playlistId,
+      userid: userId,
+      tracks: playlist
+    }
+  }
+
+  docClient.put(params, function(err, data) {
+    if (err) {
+      console.log(error);
+      callback(err);
+    }
+    else {
+      const response = {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin" : "*"
+        },
+        body: JSON.stringify({
+          id: playlistId,
+          name: jsonPayload.playlistName,
+          tracks: playlist,
+          userId,
+        }),
+      };
+
       callback(null, response);
     }
   });
@@ -55,9 +93,9 @@ module.exports.getPlaylistsByUserId = (event, context, callback) => {
   }
 
   docClient.query(params, function(err, data) {
-    if (err) { 
+    if (err) {
       console.log(err);
-    } else { 
+    } else {
       const response = {
         statusCode: 200,
         headers: {

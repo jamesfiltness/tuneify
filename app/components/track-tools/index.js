@@ -5,6 +5,8 @@ import classNames from 'classNames';
 export class TrackTools extends React.Component {
   static PropTypes = {
     visible: PropTypes.bool.isRequired,
+    addTrackToPlaylist: PropTypes.func.isRequired,
+    addToQueue: PropTypes.func.isRequired,
     elementPos: PropTypes.object,
     userPlaylists: PropTypes.array,
   };
@@ -29,7 +31,7 @@ export class TrackTools extends React.Component {
           className="playlist-popup__item"
           key={i}
           onClick={
-            () => this.props.appendTrackToPlaylist(playlist)
+            () => this.props.addTrackToPlaylist(playlist)
           }
         >
           {playlist.name}
