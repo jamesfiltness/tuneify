@@ -19,8 +19,8 @@ const prepareTrackData = (trackArr, img) => {
   });
 }
 
-const appendTrackToQueue = (track, dispatch) => new Promise((resolve, reject) => {
-  dispatch(appendTrackToPlayQueue(track));
+const appendTrackToQueue = (track, img,  dispatch) => new Promise((resolve, reject) => {
+  dispatch(appendTrackToPlayQueue(track, img));
   resolve();
 });
 
@@ -100,10 +100,11 @@ export function playQueueTrackSelected(selectedTrackData, index) {
   }
 }
 
-export function appendTrackToPlayQueue(track) {
+export function appendTrackToPlayQueue(track, img) {
+  const trackObj = prepareTrackData([track], img);
   return {
     type: types.APPEND_TRACK_TO_PLAY_QUEUE,
-    track
+    trackObj
   }
 }
 
@@ -111,7 +112,7 @@ export function addTrackToQueueAndPlay(track, img) {
   return (dispatch, getState) => {
     const trackObj = prepareTrackData([track], img);
 
-    appendTrackToQueue(trackObj, dispatch).then(() => {
+    appendTrackToQueue(track, img, dispatch).then(() => {
       dispatch(
         setCurrentIndex(
           getState().playQueue.playQueueTracks.length - 1
