@@ -47,17 +47,19 @@ module.exports.updatePlaylist = (event, callback, context) => {
   const jsonPayload = JSON.parse(event.body);
   const playlistId = jsonPayload.playlistId;
   const playlist = JSON.stringify(jsonPayload.updatedTracklist);
-
   const params = {
     TableName: 'playlists',
-    Item: {
-      id: playlistId,
-      userid: userId,
-      tracks: playlist
-    }
-  }
+    Key: {
+        id: playlistId,
+    },
+    UpdateExpression: "set tracks = :tracks",
+    ExpressionAttributeValues:{
+        ":tracks":playlist,
+    },
+    ReturnValues:"UPDATED_NEW"
+  };
 
-  docClient.put(params, function(err, data) {
+  docClient.update(params, function(err, data) {
     if (err) {
       console.log(error);
       callback(err);

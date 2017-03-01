@@ -66,5 +66,5 @@ export function updatePlaylist(playlist, trackToAdd, trackToAddImg) {
     updatedTracklist,
   };
 
-  return fetchLambda(actions, 'playlists', 'POST', null, body);
+  return fetchLambda(actions, 'playlists', 'PUT', null, body);
 }
