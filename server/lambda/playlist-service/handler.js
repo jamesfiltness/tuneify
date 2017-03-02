@@ -20,11 +20,11 @@ module.exports.savePlaylist = (event, context, callback) => {
   }
 
   docClient.put(params, function(err, data) {
-    if (err) { 
+    if (err) {
       console.log(error);
       callback(err);
     }
-    else { 
+    else {
       const response = {
         statusCode: 200,
         headers: {
@@ -37,7 +37,45 @@ module.exports.savePlaylist = (event, context, callback) => {
           userId,
         }),
       };
-      
+
+      callback(null, response);
+    }
+  });
+}
+
+module.exports.updatePlaylist = (event, context, callback) => {
+  const jsonPayload = JSON.parse(event.body);
+  const playlistId = jsonPayload.playlistId;
+  const playlist = JSON.stringify(jsonPayload.updatedTracklist);
+  const params = {
+    TableName: 'playlists',
+    Key: {
+        id: playlistId,
+    },
+    UpdateExpression: "set tracks = :tracks",
+    ExpressionAttributeValues:{
+      ":tracks": playlist,
+    },
+    ReturnValues:"ALL_NEW"
+  };
+
+  docClient.update(params, function(err, data) {
+    if (err) {
+      console.log(error);
+      callback(err);
+    }
+    else {
+      const response = {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin" : "*"
+        },
+        body: JSON.stringify({
+          tracks: data.Attributes.tracks,
+          id: data.Attributes.id,
+        }),
+      };
+
       callback(null, response);
     }
   });
@@ -55,9 +93,9 @@ module.exports.getPlaylistsByUserId = (event, context, callback) => {
   }
 
   docClient.query(params, function(err, data) {
-    if (err) { 
+    if (err) {
       console.log(err);
-    } else { 
+    } else {
       const response = {
         statusCode: 200,
         headers: {

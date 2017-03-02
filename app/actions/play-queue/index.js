@@ -2,25 +2,10 @@ import * as types from '../../constants/ActionTypes.js';
 import { playTrack } from '../player';
 import { showModal } from '../modal';
 import { authenticate } from '../auth';
+import prepareTrackData from '../../utils/prepare-track-data';
 
-const prepareTrackData = (trackArr, img) => {
-  return trackArr.map((track) => {
-    const artist = typeof track.artist === 'object' ?
-    track.artist.name :
-    track.artist;
-
-    const trackImg = track.image ? track.image : img;
-
-    return {
-      name: track.name,
-      artist,
-      image: trackImg,
-    }
-  });
-}
-
-const appendTrackToQueue = (track, dispatch) => new Promise((resolve, reject) => {
-  dispatch(appendTrackToPlayQueue(track));
+const appendTrackToQueue = (track, img,  dispatch) => new Promise((resolve, reject) => {
+  dispatch(appendTrackToPlayQueue(track, img));
   resolve();
 });
 
@@ -100,10 +85,11 @@ export function playQueueTrackSelected(selectedTrackData, index) {
   }
 }
 
-export function appendTrackToPlayQueue(track) {
+export function appendTrackToPlayQueue(track, img) {
+  const trackObj = prepareTrackData([track], img);
   return {
     type: types.APPEND_TRACK_TO_PLAY_QUEUE,
-    track
+    trackObj
   }
 }
 
@@ -111,7 +97,7 @@ export function addTrackToQueueAndPlay(track, img) {
   return (dispatch, getState) => {
     const trackObj = prepareTrackData([track], img);
 
-    appendTrackToQueue(trackObj, dispatch).then(() => {
+    appendTrackToQueue(track, img, dispatch).then(() => {
       dispatch(
         setCurrentIndex(
           getState().playQueue.playQueueTracks.length - 1

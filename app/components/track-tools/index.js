@@ -5,35 +5,67 @@ import classNames from 'classNames';
 export class TrackTools extends React.Component {
   static PropTypes = {
     visible: PropTypes.bool.isRequired,
+    addTrackToPlaylist: PropTypes.func.isRequired,
+    addToQueue: PropTypes.func.isRequired,
     elementPos: PropTypes.object,
     userPlaylists: PropTypes.array,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.showPlaylists = this.showPlaylists.bind(this);
+    this.hidePlaylists = this.hidePlaylists.bind(this);
+
+    this.state = {
+      addToPlaylistActive: false,
+    };
+  }
 
   renderPlaylistPopup() {
     const scrollTop = document.body.scrollTop;
     const elementPos = this.props.elementPos;
     const playlists = this.props.userPlaylists.map((playlist, i) => {
-      return ( 
-        <li 
+      return (
+        <li
           className="playlist-popup__item"
-          key={i} 
+          key={i}
           onClick={
-            () => this.props.appendTrackToPlaylist(playlist)
+            () => this.props.addTrackToPlaylist(playlist)
           }
         >
           {playlist.name}
         </li>
       );
     });
-    
+
     return (
-      <ul 
+      <ul
         className="track-tools__playlists playlist-popup"
-        style={{ left: (elementPos.left - 180), top: (scrollTop) }}
+        style={
+          {
+            left:  (elementPos.left - 180),
+            top: 10,
+            height: (window.innerHeight - 20),
+            display: this.state.addToPlaylistActive ? 'block' : 'none'
+          }
+        }
       >
         {playlists}
       </ul>
     );
+  }
+
+  showPlaylists() {
+    this.setState({
+      addToPlaylistActive: true,
+    });
+  }
+
+  hidePlaylists() {
+    this.setState({
+      addToPlaylistActive: false,
+    });
   }
 
   render() {
@@ -42,28 +74,30 @@ export class TrackTools extends React.Component {
 
       return (
         <div className="tracks-tools-container">
-          <div 
+          <div
             className="track-tools"
             style={{ left: elementPos.left, top: (elementPos.top + 20) }}
           >
             <ul className="track-tools__list track-tools-list">
-              <li 
+              <li
                 className="track-tools-list__item"
                 onClick={this.props.addToQueue}
               >
                 Add to Queue
               </li>
-              <li 
+              <li
                 className="track-tools-list__item"
+                onMouseOver={this.showPlaylists}
+                onMouseLeave={this.hidePlaylists}
               >
-                Add to Playlist 
+                Add to Playlist
                 <i className="fa fa-caret-right" aria-hidden="true"></i>
+                {this.renderPlaylistPopup()}
               </li>
             </ul>
           </div>
-          {this.renderPlaylistPopup()}
         </div>
-      ) 
+      )
     }
 
     return null;

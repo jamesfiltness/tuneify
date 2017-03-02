@@ -9,9 +9,9 @@ export function requestingUserPlaylists(state = false, action) {
       return false;
     case types.USER_PLAYLIST_REQUEST_ERROR:
       return false;
-    default: 
-      return false 
-  }    
+    default:
+      return false
+  }
 }
 
 export function creatingUserPlaylist(state = false, action) {
@@ -21,7 +21,7 @@ export function creatingUserPlaylist(state = false, action) {
     case types.PLAYLIST_CREATED:
     case types.PLAYLIST_CREATE_ERROR:
       return false;
-    default: 
+    default:
       return state;
   }
 }
@@ -33,23 +33,32 @@ export function userPlaylists(state = [], action) {
         return {
           ...item,
           tracks: JSON.parse(item.tracks),
-        }      
+        }
       })
     case types.PLAYLIST_CREATED:
      const newPlaylist = action.json;
-     
-     return [ 
-       ...state, 
+
+     return [
+       ...state,
        {
          ...newPlaylist,
-         tracks: JSON.parse(action.json.tracks), 
+         tracks: JSON.parse(action.json.tracks),
        }
      ];
-     
+    case types.PLAYLIST_UPDATED:
+      const index = state.findIndex(playlist => playlist.id === action.json.id);
+      return [
+        ...state.slice(0, index),
+        {
+          ...state[index],
+          tracks: JSON.parse(action.json.tracks),
+        },
+        ...state.slice(index + 1)
+      ]
     case types.USER_PLAYLIST_REQUEST_ERROR:
     case types.LOGGED_OUT:
       return []
-    default: 
+    default:
       return state
   }
 }

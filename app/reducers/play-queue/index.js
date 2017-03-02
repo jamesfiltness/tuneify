@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 export function playQueueTracks(state = [], action) {
   switch (action.type) {
     case types.APPEND_TRACK_TO_PLAY_QUEUE:
-      return state.concat(action.track);
+      return state.concat(action.trackObj);
     case types.ADD_TRACKS_TO_PLAY_QUEUE:
       return state.concat(action.trackData);
     case types.REPLACE_QUEUE_WITH_TRACKS:
@@ -17,9 +17,9 @@ export function playQueueTracks(state = [], action) {
       return state;
     case types.TRASH_PLAY_QUEUE:
       return []
-    default: 
+    default:
       return state
-  }    
+  }
 }
 
 export function playQueueCurrentIndex(state = 0, action) {
@@ -50,7 +50,7 @@ export function repeat(state = false, action) {
   switch(action.type) {
     case types.REPEAT:
       return action.enabled;
-    default: 
+    default:
       return state;
   }
 }
