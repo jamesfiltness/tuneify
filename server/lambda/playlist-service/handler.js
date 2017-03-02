@@ -43,7 +43,7 @@ module.exports.savePlaylist = (event, context, callback) => {
   });
 }
 
-module.exports.updatePlaylist = (event, callback, context) => {
+module.exports.updatePlaylist = (event, context, callback) => {
   const jsonPayload = JSON.parse(event.body);
   const playlistId = jsonPayload.playlistId;
   const playlist = JSON.stringify(jsonPayload.updatedTracklist);
@@ -54,9 +54,9 @@ module.exports.updatePlaylist = (event, callback, context) => {
     },
     UpdateExpression: "set tracks = :tracks",
     ExpressionAttributeValues:{
-        ":tracks":playlist,
+      ":tracks": playlist,
     },
-    ReturnValues:"UPDATED_NEW"
+    ReturnValues:"ALL_NEW"
   };
 
   docClient.update(params, function(err, data) {
@@ -71,10 +71,8 @@ module.exports.updatePlaylist = (event, callback, context) => {
           "Access-Control-Allow-Origin" : "*"
         },
         body: JSON.stringify({
-          id: playlistId,
-          name: jsonPayload.playlistName,
-          tracks: playlist,
-          userId,
+          tracks: data.Attributes.tracks,
+          id: data.Attributes.id,
         }),
       };
 
