@@ -3,6 +3,9 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { getUserPlaylists } from '../../actions/playlists';
 import { createPlaylist } from '../../actions/play-queue';
+import auth0Service from '../../utils/auth0-service';
+
+const authService = new auth0Service();
 
 export class Playlists extends React.Component {
   static propTypes = {
@@ -10,7 +13,7 @@ export class Playlists extends React.Component {
     userPlaylists: PropTypes.array,
     requestingPlaylists: PropTypes.bool.isRequired,
   }
-  
+
   constructor(props) {
     super(props);
 
@@ -18,12 +21,14 @@ export class Playlists extends React.Component {
       shouldRenderPlaylists: false,
       shouldRenderSpinner: false,
     }
+
+    this.createPlaylist = this.createPlaylist.bind(this);
   }
 
   componentDidMount() {
     if (this.props.authenticated) {
       this.props.getUserPlaylists();
-    }  
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,14 +36,14 @@ export class Playlists extends React.Component {
     if (this.props.authenticated === false && nextProps.authenticated) {
       this.props.getUserPlaylists();
     }
-    
+
     const shouldRenderPlaylists = nextProps.userPlaylists.length ? true : false;
-    
+
     this.setState({
       shouldRenderPlaylists,
     });
 
-    this.renderSpinner(nextProps.requestingPlaylists); 
+    this.renderSpinner(nextProps.requestingPlaylists);
   }
 
   renderPlaylists() {
@@ -46,8 +51,8 @@ export class Playlists extends React.Component {
       let path = `/playlist/${playlist.id}`;
       return (
         <li className="playlist__item" key={i}>
-          <Link 
-            className="playlist__link" 
+          <Link
+            className="playlist__link"
             to={{ pathname: path }}
           >
             {playlist.name}
@@ -65,6 +70,17 @@ export class Playlists extends React.Component {
     });
   }
 
+  createPlaylist() {
+    if (!authService.isLoggedIn()) {
+      authService.authenticate(() => {
+        this.props.loggedIn();
+        this.props.createPlaylist();
+      })
+    } else {
+      this.props.createPlaylist();
+    }
+  }
+
   render() {
     if (this.state.shouldRenderPlaylists) {
       return(
@@ -72,15 +88,15 @@ export class Playlists extends React.Component {
         <ul className="playlist__list">
           {this.renderPlaylists()}
         </ul>
-        <div 
+        <div
           className="playlist__add-new new-playlist"
-          onClick={this.props.createPlaylist}
+          onClick={this.createPlaylist}
         >
-          <i 
-            className="fa fa-plus-square-o fa-2x new-playlist__icon" 
+          <i
+            className="fa fa-plus-square-o fa-2x new-playlist__icon"
             aria-hidden="true"
           ></i>
-          <a className="new-playlist__text">New Playlist</a> 
+          <a className="new-playlist__text">New Playlist</a>
         </div>
       </div>
       )

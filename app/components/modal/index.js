@@ -41,7 +41,7 @@ export class Modal extends React.Component {
 
     const classes = classNames(
       'modal',
-      `modal--${this.props.modalType}`,
+      this.props.modalType ? `modal--${this.props.modalType}` : '',
        this.props.modalVisible ? 'modal--visible' : '',
     );
 
