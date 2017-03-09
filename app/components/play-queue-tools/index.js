@@ -8,7 +8,10 @@ import {
   savePlayList,
   repeat,
 } from '../../actions/play-queue';
-import { loggedIn } from '../../actions/auth';
+import {
+  loggedIn,
+  loggedOut
+} from '../../actions/auth';
 
 const authService = new auth0Service();
 
@@ -32,6 +35,7 @@ export class PlayQueueTools extends React.Component {
   savePlaylist() {
     if (this.props.playQueueTracks.length) {
       if (!authService.isLoggedIn()) {
+        this.props.loggedOut();
         authService.authenticate(() => {
           this.props.loggedIn();
           this.props.onSavePlayList();
@@ -105,7 +109,8 @@ const mapDispatchToProps = {
   onRepeat: repeat,
   onTrashPlayQueue: trashPlayQueue,
   onSavePlayList: savePlayList,
-  loggedIn
+  loggedIn,
+  loggedOut,
 }
 
 export default connect(

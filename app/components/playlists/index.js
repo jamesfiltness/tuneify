@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { getUserPlaylists } from '../../actions/playlists';
 import { createPlaylist } from '../../actions/play-queue';
 import auth0Service from '../../utils/auth0-service';
+import {
+  loggedIn,
+  loggedOut,
+} from '../../actions/auth';
 
 const authService = new auth0Service();
 
@@ -72,6 +76,7 @@ export class Playlists extends React.Component {
 
   createPlaylist() {
     if (!authService.isLoggedIn()) {
+      this.props.loggedOut();
       authService.authenticate(() => {
         this.props.loggedIn();
         this.props.createPlaylist();
@@ -123,7 +128,9 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   createPlaylist,
-  getUserPlaylists
+  getUserPlaylists,
+  loggedIn,
+  loggedOut,
 }
 
 export default connect(
