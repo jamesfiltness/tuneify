@@ -31,6 +31,7 @@ export class Playlist extends React.Component {
     this.appendPlaylistToQueue = this.appendPlaylistToQueue.bind(this);
     this.replaceQueueWithPlaylistAndPlay = this.replaceQueueWithPlaylistAndPlay.bind(this);
     this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    this.handleFacebookShare = this.handleFacebookShare.bind(this);
 
     this.state = {
       trackToolsVisible: false,
@@ -93,9 +94,57 @@ export class Playlist extends React.Component {
     null;
   }
 
+  getShareData() {
+    let name = this.props.name;
+    let description = "Listen to this playlist on Tuneify.com";
+    let image = this.props.tracks[0].image;
+    let link = `https://tuneify.fm/playlist/${this.props.urlIdent}`;
+
+    if (this.props.isAlbum) {
+      name = `${this.props.name} - ${this.props.artist}`;
+      description = "Listen to this album on Tuneify.com";
+      image = this.props.image;
+      link = `https://tuneify.fm/album/${this.props.urlIdent}`;
+    }
+
+    return {
+      name,
+      description,
+      image,
+      link,
+    }
+  }
+
+  handleFacebookShare(e) {
+    const shareData = this.getShareData();
+    e.preventDefault();
+    postToFeed(
+      shareData.name,
+      shareData.description,
+      shareData.link,
+      shareData.image
+    );
+  }
+
+  getTwitterLink() {
+    // TODO: Optimise this - call getShareData in constructor and assign to this
+    // for reuse
+    const shareData = this.getShareData();
+    return `https://twitter.com/intent/tweet?text=${shareData.name}&url=${shareData.link}`;
+  }
+
   render() {
     return (
       <div className="playlist page-with-padding">
+        <a
+          onClick={this.handleFacebookShare}
+          data-layout="button"
+          className="facebook-share"
+        ></a>
+        <a
+          className="twitter-share"
+          href={this.getTwitterLink()}>
+        </a>
         <TrackTools
           visible={this.state.trackToolsVisible}
           elementPos={this.state.trackToolsElement}

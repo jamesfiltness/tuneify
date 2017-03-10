@@ -64,7 +64,13 @@ export class App extends React.Component {
       <div className="app">
         <Modal />
         <header className="header">
-          <div className="header__container">
+          <div
+            className="fb-follow"
+            data-href="https://www.facebook.com/zuck"
+            data-layout="button"
+            data-size="large"
+          ></div>
+        <div className="header__container">
             <h1 className="header__title">
               <Link
                 className="header__title-link"

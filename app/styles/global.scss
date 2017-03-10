@@ -109,4 +109,30 @@
 
 .page-with-padding {
   padding: 40px;
+  position: relative;
+}
+
+.facebook-share {
+  cursor: pointer;
+  display: block;
+  background: url("../images/FB-f-Logo__blue_29.png") no-repeat;
+  background-size: 21px 21px;
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  right: 40px;
+  top: 40px;
+}
+
+.twitter-share {
+  cursor: pointer;
+  display: block;
+  background: url("../images/Twitter_Logo_White_On_Blue.png") no-repeat;
+  background-size: 21px 21px;
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  right: 68px;
+  border-radius: 2px;
+  top: 40px;
 }

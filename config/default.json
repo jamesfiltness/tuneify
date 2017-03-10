@@ -1,8 +1,10 @@
 {
-  "port": 3000,
+  "protocol": "http://",
+  "baseurl": "localhost:8900",
+  "port": 8900,
   "app-title": "Tuneify",
   "endpoints": {
-    "lastfm": { 
+    "lastfm": {
       "url": "http://ws.audioscrobbler.com/2.0/",
       "api_key": "57ee3318536b23ee81d6b27e36997cde"
     },
