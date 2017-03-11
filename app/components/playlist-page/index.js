@@ -44,6 +44,7 @@ export class PlaylistPage extends React.Component {
             tracks={this.state.playlistData.tracks}
             heading="Playlist"
             name={this.state.playlistData.name}
+            urlIdent={this.props.params.playlistid}
           />
         )
       } else {

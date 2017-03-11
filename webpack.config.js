@@ -48,6 +48,8 @@ module.exports = {
       window: {
         clientConfig: {
           endpoints: config.get('endpoints'),
+          protocol: config.get('protocol'),
+          baseurl: config.get('baseurl'),
         },
       },
     }),

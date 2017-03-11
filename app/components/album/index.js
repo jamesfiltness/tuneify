@@ -74,6 +74,12 @@ export class Album extends React.Component {
           artist={albumPageData.artist}
           image={albumPageData.image}
           showEmptyWarning
+          isAlbum
+          urlIdent={
+            this.props.params.mbid ?
+            this.props.params.mbid :
+            `${this.props.params.artist}/${this.props.params.album}`
+          }
         />
       );
     } else if (currentAlbumPageError) {
