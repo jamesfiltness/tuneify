@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import postToFeed from '../../utils/post-to-fb-feed';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import ErrorMessage from '../error-message';
@@ -21,7 +22,9 @@ export class Artist extends React.Component {
     super(props);
 
     this.showFullBio = this.showFullBio.bind(this);
+    this.handleFacebookShare = this.handleFacebookShare.bind(this);
   }
+
   componentDidMount() {
     if (this.props.params.mbid) {
       this.getArtistByMbid(this.props.params.mbid);
@@ -167,6 +170,39 @@ export class Artist extends React.Component {
     )
   }
 
+  getShareData() {
+    const name = this.props.artistPageData.name;
+    const description = `Listen to ${name} for free on Tuneify.com`;
+    const image = this.props.artistPageData.image;
+    const link = `https://tuneify.fm/artist/${encodeURIComponent(this.props.params.mbid)}`;
+
+    return {
+      name,
+      description,
+      image,
+      link,
+    }
+  }
+
+  handleFacebookShare(e) {
+    const shareData = this.getShareData();
+    e.preventDefault();
+    postToFeed(
+      shareData.name,
+      shareData.description,
+      shareData.link,
+      shareData.image
+    );
+  }
+
+  getTwitterLink() {
+    // TODO: Optimise this - call getShareData in constructor and assign to this
+    // for reuse
+    const shareData = this.getShareData();
+    const text = `Listen to ${encodeURIComponent(shareData.name)} for free on Tuneify.com`;
+    return `https://twitter.com/intent/tweet?text=${text}&url=${shareData.link}`;
+  }
+
   render() {
     const {
       artistPageData,
@@ -183,7 +219,16 @@ export class Artist extends React.Component {
         )
       } else {
         return (
-          <div className="artist">
+          <div className="artist page-with-padding">
+            <a
+              onClick={this.handleFacebookShare}
+              data-layout="button"
+              className="facebook-share"
+            ></a>
+            <a
+              className="twitter-share"
+              href={this.getTwitterLink()}>
+            </a>
             <div className="hero">
               <img
                 src={artistPageData.image}

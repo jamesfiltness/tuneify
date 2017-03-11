@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import postToFeed from '../../utils/post-to-fb-feed';
 import TrackTable from '../track-table';
 import TrackTools from '../track-tools';
 import PlaylistImage from '../playlist-image';
@@ -96,15 +97,15 @@ export class Playlist extends React.Component {
 
   getShareData() {
     let name = this.props.name;
-    let description = "Listen to this playlist on Tuneify.com";
+    let description = "Listen to this playlist for free on Tuneify.com";
     let image = this.props.tracks[0].image;
-    let link = `https://tuneify.fm/playlist/${this.props.urlIdent}`;
+    let link = `https://tuneify.fm/playlist/${encodeURIComponent(this.props.urlIdent)}`;
 
     if (this.props.isAlbum) {
       name = `${this.props.name} - ${this.props.artist}`;
-      description = "Listen to this album on Tuneify.com";
+      description = `Listen to ${name} for free on Tuneify.com`;
       image = this.props.image;
-      link = `https://tuneify.fm/album/${this.props.urlIdent}`;
+      link = `https://tuneify.fm/album/${encodeURIComponent(this.props.urlIdent)}`;
     }
 
     return {
@@ -130,7 +131,9 @@ export class Playlist extends React.Component {
     // TODO: Optimise this - call getShareData in constructor and assign to this
     // for reuse
     const shareData = this.getShareData();
-    return `https://twitter.com/intent/tweet?text=${shareData.name}&url=${shareData.link}`;
+    const type = this.props.isAlbum ? 'album' : 'playlist';
+    const text = `${shareData.name}: Listen to this ${type} for free on Tuneify.com`;
+    return `https://twitter.com/intent/tweet?text=${text}&url=${shareData.link}`;
   }
 
   render() {
