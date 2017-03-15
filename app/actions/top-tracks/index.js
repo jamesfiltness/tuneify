@@ -1,5 +1,6 @@
 import * as types from '../../constants/ActionTypes.js'
 import { fetchLastFmData } from '../lastfm';
+import { addTrackToQueueAndPlay } from '../play-queue';
 
 export function getTopTracks() {
   const actions =
@@ -16,3 +17,16 @@ export function getTopTracks() {
   return fetchLastFmData(actions, params);
 }
 
+export function playTopTrack(name, artist, image) {
+  return (dispatch, getState)  => {
+    dispatch(
+      addTrackToQueueAndPlay(
+        {
+          name,
+          artist,
+        },
+        image,
+      )
+    );
+  }
+}

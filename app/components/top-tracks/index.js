@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import classNames from 'classNames';
 import {
   getTopTracks,
+  playTopTrack,
 } from '../../actions/top-tracks';
 
 export class TopTracks extends React.Component {
   static PropTypes = {
-    dispatch: PropTypes.func.isRequired,
     topTrackData: PropTypes.array,
     topTrackDataError: PropTypes.string,
   };
@@ -22,6 +22,8 @@ export class TopTracks extends React.Component {
     this.state = {
       imagesLoaded: false,
     }
+
+    this.playTrack = this.playTrack.bind(this);
   }
 
   // only call for data once the page
@@ -29,9 +31,7 @@ export class TopTracks extends React.Component {
   // rate limiting allows 5 requests per second
   // per originating IP adress averaged over a 5 minute period
   componentDidMount() {
-    this.props.dispatch(
-      getTopTracks()
-    );
+    this.props.getTopTracks();
   }
 
   imageLoaded() {
@@ -43,8 +43,19 @@ export class TopTracks extends React.Component {
     }
   }
 
+  playTrack(track) {
+    const name = track.name;
+    const artist = track.artist.name;
+    const image = track.image[3]['#text'];
+    this.props.playTopTrack(name, artist, image);
+  }
+
   render() {
-    const { topTrackData, topTrackDataError } = this.props;
+    const {
+      topTrackData,
+      topTrackDataError
+    } = this.props;
+
     if (topTrackData) {
       // sometimes lastfm returns successfully but with an empty
       // json object. To counter this the reducer has a case for
@@ -66,7 +77,13 @@ export class TopTracks extends React.Component {
                 topTrackData.trackData.map(
                   (track, i) => {
                     return (
-                      <li className="top-artist__list-item" key={i}>
+                      <li
+                        onClick={
+                          () => {
+                            this.playTrack(track);
+                          }
+                        }
+                        className="top-artist__list-item" key={i}>
                           <img
                             onLoad={() => {this.imageLoaded()}}
                             className="top-artist__image"
@@ -96,12 +113,16 @@ export class TopTracks extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  getTopTracks,
+  playTopTrack,
+};
+
 function mapStateToProps(state) {
-  console.log(state);
   return {
     topTrackData: state.topTracks.topTrackData,
     topTrackDataError: state.topTracks.topTrackDataError,
   }
 }
 
-export default connect(mapStateToProps)(TopTracks);
+export default connect(mapStateToProps, mapDispatchToProps)(TopTracks);
