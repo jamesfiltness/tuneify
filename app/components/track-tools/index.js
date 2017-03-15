@@ -1,6 +1,15 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classNames';
+import auth0Service from '../../utils/auth0-service';
+import {
+  loggedIn,
+  loggedOut,
+} from '../../actions/auth';
+
+// TODO: this should be instantiated only one (in App) and then passed around
+// on context perhaps
+const authService = new auth0Service();
 
 export class TrackTools extends React.Component {
   static PropTypes = {
@@ -22,6 +31,21 @@ export class TrackTools extends React.Component {
     };
   }
 
+  // TODO: this pattern is used in a few places
+  // extract out and allow a utility method to perform this
+  // it should accept a callback to call when authenticated
+  addTrackToPlaylist(playlist) {
+    if (!authService.isLoggedIn()) {
+      this.props.loggedOut();
+      authService.authenticate(() => {
+        this.props.loggedIn();
+        this.props.addTrackToPlaylist(playlist);
+      })
+    } else {
+      this.props.addTrackToPlaylist(playlist);
+    }
+  }
+
   renderPlaylistPopup() {
     const scrollTop = document.body.scrollTop;
     const elementPos = this.props.elementPos;
@@ -31,7 +55,7 @@ export class TrackTools extends React.Component {
           className="playlist-popup__item"
           key={i}
           onClick={
-            () => this.props.addTrackToPlaylist(playlist)
+            () => this.addTrackToPlaylist(playlist)
           }
         >
           {playlist.name}
@@ -68,6 +92,20 @@ export class TrackTools extends React.Component {
     });
   }
 
+  renderAddToPlaylist() {
+    return authService.isLoggedIn() ?
+      <li
+        className="track-tools-list__item"
+        onMouseOver={this.showPlaylists}
+        onMouseLeave={this.hidePlaylists}
+      >
+        Add to Playlist
+        <i className="fa fa-caret-right" aria-hidden="true"></i>
+        {this.renderPlaylistPopup()}
+      </li> :
+      null;
+  }
+
   render() {
     if (this.props.visible) {
       const elementPos = this.props.elementPos;
@@ -85,15 +123,7 @@ export class TrackTools extends React.Component {
               >
                 Add to Queue
               </li>
-              <li
-                className="track-tools-list__item"
-                onMouseOver={this.showPlaylists}
-                onMouseLeave={this.hidePlaylists}
-              >
-                Add to Playlist
-                <i className="fa fa-caret-right" aria-hidden="true"></i>
-                {this.renderPlaylistPopup()}
-              </li>
+              {this.renderAddToPlaylist()}
             </ul>
           </div>
         </div>
@@ -104,6 +134,11 @@ export class TrackTools extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  loggedIn,
+  loggedOut,
+}
+
 function mapStateToProps(state) {
   return {
     userPlaylists: state.playlists.userPlaylists,
@@ -112,4 +147,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(TrackTools);

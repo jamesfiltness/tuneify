@@ -16,6 +16,7 @@ import Album from './components/album';
 import PlaylistPage from './components/playlist-page';
 import PageNotFound from './components/page-not-found';
 import SearchResults from './components/search-results';
+import TopTracks from './components/top-tracks';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -45,6 +46,7 @@ render(
 
   <Route component={App} path="/">
     <IndexRoute component={Home} />
+    <Route component={TopTracks} path="top-tracks" />
     <Route component={SearchResults} path="search" />
     <Route component={Artist} path="artist/:mbid" />
     <Route component={Album} path="album/:artist/:album" />

@@ -5,7 +5,7 @@
   "app-title": "Tuneify",
   "endpoints": {
     "lastfm": {
-      "url": "http://ws.audioscrobbler.com/2.0/",
+      "url": "https://ws.audioscrobbler.com/2.0/",
       "api_key": "57ee3318536b23ee81d6b27e36997cde"
     },
     "awslambda": {

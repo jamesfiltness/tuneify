@@ -11,30 +11,10 @@ export function UserSidebar() {
       </h3>
       <ul className="user-sidebar__list">
         <li className="user-sidebar__list-item">
-          <a href="#">Top Artists</a>
+          <Link to="/">Top Artists</Link>
         </li>
         <li className="user-sidebar__list-item">
-          <a href="#">Top Tracks</a>
-        </li>
-        <li className="user-sidebar__list-item">
-          <a href="#">Trending</a>
-        </li>
-        <li className="user-sidebar__list-item">
-          <a href="#">Decade</a>
-        </li>
-      </ul>
-      <h3 className="user-sidebar__heading">
-        <i className="fa fa-user"></i>
-        Your Music
-      </h3>
-      <ul className="user-sidebar__list">
-        <li className="user-sidebar__list-item">
-          <Link to="/recent-plays">
-            Recent plays
-          </Link>
-        </li>
-        <li className="user-sidebar__list-item">
-          <a href="#">Library</a>
+          <Link to="/top-tracks">Top Tracks</Link>
         </li>
       </ul>
       <h3 className="user-sidebar__heading">
