@@ -6,7 +6,7 @@
     margin: 0;
     padding: 5px 0;
   }
-  
+
   &__link {
     color: #aaa;
     display: block;
@@ -20,7 +20,7 @@
   &__spinner {
     color: #aaa;
     position: absolute;
-    left: calc(50% - 30px);
+    left: calc(50% - 15px);
   }
 }
 
@@ -41,11 +41,11 @@
   &:hover {
     color: #fff;
   }
-  
+
   @include breakpoint(1024px) {
     width: 240px;
   }
-  
+
   &__icon {
     float: left;
   }
