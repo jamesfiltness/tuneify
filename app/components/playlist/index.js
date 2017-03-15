@@ -139,15 +139,6 @@ export class Playlist extends React.Component {
   render() {
     return (
       <div className="playlist page-with-padding">
-        <a
-          onClick={this.handleFacebookShare}
-          data-layout="button"
-          className="facebook-share"
-        ></a>
-        <a
-          className="twitter-share"
-          href={this.getTwitterLink()}>
-        </a>
         <TrackTools
           visible={this.state.trackToolsVisible}
           elementPos={this.state.trackToolsElement}
@@ -167,6 +158,15 @@ export class Playlist extends React.Component {
           }
         />
         <div className="hero">
+          <a
+            onClick={this.handleFacebookShare}
+            data-layout="button"
+            className="facebook-share"
+          ></a>
+          <a
+            className="twitter-share"
+            href={this.getTwitterLink()}>
+          </a>
           <PlaylistImage
             tracks={this.props.tracks}
             image={this.props.image}

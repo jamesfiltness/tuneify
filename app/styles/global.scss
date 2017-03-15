@@ -109,7 +109,6 @@
 
 .page-with-padding {
   padding: 40px;
-  position: relative;
 }
 
 .facebook-share {
@@ -120,8 +119,8 @@
   width: 21px;
   height: 21px;
   position: absolute;
-  right: 40px;
-  top: 40px;
+  right: 0px;
+  top: 0px;
 }
 
 .twitter-share {
@@ -132,7 +131,7 @@
   width: 21px;
   height: 21px;
   position: absolute;
-  right: 68px;
+  right: 26px;
   border-radius: 2px;
-  top: 40px;
+  top: 0px;
 }
