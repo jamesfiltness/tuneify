@@ -184,7 +184,11 @@ export class Playlist extends React.Component {
             onClick={this.appendPlaylistToQueue}
             className="button button--add"
             >
-           Queue Album
+            {
+              this.props.heading === 'Playlist' ?
+              'Queue Playlist' :
+              'Queue Album'
+            }
           </button>
         </div>
         <TrackTable
