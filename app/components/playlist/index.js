@@ -136,6 +136,23 @@ export class Playlist extends React.Component {
     return `https://twitter.com/intent/tweet?text=${text}&url=${shareData.link}`;
   }
 
+  renderSocialButtons() {
+    return this.props.tracks.length ?
+      <div>
+        <a
+          onClick={this.handleFacebookShare}
+          data-layout="button"
+          className="facebook-share"
+        ></a>
+        <a
+          className="twitter-share"
+          href={this.getTwitterLink()}>
+        </a>
+      </div> :
+      null;
+  }
+
+
   render() {
     return (
       <div className="playlist page-with-padding">
@@ -158,15 +175,7 @@ export class Playlist extends React.Component {
           }
         />
         <div className="hero">
-          <a
-            onClick={this.handleFacebookShare}
-            data-layout="button"
-            className="facebook-share"
-          ></a>
-          <a
-            className="twitter-share"
-            href={this.getTwitterLink()}>
-          </a>
+          {this.renderSocialButtons()}
           <PlaylistImage
             tracks={this.props.tracks}
             image={this.props.image}
