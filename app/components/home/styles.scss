@@ -9,11 +9,7 @@
     border-right: none;
     border-bottom: none;
     cursor: pointer;
-    width: 100%;
-
-    @include breakpoint(876px) {
-      width: 50%;
-    }
+    width: 33.3%;
 
     @include breakpoint(1024px) {
       width: 33.3%;

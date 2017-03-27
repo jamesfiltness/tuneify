@@ -89,7 +89,6 @@ export class App extends React.Component {
           </div>
           <Login authService={authService} />
         </header>
-        <UserSidebar />
         <SearchAutoComplete
           artists={artists}
           tracks={tracks}
@@ -99,6 +98,7 @@ export class App extends React.Component {
         <div className="route-content">
           {this.props.children}
         </div>
+        <UserSidebar />
         <div className="sidebar sidebar--right">
           <CurrentTrackSummary
             name={trackSummary.name}
