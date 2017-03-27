@@ -86,6 +86,21 @@ export class Playlists extends React.Component {
     }
   }
 
+  renderCreatePlaylistButton() {
+    return (
+      <div
+        className="playlist__add-new new-playlist"
+        onClick={this.createPlaylist}
+      >
+        <i
+          className="fa fa-plus-square-o fa-2x new-playlist__icon"
+          aria-hidden="true"
+        ></i>
+        <a className="new-playlist__text">New Playlist</a>
+      </div>
+    )
+  }
+
   render() {
     if (this.state.shouldRenderPlaylists) {
       return(
@@ -93,16 +108,7 @@ export class Playlists extends React.Component {
         <ul className="playlist__list">
           {this.renderPlaylists()}
         </ul>
-        <div
-          className="playlist__add-new new-playlist"
-          onClick={this.createPlaylist}
-        >
-          <i
-            className="fa fa-plus-square-o fa-2x new-playlist__icon"
-            aria-hidden="true"
-          ></i>
-          <a className="new-playlist__text">New Playlist</a>
-        </div>
+        {this.renderCreatePlaylistButton()}
       </div>
       )
     } else if(this.state.shouldRenderSpinner) {
@@ -113,7 +119,8 @@ export class Playlists extends React.Component {
         </div>
       )
     } else {
-      return null
+      const playlistButton  = this.renderCreatePlaylistButton()
+      return playlistButton;
     }
   }
 }
