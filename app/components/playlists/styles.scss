@@ -2,9 +2,21 @@
   font-size: 14px;
   padding-bottom: 125px;
 
+  &__list {
+    display: none;
+
+    @include breakpoint(999px) {
+      display: block;
+    }
+  }
+
   &__item {
     margin: 0;
     padding: 5px 0;
+
+    @include breakpoint(999px) {
+      display: block;
+    }
   }
 
   &__link {
@@ -21,6 +33,11 @@
     color: #aaa;
     position: absolute;
     left: calc(50% - 15px);
+    display: none;
+
+    @include breakpoint(999px) {
+      display: block;
+    }
   }
 }
 
