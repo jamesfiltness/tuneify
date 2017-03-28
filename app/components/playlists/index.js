@@ -104,14 +104,14 @@ export class Playlists extends React.Component {
   renderPlaylistsPageLink() {
     return this.props.authenticated ?
       <div className="playlist-page-link">
-        <i
-          className="fa fa-list fa-2x playlist-page-link__icon"
-          aria-hidden="true"
-        ></i>
         <Link
           className="playlist-page-link__link"
           to="/playlists"
         >
+          <i
+            className="fa fa-list fa-2x playlist-page-link__icon"
+            aria-hidden="true"
+          ></i>
           My Playlists
         </Link>
       </div> :
