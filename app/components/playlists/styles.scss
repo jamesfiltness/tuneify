@@ -41,6 +41,40 @@
   }
 }
 
+.playlist-page-link {
+  left: 145px;
+  border-left: 1px solid #333;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+  padding: 15px;
+  color: #aaa;
+  width: calc(100% - 475px);
+  &__icon {
+    float: left;
+    margin-right: 10px;
+  }
+
+  &__link {
+    line-height: 28px;
+    display: block;
+    color: #aaa;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  @include breakpoint(999px) {
+    display: none;
+  }
+
+  &:hover {
+    color: #fff;
+  }
+}
+
 .new-playlist {
   border-top: 1px solid #282727;
   padding: 15px;
