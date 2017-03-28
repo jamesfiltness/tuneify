@@ -1,0 +1,19 @@
+.playlists-page {
+  &__list {
+    border-top: 1px solid #333;
+  }
+  &__item {
+    border-bottom: 1px solid #333;
+  }
+
+  &__link {
+    color: #fff;
+    padding: 10px 0 10px 10px;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+      background: #222;
+    }
+  }
+}

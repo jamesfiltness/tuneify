@@ -48,12 +48,17 @@ export class PlaylistsPage extends React.Component {
 
   renderUserPlaylists() {
     return (
-      <ul>
+      <ul className="playlists-page__list">
         {
           this.props.userPlaylists.map((playlist, i) => {
             return (
-              <li key={i}>
-                <Link to={`/playlist/${playlist.id}`}>{playlist.name}</Link>
+              <li className="playlists-page__item" key={i}>
+                <Link
+                  className="playlists-page__link"
+                  to={`/playlist/${playlist.id}`}
+                >
+                  {playlist.name}
+                </Link>
               </li>
             )
           })
@@ -65,13 +70,15 @@ export class PlaylistsPage extends React.Component {
   render() {
     if (this.props.userPlaylists.length) {
       return (
-        <div>
+        <div className="page-with-padding playlists-page">
           <h1>Playlists</h1>
           {this.renderUserPlaylists()}
         </div>
       )
     } else {
-      return null;
+      return (
+        <div className="route-content-spinner" />
+      )
     }
   }
 }
