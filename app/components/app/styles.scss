@@ -52,11 +52,10 @@ body {
   z-index: 2;
 
   &--left {
-    width: calc(100% - 280px);
-    border-right: 4px solid #282727;
-    padding: 0 20px;
 
     @include breakpoint(999px) {
+    border-right: 4px solid #282727;
+    padding: 0 20px;
       position: fixed;
       height: 100%;
       width: 175px;
