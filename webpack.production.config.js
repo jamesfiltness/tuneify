@@ -7,7 +7,7 @@ const path = require('path');
 module.exports = {
   entry: {
     app: [
-      path.resolve(__dirname, './app/client'),
+      path.resolve(__dirname, './app'),
     ],
   },
   output: {
