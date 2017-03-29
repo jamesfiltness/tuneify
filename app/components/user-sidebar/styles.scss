@@ -1,6 +1,11 @@
 .user-sidebar {
   padding: 10px 0 0 30px;
   overflow: scroll;
+  background: transparent;
+
+  @include breakpoint(999px) {
+    background: #191919;
+  }
 
   &::-webkit-scrollbar {
     background: transparent;
@@ -11,11 +16,21 @@
     color: #aaa;
     font-size: 14px;
     font-weight: 600;
+    display: none;
+
+    @include breakpoint(999px) {
+      display: block;
+    }
   }
 
   &__list {
     margin: 10px 0 30px 0px;
     font-size: 14px;
+    display: none;
+
+    @include breakpoint(999px) {
+      display: block;
+    }
 
     &-item {
       margin-bottom: 10px;

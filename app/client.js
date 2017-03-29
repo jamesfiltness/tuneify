@@ -17,10 +17,17 @@ import PlaylistPage from './components/playlist-page';
 import PageNotFound from './components/page-not-found';
 import SearchResults from './components/search-results';
 import TopTracks from './components/top-tracks';
+import PlaylistsPage from './components/playlists-page';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-const authService = new auth0Service();
+function hiddenCallback() {
+  browserHistory.push('/');
+}
+
+const authService = new auth0Service(hiddenCallback);
+
+
 
 const authenticateRoute = (nextState, replace, callback) => {
   if (authService.isLoggedIn()) {
@@ -48,6 +55,7 @@ render(
     <IndexRoute component={Home} />
     <Route component={TopTracks} path="top-tracks" />
     <Route component={SearchResults} path="search" />
+    <Route component={PlaylistsPage} path="playlists" onEnter={authenticateRoute} />
     <Route component={Artist} path="artist/:mbid" />
     <Route component={Album} path="album/:artist/:album" />
     <Route component={Album} path="album/:mbid" />

@@ -2,9 +2,21 @@
   font-size: 14px;
   padding-bottom: 125px;
 
+  &__list {
+    display: none;
+
+    @include breakpoint(999px) {
+      display: block;
+    }
+  }
+
   &__item {
     margin: 0;
     padding: 5px 0;
+
+    @include breakpoint(999px) {
+      display: block;
+    }
   }
 
   &__link {
@@ -21,22 +33,65 @@
     color: #aaa;
     position: absolute;
     left: calc(50% - 15px);
+    display: none;
+
+    @include breakpoint(999px) {
+      display: block;
+    }
+  }
+}
+
+.playlist-page-link {
+  left: 145px;
+  border-left: 1px solid #333;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+  padding: 15px;
+  color: #aaa;
+  width: calc(100% - 475px);
+  &__icon {
+    float: left;
+    margin-right: 10px;
+  }
+
+  &__link {
+    line-height: 28px;
+    display: block;
+    color: #aaa;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  @include breakpoint(999px) {
+    display: none;
+  }
+
+  &:hover {
+    color: #fff;
   }
 }
 
 .new-playlist {
   border-top: 1px solid #282727;
   padding: 15px;
+  font-size: 14px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 2;
   background: #161616;
-  width: 100%;
+  width: calc(100% - 328px);
   position: fixed;
   bottom: 0;
   left: 0;
   color: #aaa;
-  border-right: 4px solid #282727;
-  width: 175px;
+
+  @include breakpoint(999px) {
+    width: 175px;
+    border-right: 4px solid #282727;
+  }
 
   &:hover {
     color: #fff;
