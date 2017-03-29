@@ -34,7 +34,7 @@ body {
 
 .route-content {
   margin: 61px 330px 0 0px;
-
+  min-width: 290px;
   @include breakpoint(999px) {
     margin-left: 174px;
     height: 100%;
