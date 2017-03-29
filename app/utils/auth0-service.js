@@ -1,7 +1,7 @@
 import { isTokenExpired } from './jwt-helper';
 
 export default class auth0Service {
-  constructor() {
+  constructor(hiddenCallback) {
     // if this is the client then instantiate the lock
     // this is a temporary workaround as there seems to be issues with auth0Lock and import
     // Auth0Lock only works in the browser also
@@ -9,7 +9,7 @@ export default class auth0Service {
       this.lock = new Auth0Lock(
         'quW61JSOhGAG8vBykmt6vuSf3nS0vaTK',
         'jamesfiltness.eu.auth0.com',
-        { 
+        {
           auth: {
             redirect: false
           },
@@ -19,8 +19,14 @@ export default class auth0Service {
           },
         }
       );
+
+      this.lock.on('hide', () => {
+        if (hiddenCallback) {
+          hiddenCallback();
+        }
+      });
     }
-  
+
   isLoggedIn() {
     return !!this.getToken() && !isTokenExpired(this.getToken());
   }
@@ -66,7 +72,7 @@ export default class auth0Service {
           // Handle error
           return;
         }
-        
+
         this.setToken("idToken", authResult.idToken);
         this.setToken("profile", JSON.stringify(profile));
         callback();

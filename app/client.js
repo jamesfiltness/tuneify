@@ -21,7 +21,13 @@ import PlaylistsPage from './components/playlists-page';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
-const authService = new auth0Service();
+function hiddenCallback() {
+  browserHistory.push('/');
+}
+
+const authService = new auth0Service(hiddenCallback);
+
+
 
 const authenticateRoute = (nextState, replace, callback) => {
   if (authService.isLoggedIn()) {
