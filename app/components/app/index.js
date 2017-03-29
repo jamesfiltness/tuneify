@@ -6,7 +6,7 @@ import { searchPerformed } from '../../actions/search';
 import { playVideo } from '../../actions/player';
 
 import Search from '../search';
-import SearchAutoComplete from '../search-autocomplete';
+import SearchAutoComplete from '../autocomplete';
 import YouTubePlayer from '../youtube-player';
 import PlayQueue from '../play-queue';
 import PlayQueueTools from '../play-queue-tools';

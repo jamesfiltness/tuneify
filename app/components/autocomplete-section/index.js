@@ -1,19 +1,19 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import SearchAutoCompleteThumbnail from '../search-autocomplete-thumbnail';
+import SearchAutoCompleteThumbnail from '../autocomplete-thumbnail';
 
 export class SearchAutoCompleteSection extends React.Component {
   static PropTypes = {
     onSelectResult: PropTypes.func.isRequired,
-    title: PropTypes.string, 
+    title: PropTypes.string,
     data: PropTypes.array,
   };
-  
+
   constructor() {
     super();
     this.resultSelected = this.resultSelected.bind(this);
   }
-  
+
   resultSelected(result) {
     this.props.onSelectResult(result);
   }
@@ -21,9 +21,9 @@ export class SearchAutoCompleteSection extends React.Component {
   resultContent(result) {
     return (
       <div>
-        <SearchAutoCompleteThumbnail 
-          thumb={result.image} 
-          altText={result.name} 
+        <SearchAutoCompleteThumbnail
+          thumb={result.image}
+          altText={result.name}
         />
         <div className="autocomplete-section__item-details">
           <span className="autocomplete-section__target">
@@ -42,16 +42,16 @@ export class SearchAutoCompleteSection extends React.Component {
       <div onClick={() => this.resultSelected(result)}>
         {this.resultContent(result)}
       </div>
-    ) 
+    )
   }
 
   renderAlbumResults(result) {
     let path = `/album/${result.mbid}`;
-    
+
     if (!result.mbid) {
       path = `/album/${encodeURIComponent(result.artist)}/${encodeURIComponent(result.name)}`;
     }
-    
+
     return (
       <Link to={{ pathname: path }}>
         {this.resultContent(result)}
@@ -61,7 +61,7 @@ export class SearchAutoCompleteSection extends React.Component {
 
   renderArtistResults(result) {
     let path =  `/artist/${result.mbid}`;
-    
+
     if(!result.mbid) {
       path = `/artist/${encodeURIComponent(result.artist)}`;
     }
@@ -70,16 +70,16 @@ export class SearchAutoCompleteSection extends React.Component {
       <Link to={{ pathname: path }}>
         {this.resultContent(result)}
       </Link>
-    ) 
+    )
   }
 
   render() {
-    const { 
-      title, 
+    const {
+      title,
       data,
       onSelectResult,
     } = this.props;
-    
+
     return (
       <div className="autocomplete-section">
         <h3 className="autocomplete-section__title">{title}</h3>
@@ -90,12 +90,12 @@ export class SearchAutoCompleteSection extends React.Component {
                 return (
                   <li className="autocomplete-section__list-item" key={i}>
                     {
-                      title === 'Tracks' ? 
+                      title === 'Tracks' ?
                       this.renderTrackResults(result) :
 
-                      title === 'Artists' ? 
+                      title === 'Artists' ?
                       this.renderArtistResults(result) :
-                      
+
                       this.renderAlbumResults(result)
                     }
                   </li>
