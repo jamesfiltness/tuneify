@@ -52,11 +52,30 @@ export class App extends React.Component {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
     // Windows Phone must come first because its UA also contains "Android"
-    if (/windows phone/i.test(userAgent) || /android/i.test(userAgent) || (/iPhone|iPod/.test(userAgent) && !window.MSStream)) {
+    if (
+      /windows phone/i.test(userAgent) ||
+      /android/i.test(userAgent) ||
+      (/iPhone|iPod/.test(userAgent) && !window.MSStream)) {
       return true;
     }
 
     return false;
+  }
+
+  renderMobileMessage() {
+    return (
+      <div className="mobile-message">
+        <h1>Sorry!</h1>
+        <p>Tuneify doesn't currently support mobile devices and is best viewed on a desktop or tablet device.</p>
+        <p>We are considering building a mobile app. Follow us on Facebook to keep updated!</p>
+          <div
+            className="fb-follow fb-follow--mobile"
+            data-href="https://www.facebook.com/zuck"
+            data-layout="button"
+            data-size="large"
+          />
+      </div>
+    )
   }
 
   renderApp() {
@@ -126,7 +145,7 @@ export class App extends React.Component {
   }
 
   render() {
-    return this.isMobile() ? <p>Dont work on no mobile</p> : this.renderApp();
+    return this.isMobile() ? this.renderMobileMessage() : this.renderApp();
   }
 }
 
