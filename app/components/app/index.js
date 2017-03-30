@@ -48,7 +48,18 @@ export class App extends React.Component {
     });
   }
 
-  render() {
+  isMobile() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent) || /android/i.test(userAgent) || (/iPhone|iPod/.test(userAgent) && !window.MSStream)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  renderApp() {
     const {
       dispatch,
       artists,
@@ -69,8 +80,9 @@ export class App extends React.Component {
             data-href="https://www.facebook.com/zuck"
             data-layout="button"
             data-size="large"
-          ></div>
-        <div className="header__container">
+          >
+          </div>
+          <div className="header__container">
             <h1 className="header__title">
               <Link
                 className="header__title-link"
@@ -110,7 +122,11 @@ export class App extends React.Component {
           <PlayQueueTools />
         </div>
       </div>
-    );
+    )
+  }
+
+  render() {
+    return this.isMobile() ? <p>Dont work on no mobile</p> : this.renderApp();
   }
 }
 
