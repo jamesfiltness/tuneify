@@ -89,4 +89,14 @@ body {
   position: absolute !important;
   top: 16px;
   left: 16px;
+
+  &--mobile {
+    position: relative !important;
+    top: 0;
+    left: 0;
+  }
+}
+
+.mobile-message {
+  padding: 0 20px;
 }

@@ -48,7 +48,37 @@ export class App extends React.Component {
     });
   }
 
-  render() {
+  isMobile() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Windows Phone must come first because its UA also contains "Android"
+    if (
+      /windows phone/i.test(userAgent) ||
+      /android/i.test(userAgent) ||
+      (/iPhone|iPod/.test(userAgent) && !window.MSStream)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  renderMobileMessage() {
+    return (
+      <div className="mobile-message">
+        <h1>Sorry!</h1>
+        <p>Tuneify doesn't currently support mobile devices and is best viewed on a desktop or tablet device.</p>
+        <p>We are considering building a mobile app. Follow us on Facebook to keep updated!</p>
+          <div
+            className="fb-follow fb-follow--mobile"
+            data-href="https://www.facebook.com/zuck"
+            data-layout="button"
+            data-size="large"
+          />
+      </div>
+    )
+  }
+
+  renderApp() {
     const {
       dispatch,
       artists,
@@ -69,8 +99,9 @@ export class App extends React.Component {
             data-href="https://www.facebook.com/zuck"
             data-layout="button"
             data-size="large"
-          ></div>
-        <div className="header__container">
+          >
+          </div>
+          <div className="header__container">
             <h1 className="header__title">
               <Link
                 className="header__title-link"
@@ -110,7 +141,11 @@ export class App extends React.Component {
           <PlayQueueTools />
         </div>
       </div>
-    );
+    )
+  }
+
+  render() {
+    return this.isMobile() ? this.renderMobileMessage() : this.renderApp();
   }
 }
 
