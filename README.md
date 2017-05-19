@@ -1,7 +1,5 @@
 # Tuneify
 
-WIP!
-
 Tuneify is a streaming music app built on the YouTube and LastFm APIs. 
 
 The focus for this project has been getting something done and having fun and not on code quality 🙈
