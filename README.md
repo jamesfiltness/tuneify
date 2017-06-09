@@ -1,21 +1,21 @@
 # Tuneify
 
-A project to explore building an ~~universal~~ React/Redux app backed by an serverless (AWS Lambda) architecture.
+Tuneify is a music app built using the YouTube video player API and data from Musicbrainz and LastFm. Currently under development with a focus on moving away from LastFm for data and assets. 
 
-Tuneify is a streaming music app built on the YouTube and LastFm APIs. 
+The focus for this project has been getting something done and having fun and not on code quality 🙈
 
-WIP!
+## Tech
+* React Redux, Redux Router frontend
+* Mocha, Chai, Enzyme, Sinon
+* Ex6 + Babel
+* Serverless (AWS Lambda) + DynamoDb to store user playlist data
+* Auth0
+* Logstash (jdbc plugin) + ElasticSearch for autocomplete
+* Musicbrainz slave https://bitbucket.org/lalinsky/mbslave cached in redis (EC2)
+* S3 + Cloudfront to serve static frontend 
+* S3 + Cloudfront to store artist / album images
+
 
 ![alt tag](https://media.giphy.com/media/l0HlzayaF0jLB5TS8/source.gif)
 
-## Tech:
-
-* React
-* Redux
-* React Router / React Router Redux
-* Webpack
-* ES6 / Babel
-* Auth0
-* Mocha / Chai / Enzyme / Sinon
-* Serverless framework (Lambda, API Gateway, Dynamodb)
 
