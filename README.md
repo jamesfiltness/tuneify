@@ -2,12 +2,12 @@
 
 Tuneify is a music app built using the YouTube video player API and data from Musicbrainz and LastFm. Currently under development with a focus on moving away from LastFm for data and assets. 
 
-The focus for this project has been getting something done and having fun and not on code quality 🙈
+The focus for this project has been on creating an MVP and learning new tech and not so much on code quality 🙈
 
 ## Tech
 * React Redux, Redux Router frontend
 * Mocha, Chai, Enzyme, Sinon
-* Ex6 + Babel
+* Es6 + Babel
 * Serverless (AWS Lambda) + DynamoDb to store user playlist data
 * Auth0
 * Logstash (jdbc plugin) + ElasticSearch for autocomplete
