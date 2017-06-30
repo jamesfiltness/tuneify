@@ -46,6 +46,13 @@ export function restartedTrack() {
   }
 }
 
+
+export function pauseBySpacebar() {
+  return {
+    type: types.PAUSE_BY_SPACEBAR,
+  }
+}
+
 export function fetchVideoData(selectedTrackString) {
   return dispatch => {
     // TODO: move this url out in to config

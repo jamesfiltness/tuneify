@@ -21,8 +21,19 @@ export function restartCurrentTrack(state = false, action) {
   }
 }
 
+export function pauseBySpacebar(state = false, action) {
+  switch (action.type) {
+    case types.PAUSE_BY_SPACEBAR:
+      console.log(!state);
+      return !state;
+    default:
+      return state;
+  }
+}
+
 export const videoPlayer = combineReducers({
   currentVideo,
   restartCurrentTrack,
+  pauseBySpacebar
 });
 

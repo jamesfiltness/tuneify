@@ -78,7 +78,26 @@ export class YouTubePlayer extends React.Component {
       this.restartVideo();
       this.props.restartedTrack();
     }
+
+    this.pauseBySpacebar(nextProps.pauseBySpacebar);
   }
+
+  pauseBySpacebar(pauseBySpacebar) {
+    let playerState = this.state.playerState;
+
+    if (pauseBySpacebar) {
+      this.player.pauseVideo();
+      playerState = YT.PlayerState.PAUSED;
+    } else {
+      this.player.playVideo();
+      playerState = YT.PlayerState.PLAYING;
+    }
+
+    this.setState({
+      playerState,
+    });
+  }
+
 
   restartVideo() {
     this.player.seekTo(0);
@@ -385,6 +404,7 @@ export class YouTubePlayer extends React.Component {
 function mapStateToProps(state) {
   return {
     restartCurrentTrack: state.videoPlayer.restartCurrentTrack,
+    pauseBySpacebar: state.videoPlayer.pauseBySpacebar,
   };
 }
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import { searchPerformed } from '../../actions/search';
-import { playVideo } from '../../actions/player';
+import { playVideo, pauseBySpacebar } from '../../actions/player';
 
 import Search from '../search';
 import SearchAutoComplete from '../autocomplete';
@@ -18,7 +18,6 @@ import Modal from '../modal';
 export class App extends React.Component {
 
   static propTypes = {
-    dispatch: React.PropTypes.func.isRequired,
     currentSearch: PropTypes.string,
     artists: PropTypes.array,
     tracks: PropTypes.array,
@@ -26,6 +25,7 @@ export class App extends React.Component {
     children: React.PropTypes.object,
     playQueueTracks: React.PropTypes.array,
     trackSummary: React.PropTypes.object,
+    videoData: React.PropTypes.array,
   };
 
   constructor() {
@@ -33,6 +33,20 @@ export class App extends React.Component {
 
     this.state = {
       searchFocused: false,
+    }
+
+    document.onkeydown = (e) => {
+      // If the user has clicked the spacebar
+      // and the element is not an input
+      // and there is video data
+      if (
+        e.keyCode == 32 &&
+        e.target.type !== 'text' &&
+        this.props.videoData.length
+      ) {
+        e.preventDefault();
+        this.props.pauseBySpacebar();
+      }
     }
   }
 
@@ -80,7 +94,6 @@ export class App extends React.Component {
 
   renderApp() {
     const {
-      dispatch,
       artists,
       albums,
       tracks,
@@ -88,6 +101,7 @@ export class App extends React.Component {
       playQueueTracks,
       trackSummary,
       authService,
+      searchPerformed,
     } = this.props;
 
     return (
@@ -114,7 +128,7 @@ export class App extends React.Component {
               onFocus={this.searchFocused.bind(this)}
               onBlur={this.searchBlurred.bind(this)}
               onSearch={
-                text => dispatch(searchPerformed(text))
+                text => searchPerformed(text)
               }
             />
           </div>
@@ -149,6 +163,11 @@ export class App extends React.Component {
   }
 }
 
+const mapDispatchToProps = {
+  pauseBySpacebar,
+  searchPerformed,
+}
+
 function mapStateToProps(state) {
   return {
     currentSearch: state.search.currentSearch,
@@ -161,4 +180,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
