@@ -25,6 +25,7 @@ export class App extends React.Component {
     children: React.PropTypes.object,
     playQueueTracks: React.PropTypes.array,
     trackSummary: React.PropTypes.object,
+    videoData: React.PropTypes.array,
   };
 
   constructor() {
@@ -35,7 +36,14 @@ export class App extends React.Component {
     }
 
     document.onkeydown = (e) => {
-      if (e.keyCode == 32 && e.target === document.body) {
+      // If the user has clicked the spacebar
+      // and the element is not an input
+      // and there is video data
+      if (
+        e.keyCode == 32 &&
+        e.target.type !== 'text' &&
+        this.props.videoData.length
+      ) {
         e.preventDefault();
         this.props.pauseBySpacebar();
       }
