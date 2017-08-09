@@ -2,7 +2,7 @@
   background: #282727;
   position: relative;
   z-index: 1;
-  
+
   &__player {
     display: block;
     width: 320px;
@@ -40,6 +40,7 @@
   }
 
   &__progress-bar {
+    overflow: hidden;
     position: absolute;
     height: 4px;
     background: #444;

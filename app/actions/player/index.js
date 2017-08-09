@@ -2,7 +2,8 @@ import * as types from '../../constants/ActionTypes.js';
 import {
   incrementCurrentIndex,
   decrementCurrentIndex,
-  playCurrentIndex
+  playCurrentIndex,
+  resetPlayQueueEnded,
 } from '../play-queue';
 
 export function playVideo(videoData) {
@@ -15,7 +16,11 @@ export function playVideo(videoData) {
 export function trackEnded() {
   return (dispatch, getState) => {
     dispatch(incrementCurrentIndex());
-    dispatch(playCurrentIndex());
+    if (!getState().playQueue.playQueueEnded) {
+      dispatch(playCurrentIndex());
+    } else {
+      dispatch(resetPlayQueueEnded());
+    }
   }
 }
 
