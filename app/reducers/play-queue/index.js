@@ -66,6 +66,16 @@ export function savePlaylistPopupVisible(state = false, action) {
   }
 }
 
+export function playQueueEnded(state = false, action) {
+  switch(action.type) {
+    case types.PLAY_QUEUE_ENDED:
+      return true;
+    case types.RESET_PLAY_QUEUE_ENDED:
+      return false;
+    default:
+      return state;
+  }
+}
 
 export const playQueue = combineReducers({
   playQueueTracks,
@@ -73,4 +83,5 @@ export const playQueue = combineReducers({
   shuffle,
   repeat,
   savePlaylistPopupVisible,
+  playQueueEnded
 });

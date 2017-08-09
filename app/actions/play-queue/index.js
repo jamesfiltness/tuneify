@@ -46,6 +46,19 @@ export function trashPlayQueue() {
   }
 }
 
+
+export function playQueueEnded() {
+  return {
+    type: types.PLAY_QUEUE_ENDED,
+  }
+}
+
+export function resetPlayQueueEnded() {
+  return {
+    type: types.RESET_PLAY_QUEUE_ENDED,
+  }
+}
+
 export function setCurrentIndex(index) {
   return {
     type: types.SET_CURRENT_INDEX,
@@ -147,7 +160,7 @@ export function incrementCurrentIndex() {
           // play the play queue from the beginning again
           dispatch(setCurrentIndex(0));
         } else {
-          return;
+          dispatch(playQueueEnded())
         }
     } else {
       dispatch({
