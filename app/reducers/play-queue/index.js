@@ -22,16 +22,12 @@ export function playQueueTracks(state = [], action) {
   }
 }
 
-export function playQueueCurrentIndex(state = 0, action) {
+export function currentIndex(state = -1, action) {
   switch(action.type) {
     case types.RESET_PLAY_QUEUE_INDEX:
-      return 0;
-    case types.INCREMENT_CURRENT_INDEX:
-      return state + 1;
-    case types.DECREMENT_CURRENT_INDEX:
-      return state - 1;
-    case types.SET_CURRENT_INDEX:
-      return action.index;
+      return -1
+    case types.SET_INDEX:
+      return action.index
     default:
       return state;
   }
@@ -66,11 +62,23 @@ export function savePlaylistPopupVisible(state = false, action) {
   }
 }
 
+export function destroyPlayer(state = false, action) {
+  switch(action.type) {
+    case types.DESTROY_PLAYER:
+      return true;
+    case types.PLAYER_REINITIALISED:
+      return false;
+    default:
+      return state;
+  }
+}
+
 
 export const playQueue = combineReducers({
   playQueueTracks,
-  playQueueCurrentIndex,
   shuffle,
   repeat,
+  currentIndex,
   savePlaylistPopupVisible,
+  destroyPlayer,
 });

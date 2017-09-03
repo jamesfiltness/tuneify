@@ -1,8 +1,6 @@
 import * as types from '../../constants/ActionTypes.js';
 import {
-  incrementCurrentIndex,
-  decrementCurrentIndex,
-  playCurrentIndex
+  playNextTrack,
 } from '../play-queue';
 
 export function playVideo(videoData) {
@@ -14,22 +12,17 @@ export function playVideo(videoData) {
 
 export function trackEnded() {
   return (dispatch, getState) => {
-    dispatch(incrementCurrentIndex());
-    dispatch(playCurrentIndex());
   }
 }
 
-export function playNextTrack() {
+export function playNext() {
   return (dispatch, getState) => {
-    dispatch(incrementCurrentIndex());
-    dispatch(playCurrentIndex());
+    dispatch(playNextTrack());
   }
 }
 
 export function playPreviousTrack() {
   return (dispatch, getState) => {
-    dispatch(decrementCurrentIndex());
-    dispatch(playCurrentIndex());
   }
 }
 
@@ -74,5 +67,23 @@ export function playTrack(trackName, artist) {
     dispatch(fetchVideoData(`${trackName} - ${artist}`)).then(() => {
       dispatch(playVideo(getState().videoData));
     });
+  }
+}
+
+export function destroyPlayer() {
+  return {
+    type: types.DESTROY_PLAYER,
+  }
+}
+
+export function playerReinitialised() {
+  return {
+    type: types.PLAYER_REINITIALISED,
+  }
+}
+
+export function reInitialisePlayer() {
+  return(dispatch) => {
+   dispatch(destroyPlayer());
   }
 }

@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import classNames from 'classNames';
 import {
   trackEnded,
-  playNextTrack,
+  playNext,
   playPreviousTrack,
   restartedTrack,
+  playerReinitialised,
 } from '../../actions/player';
 const PLAYER_WIDTH = 320;
 const PLAYER_HEIGHT = 200;
@@ -28,12 +29,14 @@ export class YouTubePlayer extends React.Component {
     trackEnded: PropTypes.func.isRequired,
     playNextTrack: PropTypes.func.isRequired,
     playPreviousTrack: PropTypes.func.isRequired,
+    reinitialisePlayer: PropTypes.bool.isRequired,
   };
 
   constructor() {
     super();
     this.loaded = false;
     this.state = {
+      initialised: false,
       currentVideoId: null,
       playerState: -1,
       muted: false,
@@ -79,7 +82,31 @@ export class YouTubePlayer extends React.Component {
       this.props.restartedTrack();
     }
 
-    this.pauseBySpacebar(nextProps.pauseBySpacebar);
+    if (nextProps.destroyPlayer) {
+      this.reinitialisePlayer();
+    }
+
+    //    this.pauseBySpacebar(nextProps.pauseBySpacebar);
+  }
+
+  reinitialisePlayer() {
+
+    clearInterval(this.elapsedTimer);
+    clearInterval(this.bufferTimer);
+    this.player.stopVideo();
+    this.player.destroy();
+
+      this.setState({
+      currentVideoId: null,
+      initialised: false,
+      playerState: -1,
+      muted: false,
+      totalDuration: {},
+        currentDuration: {},
+      });
+
+    this.createPlayer();
+    this.props.playerReinitialised();
   }
 
   pauseBySpacebar(pauseBySpacebar) {
@@ -92,7 +119,6 @@ export class YouTubePlayer extends React.Component {
       this.player.playVideo();
       playerState = YT.PlayerState.PLAYING;
     }
-
     this.setState({
       playerState,
     });
@@ -170,6 +196,11 @@ export class YouTubePlayer extends React.Component {
   }
 
   iFrameAPIReady() {
+    this.createPlayer();
+  }
+
+  createPlayer() {
+
     this.player = new YT.Player('player', {
       height: PLAYER_HEIGHT,
       width: PLAYER_WIDTH,
@@ -300,6 +331,7 @@ export class YouTubePlayer extends React.Component {
   }
 
   playVideo(videoId) {
+
     this.player.cueVideoById(videoId);
     this.player.playVideo();
     this.setState({
@@ -366,7 +398,7 @@ export class YouTubePlayer extends React.Component {
           />
           <span
             className="youtube-player__control youtube-player__next-track"
-            onClick={this.props.playNextTrack}
+            onClick={this.props.playNext}
           />
           <div className="youtube-player__time">
             <span
@@ -405,14 +437,16 @@ function mapStateToProps(state) {
   return {
     restartCurrentTrack: state.videoPlayer.restartCurrentTrack,
     pauseBySpacebar: state.videoPlayer.pauseBySpacebar,
+    destroyPlayer: state.playQueue.destroyPlayer,
   };
 }
 
 const mapDispatchToProps = {
   trackEnded,
-  playNextTrack,
+  playNext,
   playPreviousTrack,
   restartedTrack,
+  playerReinitialised,
 }
 
 export default connect(

@@ -5,6 +5,8 @@ export function videoData(state = [], action) {
     case types.RECEIVE_VIDEO_DATA:
     const results = [];
     return results.concat(action.videoData);
+    case types.DESTROY_PLAYER:
+      return []
     default: return state
   }
 }

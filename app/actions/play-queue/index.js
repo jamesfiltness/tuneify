@@ -1,5 +1,5 @@
 import * as types from '../../constants/ActionTypes.js';
-import { playTrack } from '../player';
+import { playTrack, reInitialisePlayer } from '../player';
 import { showModal } from '../modal';
 import { authenticate } from '../auth';
 import prepareTrackData from '../../utils/prepare-track-data';
@@ -46,65 +46,11 @@ export function trashPlayQueue() {
   }
 }
 
-export function setCurrentIndex(index) {
-  return {
-    type: types.SET_CURRENT_INDEX,
-    index,
-  }
-}
-
-export function trackSelected(selectedTrackSummaryData) {
-  return {
-    type: types.TRACK_SELECTED,
-    selectedTrackSummaryData,
-  }
-}
-
-export function restartTrack() {
-  return {
-    type: types.RESTART_TRACK,
-  }
-}
-
-export function playQueueTrackSelected(selectedTrackData, index) {
-  return (dispatch, getState)  => {
-    if (getState().playQueue.playQueueCurrentIndex === index) {
-      dispatch(restartTrack());
-    } else {
-      dispatch(setCurrentIndex(index));
-      const currentTrack = getState().playQueue.playQueueTracks[index];
-
-      dispatch(trackSelected(currentTrack));
-      dispatch(
-        playTrack(
-          selectedTrackData.name,
-          selectedTrackData.artist,
-        )
-      );
-    }
-  }
-}
-
 export function appendTrackToPlayQueue(track, img) {
   const trackObj = prepareTrackData([track], img);
   return {
     type: types.APPEND_TRACK_TO_PLAY_QUEUE,
     trackObj
-  }
-}
-
-export function addTrackToQueueAndPlay(track, img) {
-  return (dispatch, getState) => {
-    const trackObj = prepareTrackData([track], img);
-
-    appendTrackToQueue(track, img, dispatch).then(() => {
-      dispatch(
-        setCurrentIndex(
-          getState().playQueue.playQueueTracks.length - 1
-        )
-      )
-      dispatch(playCurrentIndex());
-    })
   }
 }
 
@@ -122,65 +68,6 @@ export function createPlaylist() {
       dispatch(authenticate());
     }
     dispatch(showModal('createPlaylist'))
-  }
-}
-export function playRandomIndex() {
-  return(dispatch, getState) => {
-    const playQueueLength = getState().playQueue.playQueueTracks.length;
-    const randomTrackIndex = randomIndex(playQueueLength);
-    dispatch(setCurrentIndex(randomTrackIndex));
-  }
-}
-
-export function incrementCurrentIndex() {
-  return (dispatch, getState) => {
-    const playQueue = getState().playQueue;
-    if (playQueue.shuffle) {
-      dispatch(playRandomIndex());
-    }
-
-    else if (
-        playQueue.playQueueTracks.length -1  === playQueue.playQueueCurrentIndex
-      ) {
-        if (playQueue.repeat) {
-          // if repeat is enabled and we're on the last track
-          // play the play queue from the beginning again
-          dispatch(setCurrentIndex(0));
-        } else {
-          return;
-        }
-    } else {
-      dispatch({
-        type: types.INCREMENT_CURRENT_INDEX,
-      });
-    }
-  }
-}
-
-export function decrementCurrentIndex() {
-  return (dispatch, getState) => {
-    if (getState().playQueue.shuffle) {
-      dispatch(playRandomIndex());
-    } else {
-      dispatch({
-        type: types.DECREMENT_CURRENT_INDEX,
-      });
-    }
-  }
-}
-
-export function playCurrentIndex() {
-  return (dispatch, getState) => {
-    const currentIndex = getState().playQueue.playQueueCurrentIndex;
-    const currentTrack = getState().playQueue.playQueueTracks[currentIndex];
-    dispatch(trackSelected(currentTrack));
-
-    dispatch(
-      playTrack(
-        currentTrack.name,
-        currentTrack.artist
-      )
-    );
   }
 }
 
@@ -206,19 +93,56 @@ export function replaceQueueWithTracks(tracks, img) {
   }
 }
 
-export function replaceQueueWithTracksAndPlay(tracks, img) {
-  return (dispatch, getState)  => {
-    dispatch(replaceQueueWithTracks(tracks, img));
-    dispatch(resetPlayQueueIndex());
-    dispatch(playCurrentIndex());
-  }
-}
-
 export function appendTracksToPlayQueue(tracks, img) {
   const trackData = prepareTrackData(tracks, img);
   return {
     type: types.ADD_TRACKS_TO_PLAY_QUEUE,
     trackData,
+  }
+}
+
+export function replaceQueueWithTracksAndPlay(tracks, img) {
+  return (dispatch, getState)  => {
+    dispatch(replaceQueueWithTracks(tracks, img));
+    dispatch(resetPlayQueueIndex());
+    dispatch(playNextTrack());
+  }
+}
+
+export function setIndex(index) {
+  return {
+    type: types.SET_INDEX,
+    index,
+  }
+}
+
+export function playTrack2(index) {
+  return (dispatch, getState)  => {
+    const currentTrackData = getState().playQueue.playQueueTracks[index];
+    dispatch(
+      playTrack(
+        currentTrackData.name,
+        currentTrackData.artist,
+      )
+    );
+  }
+}
+
+
+export function playNextTrack() {
+  return (dispatch, getState)  => {
+    const currentIndex = getState().playQueue.currentIndex;
+    const playQueueLength = getState().playQueue.playQueueTracks.length -1;
+    const playlistEnded = currentIndex >= playQueueLength;
+
+    if (!playlistEnded) {
+      dispatch(setIndex(currentIndex + 1));
+      dispatch(playTrack2(currentIndex + 1));
+    } else {
+      dispatch(setIndex(-1));
+      dispatch(reInitialisePlayer());
+    }
+
   }
 }
 

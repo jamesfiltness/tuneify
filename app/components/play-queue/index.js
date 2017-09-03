@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classNames';
 import { connect } from 'react-redux';
-import { 
-  playQueueTrackSelected, 
-  removeTrackFromQueue 
+import {
+  playQueueTrackSelected,
+  removeTrackFromQueue ,
 } from '../../actions/play-queue';
 
 export class PlayQueue extends React.Component {
@@ -12,13 +12,14 @@ export class PlayQueue extends React.Component {
     removeTrackFromQueue: PropTypes.func.isRequired,
     playQueueCurrentIndex: PropTypes.number,
     playQueueTracks: PropTypes.bool.array,
+    currentIndex: PropTypes.number.isRequired,
   }
 
   constructor() {
     super();
 
     this.currentScrollTop = 0;
-    
+
     this.state = {
       renderPlayQueue: false,
     };
@@ -32,7 +33,7 @@ export class PlayQueue extends React.Component {
     this.shouldRenderPlayQueue(nextProps);
 
     if (
-      this.props.playQueueCurrentIndex !== 
+      this.props.playQueueCurrentIndex !==
       nextProps.playQueueCurrentIndex
     ) {
       this.scrollToCurrentIndex(nextProps);
@@ -47,9 +48,9 @@ export class PlayQueue extends React.Component {
     const trackElHeight = trackEl.getBoundingClientRect().height;
     const trackPos = track * trackElHeight;
     const trackPosBottomEdge = trackPos + trackElHeight;
-    const playQueueHeight = this.playQueueWrap.getBoundingClientRect().height;  
+    const playQueueHeight = this.playQueueWrap.getBoundingClientRect().height;
     const scrollTopPos = this.playQueueWrap.scrollTop;
-    
+
     if (trackPosBottomEdge > (playQueueHeight + scrollTopPos)) {
       move = trackPosBottomEdge - (playQueueHeight + scrollTopPos);
       this.playQueueWrap.scrollTop = scrollTopPos + move;
@@ -61,7 +62,7 @@ export class PlayQueue extends React.Component {
 
   shouldRenderPlayQueue(props) {
     let renderPlayQueue;
-    
+
     if (props.tracks && props.tracks.length) {
       renderPlayQueue = true;
     } else {
@@ -80,21 +81,17 @@ export class PlayQueue extends React.Component {
 
   render() {
     if (this.state.renderPlayQueue) {
-      const currentIndex = 
-        this.props.playQueueCurrentIndex ? 
-        this.props.playQueueCurrentIndex : 0;
       return (
-        <div 
+        <div
           className="play-queue"
           ref={(playQueueWrap) => this.playQueueWrap = playQueueWrap }
         >
           <ul className="play-queue__list">
             {
               this.props.tracks.map((track, i) => {
-                const selected = currentIndex === i ? 
-                  'play-queue__list-item--selected' : 
+              const selected = this.props.currentIndex === i ?
+                  'play-queue__list-item--selected' :
                   null;
-
                 const classes = classNames(
                   'play-queue__list-item',
                   selected,
@@ -111,7 +108,7 @@ export class PlayQueue extends React.Component {
                     <span className="play-queue__track">
                       {track.name}
                     </span>
-                    <span 
+                    <span
                       onClick={
                         (event) => {
                           this.onRemoveTrackFromQueue(event, i)
@@ -138,6 +135,8 @@ function mapStateToProps(state) {
   return {
     playQueueCurrentIndex: state.playQueue.playQueueCurrentIndex,
     playQueueTracks: state.playQueue.playQueueTracks,
+    currentIndex: state.playQueue.currentIndex,
+    destroyPlayer: state.playQueue.destroyPlayer,
   }
 }
 
