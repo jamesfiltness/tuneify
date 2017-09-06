@@ -1,5 +1,5 @@
 import * as types from '../../constants/ActionTypes.js';
-import { playTrack, reInitialisePlayer } from '../player';
+import { fetchVideoDataAndPlay, reinitialisePlayer } from '../player';
 import { showModal } from '../modal';
 import { authenticate } from '../auth';
 import prepareTrackData from '../../utils/prepare-track-data';
@@ -102,6 +102,7 @@ export function appendTracksToPlayQueue(tracks, img) {
 }
 
 export function replaceQueueWithTracksAndPlay(tracks, img) {
+  console.log(tracks);
   return (dispatch, getState)  => {
     dispatch(replaceQueueWithTracks(tracks, img));
     dispatch(resetPlayQueueIndex());
@@ -109,18 +110,11 @@ export function replaceQueueWithTracksAndPlay(tracks, img) {
   }
 }
 
-export function setIndex(index) {
-  return {
-    type: types.SET_INDEX,
-    index,
-  }
-}
-
-export function playTrack2(index) {
+export function playTrack(index) {
   return (dispatch, getState)  => {
     const currentTrackData = getState().playQueue.playQueueTracks[index];
     dispatch(
-      playTrack(
+      fetchVideoDataAndPlay(
         currentTrackData.name,
         currentTrackData.artist,
       )
@@ -130,19 +124,8 @@ export function playTrack2(index) {
 
 
 export function playNextTrack() {
-  return (dispatch, getState)  => {
-    const currentIndex = getState().playQueue.currentIndex;
-    const playQueueLength = getState().playQueue.playQueueTracks.length -1;
-    const playlistEnded = currentIndex >= playQueueLength;
-
-    if (!playlistEnded) {
-      dispatch(setIndex(currentIndex + 1));
-      dispatch(playTrack2(currentIndex + 1));
-    } else {
-      dispatch(setIndex(-1));
-      dispatch(reInitialisePlayer());
-    }
-
+  return {
+    type: types.PLAY_NEXT_TRACK,
   }
 }
 

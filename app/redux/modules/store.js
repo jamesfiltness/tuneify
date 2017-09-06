@@ -6,6 +6,7 @@ import createLogger from 'redux-logger';
 import fetchMiddleware from '../middleware/fetch';
 import authMiddleware from '../middleware/auth';
 import lastFmCallCountMiddleware from '../middleware/lastfm';
+import playQueueMiddleware from '../middleware/play-queue';
 import reducers from './reducers';
 
 const initialState = window.__PRELOADED_STATE__; // eslint-disable-line no-underscore-dangle
@@ -18,6 +19,7 @@ const createStoreWithMiddleware = applyMiddleware(
   lastFmCallCountMiddleware,
   thunkMiddleware,
   reactRouterReduxMiddleware,
+  playQueueMiddleware,
 )(createStore);
 
 // export the store so it can be imported and used to allow dispatch to work in non-react components

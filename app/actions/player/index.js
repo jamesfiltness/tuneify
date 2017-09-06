@@ -62,7 +62,7 @@ export function fetchVideoData(selectedTrackString) {
   }
 }
 
-export function playTrack(trackName, artist) {
+export function fetchVideoDataAndPlay(trackName, artist) {
   return (dispatch, getState)  => {
     dispatch(fetchVideoData(`${trackName} - ${artist}`)).then(() => {
       dispatch(playVideo(getState().videoData));
@@ -82,7 +82,7 @@ export function playerReinitialised() {
   }
 }
 
-export function reInitialisePlayer() {
+export function reinitialisePlayer() {
   return(dispatch) => {
    dispatch(destroyPlayer());
   }
