@@ -8,6 +8,8 @@ import {
   restartedTrack,
   playerReinitialised,
 } from '../../actions/player';
+import { playNextTrack } from '../../actions/play-queue';
+
 const PLAYER_WIDTH = 320;
 const PLAYER_HEIGHT = 200;
 
@@ -298,7 +300,7 @@ export class YouTubePlayer extends React.Component {
 
   onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {
-      this.props.trackEnded();
+      this.props.playNextTrack();
       this.resetProgressBar();
       this.resetTimer();
     }
@@ -429,7 +431,7 @@ export class YouTubePlayer extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -447,7 +449,8 @@ const mapDispatchToProps = {
   playPreviousTrack,
   restartedTrack,
   playerReinitialised,
-}
+  playNextTrack,
+};
 
 export default connect(
   mapStateToProps,

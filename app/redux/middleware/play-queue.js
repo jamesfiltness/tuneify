@@ -1,4 +1,5 @@
-import { reinitialisePlayer, playTrack } from '../../actions/play-queue';
+import {  playTrack } from '../../actions/play-queue';
+import { reinitialisePlayer } from '../../actions/player';
 import * as types from '../../constants/ActionTypes.js';
 
 function setIndex(index) {
