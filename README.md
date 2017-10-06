@@ -4,6 +4,7 @@ Tuneify is a music app built using the YouTube video player API and data from Mu
 
 The focus for this project has been on creating an MVP and learning new tech and not so much on code quality 🙈
 
+
 ![alt tag](https://media.giphy.com/media/l0HlzayaF0jLB5TS8/source.gif)
 
 ## Tech
