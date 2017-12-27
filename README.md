@@ -1,8 +1,8 @@
 # Tuneify
 
-Tuneify is a music app built using the YouTube video player API and data from Musicbrainz and LastFm. Currently under development with a focus on moving away from LastFm for data and assets. 
+Tuneify is a music app built using the YouTube video player API and data from Musicbrainz and LastFm.
 
-The focus for this project has been on creating an MVP and learning new tech and not so much on code quality 🙈
+The focus for this project has been on learning new tech and not so much on code quality 🙈
 
 
 ![alt tag](https://media.giphy.com/media/l0HlzayaF0jLB5TS8/source.gif)
