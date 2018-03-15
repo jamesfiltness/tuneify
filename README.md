@@ -13,8 +13,8 @@ The focus for this project has been on learning new tech and not so much on code
 * Es6 + Babel
 * Serverless (AWS Lambda) + DynamoDb to store user playlist data
 * Auth0
-* Logstash (jdbc plugin) + ElasticSearch for autocomplete
-* Musicbrainz slave https://bitbucket.org/lalinsky/mbslave cached in redis (EC2)
+* ElasticSearch for autocomplete
+* Musicbrainz slave https://bitbucket.org/lalinsky/mbslave
 * S3 + Cloudfront to serve static frontend 
 * S3 + Cloudfront to store artist / album images
 
