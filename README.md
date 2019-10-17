@@ -1,11 +1,10 @@
 # Tuneify
 
+NOTE: This project is no longer functioning. LastFM are no longer serving thumbnail images reliably as per this announcement: 
+https://getsatisfaction.com/lastfm/topics/api-announcement-dac8oefw5vrxq
+and also videos are not playing due to a suspected change in YouTubes APIs.
+
 Tuneify is a music app built using the YouTube video player API and data from Musicbrainz and LastFm.
-
-The focus for this project has been on learning new tech and not so much on code quality 🙈
-
-
-![alt tag](https://media.giphy.com/media/l0HlzayaF0jLB5TS8/source.gif)
 
 ## Tech
 * React Redux, Redux Router frontend
