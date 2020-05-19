@@ -4,7 +4,7 @@ Tuneify is a music app built using the YouTube video player API and data from Mu
 
 The focus for this project has been on learning new tech and not so much on code quality 🙈
 
-## UPDATE on this project: 
+## Update on this project: 
 I ran this project locally recently and there are a few things that no longer work:
 1. Playing a track no longer queue's the video in the embedded YouTube player. There has probably been a change to YouTube's Player API. Likely to be a quick fix.
 2. LastFm has stopped providing thumbnails in a few different contexts (most popular artists, some album covers etc).
