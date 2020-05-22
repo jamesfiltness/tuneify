@@ -17,7 +17,8 @@ I had started to investigate removing LastFm as a dependency for a few reasons:
 
 Tuneify is essentially powered by LastFm. It is used by the autocomplete search, track data and images. So I started to look for other solutions and decided to see if I could roll my own. There are some repos related to that effort: 
 
-* https://github.com/jamesfiltness/tuneify-python - scripts to collect artist/release artwork from various sources and * https://github.com/jamesfiltness/musicbrainz-elasticsearch - notes and code about creating an autocomplete by taking the Musicbrainz database and using it to create a search engine running on elasticsearch, with weighting for the most popular artists and releases.
+* https://github.com/jamesfiltness/tuneify-python - scripts to collect artist/release artwork from various sources
+* https://github.com/jamesfiltness/musicbrainz-elasticsearch - notes and code related to creating an autocomplete by taking the Musicbrainz database and using it to create a search engine running on elasticsearch, with weighting for the most popular artists and releases.
 
 ## Tech
 * React Redux, Redux Router frontend
