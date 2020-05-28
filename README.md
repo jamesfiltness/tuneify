@@ -8,7 +8,7 @@ The focus for this project has been on learning new tech and not so much on code
 I ran this project locally recently and there are a few things that no longer work:
 
 1. Playing a track no longer queue's the video in the embedded YouTube player. There has probably been a change to YouTube's Player API. Likely to be a quick fix.
-2. LastFm has stopped providing thumbnails in a few different contexts (most popular artists, some album covers etc).
+2. LastFm has stopped providing thumbnails for artists. See https://www.reddit.com/r/lastfm/comments/bjwcqh/api_announcement_lastfm_support_community/ for details.
 
 ## Moving away from LastFm for search and images
 I had started to investigate removing LastFm as a dependency for a few reasons:
